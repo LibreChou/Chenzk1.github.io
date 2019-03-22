@@ -1,15 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[test]]></title>
-    <url>%2F2019%2F03%2F14%2FDecision%20Tree%20-%20test%2F</url>
-    <content type="text"><![CDATA[决策树问题：如何挑选用于分裂节点的特征–&gt;ID3 C4.5 …(一个标准：使分裂出来的节点尽可能纯，即一个分支尽可能属于同类) ID3信息增益 信息增益 = 信息熵 - 条件熵 信息增益：针对每个 属性 信息熵：整个样本空间的不确定度。其中Pk一定是label取值的概率。 条件熵：给定某个属性，求其信息熵 –&gt; 问题：某属性所包括的类别越多，信息增益越大。极限：每个类别仅有1个实例（label数量为1），log p = log1 = 0， 所以最终条件熵=0。或：属性类别越多，条件熵越小，其纯度越高。 –&gt; 信息增益准则其实是对可取值数目较多的属性有所偏好！ –&gt; 泛化能力不强 C4.5 信息增益率+信息增益 属性a的信息增益率 = 属性a的信息增益 / a的某个固有统计量IV(a) V为a的取值数目。 （实际上是属性a的信息熵） 直接使用信息增益率：偏好取值数目小的属性。 先选择高于平均水平信息增益的属性，再选择最高信息增益率的属性。 CART 基尼系数+MAE/MSE 与ID3、C4.5的不同：形成二叉树，因此 –&gt; 既要确定要分割的属性，也要确定要分割的值 回归树：MAE/MSE example(MSE)： 考虑数据集 D 上的所有特征 j，遍历每一个特征下所有可能的取值或者切分点 s，将数据集 D 划分成两部分 D1 和 D2 分别计算上述两个子集的平方误差和，选择最小的平方误差对应的特征与分割点，生成两个子节点。 对上述两个子节点递归调用步骤1 2,直到满足停止条件。 分类树：(Gini) 基尼系数越小，纯度越高 对每个特征 A，对它的所有可能取值 a，将数据集分为 A＝a，和 A!＝a 两个子集，计算集合 D 的基尼指数：Gini(A) = D1/D Gini(D1) + D2/D Gini(D2) 遍历所有的特征 A，计算其所有可能取值 a 的基尼指数，选择 D 的基尼指数最小值对应的特征及切分点作为最优的划分，将数据分为两个子集。 对上述两个子节点递归调用步骤1 2, 直到满足停止条件。 生成 CART 决策树。 停止条件有： 1. 节点中的样本个数小于预定阈值; 2. 样本集的Gini系数小于预定阈值（此时样本基本属于同一类）; 3. 没有更多特征。 剪枝 例子：example 控制决策树过拟合的方法 剪枝 控制终止条件，避免树形结构过细 构建随机森林]]></content>
+    <title><![CDATA[FP Tree算法]]></title>
+    <url>%2F2019%2F03%2F19%2FFP%20Tree%2F</url>
+    <content type="text"><![CDATA[blog FP Tree是Aprior算法的优化 优化点在于：Aprior需要多次扫描数据以查询频繁项，FP Tree使用了树结构，提高了算法运行效率。 FP Tree数据结构 项头表。格式为： | 项 | 该项出现的次数（降序排列） FP Tree。将原始数据集映射为一个FP Tree。 节点链表。所有项头表里的1项频繁集都是一个节点链表的头，它依次指向FP树中该1项频繁集出现的位置。这样做主要是方便项头表和FP Tree之间的联系查找和更新，也好理解。 项头表建立 第一次扫描数据：得到频繁一项集的计数，删除支持度小于阈值的项，并将剩余频繁集放入项头表，降序排列。 第二次扫描数据：从原始数据中删除非频繁项集，并对每一条数据按支持度降序排列其中的非频繁项集。 e.g. FP Tree建立 以null为根节点 按照项头表的顺序，从第一条数据开始插入频繁项集，每条数据中排序靠前的为祖先节点，反之为子孙节点，每个节点均置1 接下来进行下一条数据的插入。当已存在频繁项时，在原有数字上加一即可（注意在插入时，是每一层每一层插入，不能跳过某层直接在已有节点上加一） … 节点链表 节点链表即项头表中每个频繁项集都有一个指针指向FP Tree的相应节点。 FP Tree挖掘 得到了FP树和项头表以及节点链表，我们首先要从项头表的底部项依次向上挖掘。对于项头表对应于FP树的每一项，我们要找到它的条件模式基。所谓条件模式基是以我们要挖掘的节点作为叶子节点所对应的FP子树。得到这个FP子树，我们将子树中每个节点的的计数设置为叶子节点的计数，并删除计数低于支持度的节点。从这个条件模式基，我们就可以递归挖掘得到频繁项集了。 先从最底下的F节点开始，我们先来寻找F节点的条件模式基，由于F在FP树中只有一个节点，因此候选就只有下图左所示的一条路径，对应{A:8,C:8,E:6,B:2, F:2}。我们接着将所有的祖先节点计数设置为叶子节点的计数，即FP子树变成{A:2,C:2,E:2,B:2, F:2}。一般我们的条件模式基可以不写叶子节点，因此最终的F的条件模式基如下图右所示。 通过它，我们很容易得到F的频繁2项集为{A:2,F:2}, {C:2,F:2}, {E:2,F:2}, {B:2,F:2}。递归合并二项集，得到频繁三项集为{A:2,C:2,F:2}，{A:2,E:2,F:2},…还有一些频繁三项集，就不写了。当然一直递归下去，最大的频繁项集为频繁5项集，为{A:2,C:2,E:2,B:2,F:2} F挖掘完了，我们开始挖掘D节点。D节点比F节点复杂一些，因为它有两个叶子节点，因此首先得到的FP子树如下图左。我们接着将所有的祖先节点计数设置为叶子节点的计数，即变成{A:2, C:2,E:1 G:1,D:1, D:1}此时E节点和G节点由于在条件模式基里面的支持度低于阈值，被我们删除，最终在去除低支持度节点并不包括叶子节点后D的条件模式基为{A:2, C:2}。通过它，我们很容易得到D的频繁2项集为{A:2,D:2}, {C:2,D:2}。递归合并二项集，得到频繁三项集为{A:2,C:2,D:2}。D对应的最大的频繁项集为频繁3项集。 算法具体步骤 扫描数据，得到所有频繁一项集的的计数。然后删除支持度低于阈值的项，将1项频繁集放入项头表，并按照支持度降序排列。 扫描数据，将读到的原始数据剔除非频繁1项集，并按照支持度降序排列。 读入排序后的数据集，插入FP树，插入时按照排序后的顺序，插入FP树中，排序靠前的节点是祖先节点，而靠后的是子孙节点。如果有共用的祖先，则对应的公用祖先节点计数加1。插入后，如果有新节点出现，则项头表对应的节点会通过节点链表链接上新节点。直到所有的数据都插入到FP树后，FP树的建立完成。 从项头表的底部项依次向上找到项头表项对应的条件模式基。从条件模式基递归挖掘得到项头表项项的频繁项集。 如果不限制频繁项集的项数，则返回步骤4所有的频繁项集，否则只返回满足项数要求的频繁项集。]]></content>
       <categories>
         <category>Learning</category>
       </categories>
       <tags>
         <tag>ML</tag>
-        <tag>Decision Tree</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Apriori 关联规则挖掘]]></title>
+    <url>%2F2019%2F03%2F18%2FApriori%20%E5%85%B3%E8%81%94%E8%A7%84%E5%88%99%E6%8C%96%E6%8E%98%2F</url>
+    <content type="text"><![CDATA[问题引入 经常被同时购买的商品可以摆近一点，刺激购买欲望 通过附属产品优惠的方式，刺激主产品的销售 总体思想 逐层搜索迭代，通过K-1项集迭代出K项集。Aprior是用于压缩搜索空间。 概念 支持度：关联规则A-&gt;B的支持度support=P(AB)，同时发生的概率 置信度：confidence=P(A|B) k项集：事件A中包含k个元素，成为k项集；若事件A满足最小支持度阈值，称其为频繁k项集 由频繁项集产生强关联规则 K维数据项集LK是频繁项集的必要条件是它所有K-1维子项集也为频繁项集，记为LK-1 如果K维数据项集LK的任意一个K-1维子集Lk-1，不是频繁项集，则K维数据项集LK本身也不是最大数据项集。 Lk是K维频繁项集，如果所有K-1维频繁项集合Lk-1中包含LK的K-1维子项集的个数小于K，则Lk不可能是K维最大频繁数据项集。 同时满足最小支持度阀值和最小置信度阀值的规则称为强规则。 e.g.顾客购买记录的数据库D，包含6个事务。项集I={网球拍,网球,运动鞋,羽毛球}。考虑关联规则：网球拍网球，事务1,2,3,4,6包含网球拍，事务1,2,6同时包含网球拍和网球，支持度，置信度。若给定最小支持度，最小置信度，关联规则网球拍网球是有趣的，认为购买网球拍和购买网球之间存在强关联。 算法步骤 Apriori算法过程分为两个步骤： 第一步通过迭代，检索出事务数据库中的所有频繁项集，即支持度不低于用户设定的阈值的项集； 第二步利用频繁项集构造出满足用户最小信任度的规则。 具体做法就是： 首先找出频繁1-项集，记为L1；然后利用L1来产生候选项集C2，对C2中的项进行判定挖掘出L2，即频繁2-项集；不断如此循环下去直到无法发现更多的频繁k-项集为止。每挖掘一层Lk就需要扫描整个数据库一遍。算法利用了一个性质： Apriori 性质：任一频繁项集的所有非空子集也必须是频繁的。意思就是说，生成一个k-itemset的候选项时，如果这个候选项有子集不在(k-1)-itemset(已经确定是frequent的)中时，那么这个候选项就不用拿去和支持度判断了，直接删除。具体而言： 连接步:为找出Lk（所有的频繁k项集的集合），通过将Lk-1（所有的频繁k-1项集的集合）与自身连接产生候选k项集的集合。候选集合记作Ck。设l1和l2是Lk-1中的成员。记li[j]表示li中的第j项。假设Apriori算法对事务或项集中的项按字典次序排序，即对于（k-1）项集li，li[1]&lt;li[2]&lt;……….&lt;li[k-1]。将Lk-1与自身连接，如果(l1[1]=l2[1])&amp;&amp;( l1[2]=l2[2])&amp;&amp;……..&amp;&amp; (l1[k-2]=l2[k-2])&amp;&amp;(l1[k-1]&lt;l2[k-1])，(这里的作用是为了保证不产生重复的k项集)，那认为l1和l2是可连接。连接l1和l2 产生的结果是{l1[1],l1[2],……,l1[k-1],l2[k-1]}。 剪枝步:CK是LK的超集，也就是说，CK的成员可能是也可能不是频繁的。通过扫描所有的事务（交易），确定CK中每个候选的计数，判断是否小于最小支持度计数，如果不是，则认为该候选是频繁的。为了压缩Ck,可以利用Apriori性质：任一频繁项集的所有非空子集也必须是频繁的，反之，如果某个候选的非空子集不是频繁的，那么该候选肯定不是频繁的，从而可以将其从CK中删除。 e.g. 例子]]></content>
+      <categories>
+        <category>Learning</category>
+      </categories>
+      <tags>
+        <tag>ML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[KNN]]></title>
+    <url>%2F2019%2F03%2F14%2Fknn%2F</url>
+    <content type="text"><![CDATA[算法步骤 给定已经分好类的训练集 对给定的测试数据，计算其与训练集中每一个样本的距离 取距离最小的前K个，按多数表决的方法决定属于哪一类 注意事项 数据要fair 可以通过对距离近的样本点加更大的权重优化 计算量较大]]></content>
+      <categories>
+        <category>Learning</category>
+      </categories>
+      <tags>
+        <tag>ML</tag>
+        <tag>KNN</tag>
       </tags>
   </entry>
   <entry>
@@ -57,17 +79,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[自然辩证法#2]]></title>
-    <url>%2F2019%2F03%2F14%2F%E8%87%AA%E7%84%B6%E8%BE%A9%E8%AF%81%E6%B3%95%232%2F</url>
-    <content type="text"><![CDATA[现代自然观 现代自然观的来源 起源于古希腊，兴于近代欧洲，完成于牛顿。 粒子论 机械论 还原论 时空观：时间、空间相互独立；空间均匀、平直、三维、各向同性；时间均匀、平直、一维、不可逆；时间、空间与物质各自独立。 物质观：物质只具有几何属性（形状、大小、位置）和机械属性（质量、弹性）。 从古希腊哲学到现代自然观古希腊知识分子的民间性：（非官方，正式由于其哲学本身上的纯粹性，才获得了很大的进步） 世界是物质的（麦乐斯“水是万物的本源”） 物质是质料的（原子论者，亚里士多德etc） 质料是形式的（毕达哥拉斯学派，希罗多德历史） 形式是几何的（欧几里得，阿基米德，天球） 运动是机械的（哥白尼，开普勒，伽利略，牛顿）中世纪奔溃，资产阶级重新选择文化的时候，选择了古希腊。 科学进步与自然观的更新 牛顿力学自然观本身就是一次科学大进步的产物 现代科学对机械论自然观的几次有限突破，都伴随着科学的重大突破 相对论自然观 量子力学自然观 复杂系统自然观 但语境还是机械论，自然观的反思和革命还将继续。 人与自然关系的反思 悲观主义 乐观主义 现实主义 三个流派的共同出发点： 人与自然的关系恶化 恶化的本质：现代人类对自然界的影响超过了自然界对人类活动的承载力。 悲观主义代表：罗马俱乐部 乐观主义《今后二百年——美国和世界的一幅远景》 在过去到未来的前后各二百年中，人类将从困境中摆脱出来，自然因素并不构成限制，科学技术的发展将会是自然环境和社会环境充满活力。 自然资源供应无限，人类的资源短缺等问题可以通过技术进步来解决。 当穷国富起来时，人口增长就会自动停止。 各有缺点： 悲观论者：线性外推，但忽略现有的社会生产方式、社会制度、社会意识形态都是可以改变的。 乐观论者：以自然资源潜力无限和科学技术能力无限为前提，但忽略了自然资源在理论上的潜在存在和… 现实主义《纵观世界全局》（美国世界观察研究所） 世界明天的好坏不是命运决定的，也不是科学技术的本性决定的，它取决于人类今后20年左右做出的决策是否明智。]]></content>
-      <categories>
-        <category>Learning</category>
-      </categories>
-      <tags>
-        <tag>自然辩证法</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[中国古代典籍文化#1]]></title>
     <url>%2F2019%2F03%2F14%2F%E4%B8%AD%E5%9B%BD%E5%8F%A4%E4%BB%A3%E5%85%B8%E7%B1%8D%E6%96%87%E5%8C%96%231%2F</url>
     <content type="text"><![CDATA[考核：第四五周布置论文题目，第八周交论文 古代典籍的载体和装帧甲骨 龟甲和兽骨的合称 甲：龟甲的腹板 骨：牛的肩胛骨和胫骨，也有猪羊的肩胛骨 金 铜，指青铜器（铜和锡的合金，呈青灰色）上的铭文。 金文铸刻的器具以钟鼎居多，又称钟鼎文 西周是钟鼎文最盛行的时代 石木牍]]></content>
@@ -90,15 +101,14 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[ROC AUC, Accuracy, Recall, F1]]></title>
-    <url>%2F2019%2F03%2F14%2FROC%20%20AUC%2F</url>
-    <content type="text"><![CDATA[类不平衡（class imbalance）现象：即负样本比正样本多很多（或者相反） ACCURACY/RECALL/F1 Accuracy：TP/(TP+TN) 即预测对的数据个数与总数据个数的比 A和R的问题在于如果样本不平衡，则参考意义很小 准确率（Precision）：P=TP/(TP+FP)。通俗地讲，就是预测正确的正例数据占预测为正例数据的比例。 针对判别结果 查准率 召回率（Recall）：R=TP/(TP+FN)。通俗地讲，就是预测为正例的数据占实际为正例数据的比例。 针对样本 查全率 F1 = 2*P*R/(P+R)：既有P又有R PRC， precision recall curve，与下面的ROC一样，先看是否光滑，光滑的话说明过拟合不大。越往右上越好。 A和R的问题在于如果样本不平衡，则参考意义很小 ROC AUCTPR=TP/(TP+FN)=TP/actual positives 也就是RecallFPR=FP/(FP+TN)=FP/actual negativesROC是由点（TPR,FPR）组成的曲线，AUC就是ROC的面积。AUC越大越好。 一般来说，如果ROC是光滑的，那么基本可以判断没有太大的overfitting。 越往左上越好。 画法：ROC曲线其实是多个混淆矩阵的结果组合，如果在上述模型中我们没有定好阈值，而是将模型预测结果从高到低排序，将每个概率值依次作为阈值，那么就有多个混淆矩阵。对于每个混淆矩阵，我们计算两个指标TPR（True positive rate）和FPR（False positive rate），TPR=TP/(TP+FN)=Recall，TPR就是召回率。FPR=FP/(FP+TN)，FPR即为实际为好人的人中，预测为坏人的人占比。我们以FPR为x轴，TPR为y轴画图，就得到了ROC曲线。 也就是说，ROC曲线的阈值不是多次运行模型得到的，是同一个模型中通过对所得结果按照概率的排序得到了一个threshold 所以使用ROC的话，它会先对预测到的结果进行排序，然后再根据排序的结果画图，所以他的曲线形状不会因为数据不平衡而发生大的改变。 但是当数据极度不平衡时，ROC仍然有问题，下面的PRC表现更好。 PRC， precision recall curve，与上面的ROC一样，先看是否光滑，光滑的话说明过拟合不大。越往右上越好。]]></content>
+    <title><![CDATA[自然辩证法#2]]></title>
+    <url>%2F2019%2F03%2F14%2F%E8%87%AA%E7%84%B6%E8%BE%A9%E8%AF%81%E6%B3%95%232%2F</url>
+    <content type="text"><![CDATA[现代自然观 现代自然观的来源 起源于古希腊，兴于近代欧洲，完成于牛顿。 粒子论 机械论 还原论 时空观：时间、空间相互独立；空间均匀、平直、三维、各向同性；时间均匀、平直、一维、不可逆；时间、空间与物质各自独立。 物质观：物质只具有几何属性（形状、大小、位置）和机械属性（质量、弹性）。 从古希腊哲学到现代自然观古希腊知识分子的民间性：（非官方，正式由于其哲学本身上的纯粹性，才获得了很大的进步） 世界是物质的（麦乐斯“水是万物的本源”） 物质是质料的（原子论者，亚里士多德etc） 质料是形式的（毕达哥拉斯学派，希罗多德历史） 形式是几何的（欧几里得，阿基米德，天球） 运动是机械的（哥白尼，开普勒，伽利略，牛顿）中世纪奔溃，资产阶级重新选择文化的时候，选择了古希腊。 科学进步与自然观的更新 牛顿力学自然观本身就是一次科学大进步的产物 现代科学对机械论自然观的几次有限突破，都伴随着科学的重大突破 相对论自然观 量子力学自然观 复杂系统自然观 但语境还是机械论，自然观的反思和革命还将继续。 人与自然关系的反思 悲观主义 乐观主义 现实主义 三个流派的共同出发点： 人与自然的关系恶化 恶化的本质：现代人类对自然界的影响超过了自然界对人类活动的承载力。 悲观主义代表：罗马俱乐部 乐观主义《今后二百年——美国和世界的一幅远景》 在过去到未来的前后各二百年中，人类将从困境中摆脱出来，自然因素并不构成限制，科学技术的发展将会是自然环境和社会环境充满活力。 自然资源供应无限，人类的资源短缺等问题可以通过技术进步来解决。 当穷国富起来时，人口增长就会自动停止。 各有缺点： 悲观论者：线性外推，但忽略现有的社会生产方式、社会制度、社会意识形态都是可以改变的。 乐观论者：以自然资源潜力无限和科学技术能力无限为前提，但忽略了自然资源在理论上的潜在存在和… 现实主义《纵观世界全局》（美国世界观察研究所） 世界明天的好坏不是命运决定的，也不是科学技术的本性决定的，它取决于人类今后20年左右做出的决策是否明智。]]></content>
       <categories>
         <category>Learning</category>
       </categories>
       <tags>
-        <tag>ML</tag>
-        <tag>Metrics</tag>
+        <tag>自然辩证法</tag>
       </tags>
   </entry>
   <entry>
@@ -110,14 +120,15 @@
       </categories>
   </entry>
   <entry>
-    <title><![CDATA[python面向对象]]></title>
-    <url>%2F2019%2F03%2F14%2Fpython%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%2F</url>
-    <content type="text"><![CDATA[属性命名 属性以双下划线开头，类内变量，实例无法访问。但可以通过某些方式访问，例如Student例中定义了__name变量，可以用_Student_name来实现访问，但不建议，因为不同的解释器的转化方式不一样。 单下划线可以打开，但需要注意不能随意更改。 双下划线结尾与开头，特殊变量，类内可以访问，实例不知。 多态开闭原则：定义一个类Animal及其多个之类Dog/Cat/…，当定义一个函数或操作时： 对扩展开放：允许新增Animal的子类； 对修改封闭：不需要修改依赖Animal类型的run_twice()等函数，仍然可以传入Dog/Cat等类。事实上，不需要继承也可以实现多态————鸭子类型。 若干方法 isinstance(object,class) 判断是否属于某个类 dir() 列举出一个对象的属性和方法 getattr()、setattr()、hasattr()可以获得、添加、查询是否需要某个属性 __slots__ 限制可以添加的属性，__slots__ = (‘name’, ‘age’) # 用tuple定义允许绑定的属性名称 装饰器]]></content>
+    <title><![CDATA[ROC AUC, Accuracy, Recall, F1]]></title>
+    <url>%2F2019%2F03%2F14%2FROC%20%20AUC%2F</url>
+    <content type="text"><![CDATA[类不平衡（class imbalance）现象：即负样本比正样本多很多（或者相反） ACCURACY/RECALL/F1 Accuracy：TP/(TP+TN) 即预测对的数据个数与总数据个数的比 A和R的问题在于如果样本不平衡，则参考意义很小 准确率（Precision）：P=TP/(TP+FP)。通俗地讲，就是预测正确的正例数据占预测为正例数据的比例。 针对判别结果 查准率 召回率（Recall）：R=TP/(TP+FN)。通俗地讲，就是预测为正例的数据占实际为正例数据的比例。 针对样本 查全率 F1 = 2*P*R/(P+R)：既有P又有R PRC， precision recall curve，与下面的ROC一样，先看是否光滑，光滑的话说明过拟合不大。越往右上越好。 A和R的问题在于如果样本不平衡，则参考意义很小 ROC AUC（receiver operating characteristic curve） TPR=TP/(TP+FN)=TP/actual positives 也就是RecallFPR=FP/(FP+TN)=FP/actual negativesROC是由点（TPR,FPR）组成的曲线，AUC就是ROC的面积。AUC越大越好。 画法：ROC曲线其实是多个混淆矩阵的结果组合，如果在上述模型中我们没有定好阈值，而是将模型预测结果从高到低排序，将每个概率值依次作为阈值，那么就有多个混淆矩阵。对于每个混淆矩阵，我们计算两个指标TPR（True positive rate）和FPR（False positive rate），TPR=TP/(TP+FN)=Recall，TPR就是召回率。FPR=FP/(FP+TN)，FPR即为实际为好人的人中，预测为坏人的人占比。我们以FPR为x轴，TPR为y轴画图，就得到了ROC曲线。 也就是说，ROC曲线的阈值不是多次运行模型得到的，是同一个模型中通过对所得结果按照概率的排序得到了一个threshold 原理： 在画图描点过程中，每取一个样本，会以此样本被预测为1的概率作为阈值，概率排序在此之上的样本认为是1，之下的样本会被认为是0（解释了ROC为何与样本预测值的排序有关）。 AUC的值代表了：取真实label为1和为0的两个样本，其中真样本被预测为1的概率大于假样本被预测为1的概率这一事件的概率。假设有M个真样本，N个假样本，M个真样本的预测概率升序排序，其值从大到小分别为rank_1…rank_m,例如6个真4个假，假设真样本概率最高的排序为10，则比它低的假样本有10-6=4个，下一个排序为8，则比它低的假样本有8-(6-1)=3个，此概率为：（rank_1 - m + rank_2 - (m-1) + rank_m - 1）/ M*N AUC=0.5时，任意一个样本被判断为真和判断为假的概率相等 e.g 当threshold取为0.5时：!ex0此时AUC=1：!ex00AUC=0.7:!!AUC=0.5:!!AUC=0:!! 一般来说，如果ROC是光滑的，那么基本可以判断没有太大的overfitting。 越往左上越好。 所以使用ROC的话，它会先对预测到的结果进行排序，然后再根据排序的结果画图，所以他的曲线形状不会因为数据不平衡而发生大的改变。 但是当数据极度不平衡时，ROC仍然有问题，下面的PRC表现更好。 参考1参考2 PRC， precision recall curve，与上面的ROC一样，先看是否光滑，光滑的话说明过拟合不大。越往右上越好。]]></content>
       <categories>
         <category>Learning</category>
       </categories>
       <tags>
-        <tag>python</tag>
+        <tag>ML</tag>
+        <tag>Metrics</tag>
       </tags>
   </entry>
   <entry>
@@ -129,6 +140,17 @@
       </categories>
       <tags>
         <tag>WNSP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[python面向对象]]></title>
+    <url>%2F2019%2F03%2F14%2Fpython%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%2F</url>
+    <content type="text"><![CDATA[属性命名 属性以双下划线开头，类内变量，实例无法访问。但可以通过某些方式访问，例如Student例中定义了__name变量，可以用_Student_name来实现访问，但不建议，因为不同的解释器的转化方式不一样。 单下划线可以打开，但需要注意不能随意更改。 双下划线结尾与开头，特殊变量，类内可以访问，实例不知。 多态开闭原则：定义一个类Animal及其多个之类Dog/Cat/…，当定义一个函数或操作时： 对扩展开放：允许新增Animal的子类； 对修改封闭：不需要修改依赖Animal类型的run_twice()等函数，仍然可以传入Dog/Cat等类。事实上，不需要继承也可以实现多态————鸭子类型。 若干方法 isinstance(object,class) 判断是否属于某个类 dir() 列举出一个对象的属性和方法 getattr()、setattr()、hasattr()可以获得、添加、查询是否需要某个属性 __slots__ 限制可以添加的属性，__slots__ = (‘name’, ‘age’) # 用tuple定义允许绑定的属性名称 装饰器]]></content>
+      <categories>
+        <category>Learning</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
       </tags>
   </entry>
   <entry>
@@ -144,18 +166,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Naive Bayes及其sklearn实现]]></title>
-    <url>%2F2019%2F03%2F14%2FNaive%20Bayes%2F</url>
-    <content type="text"><![CDATA[P(B|A) = P(A|B)*P(B)/P(A) 朴素：特征之间相互独立 算法流程 x = {a1, a2, …, am}为待分类项，a是特征。 类别集合C = {y1, …, yn}. 计算P(y1|x), P(y2|x) … P(yk|x) = max{P(yi|x)}，则x属于yk类 总结：某类在待分类项出现的条件下的概率是所有类中最大的，这个分类项就属于这一类。 e.g.判断一个黑人来自哪个洲，求取每个洲黑人的比率，非洲最高，选非洲。 其中x = {a1, a2, …, am}，即P(C|a1,a2…) = P(C)*P(a1,a2,…|C)/P(a1,a2…)。posterior = prior * likelihood / evidence, 这里evidence是常数，不影响。 —–&gt;求解P(C) * P(a1,a2,a3…|C) —–&gt;链式法则：P(C) * P(a2,a3…|C, a1) * P(a1|C) —&gt; … —&gt; P(C) * P(a1|C) * P(a2|C, a1) * P(a3|C, a1, a2)…由于特征之间的相互独立性，a2发生于a1无关，转化为 —&gt; P(C) * P(a1|C) * P(a2|C) … * P(am|C) —–&gt;问题转化为求取条件概率： 找到一个已知分类的待分类项集合，这个集合叫做训练样本集。 统计得到在各类别下各个特征属性的条件概率估计。]]></content>
-      <categories>
-        <category>Learning</category>
-      </categories>
-      <tags>
-        <tag>ML</tag>
-        <tag>Classification</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[LightGBM]]></title>
     <url>%2F2019%2F03%2F14%2FLightGBM%2F</url>
     <content type="text"><![CDATA[特性 可以接受categorical features：LightGBM 可以直接使用 categorical features（分类特征）作为 input（输入）. 它不需要被转换成 one-hot coding（独热编码）, 并且它比 one-hot coding（独热编码）更快（约快上 8 倍）。注意: 在你构造 Dataset 之前, 你应该将分类特征转换为 int 类型的值. 原理]]></content>
@@ -168,15 +178,15 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[GBDT & XGBoost]]></title>
-    <url>%2F2019%2F03%2F14%2FGBDT%20%26%20XGBoost%2F</url>
-    <content type="text"><![CDATA[DocSlides 为何要推导出目标函数而不是直接增加树 理论上：搞清楚learning的目的，以及其收敛性。 工程上： gi和hi是对loss function的一次、二次导 目标函数以及整个学习过程只依赖于gi和hi 可以根据实际问题，自定义loss function Summary 原理损失函数$$ \text{obj} = \sum_{i=1}^n l(y_i, \hat{y}i^{(t)}) + \sum{i=1}^t\Omega(f_i)$$l为loss，\ \Omega \ 为正则项 loss：采用加法策略，第t颗树时：$$ \hat{y}_i^{(0)} = 0 $$$$ \hat{y}_i^{(1)} = f_1(x_i) = \hat{y}_i^{(0)} + f_1(x_i) $$$$ \hat{y}_i^{(2)} = f_1(x_i) + f_2(x_i)= \hat{y}_i^{(1)} + f_2(x_i) $$$$ \dots $$$$ \hat{y}i^{(t)} = \sum{k=1}^t f_k(x_i)= \hat{y}_i^{(t-1)} + f_t(x_i) $$在添加第t颗树时，需要优化的目标函数为：$$ \sum_{i=1}^n [g_i f_t(x_i) + \frac{1}{2} h_i f_t^2(x_i)] + \Omega(f_t) $$其中h和f：$$ g_i = \partial_{\hat{y}_i^{(t-1)}} l(y_i, \hat{y}_i^{(t-1)}) $$$$ h_i = \partial_{\hat{y}_i^{(t-1)}}^2 l(y_i, \hat{y}_i^{(t-1)}) $$note: 是对谁的导 正则项：复杂度：$$ \Omega(f) = \gamma T + \frac{1}{2}\lambda \sum_{j=1}^T w_j^2 $$其中w是叶子上的score vector，T是叶子数量 DART Booster为了解决过拟合，会随机drop trees: 训练速度可能慢于gbtree 由于随机性，早停可能不稳定 特性Monotonic Constraints单调性限制 一个可选特性:会限制模型的结果按照某个特征 单调的进行增减 也就是说可以降低模型对数据的敏感度，如果明确已知某个特征与预测结果呈单调关系时，那在生成模型的时候就会跟特征数据的单调性有关。 Feature Interaction Constraints单调性限制 一个可选特性：不用时，在tree生成的时候，一棵树上的节点会无限制地选用多个特征 设置此特性时，可以规定，哪些特征可以有interaction（一般独立变量之间可以interaction，非独立变量的话可能会引入噪声） 好处： 预测时更小的噪声 对模型更好地控制 Instance Weight File 规定了模型训练时data中每一条instance的权重 有些instance质量较差，或与前一示例相比变化不大，所以可以调节其所占权重 调参Overfitting与overfitting有关的参数： 直接控制模型复杂度：max_depth, min_child_weight and gamma. 增加模型随机性以使得模型对噪声有更强的鲁棒性： subsample and colsample_bytree. Reduce stepsize eta. Remember to increase num_round when you do so. Imbalanced Dataset 只关注测量指标的大小 平衡数据集 via scale_pos_weight 使用AUC作为metric 关注预测正确的概率 此时不能re-balance数据集 Set parameter max_delta_step to a finite number (say 1) to help convergence]]></content>
+    <title><![CDATA[Naive Bayes及其sklearn实现]]></title>
+    <url>%2F2019%2F03%2F14%2FNaive%20Bayes%2F</url>
+    <content type="text"><![CDATA[P(B|A) = P(A|B)*P(B)/P(A) 朴素：特征之间相互独立 算法流程 x = {a1, a2, …, am}为待分类项，a是特征。 类别集合C = {y1, …, yn}. 计算P(y1|x), P(y2|x) … P(yk|x) = max{P(yi|x)}，则x属于yk类 总结：某类在待分类项出现的条件下的概率是所有类中最大的，这个分类项就属于这一类。 e.g.判断一个黑人来自哪个洲，求取每个洲黑人的比率，非洲最高，选非洲。 其中x = {a1, a2, …, am}，即P(C|a1,a2…) = P(C)*P(a1,a2,…|C)/P(a1,a2…)。posterior = prior * likelihood / evidence, 这里evidence是常数，不影响。 —–&gt;求解P(C) * P(a1,a2,a3…|C) —–&gt;链式法则：P(C) * P(a2,a3…|C, a1) * P(a1|C) —&gt; … —&gt; P(C) * P(a1|C) * P(a2|C, a1) * P(a3|C, a1, a2)…由于特征之间的相互独立性，a2发生于a1无关，转化为 —&gt; P(C) * P(a1|C) * P(a2|C) … * P(am|C) —–&gt;问题转化为求取条件概率： 找到一个已知分类的待分类项集合，这个集合叫做训练样本集。 统计得到在各类别下各个特征属性的条件概率估计。]]></content>
       <categories>
         <category>Learning</category>
       </categories>
       <tags>
         <tag>ML</tag>
-        <tag>DOC</tag>
+        <tag>Classification</tag>
       </tags>
   </entry>
   <entry>
@@ -189,6 +199,18 @@
       <tags>
         <tag>ML</tag>
         <tag>Decision Tree</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[GBDT & XGBoost]]></title>
+    <url>%2F2019%2F03%2F14%2FGBDT%20%26%20XGBoost%2F</url>
+    <content type="text"><![CDATA[DocSlides 为何要推导出目标函数而不是直接增加树 理论上：搞清楚learning的目的，以及其收敛性。 工程上： gi和hi是对loss function的一次、二次导 目标函数以及整个学习过程只依赖于gi和hi 可以根据实际问题，自定义loss function Summary 原理损失函数$$ \text{obj} = \sum_{i=1}^n l(y_i, \hat{y}i^{(t)}) + \sum{i=1}^t\Omega(f_i)$$l为loss，\ \Omega \ 为正则项 loss：采用加法策略，第t颗树时：$$ \hat{y}_i^{(0)} = 0 $$$$ \hat{y}_i^{(1)} = f_1(x_i) = \hat{y}_i^{(0)} + f_1(x_i) $$$$ \hat{y}_i^{(2)} = f_1(x_i) + f_2(x_i)= \hat{y}_i^{(1)} + f_2(x_i) $$$$ \dots $$$$ \hat{y}i^{(t)} = \sum{k=1}^t f_k(x_i)= \hat{y}_i^{(t-1)} + f_t(x_i) $$在添加第t颗树时，需要优化的目标函数为：$$ \sum_{i=1}^n [g_i f_t(x_i) + \frac{1}{2} h_i f_t^2(x_i)] + \Omega(f_t) $$其中h和f：$$ g_i = \partial_{\hat{y}_i^{(t-1)}} l(y_i, \hat{y}_i^{(t-1)}) $$$$ h_i = \partial_{\hat{y}_i^{(t-1)}}^2 l(y_i, \hat{y}_i^{(t-1)}) $$note: 是对谁的导 正则项：复杂度：$$ \Omega(f) = \gamma T + \frac{1}{2}\lambda \sum_{j=1}^T w_j^2 $$其中w是叶子上的score vector，T是叶子数量 DART Booster为了解决过拟合，会随机drop trees: 训练速度可能慢于gbtree 由于随机性，早停可能不稳定 特性Monotonic Constraints单调性限制 一个可选特性:会限制模型的结果按照某个特征 单调的进行增减 也就是说可以降低模型对数据的敏感度，如果明确已知某个特征与预测结果呈单调关系时，那在生成模型的时候就会跟特征数据的单调性有关。 Feature Interaction Constraints单调性限制 一个可选特性：不用时，在tree生成的时候，一棵树上的节点会无限制地选用多个特征 设置此特性时，可以规定，哪些特征可以有interaction（一般独立变量之间可以interaction，非独立变量的话可能会引入噪声） 好处： 预测时更小的噪声 对模型更好地控制 Instance Weight File 规定了模型训练时data中每一条instance的权重 有些instance质量较差，或与前一示例相比变化不大，所以可以调节其所占权重 调参Overfitting与overfitting有关的参数： 直接控制模型复杂度：max_depth, min_child_weight and gamma. 增加模型随机性以使得模型对噪声有更强的鲁棒性： subsample and colsample_bytree. Reduce stepsize eta. Remember to increase num_round when you do so. Imbalanced Dataset 只关注测量指标的大小 平衡数据集 via scale_pos_weight 使用AUC作为metric 关注预测正确的概率 此时不能re-balance数据集 Set parameter max_delta_step to a finite number (say 1) to help convergence]]></content>
+      <categories>
+        <category>Learning</category>
+      </categories>
+      <tags>
+        <tag>ML</tag>
+        <tag>DOC</tag>
       </tags>
   </entry>
   <entry>

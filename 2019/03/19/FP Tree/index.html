@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="ML,CS231n,kNN,SVM,imgClassification,">
+  <meta name="keywords" content="ML,">
 
 
 
@@ -96,21 +96,24 @@
 
 
 
-<meta name="description" content="kNNs 没有参数需要训练 只计算与训练样本之间的距离  Linear Classfication 可以将其理解为模板匹配，即最终的权重矩阵W的每一行为所学习得到的类别的模板，将其与test img做点积即做一次模板匹配。每个点积的值即为该分类所得的分数。     将权重矩阵的每一行重组后可以得到其信息，可以看出类似于某一类的模板：  可以看出当同一个类别有很多图片时，得到的模板是这些图片的平均。">
-<meta name="keywords" content="ML,CS231n,kNN,SVM,imgClassification">
+<meta name="description" content="blog  FP Tree是Aprior算法的优化 优化点在于：Aprior需要多次扫描数据以查询频繁项，FP Tree使用了树结构，提高了算法运行效率。  FP Tree数据结构  项头表。格式为： | 项 | 该项出现的次数（降序排列）  FP Tree。将原始数据集映射为一个FP Tree。 节点链表。所有项头表里的1项频繁集都是一个节点链表的头，它依次指向FP树中该1项频繁集出现的位置。这">
+<meta name="keywords" content="ML">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CS231n-imgClassification">
-<meta property="og:url" content="https://chenzk1.github.io/2019/03/14/CS231n-img_classification/index.html">
+<meta property="og:title" content="FP Tree算法">
+<meta property="og:url" content="https://chenzk1.github.io/2019/03/19/FP Tree/index.html">
 <meta property="og:site_name" content="Hero&#39;s notebooks">
-<meta property="og:description" content="kNNs 没有参数需要训练 只计算与训练样本之间的距离  Linear Classfication 可以将其理解为模板匹配，即最终的权重矩阵W的每一行为所学习得到的类别的模板，将其与test img做点积即做一次模板匹配。每个点积的值即为该分类所得的分数。     将权重矩阵的每一行重组后可以得到其信息，可以看出类似于某一类的模板：  可以看出当同一个类别有很多图片时，得到的模板是这些图片的平均。">
+<meta property="og:description" content="blog  FP Tree是Aprior算法的优化 优化点在于：Aprior需要多次扫描数据以查询频繁项，FP Tree使用了树结构，提高了算法运行效率。  FP Tree数据结构  项头表。格式为： | 项 | 该项出现的次数（降序排列）  FP Tree。将原始数据集映射为一个FP Tree。 节点链表。所有项头表里的1项频繁集都是一个节点链表的头，它依次指向FP树中该1项频繁集出现的位置。这">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://cs231n.github.io/assets/imagemap.jpg">
-<meta property="og:image" content="http://cs231n.github.io/assets/templates.jpg">
-<meta property="og:updated_time" content="2018-09-29T02:23:18.000Z">
+<meta property="og:image" content="https://images2015.cnblogs.com/blog/1042406/201701/1042406-20170119161846125-505903867.png">
+<meta property="og:image" content="https://images2015.cnblogs.com/blog/1042406/201701/1042406-20170119163935296-1386696266.png">
+<meta property="og:image" content="https://images2015.cnblogs.com/blog/1042406/201701/1042406-20170119165427593-1237891371.png">
+<meta property="og:image" content="https://images2015.cnblogs.com/blog/1042406/201701/1042406-20170119170723421-1812925376.png">
+<meta property="og:image" content="https://images2015.cnblogs.com/blog/1042406/201701/1042406-20170119171924093-1331841220.png">
+<meta property="og:updated_time" content="2019-03-19T14:24:41.333Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CS231n-imgClassification">
-<meta name="twitter:description" content="kNNs 没有参数需要训练 只计算与训练样本之间的距离  Linear Classfication 可以将其理解为模板匹配，即最终的权重矩阵W的每一行为所学习得到的类别的模板，将其与test img做点积即做一次模板匹配。每个点积的值即为该分类所得的分数。     将权重矩阵的每一行重组后可以得到其信息，可以看出类似于某一类的模板：  可以看出当同一个类别有很多图片时，得到的模板是这些图片的平均。">
-<meta name="twitter:image" content="http://cs231n.github.io/assets/imagemap.jpg">
+<meta name="twitter:title" content="FP Tree算法">
+<meta name="twitter:description" content="blog  FP Tree是Aprior算法的优化 优化点在于：Aprior需要多次扫描数据以查询频繁项，FP Tree使用了树结构，提高了算法运行效率。  FP Tree数据结构  项头表。格式为： | 项 | 该项出现的次数（降序排列）  FP Tree。将原始数据集映射为一个FP Tree。 节点链表。所有项头表里的1项频繁集都是一个节点链表的头，它依次指向FP树中该1项频繁集出现的位置。这">
+<meta name="twitter:image" content="https://images2015.cnblogs.com/blog/1042406/201701/1042406-20170119161846125-505903867.png">
 
 
 
@@ -139,13 +142,13 @@
 
 
 
-  <link rel="canonical" href="https://chenzk1.github.io/2019/03/14/CS231n-img_classification/">
+  <link rel="canonical" href="https://chenzk1.github.io/2019/03/19/FP Tree/">
 
 
 
 
 
-  <title>CS231n-imgClassification | Hero's notebooks</title>
+  <title>FP Tree算法 | Hero's notebooks</title>
   
 
 
@@ -310,7 +313,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/14/CS231n-img_classification/">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/19/FP Tree/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Hero">
@@ -327,7 +330,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">CS231n-imgClassification</h1>
+          <h1 class="post-title" itemprop="name headline">FP Tree算法</h1>
         
 
         <div class="post-meta">
@@ -339,8 +342,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-14T09:54:35+08:00">
-                2019-03-14
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-19T21:51:07+08:00">
+                2019-03-19
               </time>
             
 
@@ -399,18 +402,59 @@
       
 
       
-        <h1 id="kNNs"><a href="#kNNs" class="headerlink" title="kNNs"></a>kNNs</h1><ul>
-<li>没有参数需要训练</li>
-<li>只计算与训练样本之间的距离</li>
+        <p><a href="https://www.cnblogs.com/pinard/p/6307064.html" target="_blank" rel="noopener">blog</a></p>
+<ol>
+<li><p>FP Tree是Aprior算法的优化</p>
+<p>优化点在于：Aprior需要多次扫描数据以查询频繁项，FP Tree使用了树结构，提高了算法运行效率。</p>
+</li>
+<li><p>FP Tree数据结构</p>
+<ul>
+<li>项头表。格式为： | 项 | 该项出现的次数（降序排列） </li>
+<li>FP Tree。将原始数据集映射为一个FP Tree。</li>
+<li>节点链表。所有项头表里的1项频繁集都是一个节点链表的头，它依次指向FP树中该1项频繁集出现的位置。这样做主要是方便项头表和FP Tree之间的联系查找和更新，也好理解。</li>
 </ul>
-<h1 id="Linear-Classfication"><a href="#Linear-Classfication" class="headerlink" title="Linear Classfication"></a>Linear Classfication</h1><ul>
-<li>可以将其理解为<strong>模板匹配</strong>，即最终的权重矩阵W的每一行为所学习得到的类别的模板，将其与test img做点积即做一次模板匹配。每个点积的值即为该分类所得的分数。</li>
+</li>
+<li><p>项头表建立</p>
+<ul>
+<li>第一次扫描数据：得到频繁一项集的计数，删除支持度小于阈值的项，并将剩余频繁集放入项头表，降序排列。</li>
+<li><p>第二次扫描数据：从<strong>原始数据</strong>中删除非频繁项集，并对<strong>每一条数据</strong>按支持度降序排列其中的非频繁项集。</p>
+</li>
+<li><p>e.g.<br><img src="https://images2015.cnblogs.com/blog/1042406/201701/1042406-20170119161846125-505903867.png" alt="e.g."></p>
+</li>
 </ul>
-<p><img src="http://cs231n.github.io/assets/imagemap.jpg" alt="ex0"></p>
-<p>  将权重矩阵的每一行重组后可以得到其信息，可以看出类似于某一类的模板：<br><img src="http://cs231n.github.io/assets/templates.jpg" alt="ex1"></p>
-<blockquote>
-<p>可以看出当同一个类别有很多图片时，得到的模板是这些图片的平均。也暴露了它不适合用于多变性复杂的分类。</p>
-</blockquote>
+</li>
+<li><p>FP Tree建立</p>
+<ul>
+<li>以null为根节点</li>
+<li><p>按照项头表的顺序，从第一条数据开始插入频繁项集，每条数据中排序靠前的为祖先节点，反之为子孙节点，每个节点均置1<br><img src="https://images2015.cnblogs.com/blog/1042406/201701/1042406-20170119163935296-1386696266.png" alt="e.g."> </p>
+</li>
+<li><p>接下来进行下一条数据的插入。当已存在频繁项时，在原有数字上加一即可（注意在插入时，是每一层每一层插入，不能跳过某层直接在已有节点上加一）</p>
+</li>
+<li>…</li>
+<li><img src="https://images2015.cnblogs.com/blog/1042406/201701/1042406-20170119165427593-1237891371.png" alt="最终"></li>
+</ul>
+</li>
+<li><p>节点链表</p>
+<p>节点链表即项头表中每个频繁项集都有一个指针指向FP Tree的相应节点。</p>
+</li>
+<li><p>FP Tree挖掘</p>
+<p>得到了FP树和项头表以及节点链表，我们首先要从项头表的底部项依次向上挖掘。对于项头表对应于FP树的每一项，我们要找到它的条件模式基。所谓条件模式基是以我们要挖掘的节点作为叶子节点所对应的FP子树。得到这个FP子树，我们将子树中每个节点的的计数设置为叶子节点的计数，并删除计数低于支持度的节点。从这个条件模式基，我们就可以递归挖掘得到频繁项集了。</p>
+<ul>
+<li>先从最底下的F节点开始，我们先来寻找F节点的条件模式基，由于F在FP树中只有一个节点，因此候选就只有下图左所示的一条路径，对应{A:8,C:8,E:6,B:2, F:2}。我们接着将所有的祖先节点计数设置为叶子节点的计数，即FP子树变成{A:2,C:2,E:2,B:2, F:2}。一般我们的条件模式基可以不写叶子节点，因此最终的F的条件模式基如下图右所示。 <img src="https://images2015.cnblogs.com/blog/1042406/201701/1042406-20170119170723421-1812925376.png" alt="e.g."></li>
+<li>通过它，我们很容易得到F的频繁2项集为{A:2,F:2}, {C:2,F:2}, {E:2,F:2}, {B:2,F:2}。递归合并二项集，得到频繁三项集为{A:2,C:2,F:2}，{A:2,E:2,F:2},…还有一些频繁三项集，就不写了。当然一直递归下去，最大的频繁项集为频繁5项集，为{A:2,C:2,E:2,B:2,F:2}</li>
+<li>F挖掘完了，我们开始挖掘D节点。D节点比F节点复杂一些，因为它有两个叶子节点，因此首先得到的FP子树如下图左。我们接着将所有的祖先节点计数设置为叶子节点的计数，即变成{A:2, C:2,E:1 G:1,D:1, D:1}此时E节点和G节点由于在条件模式基里面的支持度低于阈值，被我们删除，最终在去除低支持度节点并不包括叶子节点后D的条件模式基为{A:2, C:2}。通过它，我们很容易得到D的频繁2项集为{A:2,D:2}, {C:2,D:2}。递归合并二项集，得到频繁三项集为{A:2,C:2,D:2}。D对应的最大的频繁项集为频繁3项集。 <img src="https://images2015.cnblogs.com/blog/1042406/201701/1042406-20170119171924093-1331841220.png" alt="e.g."></li>
+</ul>
+</li>
+<li><p>算法具体步骤</p>
+<ul>
+<li>扫描数据，得到所有频繁一项集的的计数。然后删除支持度低于阈值的项，将1项频繁集放入项头表，并按照支持度降序排列。</li>
+<li>扫描数据，将读到的原始数据剔除非频繁1项集，并按照支持度降序排列。</li>
+<li>读入排序后的数据集，插入FP树，插入时按照排序后的顺序，插入FP树中，排序靠前的节点是祖先节点，而靠后的是子孙节点。如果有共用的祖先，则对应的公用祖先节点计数加1。插入后，如果有新节点出现，则项头表对应的节点会通过节点链表链接上新节点。直到所有的数据都插入到FP树后，FP树的建立完成。</li>
+<li>从项头表的底部项依次向上找到项头表项对应的条件模式基。从条件模式基递归挖掘得到项头表项项的频繁项集。</li>
+<li>如果不限制频繁项集的项数，则返回步骤4所有的频繁项集，否则只返回满足项数要求的频繁项集。</li>
+</ul>
+</li>
+</ol>
 
       
     </div>
@@ -430,14 +474,6 @@
           
             <a href="/tags/ML/" rel="tag"># ML</a>
           
-            <a href="/tags/CS231n/" rel="tag"># CS231n</a>
-          
-            <a href="/tags/kNN/" rel="tag"># kNN</a>
-          
-            <a href="/tags/SVM/" rel="tag"># SVM</a>
-          
-            <a href="/tags/imgClassification/" rel="tag"># imgClassification</a>
-          
         </div>
       
 
@@ -449,15 +485,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/03/18/Apriori 关联规则挖掘/" rel="next" title="Apriori 关联规则挖掘">
+                <i class="fa fa-chevron-left"></i> Apriori 关联规则挖掘
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/03/14/CNN/" rel="prev" title="CNN">
-                CNN <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -509,17 +545,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Hero">
           <p class="site-author-name" itemprop="name">Hero</p>
@@ -586,22 +613,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#kNNs"><span class="nav-number">1.</span> <span class="nav-text">kNNs</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linear-Classfication"><span class="nav-number">2.</span> <span class="nav-text">Linear Classfication</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

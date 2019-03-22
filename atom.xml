@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://chenzk1.github.io/"/>
-  <updated>2019-03-14T01:59:56.489Z</updated>
+  <updated>2019-03-19T14:24:41.333Z</updated>
   <id>https://chenzk1.github.io/</id>
   
   <author>
@@ -17,22 +17,22 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>test</title>
-    <link href="https://chenzk1.github.io/2019/03/14/Decision%20Tree%20-%20test/"/>
-    <id>https://chenzk1.github.io/2019/03/14/Decision Tree - test/</id>
-    <published>2019-03-14T01:59:21.038Z</published>
-    <updated>2019-03-14T01:59:56.489Z</updated>
+    <title>FP Tree算法</title>
+    <link href="https://chenzk1.github.io/2019/03/19/FP%20Tree/"/>
+    <id>https://chenzk1.github.io/2019/03/19/FP Tree/</id>
+    <published>2019-03-19T13:51:07.844Z</published>
+    <updated>2019-03-19T14:24:41.333Z</updated>
     
-    <content type="html"><![CDATA[<ol><li><p>决策树<br><strong><em>问题：如何挑选用于分裂节点的特征–&gt;ID3 C4.5 …(一个标准：使分裂出来的节点尽可能纯，即一个分支尽可能属于同类)</em></strong></p></li><li><p>ID3<br><em><strong>信息增益</strong></em></p><p> 信息增益 = 信息熵 - 条件熵</p><ul><li>信息增益：针对每个 <em><strong>属性</strong></em></li><li>信息熵：整个样本空间的不确定度。其中Pk一定是label取值的概率。</li><li><p>条件熵：给定某个属性，求其信息熵</p><p>–&gt; 问题：某属性所包括的类别越多，信息增益越大。极限：每个类别仅有1个实例（label数量为1），log p = log1 = 0， 所以最终条件熵=0。或：属性类别越多，条件熵越小，其纯度越高。</p><p>–&gt; 信息增益准则其实是对可取值数目较多的属性有所偏好！</p><p>–&gt; 泛化能力不强</p></li></ul></li><li><p>C4.5 <em><strong>信息增益率+信息增益</strong></em></p><p> 属性a的信息增益率 = 属性a的信息增益 / a的某个固有统计量IV(a)</p><p> <img src="https://pic4.zhimg.com/80/v2-812104c0291d20935e910919a9fa5c27_hd.png" alt="IV(a)公式"></p><p> V为a的取值数目。<br> （实际上是属性a的信息熵）</p><ul><li>直接使用信息增益率：偏好取值数目小的属性。</li><li>先选择高于平均水平信息增益的属性，再选择最高信息增益率的属性。</li></ul></li><li><p>CART <em><strong>基尼系数+MAE/MSE</strong></em></p><p>与ID3、C4.5的不同：形成二叉树，因此 –&gt; 既要确定要分割的属性，也要确定要分割的值</p><ul><li>回归树：MAE/MSE<ul><li>example(MSE)：<blockquote><ol><li>考虑数据集 D 上的所有特征 j，遍历每一个特征下所有可能的取值或者切分点 s，将数据集 D 划分成两部分 D1 和 D2</li><li>分别计算上述两个子集的平方误差和，选择最小的平方误差对应的特征与分割点，生成两个子节点。</li><li>对上述两个子节点递归调用步骤1 2,直到满足停止条件。</li></ol></blockquote></li></ul></li><li><p>分类树：(Gini)</p><p><img src="https://img-blog.csdn.net/20150109184544578?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvQW5kcm9pZGx1c2hhbmdkZXJlbg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="某属性A的基尼系数"><br>基尼系数越小，纯度越高</p></li></ul><blockquote><ol><li>对每个特征 A，对它的所有可能取值 a，将数据集分为 A＝a，和 A!＝a 两个子集，计算集合 D 的基尼指数：<br>Gini(A) = D1/D <em> Gini(D1) + D2/D </em> Gini(D2)</li><li>遍历所有的特征 A，计算其所有可能取值 a 的基尼指数，选择 D 的基尼指数最小值对应的特征及切分点作为最优的划分，将数据分为两个子集。</li><li>对上述两个子节点递归调用步骤1 2, 直到满足停止条件。</li><li>生成 CART 决策树。</li></ol></blockquote><pre><code>停止条件有：1. 节点中的样本个数小于预定阈值;2. 样本集的Gini系数小于预定阈值（此时样本基本属于同一类）;3. 没有更多特征。</code></pre><ul><li>剪枝</li><li>例子：<a href="https://www.jianshu.com/p/b90a9ce05b28" target="_blank" rel="noopener">example</a></li></ul></li><li><p>控制决策树过拟合的方法</p><ul><li>剪枝</li><li>控制终止条件，避免树形结构过细</li><li>构建随机森林</li></ul></li></ol>]]></content>
+    <content type="html"><![CDATA[<p><a href="https://www.cnblogs.com/pinard/p/6307064.html" target="_blank" rel="noopener">blog</a></p><ol><li><p>FP Tree是Aprior算法的优化</p><p>优化点在于：Aprior需要多次扫描数据以查询频繁项，FP Tree使用了树结构，提高了算法运行效率。</p></li><li><p>FP Tree数据结构</p><ul><li>项头表。格式为： | 项 | 该项出现的次数（降序排列） </li><li>FP Tree。将原始数据集映射为一个FP Tree。</li><li>节点链表。所有项头表里的1项频繁集都是一个节点链表的头，它依次指向FP树中该1项频繁集出现的位置。这样做主要是方便项头表和FP Tree之间的联系查找和更新，也好理解。</li></ul></li><li><p>项头表建立</p><ul><li>第一次扫描数据：得到频繁一项集的计数，删除支持度小于阈值的项，并将剩余频繁集放入项头表，降序排列。</li><li><p>第二次扫描数据：从<strong>原始数据</strong>中删除非频繁项集，并对<strong>每一条数据</strong>按支持度降序排列其中的非频繁项集。</p></li><li><p>e.g.<br><img src="https://images2015.cnblogs.com/blog/1042406/201701/1042406-20170119161846125-505903867.png" alt="e.g."></p></li></ul></li><li><p>FP Tree建立</p><ul><li>以null为根节点</li><li><p>按照项头表的顺序，从第一条数据开始插入频繁项集，每条数据中排序靠前的为祖先节点，反之为子孙节点，每个节点均置1<br><img src="https://images2015.cnblogs.com/blog/1042406/201701/1042406-20170119163935296-1386696266.png" alt="e.g."> </p></li><li><p>接下来进行下一条数据的插入。当已存在频繁项时，在原有数字上加一即可（注意在插入时，是每一层每一层插入，不能跳过某层直接在已有节点上加一）</p></li><li>…</li><li><img src="https://images2015.cnblogs.com/blog/1042406/201701/1042406-20170119165427593-1237891371.png" alt="最终"></li></ul></li><li><p>节点链表</p><p>节点链表即项头表中每个频繁项集都有一个指针指向FP Tree的相应节点。</p></li><li><p>FP Tree挖掘</p><p>得到了FP树和项头表以及节点链表，我们首先要从项头表的底部项依次向上挖掘。对于项头表对应于FP树的每一项，我们要找到它的条件模式基。所谓条件模式基是以我们要挖掘的节点作为叶子节点所对应的FP子树。得到这个FP子树，我们将子树中每个节点的的计数设置为叶子节点的计数，并删除计数低于支持度的节点。从这个条件模式基，我们就可以递归挖掘得到频繁项集了。</p><ul><li>先从最底下的F节点开始，我们先来寻找F节点的条件模式基，由于F在FP树中只有一个节点，因此候选就只有下图左所示的一条路径，对应{A:8,C:8,E:6,B:2, F:2}。我们接着将所有的祖先节点计数设置为叶子节点的计数，即FP子树变成{A:2,C:2,E:2,B:2, F:2}。一般我们的条件模式基可以不写叶子节点，因此最终的F的条件模式基如下图右所示。 <img src="https://images2015.cnblogs.com/blog/1042406/201701/1042406-20170119170723421-1812925376.png" alt="e.g."></li><li>通过它，我们很容易得到F的频繁2项集为{A:2,F:2}, {C:2,F:2}, {E:2,F:2}, {B:2,F:2}。递归合并二项集，得到频繁三项集为{A:2,C:2,F:2}，{A:2,E:2,F:2},…还有一些频繁三项集，就不写了。当然一直递归下去，最大的频繁项集为频繁5项集，为{A:2,C:2,E:2,B:2,F:2}</li><li>F挖掘完了，我们开始挖掘D节点。D节点比F节点复杂一些，因为它有两个叶子节点，因此首先得到的FP子树如下图左。我们接着将所有的祖先节点计数设置为叶子节点的计数，即变成{A:2, C:2,E:1 G:1,D:1, D:1}此时E节点和G节点由于在条件模式基里面的支持度低于阈值，被我们删除，最终在去除低支持度节点并不包括叶子节点后D的条件模式基为{A:2, C:2}。通过它，我们很容易得到D的频繁2项集为{A:2,D:2}, {C:2,D:2}。递归合并二项集，得到频繁三项集为{A:2,C:2,D:2}。D对应的最大的频繁项集为频繁3项集。 <img src="https://images2015.cnblogs.com/blog/1042406/201701/1042406-20170119171924093-1331841220.png" alt="e.g."></li></ul></li><li><p>算法具体步骤</p><ul><li>扫描数据，得到所有频繁一项集的的计数。然后删除支持度低于阈值的项，将1项频繁集放入项头表，并按照支持度降序排列。</li><li>扫描数据，将读到的原始数据剔除非频繁1项集，并按照支持度降序排列。</li><li>读入排序后的数据集，插入FP树，插入时按照排序后的顺序，插入FP树中，排序靠前的节点是祖先节点，而靠后的是子孙节点。如果有共用的祖先，则对应的公用祖先节点计数加1。插入后，如果有新节点出现，则项头表对应的节点会通过节点链表链接上新节点。直到所有的数据都插入到FP树后，FP树的建立完成。</li><li>从项头表的底部项依次向上找到项头表项对应的条件模式基。从条件模式基递归挖掘得到项头表项项的频繁项集。</li><li>如果不限制频繁项集的项数，则返回步骤4所有的频繁项集，否则只返回满足项数要求的频繁项集。</li></ul></li></ol>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;ol&gt;
-&lt;li&gt;&lt;p&gt;决策树&lt;br&gt;&lt;strong&gt;&lt;em&gt;问题：如何挑选用于分裂节点的特征–&amp;gt;ID3 C4.5 …(一个标准：使分裂出来的节点尽可能纯，即一个分支尽可能属于同类)&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;ID3&lt;br&gt;&lt;em&gt;&lt;st
+        &lt;p&gt;&lt;a href=&quot;https://www.cnblogs.com/pinard/p/6307064.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;blog&lt;/a&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;FP Tree是Aprior算法的优化&lt;/p&gt;
+&lt;
       
     
     </summary>
@@ -42,7 +42,73 @@
     
       <category term="ML" scheme="https://chenzk1.github.io/tags/ML/"/>
     
-      <category term="Decision Tree" scheme="https://chenzk1.github.io/tags/Decision-Tree/"/>
+  </entry>
+  
+  <entry>
+    <title>Apriori 关联规则挖掘</title>
+    <link href="https://chenzk1.github.io/2019/03/18/Apriori%20%E5%85%B3%E8%81%94%E8%A7%84%E5%88%99%E6%8C%96%E6%8E%98/"/>
+    <id>https://chenzk1.github.io/2019/03/18/Apriori 关联规则挖掘/</id>
+    <published>2019-03-18T01:43:37.509Z</published>
+    <updated>2019-03-18T02:33:56.654Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li><p>问题引入</p><ul><li>经常被同时购买的商品可以摆近一点，刺激购买欲望</li><li>通过附属产品优惠的方式，刺激主产品的销售</li></ul></li><li><p>总体思想</p><p>逐层搜索迭代，通过K-1项集迭代出K项集。<br>Aprior是用于压缩搜索空间。</p></li><li><p>概念</p><ul><li>支持度：<br>关联规则A-&gt;B的支持度support=P(AB)，同时发生的概率</li><li>置信度：<br>confidence=P(A|B)</li><li>k项集：<br>事件A中包含k个元素，成为k项集；若事件A满足最小支持度阈值，称其为频繁k项集</li><li>由频繁项集产生强关联规则<ul><li>K维数据项集LK是频繁项集的必要条件是它所有K-1维子项集也为频繁项集，记为LK-1　</li><li>如果K维数据项集LK的任意一个K-1维子集Lk-1，不是频繁项集，则K维数据项集LK本身也不是最大数据项集。</li><li>Lk是K维频繁项集，如果所有K-1维频繁项集合Lk-1中包含LK的K-1维子项集的个数小于K，则Lk不可能是K维最大频繁数据项集。</li><li>同时满足最小支持度阀值和最小置信度阀值的规则称为强规则。</li></ul></li><li>e.g.<br>顾客购买记录的数据库D，包含6个事务。项集I={网球拍,网球,运动鞋,羽毛球}。考虑关联规则：网球拍网球，事务1,2,3,4,6包含网球拍，事务1,2,6同时包含网球拍和网球，支持度，置信度。若给定最小支持度，最小置信度，关联规则网球拍网球是有趣的，认为购买网球拍和购买网球之间存在强关联。</li></ul></li><li><p>算法步骤</p><p>Apriori算法过程分为两个步骤：</p><ul><li>第一步通过迭代，检索出事务数据库中的所有频繁项集，即支持度不低于用户设定的阈值的项集；</li><li>第二步利用频繁项集构造出满足用户最小信任度的规则。</li></ul><p>具体做法就是：</p><p>首先找出频繁1-项集，记为L1；然后利用L1来产生候选项集C2，对C2中的项进行判定挖掘出L2，即频繁2-项集；不断如此循环下去直到无法发现更多的频繁k-项集为止。每挖掘一层Lk就需要扫描整个数据库一遍。算法利用了一个性质：</p><p>Apriori 性质：任一频繁项集的所有非空子集也必须是频繁的。意思就是说，生成一个k-itemset的候选项时，如果这个候选项有子集不在(k-1)-itemset(已经确定是frequent的)中时，那么这个候选项就不用拿去和支持度判断了，直接删除。具体而言：</p><ul><li><p>连接步:<br>为找出Lk（所有的频繁k项集的集合），通过将Lk-1（所有的频繁k-1项集的集合）与自身连接产生候选k项集的集合。候选集合记作Ck。设l1和l2是Lk-1中的成员。记li[j]表示li中的第j项。假设Apriori算法对事务或项集中的项按字典次序排序，即对于（k-1）项集li，li[1]&lt;li[2]&lt;……….&lt;li[k-1]。将Lk-1与自身连接，如果(l1[1]=l2[1])&amp;&amp;( l1[2]=l2[2])&amp;&amp;……..&amp;&amp; (l1[k-2]=l2[k-2])&amp;&amp;(l1[k-1]&lt;l2[k-1])，(这里的作用是为了保证不产生重复的k项集)，那认为l1和l2是可连接。连接l1和l2 产生的结果是{l1[1],l1[2],……,l1[k-1],l2[k-1]}。</p></li><li><p>剪枝步:<br>CK是LK的超集，也就是说，CK的成员可能是也可能不是频繁的。通过扫描所有的事务（交易），确定CK中每个候选的计数，判断是否小于最小支持度计数，如果不是，则认为该候选是频繁的。为了压缩Ck,可以利用Apriori性质：任一频繁项集的所有非空子集也必须是频繁的，反之，如果某个候选的非空子集不是频繁的，那么该候选肯定不是频繁的，从而可以将其从CK中删除。</p></li></ul></li><li><p>e.g.</p><p><a href="https://blog.csdn.net/u011067360/article/details/24810415" target="_blank" rel="noopener">例子</a></p></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ol&gt;
+&lt;li&gt;&lt;p&gt;问题引入&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;经常被同时购买的商品可以摆近一点，刺激购买欲望&lt;/li&gt;
+&lt;li&gt;通过附属产品优惠的方式，刺激主产品的销售&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;总体思想&lt;/p&gt;
+&lt;p&gt;逐层搜索迭代，通过K-1项集迭代出K项集
+      
+    
+    </summary>
+    
+      <category term="Learning" scheme="https://chenzk1.github.io/categories/Learning/"/>
+    
+    
+      <category term="ML" scheme="https://chenzk1.github.io/tags/ML/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>KNN</title>
+    <link href="https://chenzk1.github.io/2019/03/14/knn/"/>
+    <id>https://chenzk1.github.io/2019/03/14/knn/</id>
+    <published>2019-03-14T07:03:48.611Z</published>
+    <updated>2019-03-14T07:07:55.198Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li><p>算法步骤</p><ul><li>给定已经分好类的训练集</li><li>对给定的测试数据，计算其与训练集中每一个样本的距离</li><li>取距离最小的前K个，按多数表决的方法决定属于哪一类</li></ul></li><li><p>注意事项</p><ul><li>数据要fair</li><li>可以通过对距离近的样本点加更大的权重优化</li><li>计算量较大</li></ul></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ol&gt;
+&lt;li&gt;&lt;p&gt;算法步骤&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;给定已经分好类的训练集&lt;/li&gt;
+&lt;li&gt;对给定的测试数据，计算其与训练集中每一个样本的距离&lt;/li&gt;
+&lt;li&gt;取距离最小的前K个，按多数表决的方法决定属于哪一类&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;注意事项
+      
+    
+    </summary>
+    
+      <category term="Learning" scheme="https://chenzk1.github.io/categories/Learning/"/>
+    
+    
+      <category term="ML" scheme="https://chenzk1.github.io/tags/ML/"/>
+    
+      <category term="KNN" scheme="https://chenzk1.github.io/tags/KNN/"/>
     
   </entry>
   
@@ -153,34 +219,6 @@
   </entry>
   
   <entry>
-    <title>自然辩证法#2</title>
-    <link href="https://chenzk1.github.io/2019/03/14/%E8%87%AA%E7%84%B6%E8%BE%A9%E8%AF%81%E6%B3%95#2/"/>
-    <id>https://chenzk1.github.io/2019/03/14/自然辩证法#2/</id>
-    <published>2019-03-14T01:54:35.252Z</published>
-    <updated>2018-11-27T09:25:06.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>现代自然观</p><h1 id="现代自然观的来源"><a href="#现代自然观的来源" class="headerlink" title="现代自然观的来源"></a>现代自然观的来源</h1><ul><li>起源于古希腊，兴于近代欧洲，完成于牛顿。</li><li>粒子论 机械论 还原论</li><li>时空观：时间、空间相互独立；空间均匀、平直、三维、各向同性；时间均匀、平直、一维、不可逆；时间、空间与物质各自独立。</li><li>物质观：物质只具有几何属性（形状、大小、位置）和机械属性（质量、弹性）。</li><li>从古希腊哲学到现代自然观<br>古希腊知识分子的民间性：<br>（非官方，正式由于其哲学本身上的纯粹性，才获得了很大的进步）<ul><li>世界是物质的（麦乐斯“水是万物的本源”）</li><li>物质是质料的（原子论者，亚里士多德etc）</li><li>质料是形式的（毕达哥拉斯学派，希罗多德历史）</li><li>形式是几何的（欧几里得，阿基米德，天球）</li><li>运动是机械的（哥白尼，开普勒，伽利略，牛顿）<br>中世纪奔溃，资产阶级重新选择文化的时候，选择了古希腊。</li></ul></li></ul><h1 id="科学进步与自然观的更新"><a href="#科学进步与自然观的更新" class="headerlink" title="科学进步与自然观的更新"></a>科学进步与自然观的更新</h1><ul><li>牛顿力学自然观本身就是一次科学大进步的产物</li><li>现代科学对机械论自然观的几次有限突破，都伴随着科学的重大突破</li><li>相对论自然观</li><li>量子力学自然观</li><li>复杂系统自然观</li><li><strong>但语境还是机械论，自然观的反思和革命还将继续。</strong></li></ul><h1 id="人与自然关系的反思"><a href="#人与自然关系的反思" class="headerlink" title="人与自然关系的反思"></a>人与自然关系的反思</h1><ol><li>悲观主义</li><li>乐观主义</li><li>现实主义</li></ol><p>三个流派的共同出发点：</p><ol><li>人与自然的关系恶化</li><li>恶化的本质：现代人类对自然界的影响超过了自然界对人类活动的承载力。</li></ol><h2 id="悲观主义"><a href="#悲观主义" class="headerlink" title="悲观主义"></a>悲观主义</h2><p>代表：罗马俱乐部</p><h2 id="乐观主义"><a href="#乐观主义" class="headerlink" title="乐观主义"></a>乐观主义</h2><p>《今后二百年——美国和世界的一幅远景》</p><ul><li>在过去到未来的前后各二百年中，人类将从困境中摆脱出来，自然因素并不构成限制，科学技术的发展将会是自然环境和社会环境充满活力。</li><li>自然资源供应无限，人类的资源短缺等问题可以通过技术进步来解决。</li><li>当穷国富起来时，人口增长就会自动停止。</li></ul><p>各有缺点：</p><ul><li>悲观论者：线性外推，但忽略现有的社会生产方式、社会制度、社会意识形态都是可以改变的。</li><li>乐观论者：以自然资源潜力无限和科学技术能力无限为前提，但忽略了自然资源在理论上的潜在存在和…</li></ul><h2 id="现实主义"><a href="#现实主义" class="headerlink" title="现实主义"></a>现实主义</h2><p>《纵观世界全局》（美国世界观察研究所）</p><p>世界明天的好坏不是命运决定的，也不是科学技术的本性决定的，它取决于人类今后20年左右做出的决策是否明智。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;现代自然观&lt;/p&gt;
-&lt;h1 id=&quot;现代自然观的来源&quot;&gt;&lt;a href=&quot;#现代自然观的来源&quot; class=&quot;headerlink&quot; title=&quot;现代自然观的来源&quot;&gt;&lt;/a&gt;现代自然观的来源&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;起源于古希腊，兴于近代欧洲，完成于牛顿。&lt;/li&gt;
-&lt;
-      
-    
-    </summary>
-    
-      <category term="Learning" scheme="https://chenzk1.github.io/categories/Learning/"/>
-    
-    
-      <category term="自然辩证法" scheme="https://chenzk1.github.io/tags/%E8%87%AA%E7%84%B6%E8%BE%A9%E8%AF%81%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
     <title>中国古代典籍文化#1</title>
     <link href="https://chenzk1.github.io/2019/03/14/%E4%B8%AD%E5%9B%BD%E5%8F%A4%E4%BB%A3%E5%85%B8%E7%B1%8D%E6%96%87%E5%8C%96#1/"/>
     <id>https://chenzk1.github.io/2019/03/14/中国古代典籍文化#1/</id>
@@ -235,24 +273,22 @@
   </entry>
   
   <entry>
-    <title>ROC AUC, Accuracy, Recall, F1</title>
-    <link href="https://chenzk1.github.io/2019/03/14/ROC%20%20AUC/"/>
-    <id>https://chenzk1.github.io/2019/03/14/ROC  AUC/</id>
-    <published>2019-03-14T01:54:35.236Z</published>
-    <updated>2018-11-23T02:53:24.000Z</updated>
+    <title>自然辩证法#2</title>
+    <link href="https://chenzk1.github.io/2019/03/14/%E8%87%AA%E7%84%B6%E8%BE%A9%E8%AF%81%E6%B3%95#2/"/>
+    <id>https://chenzk1.github.io/2019/03/14/自然辩证法#2/</id>
+    <published>2019-03-14T01:54:35.252Z</published>
+    <updated>2018-11-27T09:25:06.000Z</updated>
     
-    <content type="html"><![CDATA[<p>类不平衡（class imbalance）现象：即负样本比正样本多很多（或者相反）</p><ol><li>ACCURACY/RECALL/F1</li></ol><ul><li><p>Accuracy：TP/(TP+TN) 即预测对的数据个数与总数据个数的比</p><p>  <strong><em>A和R的问题在于如果样本不平衡，则参考意义很小</em></strong></p></li><li><p>准确率（Precision）：P=TP/(TP+FP)。通俗地讲，就是预测正确的正例数据占预测为正例数据的比例。</p><p>  <strong>针对判别结果 查准率</strong></p></li><li><p>召回率（Recall）：R=TP/(TP+FN)。通俗地讲，就是预测为正例的数据占实际为正例数据的比例。</p><p>  <strong>针对样本 查全率</strong></p></li><li>F1 = 2*P*R/(P+R)：既有P又有R</li><li><p>PRC， precision recall curve，与下面的ROC一样，先看是否光滑，光滑的话说明过拟合不大。越往右上越好。</p><p>  <strong><em>A和R的问题在于如果样本不平衡，则参考意义很小</em></strong></p></li></ul><ol start="2"><li><p>ROC AUC<br>TPR=TP/(TP+FN)=TP/actual positives 也就是Recall<br>FPR=FP/(FP+TN)=FP/actual negatives<br>ROC是由点（TPR,FPR）组成的曲线，AUC就是ROC的面积。AUC越大越好。</p><p> 一般来说，如果ROC是光滑的，那么基本可以判断没有太大的overfitting。</p><p> 越往左上越好。</p><p> 画法：ROC曲线其实是多个混淆矩阵的结果组合，如果在上述模型中我们没有定好阈值，而是将模型预测结果从高到低排序，将每个概率值依次作为阈值，那么就有多个混淆矩阵。对于每个混淆矩阵，我们计算两个指标TPR（True positive rate）和FPR（False positive rate），TPR=TP/(TP+FN)=Recall，TPR就是召回率。FPR=FP/(FP+TN)，FPR即为实际为好人的人中，预测为坏人的人占比。我们以FPR为x轴，TPR为y轴画图，就得到了ROC曲线。</p><p><strong><em>也就是说，ROC曲线的阈值不是多次运行模型得到的，是同一个模型中通过对所得结果按照概率的排序得到了一个threshold</em></strong></p><p> 所以使用ROC的话，它会先对预测到的结果进行排序，然后再根据排序的结果画图，所以他的曲线形状不会因为数据不平衡而发生大的改变。<br> <strong>但是当数据极度不平衡时，ROC仍然有问题，下面的PRC表现更好。</strong></p></li><li>PRC， precision recall curve，与上面的ROC一样，先看是否光滑，光滑的话说明过拟合不大。越往右上越好。</li></ol>]]></content>
+    <content type="html"><![CDATA[<p>现代自然观</p><h1 id="现代自然观的来源"><a href="#现代自然观的来源" class="headerlink" title="现代自然观的来源"></a>现代自然观的来源</h1><ul><li>起源于古希腊，兴于近代欧洲，完成于牛顿。</li><li>粒子论 机械论 还原论</li><li>时空观：时间、空间相互独立；空间均匀、平直、三维、各向同性；时间均匀、平直、一维、不可逆；时间、空间与物质各自独立。</li><li>物质观：物质只具有几何属性（形状、大小、位置）和机械属性（质量、弹性）。</li><li>从古希腊哲学到现代自然观<br>古希腊知识分子的民间性：<br>（非官方，正式由于其哲学本身上的纯粹性，才获得了很大的进步）<ul><li>世界是物质的（麦乐斯“水是万物的本源”）</li><li>物质是质料的（原子论者，亚里士多德etc）</li><li>质料是形式的（毕达哥拉斯学派，希罗多德历史）</li><li>形式是几何的（欧几里得，阿基米德，天球）</li><li>运动是机械的（哥白尼，开普勒，伽利略，牛顿）<br>中世纪奔溃，资产阶级重新选择文化的时候，选择了古希腊。</li></ul></li></ul><h1 id="科学进步与自然观的更新"><a href="#科学进步与自然观的更新" class="headerlink" title="科学进步与自然观的更新"></a>科学进步与自然观的更新</h1><ul><li>牛顿力学自然观本身就是一次科学大进步的产物</li><li>现代科学对机械论自然观的几次有限突破，都伴随着科学的重大突破</li><li>相对论自然观</li><li>量子力学自然观</li><li>复杂系统自然观</li><li><strong>但语境还是机械论，自然观的反思和革命还将继续。</strong></li></ul><h1 id="人与自然关系的反思"><a href="#人与自然关系的反思" class="headerlink" title="人与自然关系的反思"></a>人与自然关系的反思</h1><ol><li>悲观主义</li><li>乐观主义</li><li>现实主义</li></ol><p>三个流派的共同出发点：</p><ol><li>人与自然的关系恶化</li><li>恶化的本质：现代人类对自然界的影响超过了自然界对人类活动的承载力。</li></ol><h2 id="悲观主义"><a href="#悲观主义" class="headerlink" title="悲观主义"></a>悲观主义</h2><p>代表：罗马俱乐部</p><h2 id="乐观主义"><a href="#乐观主义" class="headerlink" title="乐观主义"></a>乐观主义</h2><p>《今后二百年——美国和世界的一幅远景》</p><ul><li>在过去到未来的前后各二百年中，人类将从困境中摆脱出来，自然因素并不构成限制，科学技术的发展将会是自然环境和社会环境充满活力。</li><li>自然资源供应无限，人类的资源短缺等问题可以通过技术进步来解决。</li><li>当穷国富起来时，人口增长就会自动停止。</li></ul><p>各有缺点：</p><ul><li>悲观论者：线性外推，但忽略现有的社会生产方式、社会制度、社会意识形态都是可以改变的。</li><li>乐观论者：以自然资源潜力无限和科学技术能力无限为前提，但忽略了自然资源在理论上的潜在存在和…</li></ul><h2 id="现实主义"><a href="#现实主义" class="headerlink" title="现实主义"></a>现实主义</h2><p>《纵观世界全局》（美国世界观察研究所）</p><p>世界明天的好坏不是命运决定的，也不是科学技术的本性决定的，它取决于人类今后20年左右做出的决策是否明智。</p>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;p&gt;类不平衡（class imbalance）现象：即负样本比正样本多很多（或者相反）&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;ACCURACY/RECALL/F1&lt;/li&gt;
-&lt;/ol&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Accuracy：TP/(TP+TN) 即预测对的数据个数与总数据个数的比&lt;/p
+        &lt;p&gt;现代自然观&lt;/p&gt;
+&lt;h1 id=&quot;现代自然观的来源&quot;&gt;&lt;a href=&quot;#现代自然观的来源&quot; class=&quot;headerlink&quot; title=&quot;现代自然观的来源&quot;&gt;&lt;/a&gt;现代自然观的来源&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;起源于古希腊，兴于近代欧洲，完成于牛顿。&lt;/li&gt;
+&lt;
       
     
     </summary>
@@ -260,9 +296,7 @@
       <category term="Learning" scheme="https://chenzk1.github.io/categories/Learning/"/>
     
     
-      <category term="ML" scheme="https://chenzk1.github.io/tags/ML/"/>
-    
-      <category term="Metrics" scheme="https://chenzk1.github.io/tags/Metrics/"/>
+      <category term="自然辩证法" scheme="https://chenzk1.github.io/tags/%E8%87%AA%E7%84%B6%E8%BE%A9%E8%AF%81%E6%B3%95/"/>
     
   </entry>
   
@@ -299,20 +333,24 @@
   </entry>
   
   <entry>
-    <title>python面向对象</title>
-    <link href="https://chenzk1.github.io/2019/03/14/python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"/>
-    <id>https://chenzk1.github.io/2019/03/14/python面向对象/</id>
-    <published>2019-03-14T01:54:35.221Z</published>
-    <updated>2018-11-27T05:26:20.000Z</updated>
+    <title>ROC AUC, Accuracy, Recall, F1</title>
+    <link href="https://chenzk1.github.io/2019/03/14/ROC%20%20AUC/"/>
+    <id>https://chenzk1.github.io/2019/03/14/ROC  AUC/</id>
+    <published>2019-03-14T01:54:35.236Z</published>
+    <updated>2019-03-16T02:58:16.880Z</updated>
     
-    <content type="html"><![CDATA[<h3 id="属性命名"><a href="#属性命名" class="headerlink" title="属性命名"></a>属性命名</h3><ul><li>属性以双下划线开头，类内变量，实例无法访问。但可以通过某些方式访问，例如Student例中定义了__name变量，可以用_Student_name来实现访问，但不建议，因为不同的解释器的转化方式不一样。</li><li>单下划线可以打开，但需要注意不能随意更改。</li><li>双下划线结尾与开头，特殊变量，类内可以访问，实例不知。</li><li><h3 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h3>开闭原则：定义一个类Animal及其多个之类Dog/Cat/…，当定义一个函数或操作时：</li></ul><ul><li>对扩展开放：允许新增Animal的子类；</li><li>对修改封闭：不需要修改依赖Animal类型的run_twice()等函数，仍然可以传入Dog/Cat等类。<br>事实上，不需要继承也可以实现多态————鸭子类型。</li></ul><h3 id="若干方法"><a href="#若干方法" class="headerlink" title="若干方法"></a>若干方法</h3><ul><li>isinstance(object,class) 判断是否属于某个类</li><li>dir() 列举出一个对象的属性和方法</li><li>getattr()、setattr()、hasattr()可以获得、添加、查询是否需要某个属性<ul><li>__slots__ 限制可以添加的属性，__slots__ = (‘name’, ‘age’) # 用tuple定义允许绑定的属性名称</li></ul></li><li>装饰器</li></ul>]]></content>
+    <content type="html"><![CDATA[<p>类不平衡（class imbalance）现象：即负样本比正样本多很多（或者相反）</p><ol><li>ACCURACY/RECALL/F1</li></ol><ul><li><p>Accuracy：TP/(TP+TN) 即预测对的数据个数与总数据个数的比</p><p>  <strong><em>A和R的问题在于如果样本不平衡，则参考意义很小</em></strong></p></li><li><p>准确率（Precision）：P=TP/(TP+FP)。通俗地讲，就是预测正确的正例数据占预测为正例数据的比例。</p><p>  <strong>针对判别结果 查准率</strong></p></li><li><p>召回率（Recall）：R=TP/(TP+FN)。通俗地讲，就是预测为正例的数据占实际为正例数据的比例。</p><p>  <strong>针对样本 查全率</strong></p></li><li>F1 = 2*P*R/(P+R)：既有P又有R</li><li><p>PRC， precision recall curve，与下面的ROC一样，先看是否光滑，光滑的话说明过拟合不大。越往右上越好。</p><p>  <strong><em>A和R的问题在于如果样本不平衡，则参考意义很小</em></strong></p></li></ul><ol start="2"><li>ROC AUC（receiver operating characteristic curve）</li></ol><p>TPR=TP/(TP+FN)=TP/actual positives 也就是Recall<br>FPR=FP/(FP+TN)=FP/actual negatives<br>ROC是由点（TPR,FPR）组成的曲线，AUC就是ROC的面积。AUC越大越好。</p><ul><li><p>画法：ROC曲线其实是多个混淆矩阵的结果组合，如果在上述模型中我们没有定好阈值，而是将模型预测结果从高到低排序，将每个概率值依次作为阈值，那么就有多个混淆矩阵。对于每个混淆矩阵，我们计算两个指标TPR（True positive rate）和FPR（False positive rate），TPR=TP/(TP+FN)=Recall，TPR就是召回率。FPR=FP/(FP+TN)，FPR即为实际为好人的人中，预测为坏人的人占比。我们以FPR为x轴，TPR为y轴画图，就得到了ROC曲线。</p><p><strong><em>也就是说，ROC曲线的阈值不是多次运行模型得到的，是同一个模型中通过对所得结果按照概率的排序得到了一个threshold</em></strong></p></li><li>原理：<ul><li>在画图描点过程中，每取一个样本，会以此样本被预测为1的概率作为阈值，概率排序在此之上的样本认为是1，之下的样本会被认为是0（解释了ROC为何与样本预测值的排序有关）。</li><li>AUC的值代表了：取真实label为1和为0的两个样本，其中真样本被预测为1的概率大于假样本被预测为1的概率这一事件的概率。假设有M个真样本，N个假样本，M个真样本的预测概率升序排序，其值从大到小分别为rank_1…rank_m,例如6个真4个假，假设真样本概率最高的排序为10，则比它低的假样本有10-6=4个，下一个排序为8，则比它低的假样本有8-(6-1)=3个，此概率为：（rank_1 - m + rank_2 - (m-1) + rank_m - 1）/ M*N</li><li>AUC=0.5时，任意一个样本被判断为真和判断为假的概率相等</li><li>e.g 当threshold取为0.5时：<br><a href="https://cdn-images-1.medium.com/max/1600/1*Uu-t4pOotRQFoyrfqEvIEg.png" target="_blank" rel="noopener">!ex0</a><br>此时AUC=1：<br><a href="https://cdn-images-1.medium.com/max/800/1*HmVIhSKznoW8tFsCLeQjRw.png" target="_blank" rel="noopener">!ex00</a><br>AUC=0.7:<br><a href="https://cdn-images-1.medium.com/max/1600/1*yF8hvKR9eNfqqej2JnVKzg.png" target="_blank" rel="noopener">!</a><br><a href="https://cdn-images-1.medium.com/max/800/1*-tPXUvvNIZDbqXP0qqYNuQ.png" target="_blank" rel="noopener">!</a><br>AUC=0.5:<br><a href="https://cdn-images-1.medium.com/max/1600/1*iLW_BrJZRI0UZSflfMrmZQ.png" target="_blank" rel="noopener">!</a><br><a href="https://cdn-images-1.medium.com/max/800/1*k_MPO2Q9bLNH9k4Wlk6v_g.png" target="_blank" rel="noopener">!</a><br>AUC=0:<br><a href="https://cdn-images-1.medium.com/max/1600/1*aUZ7H-Lw74KSucoLlj1pgw.png" target="_blank" rel="noopener">!</a><br><a href="https://cdn-images-1.medium.com/max/800/1*H7JGQbaa06BUab6tvGNZKg.png" target="_blank" rel="noopener">!</a></li></ul></li><li>一般来说，如果ROC是光滑的，那么基本可以判断没有太大的overfitting。</li><li><p>越往左上越好。</p><p>  所以使用ROC的话，它会先对预测到的结果进行排序，然后再根据排序的结果画图，所以他的曲线形状不会因为数据不平衡而发生大的改变。<br>  <strong>但是当数据极度不平衡时，ROC仍然有问题，下面的PRC表现更好。</strong></p></li></ul><p><a href="https://towardsdatascience.com/understanding-auc-roc-curve-68b2303cc9c5" target="_blank" rel="noopener">参考1</a><br><a href="https://www.zhihu.com/question/39840928" target="_blank" rel="noopener">参考2</a></p><ol><li>PRC， precision recall curve，与上面的ROC一样，先看是否光滑，光滑的话说明过拟合不大。越往右上越好。</li></ol>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;h3 id=&quot;属性命名&quot;&gt;&lt;a href=&quot;#属性命名&quot; class=&quot;headerlink&quot; title=&quot;属性命名&quot;&gt;&lt;/a&gt;属性命名&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;属性以双下划线开头，类内变量，实例无法访问。但可以通过某些方式访问，例如Student例中定义了__name变量
+        &lt;p&gt;类不平衡（class imbalance）现象：即负样本比正样本多很多（或者相反）&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;ACCURACY/RECALL/F1&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Accuracy：TP/(TP+TN) 即预测对的数据个数与总数据个数的比&lt;/p
       
     
     </summary>
@@ -320,7 +358,9 @@
       <category term="Learning" scheme="https://chenzk1.github.io/categories/Learning/"/>
     
     
-      <category term="python" scheme="https://chenzk1.github.io/tags/python/"/>
+      <category term="ML" scheme="https://chenzk1.github.io/tags/ML/"/>
+    
+      <category term="Metrics" scheme="https://chenzk1.github.io/tags/Metrics/"/>
     
   </entry>
   
@@ -351,6 +391,32 @@
   </entry>
   
   <entry>
+    <title>python面向对象</title>
+    <link href="https://chenzk1.github.io/2019/03/14/python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"/>
+    <id>https://chenzk1.github.io/2019/03/14/python面向对象/</id>
+    <published>2019-03-14T01:54:35.221Z</published>
+    <updated>2018-11-27T05:26:20.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="属性命名"><a href="#属性命名" class="headerlink" title="属性命名"></a>属性命名</h3><ul><li>属性以双下划线开头，类内变量，实例无法访问。但可以通过某些方式访问，例如Student例中定义了__name变量，可以用_Student_name来实现访问，但不建议，因为不同的解释器的转化方式不一样。</li><li>单下划线可以打开，但需要注意不能随意更改。</li><li>双下划线结尾与开头，特殊变量，类内可以访问，实例不知。</li><li><h3 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h3>开闭原则：定义一个类Animal及其多个之类Dog/Cat/…，当定义一个函数或操作时：</li></ul><ul><li>对扩展开放：允许新增Animal的子类；</li><li>对修改封闭：不需要修改依赖Animal类型的run_twice()等函数，仍然可以传入Dog/Cat等类。<br>事实上，不需要继承也可以实现多态————鸭子类型。</li></ul><h3 id="若干方法"><a href="#若干方法" class="headerlink" title="若干方法"></a>若干方法</h3><ul><li>isinstance(object,class) 判断是否属于某个类</li><li>dir() 列举出一个对象的属性和方法</li><li>getattr()、setattr()、hasattr()可以获得、添加、查询是否需要某个属性<ul><li>__slots__ 限制可以添加的属性，__slots__ = (‘name’, ‘age’) # 用tuple定义允许绑定的属性名称</li></ul></li><li>装饰器</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;属性命名&quot;&gt;&lt;a href=&quot;#属性命名&quot; class=&quot;headerlink&quot; title=&quot;属性命名&quot;&gt;&lt;/a&gt;属性命名&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;属性以双下划线开头，类内变量，实例无法访问。但可以通过某些方式访问，例如Student例中定义了__name变量
+      
+    
+    </summary>
+    
+      <category term="Learning" scheme="https://chenzk1.github.io/categories/Learning/"/>
+    
+    
+      <category term="python" scheme="https://chenzk1.github.io/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Kaggle相关</title>
     <link href="https://chenzk1.github.io/2019/03/14/kaggle%E7%9B%B8%E5%85%B3/"/>
     <id>https://chenzk1.github.io/2019/03/14/kaggle相关/</id>
@@ -374,6 +440,34 @@
       <category term="ML" scheme="https://chenzk1.github.io/tags/ML/"/>
     
       <category term="Kaggle" scheme="https://chenzk1.github.io/tags/Kaggle/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>LightGBM</title>
+    <link href="https://chenzk1.github.io/2019/03/14/LightGBM/"/>
+    <id>https://chenzk1.github.io/2019/03/14/LightGBM/</id>
+    <published>2019-03-14T01:54:35.205Z</published>
+    <updated>2019-01-18T11:38:54.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h1><ul><li>可以接受categorical features：LightGBM 可以直接使用 categorical features（分类特征）作为 input（输入）. 它不需要被转换成 one-hot coding（独热编码）, 并且它比 one-hot coding（独热编码）更快（约快上 8 倍）。注意: 在你构造 Dataset 之前, 你应该将分类特征转换为 int 类型的值.</li></ul><h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;特性&quot;&gt;&lt;a href=&quot;#特性&quot; class=&quot;headerlink&quot; title=&quot;特性&quot;&gt;&lt;/a&gt;特性&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;可以接受categorical features：LightGBM 可以直接使用 categorical features（分类
+      
+    
+    </summary>
+    
+      <category term="Learning" scheme="https://chenzk1.github.io/categories/Learning/"/>
+    
+    
+      <category term="ML" scheme="https://chenzk1.github.io/tags/ML/"/>
+    
+      <category term="DOC" scheme="https://chenzk1.github.io/tags/DOC/"/>
     
   </entry>
   
@@ -408,20 +502,22 @@
   </entry>
   
   <entry>
-    <title>LightGBM</title>
-    <link href="https://chenzk1.github.io/2019/03/14/LightGBM/"/>
-    <id>https://chenzk1.github.io/2019/03/14/LightGBM/</id>
-    <published>2019-03-14T01:54:35.205Z</published>
-    <updated>2019-01-18T11:38:54.000Z</updated>
+    <title>ID3 C4.5 CART</title>
+    <link href="https://chenzk1.github.io/2019/03/14/Decision%20Tree/"/>
+    <id>https://chenzk1.github.io/2019/03/14/Decision Tree/</id>
+    <published>2019-03-14T01:54:35.189Z</published>
+    <updated>2019-03-13T02:21:22.000Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h1><ul><li>可以接受categorical features：LightGBM 可以直接使用 categorical features（分类特征）作为 input（输入）. 它不需要被转换成 one-hot coding（独热编码）, 并且它比 one-hot coding（独热编码）更快（约快上 8 倍）。注意: 在你构造 Dataset 之前, 你应该将分类特征转换为 int 类型的值.</li></ul><h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1>]]></content>
+    <content type="html"><![CDATA[<ol><li><p>决策树<br><strong><em>问题：如何挑选用于分裂节点的特征–&gt;ID3 C4.5 …(一个标准：使分裂出来的节点尽可能纯，即一个分支尽可能属于同类)</em></strong></p></li><li><p>ID3<br><em><strong>信息增益</strong></em></p><p> 信息增益 = 信息熵 - 条件熵</p><ul><li>信息增益：针对每个 <em><strong>属性</strong></em></li><li>信息熵：整个样本空间的不确定度。其中Pk一定是label取值的概率。</li><li><p>条件熵：给定某个属性，求其信息熵</p><p>–&gt; 问题：某属性所包括的类别越多，信息增益越大。极限：每个类别仅有1个实例（label数量为1），log p = log1 = 0， 所以最终条件熵=0。或：属性类别越多，条件熵越小，其纯度越高。</p><p>–&gt; 信息增益准则其实是对可取值数目较多的属性有所偏好！</p><p>–&gt; 泛化能力不强</p></li></ul></li><li><p>C4.5 <em><strong>信息增益率+信息增益</strong></em></p><p> 属性a的信息增益率 = 属性a的信息增益 / a的某个固有统计量IV(a)</p><p> <img src="https://pic4.zhimg.com/80/v2-812104c0291d20935e910919a9fa5c27_hd.png" alt="IV(a)公式"></p><p> V为a的取值数目。<br> （实际上是属性a的信息熵）</p><ul><li>直接使用信息增益率：偏好取值数目小的属性。</li><li>先选择高于平均水平信息增益的属性，再选择最高信息增益率的属性。</li></ul></li><li><p>CART <em><strong>基尼系数+MAE/MSE</strong></em></p><p>与ID3、C4.5的不同：形成二叉树，因此 –&gt; 既要确定要分割的属性，也要确定要分割的值</p><ul><li>回归树：MAE/MSE<ul><li>example(MSE)：<blockquote><ol><li>考虑数据集 D 上的所有特征 j，遍历每一个特征下所有可能的取值或者切分点 s，将数据集 D 划分成两部分 D1 和 D2</li><li>分别计算上述两个子集的平方误差和，选择最小的平方误差对应的特征与分割点，生成两个子节点。</li><li>对上述两个子节点递归调用步骤1 2,直到满足停止条件。</li></ol></blockquote></li></ul></li><li><p>分类树：(Gini)</p><p><img src="https://img-blog.csdn.net/20150109184544578?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvQW5kcm9pZGx1c2hhbmdkZXJlbg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="某属性A的基尼系数"><br>基尼系数越小，纯度越高</p></li></ul><blockquote><ol><li>对每个特征 A，对它的所有可能取值 a，将数据集分为 A＝a，和 A!＝a 两个子集，计算集合 D 的基尼指数：<br>Gini(A) = D1/D <em> Gini(D1) + D2/D </em> Gini(D2)</li><li>遍历所有的特征 A，计算其所有可能取值 a 的基尼指数，选择 D 的基尼指数最小值对应的特征及切分点作为最优的划分，将数据分为两个子集。</li><li>对上述两个子节点递归调用步骤1 2, 直到满足停止条件。</li><li>生成 CART 决策树。</li></ol></blockquote><pre><code>停止条件有：1. 节点中的样本个数小于预定阈值;2. 样本集的Gini系数小于预定阈值（此时样本基本属于同一类）;3. 没有更多特征。</code></pre><ul><li>剪枝</li><li>例子：<a href="https://www.jianshu.com/p/b90a9ce05b28" target="_blank" rel="noopener">example</a></li></ul></li><li><p>控制决策树过拟合的方法</p><ul><li>剪枝</li><li>控制终止条件，避免树形结构过细</li><li>构建随机森林</li></ul></li></ol>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;h1 id=&quot;特性&quot;&gt;&lt;a href=&quot;#特性&quot; class=&quot;headerlink&quot; title=&quot;特性&quot;&gt;&lt;/a&gt;特性&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;可以接受categorical features：LightGBM 可以直接使用 categorical features（分类
+        &lt;ol&gt;
+&lt;li&gt;&lt;p&gt;决策树&lt;br&gt;&lt;strong&gt;&lt;em&gt;问题：如何挑选用于分裂节点的特征–&amp;gt;ID3 C4.5 …(一个标准：使分裂出来的节点尽可能纯，即一个分支尽可能属于同类)&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;ID3&lt;br&gt;&lt;em&gt;&lt;st
       
     
     </summary>
@@ -431,7 +527,7 @@
     
       <category term="ML" scheme="https://chenzk1.github.io/tags/ML/"/>
     
-      <category term="DOC" scheme="https://chenzk1.github.io/tags/DOC/"/>
+      <category term="Decision Tree" scheme="https://chenzk1.github.io/tags/Decision-Tree/"/>
     
   </entry>
   
@@ -463,36 +559,6 @@
   </entry>
   
   <entry>
-    <title>ID3 C4.5 CART</title>
-    <link href="https://chenzk1.github.io/2019/03/14/Decision%20Tree/"/>
-    <id>https://chenzk1.github.io/2019/03/14/Decision Tree/</id>
-    <published>2019-03-14T01:54:35.189Z</published>
-    <updated>2019-03-13T02:21:22.000Z</updated>
-    
-    <content type="html"><![CDATA[<ol><li><p>决策树<br><strong><em>问题：如何挑选用于分裂节点的特征–&gt;ID3 C4.5 …(一个标准：使分裂出来的节点尽可能纯，即一个分支尽可能属于同类)</em></strong></p></li><li><p>ID3<br><em><strong>信息增益</strong></em></p><p> 信息增益 = 信息熵 - 条件熵</p><ul><li>信息增益：针对每个 <em><strong>属性</strong></em></li><li>信息熵：整个样本空间的不确定度。其中Pk一定是label取值的概率。</li><li><p>条件熵：给定某个属性，求其信息熵</p><p>–&gt; 问题：某属性所包括的类别越多，信息增益越大。极限：每个类别仅有1个实例（label数量为1），log p = log1 = 0， 所以最终条件熵=0。或：属性类别越多，条件熵越小，其纯度越高。</p><p>–&gt; 信息增益准则其实是对可取值数目较多的属性有所偏好！</p><p>–&gt; 泛化能力不强</p></li></ul></li><li><p>C4.5 <em><strong>信息增益率+信息增益</strong></em></p><p> 属性a的信息增益率 = 属性a的信息增益 / a的某个固有统计量IV(a)</p><p> <img src="https://pic4.zhimg.com/80/v2-812104c0291d20935e910919a9fa5c27_hd.png" alt="IV(a)公式"></p><p> V为a的取值数目。<br> （实际上是属性a的信息熵）</p><ul><li>直接使用信息增益率：偏好取值数目小的属性。</li><li>先选择高于平均水平信息增益的属性，再选择最高信息增益率的属性。</li></ul></li><li><p>CART <em><strong>基尼系数+MAE/MSE</strong></em></p><p>与ID3、C4.5的不同：形成二叉树，因此 –&gt; 既要确定要分割的属性，也要确定要分割的值</p><ul><li>回归树：MAE/MSE<ul><li>example(MSE)：<blockquote><ol><li>考虑数据集 D 上的所有特征 j，遍历每一个特征下所有可能的取值或者切分点 s，将数据集 D 划分成两部分 D1 和 D2</li><li>分别计算上述两个子集的平方误差和，选择最小的平方误差对应的特征与分割点，生成两个子节点。</li><li>对上述两个子节点递归调用步骤1 2,直到满足停止条件。</li></ol></blockquote></li></ul></li><li><p>分类树：(Gini)</p><p><img src="https://img-blog.csdn.net/20150109184544578?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvQW5kcm9pZGx1c2hhbmdkZXJlbg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="某属性A的基尼系数"><br>基尼系数越小，纯度越高</p></li></ul><blockquote><ol><li>对每个特征 A，对它的所有可能取值 a，将数据集分为 A＝a，和 A!＝a 两个子集，计算集合 D 的基尼指数：<br>Gini(A) = D1/D <em> Gini(D1) + D2/D </em> Gini(D2)</li><li>遍历所有的特征 A，计算其所有可能取值 a 的基尼指数，选择 D 的基尼指数最小值对应的特征及切分点作为最优的划分，将数据分为两个子集。</li><li>对上述两个子节点递归调用步骤1 2, 直到满足停止条件。</li><li>生成 CART 决策树。</li></ol></blockquote><pre><code>停止条件有：1. 节点中的样本个数小于预定阈值;2. 样本集的Gini系数小于预定阈值（此时样本基本属于同一类）;3. 没有更多特征。</code></pre><ul><li>剪枝</li><li>例子：<a href="https://www.jianshu.com/p/b90a9ce05b28" target="_blank" rel="noopener">example</a></li></ul></li><li><p>控制决策树过拟合的方法</p><ul><li>剪枝</li><li>控制终止条件，避免树形结构过细</li><li>构建随机森林</li></ul></li></ol>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;ol&gt;
-&lt;li&gt;&lt;p&gt;决策树&lt;br&gt;&lt;strong&gt;&lt;em&gt;问题：如何挑选用于分裂节点的特征–&amp;gt;ID3 C4.5 …(一个标准：使分裂出来的节点尽可能纯，即一个分支尽可能属于同类)&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;ID3&lt;br&gt;&lt;em&gt;&lt;st
-      
-    
-    </summary>
-    
-      <category term="Learning" scheme="https://chenzk1.github.io/categories/Learning/"/>
-    
-    
-      <category term="ML" scheme="https://chenzk1.github.io/tags/ML/"/>
-    
-      <category term="Decision Tree" scheme="https://chenzk1.github.io/tags/Decision-Tree/"/>
-    
-  </entry>
-  
-  <entry>
     <title>DS Competition_Coursera#1</title>
     <link href="https://chenzk1.github.io/2019/03/14/D%20S%20competition_Coursera#1/"/>
     <id>https://chenzk1.github.io/2019/03/14/D S competition_Coursera#1/</id>
@@ -514,59 +580,6 @@
     
     
       <category term="ML" scheme="https://chenzk1.github.io/tags/ML/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>DBSCAN以及sklearn实现DBSCAN</title>
-    <link href="https://chenzk1.github.io/2019/03/14/DBSCAN/"/>
-    <id>https://chenzk1.github.io/2019/03/14/DBSCAN/</id>
-    <published>2019-03-14T01:54:35.174Z</published>
-    <updated>2018-11-29T02:49:00.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://www.cnblogs.com/pinard/p/6208966.html" target="_blank" rel="noopener">原文1</a><br><a href="https://www.cnblogs.com/pinard/p/6217852.html" target="_blank" rel="noopener">原文2</a><br>DBSCAN(Density-Based Spatial Clustering of Applications with Noise，具有噪声的基于密度的聚类方法)是一种很典型的<strong>密度聚类算法</strong>，和K-Means，BIRCH这些一般只适用于凸样本集的聚类相比，DBSCAN<strong>既可以适用于凸样本集，也可以适用于非凸样本集</strong>。</p><h1 id="密度聚类"><a href="#密度聚类" class="headerlink" title="密度聚类"></a>密度聚类</h1><p>其原理为：同一类别的样本，其样本分布一定是紧密的；可以将各组紧密相连的样本划分为不同的类别来得到聚类类别结果。</p><h1 id="DBSCAN"><a href="#DBSCAN" class="headerlink" title="DBSCAN"></a>DBSCAN</h1><h2 id="关键概念"><a href="#关键概念" class="headerlink" title="关键概念"></a>关键概念</h2><p>参数(ϵ, MinPts)描述领域的样本分布紧密程度，其中ϵ描述了某一样本的领域<strong>距离阈值</strong>，MinPts描述某一样本的距离为ϵ的领域中样本<strong>个数的阈值</strong>。</p><p>假设样本集是D=(x1,x2,…,xm),则DBSCAN具体的密度描述定义如下：</p><ol><li>ϵ-邻域：对于xj∈D，其ϵ-邻域包含样本集D中与xj的距离不大于ϵ的子样本集，即Nϵ(xj)={xi∈D|distance(xi,xj)≤ϵ}, 这个子样本集的个数记为|Nϵ(xj)|</li><li>核心对象：对于任一样本xj∈D，如果其ϵ-邻域对应的Nϵ(xj)至少包含MinPts个样本，即如果|Nϵ(xj)|≥MinPts，则xj是核心对象。</li><li>密度直达：如果xi位于xj的ϵ-邻域中，且xj是核心对象，则称xi由xj密度直达。</li><li>密度可达：对于xi和xj,如果存在样本样本序列p1,p2,…,pT,满足p1=xi,pT=xj, 且pt+1由pt密度直达，则称xj由xi密度可达。也就是说，密度可达满足传递性。此时序列中的传递样本p1,p2,…,pT−1均为核心对象，因为只有核心对象才能使其他样本密度直达。</li><li>密度相连：对于xi和xj,如果存在核心对象样本xk，使xi和xj均由xk密度可达，则称xi和xj密度相连。注意密度相连关系是满足对称性的。</li></ol><p>图中MinPts = 5。红点为核心对象。<br><img src="https://images2015.cnblogs.com/blog/1042406/201612/1042406-20161222112847323-1346197243.png" alt="示意图"></p><h2 id="聚类思想"><a href="#聚类思想" class="headerlink" title="聚类思想"></a>聚类思想</h2><p>由密度可达关系导出的最大密度相连的样本集合，即为最终聚类的一个类别。</p><p>方法：任意选择一个没有类别的核心对象作为种子，然后找到该核心对象密度可达的样本集合，为一个聚类。接着选择另一个没有类比的核心对象…直到所有核心对象都有类别。</p><p>问题：</p><ol><li>outlier.不在任何一个核心对象周围的点定义为异常样本点或噪声点，不考虑。</li><li>距离。少量样本而言，搜索周围样本一般用最近邻的方法；大量样本，可以用KD树，球树等搜索最近邻。</li><li>若某样本到两个核心对象的距离都小于ϵ，但这两个核心对象不可达，此时采取先来后到原则，标记其为先聚类的cluster类别。</li></ol><h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><p>输入：样本集D=(x1,x2,…,xm)，邻域参数(ϵ,MinPts), 样本距离度量方式</p><p>输出： 簇划分C.　</p><ol><li>初始化核心对象集合Ω=∅, 初始化聚类簇数k=0，初始化未访问样本集合Γ = D,  簇划分C = ∅</li><li>对于j=1,2,…m, 按下面的步骤找出所有的核心对象：<ul><li>通过距离度量方式，找到样本xj的ϵ-邻域子样本集Nϵ(xj)</li><li>如果子样本集样本个数满足|Nϵ(xj)|≥MinPts， 将样本xj加入核心对象样本集合：Ω=Ω∪{xj}</li></ul></li><li>如果核心对象集合Ω=∅，则算法结束，否则转入步骤4.</li><li>在核心对象集合Ω中，随机选择一个核心对象o，初始化当前簇核心对象队列Ωcur={o}, 初始化类别序号k=k+1，初始化当前簇样本集合Ck={o}, 更新未访问样本集合Γ=Γ−{o}</li><li>如果当前簇核心对象队列Ωcur=∅，则当前聚类簇Ck生成完毕, 更新簇划分C={C1,C2,…,Ck}, 更新核心对象集合Ω=Ω−Ck， 转入步骤3。</li><li>在当前簇核心对象队列Ωcur中取出一个核心对象o′,通过邻域距离阈值ϵ找出所有的ϵ-邻域子样本集Nϵ(o′)，令Δ=Nϵ(o′)∩Γ, 更新当前簇样本集合Ck=Ck∪Δ, 更新未访问样本集合Γ=Γ−Δ,  更新Ωcur=Ωcur∪(Δ∩Ω)−o′，转入步骤5.</li></ol><p>输出结果为： 簇划分C={C1,C2,…,Ck}</p><h1 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h1><p>对比图：<img src="https://img-blog.csdn.net/20170419143546349?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2luYXRfMjY5MTczODM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="与其他算法的对比图"><br>一般用于数据集稠密时的情况，或数据集是非凸的。</p><p>DBSCAN的主要优点有：</p><ol><li>可以对任意形状的稠密数据集进行聚类，相对的，K-Means之类的聚类算法一般只适用于凸数据集。</li><li>可以在聚类的同时发现异常点，对数据集中的异常点不敏感。</li><li>聚类结果没有偏倚，相对的，K-Means之类的聚类算法初始值对聚类结果有很大影响。</li></ol><p>DBSCAN的主要缺点有：</p><ol><li>如果样本集的密度不均匀、聚类间距差相差很大时，聚类质量较差，这时用DBSCAN聚类一般不适合。</li><li>如果样本集较大时，聚类收敛时间较长，此时可以对搜索最近邻时建立的KD树或者球树进行规模限制来改进。</li><li>调参相对于传统的K-Means之类的聚类算法稍复杂，主要需要对距离阈值ϵ，邻域样本数阈值MinPts联合调参，不同的参数组合对最后的聚类效果有较大影响。</li></ol><h1 id="sklearn-cluster-DBSCAN"><a href="#sklearn-cluster-DBSCAN" class="headerlink" title="sklearn.cluster.DBSCAN"></a>sklearn.cluster.DBSCAN</h1><h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><p>按其算法，包括DBSCAN本身的参数，以及求取最近邻时的参数。</p><ol><li>eps：DBSCAN算法参数，ϵ-邻域的距离阈值。默认值是0.5.eps过大，则更多的点会落在核心对象的ϵ-邻域，此时我们的类别数可能会减少， 本来不应该是一类的样本也会被划为一类。反之则类别数可能会增大，本来是一类的样本却被划分开。</li><li>min_samples：DBSCAN算法参数，上文的MinPts。默认值是5.通常和eps一起调参。在eps一定的情况下，min_samples过大，则核心对象会过少，此时簇内部分本来是一类的样本可能会被标为噪音点，类别数也会变多。反之min_samples过小的话，则会产生大量的核心对象，可能会导致类别数过少。</li><li>metric：最近邻距离度量参数。可以使用的距离度量较多，一般来说DBSCAN使用默认的欧式距离（即p=2的闵可夫斯基距离）就可以满足我们的需求。可以使用的距离度量参数有：<ul><li>欧式距离 “euclidean”</li><li>曼哈顿距离 “manhattan”</li><li>切比雪夫距离“chebyshev”</li><li>闵可夫斯基距离 “minkowski”</li><li>带权重闵可夫斯基距离 “wminkowski”</li><li>标准化欧式距离 “seuclidean”</li><li>马氏距离“mahalanobis”</li></ul></li><li>algorithm：最近邻搜索算法参数，算法一共有三种，第一种是蛮力实现，第二种是KD树实现，第三种是球树实现。对于这个参数，一共有4种可选输入，‘brute’对应第一种蛮力实现，‘kd_tree’对应第二种KD树实现，‘ball_tree’对应第三种的球树实现，‘auto’则会在上面三种算法中做权衡，选择一个拟合最好的最优算法。需要注意的是，如果输入样本特征是稀疏的时候，无论我们选择哪种算法，最后scikit-learn都会去用蛮力实现‘brute’。个人的经验，一般情况使用默认的 ‘auto’就够了。 如果数据量很大或者特征也很多，用”auto”建树时间可能会很长，效率不高，建议选择KD树实现‘kd_tree’，此时如果发现‘kd_tree’速度比较慢或者已经知道样本分布不是很均匀时，可以尝试用‘ball_tree’。而如果输入样本是稀疏的，无论你选择哪个算法最后实际运行的都是‘brute’。</li><li>leaf_size：最近邻搜索算法参数，为使用KD树或者球树时， 停止建子树的叶子节点数量的阈值。这个值越小，则生成的KD树或者球树就越大，层数越深，建树时间越长，反之，则生成的KD树或者球树会小，层数较浅，建树时间较短。默认是30. 因为这个值一般只影响算法的运行速度和使用内存大小，因此一般情况下可以不管它。</li><li>p: 最近邻距离度量参数。只用于闵可夫斯基距离和带权重闵可夫斯基距离中p值的选择，p=1为曼哈顿距离， p=2为欧式距离。如果使用默认的欧式距离不需要管这个参数。</li><li>n_jobs ：使用CPU格式，-1代表全开。</li></ol><p>输出：</p><ul><li>core_sample_indices_:核心样本指数。（此参数在代码中有详细的解释）</li><li>labels_:数据集中每个点的集合标签给,噪声点标签为-1。</li><li>components_ ：核心样本的副本</li></ul><p>主要是<strong>eps和min_samples</strong>的调参。</p><h2 id="代码实例"><a href="#代码实例" class="headerlink" title="代码实例"></a>代码实例</h2><p>原文2中有。<br><a href="https://www.cnblogs.com/pinard/p/6217852.html" target="_blank" rel="noopener">原文2</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;&lt;a href=&quot;https://www.cnblogs.com/pinard/p/6208966.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;原文1&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://www.cnblogs.com/pinard
-      
-    
-    </summary>
-    
-      <category term="Learning" scheme="https://chenzk1.github.io/categories/Learning/"/>
-    
-    
-      <category term="ML" scheme="https://chenzk1.github.io/tags/ML/"/>
-    
-      <category term="Clustering" scheme="https://chenzk1.github.io/tags/Clustering/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CNN</title>
-    <link href="https://chenzk1.github.io/2019/03/14/CNN/"/>
-    <id>https://chenzk1.github.io/2019/03/14/CNN/</id>
-    <published>2019-03-14T01:54:35.158Z</published>
-    <updated>2018-09-27T10:39:02.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://zhuanlan.zhihu.com/p/27642620" target="_blank" rel="noopener">原贴</a></p><h1 id="卷积神经网络"><a href="#卷积神经网络" class="headerlink" title="卷积神经网络"></a>卷积神经网络</h1><p>卷积神经网络大致就是covolutional layer, pooling layer, ReLu layer, fully-connected layer的组合，例如下图所示的结构。<br><img src="https://pic4.zhimg.com/80/v2-cf87890eb8f2358f23a1ac78eb764257_hd.png" alt="ex-1"></p><h3 id="图片的识别"><a href="#图片的识别" class="headerlink" title="图片的识别"></a>图片的识别</h3><ul><li>生物所看到的景象并非世界的原貌，而是长期进化出来的适合自己生存环境的一种感知方式</li><li>画面识别实际上是寻找/学习动物的视觉关联形式（即将能量与视觉关联在一起的方式）</li><li>画面的识别取决于：<ul><li>图片本身</li><li>被如何观察</li></ul></li><li>图像不变性：<ul><li>rotation</li><li>viewpoint</li><li>size</li><li>illumination</li><li>…<h3 id="前馈的不足"><a href="#前馈的不足" class="headerlink" title="前馈的不足"></a>前馈的不足</h3></li></ul></li><li>当出现上述variance时，前馈无法做到适应，即前馈只能对同样的内容进行识别，若出现其他情况时，只能增加样本重新训练</li><li>解决方法可以是让图片中不同的位置有相同的权重——<strong>共享权重</strong><h3 id="CNN"><a href="#CNN" class="headerlink" title="CNN"></a>CNN</h3><h4 id="局部连接"><a href="#局部连接" class="headerlink" title="局部连接"></a>局部连接</h4></li><li><strong>空间共享</strong>（引入的先验知识）</li><li><strong>局部连接</strong>（得到的下一层节点与该层并非全连接）</li><li>depth上是<strong>全连接</strong>的<blockquote><p>每个filter会在width维, height维上，以局部连接和空间共享，并贯串整个depth维的方式得到一个Feature Map。</p></blockquote></li></ul><h5 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h5><p><img src="https://pic3.zhimg.com/80/v2-23db15ec3f783bbb5cf811711e46dbba_hd.png" alt="cnn_example"></p><ul><li>在输入depth为1时：被filter size为2x2所圈中的4个输入节点连接到1个输出节点上。</li><li>在输入depth为3时：被filter size为2x2，但是贯串3个channels后，所圈中的12个输入节点连接到1个输出节点上。</li><li>在输入depth为n时：2x2xn个输入节点连接到1个输出节点上。<blockquote><p>三个channels的权重并不共享。 即当深度变为3后，权重也跟着扩增到了三组。</p></blockquote></li></ul><h5 id="zero-padding"><a href="#zero-padding" class="headerlink" title="zero padding"></a>zero padding</h5><p>有时为了保证feature map与输入层保持同样大小，会添加zero padding，一般3*3的卷积核padding为1，5*5为2</p><p>Feature Map的尺寸等于(input_size + 2 *padding_size − filter_size)/stride+1</p><h4 id="形状、概念抓取"><a href="#形状、概念抓取" class="headerlink" title="形状、概念抓取"></a>形状、概念抓取</h4><ul><li>卷积层可以对基础形状（包括边缘、棱角、模糊等）、对比度、颜色等概念进行抓取</li><li>可以通过多层卷积实现对一个较大区域的抓取</li><li>抓取的特征取决于卷积核的权重，而此权重由网络根据数据学习得到，即CNN会自己学习以什么样的方式观察图片</li><li>可以有多个filter，从而可以学习到多种特征<ul><li>此时卷积层的输出depth也就不是1了</li><li>卷积层的输入输出均为长方体：其中depth与filters个数相同<br><img src="https://pic1.zhimg.com/80/v2-a9983c3cee935b68c73965bc1abe268c_hd.png" alt="ex4"><br><img src="https://pic1.zhimg.com/80/v2-d11e1d2f2c41b6df713573f8155bc324_hd.png" alt="ex2"><h4 id="非线性（以ReLu为例）"><a href="#非线性（以ReLu为例）" class="headerlink" title="非线性（以ReLu为例）"></a>非线性（以ReLu为例）</h4>增强模型的非线性拟合能力<br><img src="https://pic3.zhimg.com/80/v2-54a469b2873542e75abf2bc5d8fcaa1a_hd.png" alt="ex3"><h4 id="pooling"><a href="#pooling" class="headerlink" title="pooling"></a>pooling</h4><em>比如以步长为2，2x2的 filter pool</em><br><img src="https://pic4.zhimg.com/80/v2-cd717414dcf32dac4df73c00f1e7c6c3_hd.jpg" alt="ex5"></li></ul></li><li>pooling的主要功能是downsamping，有助减少conv过程中的冗余<h4 id="全连接"><a href="#全连接" class="headerlink" title="全连接"></a>全连接</h4></li><li>当抓取到足以用来识别图片的特征后，接下来的就是如何进行分类。 全连接层（也叫前馈层）就可以用来将最后的输出映射到线性可分的空间。 通常卷积网络的最后会将末端得到的长方体平摊(flatten)成一个长长的向量，并送入全连接层配合输出层进行分类。<h4 id="一些变体中用到的技巧"><a href="#一些变体中用到的技巧" class="headerlink" title="一些变体中用到的技巧"></a>一些变体中用到的技巧</h4></li><li>1x1卷积核：选择不同的个数，用来降维或升维</li><li>残差<blockquote><p>所有的这些技巧都是对各种不变性的满足</p></blockquote></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/27642620&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;原贴&lt;/a&gt;&lt;/p&gt;
-&lt;h1 id=&quot;卷积神经网络&quot;&gt;&lt;a href=&quot;#卷积神经网络&quot; class=&quot;header
-      
-    
-    </summary>
-    
-      <category term="Learning" scheme="https://chenzk1.github.io/categories/Learning/"/>
-    
-    
-      <category term="CNN" scheme="https://chenzk1.github.io/tags/CNN/"/>
     
   </entry>
   

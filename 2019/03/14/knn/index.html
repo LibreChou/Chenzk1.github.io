@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="ML,CS231n,kNN,SVM,imgClassification,">
+  <meta name="keywords" content="ML,KNN,">
 
 
 
@@ -96,21 +96,18 @@
 
 
 
-<meta name="description" content="kNNs 没有参数需要训练 只计算与训练样本之间的距离  Linear Classfication 可以将其理解为模板匹配，即最终的权重矩阵W的每一行为所学习得到的类别的模板，将其与test img做点积即做一次模板匹配。每个点积的值即为该分类所得的分数。     将权重矩阵的每一行重组后可以得到其信息，可以看出类似于某一类的模板：  可以看出当同一个类别有很多图片时，得到的模板是这些图片的平均。">
-<meta name="keywords" content="ML,CS231n,kNN,SVM,imgClassification">
+<meta name="description" content="算法步骤  给定已经分好类的训练集 对给定的测试数据，计算其与训练集中每一个样本的距离 取距离最小的前K个，按多数表决的方法决定属于哪一类   注意事项  数据要fair 可以通过对距离近的样本点加更大的权重优化 计算量较大">
+<meta name="keywords" content="ML,KNN">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CS231n-imgClassification">
-<meta property="og:url" content="https://chenzk1.github.io/2019/03/14/CS231n-img_classification/index.html">
+<meta property="og:title" content="KNN">
+<meta property="og:url" content="https://chenzk1.github.io/2019/03/14/knn/index.html">
 <meta property="og:site_name" content="Hero&#39;s notebooks">
-<meta property="og:description" content="kNNs 没有参数需要训练 只计算与训练样本之间的距离  Linear Classfication 可以将其理解为模板匹配，即最终的权重矩阵W的每一行为所学习得到的类别的模板，将其与test img做点积即做一次模板匹配。每个点积的值即为该分类所得的分数。     将权重矩阵的每一行重组后可以得到其信息，可以看出类似于某一类的模板：  可以看出当同一个类别有很多图片时，得到的模板是这些图片的平均。">
+<meta property="og:description" content="算法步骤  给定已经分好类的训练集 对给定的测试数据，计算其与训练集中每一个样本的距离 取距离最小的前K个，按多数表决的方法决定属于哪一类   注意事项  数据要fair 可以通过对距离近的样本点加更大的权重优化 计算量较大">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://cs231n.github.io/assets/imagemap.jpg">
-<meta property="og:image" content="http://cs231n.github.io/assets/templates.jpg">
-<meta property="og:updated_time" content="2018-09-29T02:23:18.000Z">
+<meta property="og:updated_time" content="2019-03-14T07:07:55.198Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CS231n-imgClassification">
-<meta name="twitter:description" content="kNNs 没有参数需要训练 只计算与训练样本之间的距离  Linear Classfication 可以将其理解为模板匹配，即最终的权重矩阵W的每一行为所学习得到的类别的模板，将其与test img做点积即做一次模板匹配。每个点积的值即为该分类所得的分数。     将权重矩阵的每一行重组后可以得到其信息，可以看出类似于某一类的模板：  可以看出当同一个类别有很多图片时，得到的模板是这些图片的平均。">
-<meta name="twitter:image" content="http://cs231n.github.io/assets/imagemap.jpg">
+<meta name="twitter:title" content="KNN">
+<meta name="twitter:description" content="算法步骤  给定已经分好类的训练集 对给定的测试数据，计算其与训练集中每一个样本的距离 取距离最小的前K个，按多数表决的方法决定属于哪一类   注意事项  数据要fair 可以通过对距离近的样本点加更大的权重优化 计算量较大">
 
 
 
@@ -139,13 +136,13 @@
 
 
 
-  <link rel="canonical" href="https://chenzk1.github.io/2019/03/14/CS231n-img_classification/">
+  <link rel="canonical" href="https://chenzk1.github.io/2019/03/14/knn/">
 
 
 
 
 
-  <title>CS231n-imgClassification | Hero's notebooks</title>
+  <title>KNN | Hero's notebooks</title>
   
 
 
@@ -310,7 +307,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/14/CS231n-img_classification/">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/14/knn/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Hero">
@@ -327,7 +324,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">CS231n-imgClassification</h1>
+          <h1 class="post-title" itemprop="name headline">KNN</h1>
         
 
         <div class="post-meta">
@@ -339,7 +336,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-14T09:54:35+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-14T15:03:48+08:00">
                 2019-03-14
               </time>
             
@@ -399,18 +396,22 @@
       
 
       
-        <h1 id="kNNs"><a href="#kNNs" class="headerlink" title="kNNs"></a>kNNs</h1><ul>
-<li>没有参数需要训练</li>
-<li>只计算与训练样本之间的距离</li>
+        <ol>
+<li><p>算法步骤</p>
+<ul>
+<li>给定已经分好类的训练集</li>
+<li>对给定的测试数据，计算其与训练集中每一个样本的距离</li>
+<li>取距离最小的前K个，按多数表决的方法决定属于哪一类</li>
 </ul>
-<h1 id="Linear-Classfication"><a href="#Linear-Classfication" class="headerlink" title="Linear Classfication"></a>Linear Classfication</h1><ul>
-<li>可以将其理解为<strong>模板匹配</strong>，即最终的权重矩阵W的每一行为所学习得到的类别的模板，将其与test img做点积即做一次模板匹配。每个点积的值即为该分类所得的分数。</li>
+</li>
+<li><p>注意事项</p>
+<ul>
+<li>数据要fair</li>
+<li>可以通过对距离近的样本点加更大的权重优化</li>
+<li>计算量较大</li>
 </ul>
-<p><img src="http://cs231n.github.io/assets/imagemap.jpg" alt="ex0"></p>
-<p>  将权重矩阵的每一行重组后可以得到其信息，可以看出类似于某一类的模板：<br><img src="http://cs231n.github.io/assets/templates.jpg" alt="ex1"></p>
-<blockquote>
-<p>可以看出当同一个类别有很多图片时，得到的模板是这些图片的平均。也暴露了它不适合用于多变性复杂的分类。</p>
-</blockquote>
+</li>
+</ol>
 
       
     </div>
@@ -430,13 +431,7 @@
           
             <a href="/tags/ML/" rel="tag"># ML</a>
           
-            <a href="/tags/CS231n/" rel="tag"># CS231n</a>
-          
-            <a href="/tags/kNN/" rel="tag"># kNN</a>
-          
-            <a href="/tags/SVM/" rel="tag"># SVM</a>
-          
-            <a href="/tags/imgClassification/" rel="tag"># imgClassification</a>
+            <a href="/tags/KNN/" rel="tag"># KNN</a>
           
         </div>
       
@@ -449,14 +444,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/03/14/自然辩证法#6/" rel="next" title="自然辩证法#6">
+                <i class="fa fa-chevron-left"></i> 自然辩证法#6
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/03/14/CNN/" rel="prev" title="CNN">
-                CNN <i class="fa fa-chevron-right"></i>
+              <a href="/2019/03/18/Apriori 关联规则挖掘/" rel="prev" title="Apriori 关联规则挖掘">
+                Apriori 关联规则挖掘 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -509,17 +508,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Hero">
           <p class="site-author-name" itemprop="name">Hero</p>
@@ -586,22 +576,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#kNNs"><span class="nav-number">1.</span> <span class="nav-text">kNNs</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linear-Classfication"><span class="nav-number">2.</span> <span class="nav-text">Linear Classfication</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="ML,CS231n,kNN,SVM,imgClassification,">
+  <meta name="keywords" content="ML,">
 
 
 
@@ -96,21 +96,18 @@
 
 
 
-<meta name="description" content="kNNs 没有参数需要训练 只计算与训练样本之间的距离  Linear Classfication 可以将其理解为模板匹配，即最终的权重矩阵W的每一行为所学习得到的类别的模板，将其与test img做点积即做一次模板匹配。每个点积的值即为该分类所得的分数。     将权重矩阵的每一行重组后可以得到其信息，可以看出类似于某一类的模板：  可以看出当同一个类别有很多图片时，得到的模板是这些图片的平均。">
-<meta name="keywords" content="ML,CS231n,kNN,SVM,imgClassification">
+<meta name="description" content="问题引入  经常被同时购买的商品可以摆近一点，刺激购买欲望 通过附属产品优惠的方式，刺激主产品的销售   总体思想 逐层搜索迭代，通过K-1项集迭代出K项集。Aprior是用于压缩搜索空间。  概念  支持度：关联规则A-&amp;gt;B的支持度support=P(AB)，同时发生的概率 置信度：confidence=P(A|B) k项集：事件A中包含k个元素，成为k项集；若事件A满足最小支持度阈值，">
+<meta name="keywords" content="ML">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CS231n-imgClassification">
-<meta property="og:url" content="https://chenzk1.github.io/2019/03/14/CS231n-img_classification/index.html">
+<meta property="og:title" content="Apriori 关联规则挖掘">
+<meta property="og:url" content="https://chenzk1.github.io/2019/03/18/Apriori 关联规则挖掘/index.html">
 <meta property="og:site_name" content="Hero&#39;s notebooks">
-<meta property="og:description" content="kNNs 没有参数需要训练 只计算与训练样本之间的距离  Linear Classfication 可以将其理解为模板匹配，即最终的权重矩阵W的每一行为所学习得到的类别的模板，将其与test img做点积即做一次模板匹配。每个点积的值即为该分类所得的分数。     将权重矩阵的每一行重组后可以得到其信息，可以看出类似于某一类的模板：  可以看出当同一个类别有很多图片时，得到的模板是这些图片的平均。">
+<meta property="og:description" content="问题引入  经常被同时购买的商品可以摆近一点，刺激购买欲望 通过附属产品优惠的方式，刺激主产品的销售   总体思想 逐层搜索迭代，通过K-1项集迭代出K项集。Aprior是用于压缩搜索空间。  概念  支持度：关联规则A-&amp;gt;B的支持度support=P(AB)，同时发生的概率 置信度：confidence=P(A|B) k项集：事件A中包含k个元素，成为k项集；若事件A满足最小支持度阈值，">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://cs231n.github.io/assets/imagemap.jpg">
-<meta property="og:image" content="http://cs231n.github.io/assets/templates.jpg">
-<meta property="og:updated_time" content="2018-09-29T02:23:18.000Z">
+<meta property="og:updated_time" content="2019-03-18T02:33:56.654Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CS231n-imgClassification">
-<meta name="twitter:description" content="kNNs 没有参数需要训练 只计算与训练样本之间的距离  Linear Classfication 可以将其理解为模板匹配，即最终的权重矩阵W的每一行为所学习得到的类别的模板，将其与test img做点积即做一次模板匹配。每个点积的值即为该分类所得的分数。     将权重矩阵的每一行重组后可以得到其信息，可以看出类似于某一类的模板：  可以看出当同一个类别有很多图片时，得到的模板是这些图片的平均。">
-<meta name="twitter:image" content="http://cs231n.github.io/assets/imagemap.jpg">
+<meta name="twitter:title" content="Apriori 关联规则挖掘">
+<meta name="twitter:description" content="问题引入  经常被同时购买的商品可以摆近一点，刺激购买欲望 通过附属产品优惠的方式，刺激主产品的销售   总体思想 逐层搜索迭代，通过K-1项集迭代出K项集。Aprior是用于压缩搜索空间。  概念  支持度：关联规则A-&amp;gt;B的支持度support=P(AB)，同时发生的概率 置信度：confidence=P(A|B) k项集：事件A中包含k个元素，成为k项集；若事件A满足最小支持度阈值，">
 
 
 
@@ -139,13 +136,13 @@
 
 
 
-  <link rel="canonical" href="https://chenzk1.github.io/2019/03/14/CS231n-img_classification/">
+  <link rel="canonical" href="https://chenzk1.github.io/2019/03/18/Apriori 关联规则挖掘/">
 
 
 
 
 
-  <title>CS231n-imgClassification | Hero's notebooks</title>
+  <title>Apriori 关联规则挖掘 | Hero's notebooks</title>
   
 
 
@@ -310,7 +307,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/14/CS231n-img_classification/">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/18/Apriori 关联规则挖掘/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Hero">
@@ -327,7 +324,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">CS231n-imgClassification</h1>
+          <h1 class="post-title" itemprop="name headline">Apriori 关联规则挖掘</h1>
         
 
         <div class="post-meta">
@@ -339,8 +336,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-14T09:54:35+08:00">
-                2019-03-14
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-18T09:43:37+08:00">
+                2019-03-18
               </time>
             
 
@@ -399,18 +396,51 @@
       
 
       
-        <h1 id="kNNs"><a href="#kNNs" class="headerlink" title="kNNs"></a>kNNs</h1><ul>
-<li>没有参数需要训练</li>
-<li>只计算与训练样本之间的距离</li>
+        <ol>
+<li><p>问题引入</p>
+<ul>
+<li>经常被同时购买的商品可以摆近一点，刺激购买欲望</li>
+<li>通过附属产品优惠的方式，刺激主产品的销售</li>
 </ul>
-<h1 id="Linear-Classfication"><a href="#Linear-Classfication" class="headerlink" title="Linear Classfication"></a>Linear Classfication</h1><ul>
-<li>可以将其理解为<strong>模板匹配</strong>，即最终的权重矩阵W的每一行为所学习得到的类别的模板，将其与test img做点积即做一次模板匹配。每个点积的值即为该分类所得的分数。</li>
+</li>
+<li><p>总体思想</p>
+<p>逐层搜索迭代，通过K-1项集迭代出K项集。<br>Aprior是用于压缩搜索空间。</p>
+</li>
+<li><p>概念</p>
+<ul>
+<li>支持度：<br>关联规则A-&gt;B的支持度support=P(AB)，同时发生的概率</li>
+<li>置信度：<br>confidence=P(A|B)</li>
+<li>k项集：<br>事件A中包含k个元素，成为k项集；若事件A满足最小支持度阈值，称其为频繁k项集</li>
+<li>由频繁项集产生强关联规则<ul>
+<li>K维数据项集LK是频繁项集的必要条件是它所有K-1维子项集也为频繁项集，记为LK-1　</li>
+<li>如果K维数据项集LK的任意一个K-1维子集Lk-1，不是频繁项集，则K维数据项集LK本身也不是最大数据项集。</li>
+<li>Lk是K维频繁项集，如果所有K-1维频繁项集合Lk-1中包含LK的K-1维子项集的个数小于K，则Lk不可能是K维最大频繁数据项集。</li>
+<li>同时满足最小支持度阀值和最小置信度阀值的规则称为强规则。</li>
 </ul>
-<p><img src="http://cs231n.github.io/assets/imagemap.jpg" alt="ex0"></p>
-<p>  将权重矩阵的每一行重组后可以得到其信息，可以看出类似于某一类的模板：<br><img src="http://cs231n.github.io/assets/templates.jpg" alt="ex1"></p>
-<blockquote>
-<p>可以看出当同一个类别有很多图片时，得到的模板是这些图片的平均。也暴露了它不适合用于多变性复杂的分类。</p>
-</blockquote>
+</li>
+<li>e.g.<br>顾客购买记录的数据库D，包含6个事务。项集I={网球拍,网球,运动鞋,羽毛球}。考虑关联规则：网球拍网球，事务1,2,3,4,6包含网球拍，事务1,2,6同时包含网球拍和网球，支持度，置信度。若给定最小支持度，最小置信度，关联规则网球拍网球是有趣的，认为购买网球拍和购买网球之间存在强关联。</li>
+</ul>
+</li>
+<li><p>算法步骤</p>
+<p>Apriori算法过程分为两个步骤：</p>
+<ul>
+<li>第一步通过迭代，检索出事务数据库中的所有频繁项集，即支持度不低于用户设定的阈值的项集；</li>
+<li>第二步利用频繁项集构造出满足用户最小信任度的规则。</li>
+</ul>
+<p>具体做法就是：</p>
+<p>首先找出频繁1-项集，记为L1；然后利用L1来产生候选项集C2，对C2中的项进行判定挖掘出L2，即频繁2-项集；不断如此循环下去直到无法发现更多的频繁k-项集为止。每挖掘一层Lk就需要扫描整个数据库一遍。算法利用了一个性质：</p>
+<p>Apriori 性质：任一频繁项集的所有非空子集也必须是频繁的。意思就是说，生成一个k-itemset的候选项时，如果这个候选项有子集不在(k-1)-itemset(已经确定是frequent的)中时，那么这个候选项就不用拿去和支持度判断了，直接删除。具体而言：</p>
+<ul>
+<li><p>连接步:<br>为找出Lk（所有的频繁k项集的集合），通过将Lk-1（所有的频繁k-1项集的集合）与自身连接产生候选k项集的集合。候选集合记作Ck。设l1和l2是Lk-1中的成员。记li[j]表示li中的第j项。假设Apriori算法对事务或项集中的项按字典次序排序，即对于（k-1）项集li，li[1]&lt;li[2]&lt;……….&lt;li[k-1]。将Lk-1与自身连接，如果(l1[1]=l2[1])&amp;&amp;( l1[2]=l2[2])&amp;&amp;……..&amp;&amp; (l1[k-2]=l2[k-2])&amp;&amp;(l1[k-1]&lt;l2[k-1])，(这里的作用是为了保证不产生重复的k项集)，那认为l1和l2是可连接。连接l1和l2 产生的结果是{l1[1],l1[2],……,l1[k-1],l2[k-1]}。</p>
+</li>
+<li><p>剪枝步:<br>CK是LK的超集，也就是说，CK的成员可能是也可能不是频繁的。通过扫描所有的事务（交易），确定CK中每个候选的计数，判断是否小于最小支持度计数，如果不是，则认为该候选是频繁的。为了压缩Ck,可以利用Apriori性质：任一频繁项集的所有非空子集也必须是频繁的，反之，如果某个候选的非空子集不是频繁的，那么该候选肯定不是频繁的，从而可以将其从CK中删除。</p>
+</li>
+</ul>
+</li>
+<li><p>e.g.</p>
+<p><a href="https://blog.csdn.net/u011067360/article/details/24810415" target="_blank" rel="noopener">例子</a></p>
+</li>
+</ol>
 
       
     </div>
@@ -430,14 +460,6 @@
           
             <a href="/tags/ML/" rel="tag"># ML</a>
           
-            <a href="/tags/CS231n/" rel="tag"># CS231n</a>
-          
-            <a href="/tags/kNN/" rel="tag"># kNN</a>
-          
-            <a href="/tags/SVM/" rel="tag"># SVM</a>
-          
-            <a href="/tags/imgClassification/" rel="tag"># imgClassification</a>
-          
         </div>
       
 
@@ -449,14 +471,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/03/14/knn/" rel="next" title="KNN">
+                <i class="fa fa-chevron-left"></i> KNN
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/03/14/CNN/" rel="prev" title="CNN">
-                CNN <i class="fa fa-chevron-right"></i>
+              <a href="/2019/03/19/FP Tree/" rel="prev" title="FP Tree算法">
+                FP Tree算法 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -509,17 +535,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Hero">
           <p class="site-author-name" itemprop="name">Hero</p>
@@ -586,22 +603,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#kNNs"><span class="nav-number">1.</span> <span class="nav-text">kNNs</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linear-Classfication"><span class="nav-number">2.</span> <span class="nav-text">Linear Classfication</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="Hero&#39;s notebooks">
 <meta property="og:description" content="类不平衡（class imbalance）现象：即负样本比正样本多很多（或者相反）  ACCURACY/RECALL/F1   Accuracy：TP/(TP+TN) 即预测对的数据个数与总数据个数的比   A和R的问题在于如果样本不平衡，则参考意义很小  准确率（Precision）：P=TP/(TP+FP)。通俗地讲，就是预测正确的正例数据占预测为正例数据的比例。   针对判别结果 查准率">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-11-23T02:53:24.000Z">
+<meta property="og:updated_time" content="2019-03-16T02:58:16.880Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ROC AUC, Accuracy, Recall, F1">
 <meta name="twitter:description" content="类不平衡（class imbalance）现象：即负样本比正样本多很多（或者相反）  ACCURACY/RECALL/F1   Accuracy：TP/(TP+TN) 即预测对的数据个数与总数据个数的比   A和R的问题在于如果样本不平衡，则参考意义很小  准确率（Precision）：P=TP/(TP+FP)。通俗地讲，就是预测正确的正例数据占预测为正例数据的比例。   针对判别结果 查准率">
@@ -416,13 +416,27 @@
 </li>
 </ul>
 <ol start="2">
-<li><p>ROC AUC<br>TPR=TP/(TP+FN)=TP/actual positives 也就是Recall<br>FPR=FP/(FP+TN)=FP/actual negatives<br>ROC是由点（TPR,FPR）组成的曲线，AUC就是ROC的面积。AUC越大越好。</p>
-<p> 一般来说，如果ROC是光滑的，那么基本可以判断没有太大的overfitting。</p>
-<p> 越往左上越好。</p>
-<p> 画法：ROC曲线其实是多个混淆矩阵的结果组合，如果在上述模型中我们没有定好阈值，而是将模型预测结果从高到低排序，将每个概率值依次作为阈值，那么就有多个混淆矩阵。对于每个混淆矩阵，我们计算两个指标TPR（True positive rate）和FPR（False positive rate），TPR=TP/(TP+FN)=Recall，TPR就是召回率。FPR=FP/(FP+TN)，FPR即为实际为好人的人中，预测为坏人的人占比。我们以FPR为x轴，TPR为y轴画图，就得到了ROC曲线。</p>
+<li>ROC AUC（receiver operating characteristic curve）</li>
+</ol>
+<p>TPR=TP/(TP+FN)=TP/actual positives 也就是Recall<br>FPR=FP/(FP+TN)=FP/actual negatives<br>ROC是由点（TPR,FPR）组成的曲线，AUC就是ROC的面积。AUC越大越好。</p>
+<ul>
+<li><p>画法：ROC曲线其实是多个混淆矩阵的结果组合，如果在上述模型中我们没有定好阈值，而是将模型预测结果从高到低排序，将每个概率值依次作为阈值，那么就有多个混淆矩阵。对于每个混淆矩阵，我们计算两个指标TPR（True positive rate）和FPR（False positive rate），TPR=TP/(TP+FN)=Recall，TPR就是召回率。FPR=FP/(FP+TN)，FPR即为实际为好人的人中，预测为坏人的人占比。我们以FPR为x轴，TPR为y轴画图，就得到了ROC曲线。</p>
 <p><strong><em>也就是说，ROC曲线的阈值不是多次运行模型得到的，是同一个模型中通过对所得结果按照概率的排序得到了一个threshold</em></strong></p>
-<p> 所以使用ROC的话，它会先对预测到的结果进行排序，然后再根据排序的结果画图，所以他的曲线形状不会因为数据不平衡而发生大的改变。<br> <strong>但是当数据极度不平衡时，ROC仍然有问题，下面的PRC表现更好。</strong></p>
 </li>
+<li>原理：<ul>
+<li>在画图描点过程中，每取一个样本，会以此样本被预测为1的概率作为阈值，概率排序在此之上的样本认为是1，之下的样本会被认为是0（解释了ROC为何与样本预测值的排序有关）。</li>
+<li>AUC的值代表了：取真实label为1和为0的两个样本，其中真样本被预测为1的概率大于假样本被预测为1的概率这一事件的概率。假设有M个真样本，N个假样本，M个真样本的预测概率升序排序，其值从大到小分别为rank_1…rank_m,例如6个真4个假，假设真样本概率最高的排序为10，则比它低的假样本有10-6=4个，下一个排序为8，则比它低的假样本有8-(6-1)=3个，此概率为：（rank_1 - m + rank_2 - (m-1) + rank_m - 1）/ M*N</li>
+<li>AUC=0.5时，任意一个样本被判断为真和判断为假的概率相等</li>
+<li>e.g 当threshold取为0.5时：<br><a href="https://cdn-images-1.medium.com/max/1600/1*Uu-t4pOotRQFoyrfqEvIEg.png" target="_blank" rel="noopener">!ex0</a><br>此时AUC=1：<br><a href="https://cdn-images-1.medium.com/max/800/1*HmVIhSKznoW8tFsCLeQjRw.png" target="_blank" rel="noopener">!ex00</a><br>AUC=0.7:<br><a href="https://cdn-images-1.medium.com/max/1600/1*yF8hvKR9eNfqqej2JnVKzg.png" target="_blank" rel="noopener">!</a><br><a href="https://cdn-images-1.medium.com/max/800/1*-tPXUvvNIZDbqXP0qqYNuQ.png" target="_blank" rel="noopener">!</a><br>AUC=0.5:<br><a href="https://cdn-images-1.medium.com/max/1600/1*iLW_BrJZRI0UZSflfMrmZQ.png" target="_blank" rel="noopener">!</a><br><a href="https://cdn-images-1.medium.com/max/800/1*k_MPO2Q9bLNH9k4Wlk6v_g.png" target="_blank" rel="noopener">!</a><br>AUC=0:<br><a href="https://cdn-images-1.medium.com/max/1600/1*aUZ7H-Lw74KSucoLlj1pgw.png" target="_blank" rel="noopener">!</a><br><a href="https://cdn-images-1.medium.com/max/800/1*H7JGQbaa06BUab6tvGNZKg.png" target="_blank" rel="noopener">!</a></li>
+</ul>
+</li>
+<li>一般来说，如果ROC是光滑的，那么基本可以判断没有太大的overfitting。</li>
+<li><p>越往左上越好。</p>
+<p>  所以使用ROC的话，它会先对预测到的结果进行排序，然后再根据排序的结果画图，所以他的曲线形状不会因为数据不平衡而发生大的改变。<br>  <strong>但是当数据极度不平衡时，ROC仍然有问题，下面的PRC表现更好。</strong></p>
+</li>
+</ul>
+<p><a href="https://towardsdatascience.com/understanding-auc-roc-curve-68b2303cc9c5" target="_blank" rel="noopener">参考1</a><br><a href="https://www.zhihu.com/question/39840928" target="_blank" rel="noopener">参考2</a></p>
+<ol>
 <li>PRC， precision recall curve，与上面的ROC一样，先看是否光滑，光滑的话说明过拟合不大。越往右上越好。</li>
 </ol>
 
@@ -457,8 +471,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/14/WNSP#2/" rel="next" title="WNSP#2">
-                <i class="fa fa-chevron-left"></i> WNSP#2
+              <a href="/2019/03/14/Presentation of WNSP and IS/" rel="next" title="Presentation of WNSP and IS">
+                <i class="fa fa-chevron-left"></i> Presentation of WNSP and IS
               </a>
             
           </div>
@@ -467,8 +481,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/03/14/自然辩证法#1/" rel="prev" title="自然辩证法#1">
-                自然辩证法#1 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/03/14/WNSP#2/" rel="prev" title="WNSP#2">
+                WNSP#2 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -535,7 +549,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">23</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -557,7 +571,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

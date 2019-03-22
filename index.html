@@ -307,7 +307,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/14/Decision Tree - test/">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/19/FP Tree/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Hero">
@@ -326,7 +326,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/14/Decision Tree - test/" itemprop="url">test</a></h1>
+                <a class="post-title-link" href="/2019/03/19/FP Tree/" itemprop="url">FP Tree算法</a></h1>
         
 
         <div class="post-meta">
@@ -338,7 +338,387 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-14T09:59:21+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-19T21:51:07+08:00">
+                2019-03-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://www.cnblogs.com/pinard/p/6307064.html" target="_blank" rel="noopener">blog</a></p>
+<ol>
+<li><p>FP Tree是Aprior算法的优化</p>
+<p>优化点在于：Aprior需要多次扫描数据以查询频繁项，FP Tree使用了树结构，提高了算法运行效率。</p>
+</li>
+<li><p>FP Tree数据结构</p>
+<ul>
+<li>项头表。格式为： | 项 | 该项出现的次数（降序排列） </li>
+<li>FP Tree。将原始数据集映射为一个FP Tree。</li>
+<li>节点链表。所有项头表里的1项频繁集都是一个节点链表的头，它依次指向FP树中该1项频繁集出现的位置。这样做主要是方便项头表和FP Tree之间的联系查找和更新，也好理解。</li>
+</ul>
+</li>
+<li><p>项头表建立</p>
+<ul>
+<li>第一次扫描数据：得到频繁一项集的计数，删除支持度小于阈值的项，并将剩余频繁集放入项头表，降序排列。</li>
+<li><p>第二次扫描数据：从<strong>原始数据</strong>中删除非频繁项集，并对<strong>每一条数据</strong>按支持度降序排列其中的非频繁项集。</p>
+</li>
+<li><p>e.g.<br><img src="https://images2015.cnblogs.com/blog/1042406/201701/1042406-20170119161846125-505903867.png" alt="e.g."></p>
+</li>
+</ul>
+</li>
+<li><p>FP Tree建立</p>
+<ul>
+<li>以null为根节点</li>
+<li><p>按照项头表的顺序，从第一条数据开始插入频繁项集，每条数据中排序靠前的为祖先节点，反之为子孙节点，每个节点均置1<br><img src="https://images2015.cnblogs.com/blog/1042406/201701/1042406-20170119163935296-1386696266.png" alt="e.g."> </p>
+</li>
+<li><p>接下来进行下一条数据的插入。当已存在频繁项时，在原有数字上加一即可（注意在插入时，是每一层每一层插入，不能跳过某层直接在已有节点上加一）</p>
+</li>
+<li>…</li>
+<li><img src="https://images2015.cnblogs.com/blog/1042406/201701/1042406-20170119165427593-1237891371.png" alt="最终"></li>
+</ul>
+</li>
+<li><p>节点链表</p>
+<p>节点链表即项头表中每个频繁项集都有一个指针指向FP Tree的相应节点。</p>
+</li>
+<li><p>FP Tree挖掘</p>
+<p>得到了FP树和项头表以及节点链表，我们首先要从项头表的底部项依次向上挖掘。对于项头表对应于FP树的每一项，我们要找到它的条件模式基。所谓条件模式基是以我们要挖掘的节点作为叶子节点所对应的FP子树。得到这个FP子树，我们将子树中每个节点的的计数设置为叶子节点的计数，并删除计数低于支持度的节点。从这个条件模式基，我们就可以递归挖掘得到频繁项集了。</p>
+<ul>
+<li>先从最底下的F节点开始，我们先来寻找F节点的条件模式基，由于F在FP树中只有一个节点，因此候选就只有下图左所示的一条路径，对应{A:8,C:8,E:6,B:2, F:2}。我们接着将所有的祖先节点计数设置为叶子节点的计数，即FP子树变成{A:2,C:2,E:2,B:2, F:2}。一般我们的条件模式基可以不写叶子节点，因此最终的F的条件模式基如下图右所示。 <img src="https://images2015.cnblogs.com/blog/1042406/201701/1042406-20170119170723421-1812925376.png" alt="e.g."></li>
+<li>通过它，我们很容易得到F的频繁2项集为{A:2,F:2}, {C:2,F:2}, {E:2,F:2}, {B:2,F:2}。递归合并二项集，得到频繁三项集为{A:2,C:2,F:2}，{A:2,E:2,F:2},…还有一些频繁三项集，就不写了。当然一直递归下去，最大的频繁项集为频繁5项集，为{A:2,C:2,E:2,B:2,F:2}</li>
+<li>F挖掘完了，我们开始挖掘D节点。D节点比F节点复杂一些，因为它有两个叶子节点，因此首先得到的FP子树如下图左。我们接着将所有的祖先节点计数设置为叶子节点的计数，即变成{A:2, C:2,E:1 G:1,D:1, D:1}此时E节点和G节点由于在条件模式基里面的支持度低于阈值，被我们删除，最终在去除低支持度节点并不包括叶子节点后D的条件模式基为{A:2, C:2}。通过它，我们很容易得到D的频繁2项集为{A:2,D:2}, {C:2,D:2}。递归合并二项集，得到频繁三项集为{A:2,C:2,D:2}。D对应的最大的频繁项集为频繁3项集。 <img src="https://images2015.cnblogs.com/blog/1042406/201701/1042406-20170119171924093-1331841220.png" alt="e.g."></li>
+</ul>
+</li>
+<li><p>算法具体步骤</p>
+<ul>
+<li>扫描数据，得到所有频繁一项集的的计数。然后删除支持度低于阈值的项，将1项频繁集放入项头表，并按照支持度降序排列。</li>
+<li>扫描数据，将读到的原始数据剔除非频繁1项集，并按照支持度降序排列。</li>
+<li>读入排序后的数据集，插入FP树，插入时按照排序后的顺序，插入FP树中，排序靠前的节点是祖先节点，而靠后的是子孙节点。如果有共用的祖先，则对应的公用祖先节点计数加1。插入后，如果有新节点出现，则项头表对应的节点会通过节点链表链接上新节点。直到所有的数据都插入到FP树后，FP树的建立完成。</li>
+<li>从项头表的底部项依次向上找到项头表项对应的条件模式基。从条件模式基递归挖掘得到项头表项项的频繁项集。</li>
+<li>如果不限制频繁项集的项数，则返回步骤4所有的频繁项集，否则只返回满足项数要求的频繁项集。</li>
+</ul>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/18/Apriori 关联规则挖掘/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hero">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hero's notebooks">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/18/Apriori 关联规则挖掘/" itemprop="url">Apriori 关联规则挖掘</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-18T09:43:37+08:00">
+                2019-03-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ol>
+<li><p>问题引入</p>
+<ul>
+<li>经常被同时购买的商品可以摆近一点，刺激购买欲望</li>
+<li>通过附属产品优惠的方式，刺激主产品的销售</li>
+</ul>
+</li>
+<li><p>总体思想</p>
+<p>逐层搜索迭代，通过K-1项集迭代出K项集。<br>Aprior是用于压缩搜索空间。</p>
+</li>
+<li><p>概念</p>
+<ul>
+<li>支持度：<br>关联规则A-&gt;B的支持度support=P(AB)，同时发生的概率</li>
+<li>置信度：<br>confidence=P(A|B)</li>
+<li>k项集：<br>事件A中包含k个元素，成为k项集；若事件A满足最小支持度阈值，称其为频繁k项集</li>
+<li>由频繁项集产生强关联规则<ul>
+<li>K维数据项集LK是频繁项集的必要条件是它所有K-1维子项集也为频繁项集，记为LK-1　</li>
+<li>如果K维数据项集LK的任意一个K-1维子集Lk-1，不是频繁项集，则K维数据项集LK本身也不是最大数据项集。</li>
+<li>Lk是K维频繁项集，如果所有K-1维频繁项集合Lk-1中包含LK的K-1维子项集的个数小于K，则Lk不可能是K维最大频繁数据项集。</li>
+<li>同时满足最小支持度阀值和最小置信度阀值的规则称为强规则。</li>
+</ul>
+</li>
+<li>e.g.<br>顾客购买记录的数据库D，包含6个事务。项集I={网球拍,网球,运动鞋,羽毛球}。考虑关联规则：网球拍网球，事务1,2,3,4,6包含网球拍，事务1,2,6同时包含网球拍和网球，支持度，置信度。若给定最小支持度，最小置信度，关联规则网球拍网球是有趣的，认为购买网球拍和购买网球之间存在强关联。</li>
+</ul>
+</li>
+<li><p>算法步骤</p>
+<p>Apriori算法过程分为两个步骤：</p>
+<ul>
+<li>第一步通过迭代，检索出事务数据库中的所有频繁项集，即支持度不低于用户设定的阈值的项集；</li>
+<li>第二步利用频繁项集构造出满足用户最小信任度的规则。</li>
+</ul>
+<p>具体做法就是：</p>
+<p>首先找出频繁1-项集，记为L1；然后利用L1来产生候选项集C2，对C2中的项进行判定挖掘出L2，即频繁2-项集；不断如此循环下去直到无法发现更多的频繁k-项集为止。每挖掘一层Lk就需要扫描整个数据库一遍。算法利用了一个性质：</p>
+<p>Apriori 性质：任一频繁项集的所有非空子集也必须是频繁的。意思就是说，生成一个k-itemset的候选项时，如果这个候选项有子集不在(k-1)-itemset(已经确定是frequent的)中时，那么这个候选项就不用拿去和支持度判断了，直接删除。具体而言：</p>
+<ul>
+<li><p>连接步:<br>为找出Lk（所有的频繁k项集的集合），通过将Lk-1（所有的频繁k-1项集的集合）与自身连接产生候选k项集的集合。候选集合记作Ck。设l1和l2是Lk-1中的成员。记li[j]表示li中的第j项。假设Apriori算法对事务或项集中的项按字典次序排序，即对于（k-1）项集li，li[1]&lt;li[2]&lt;……….&lt;li[k-1]。将Lk-1与自身连接，如果(l1[1]=l2[1])&amp;&amp;( l1[2]=l2[2])&amp;&amp;……..&amp;&amp; (l1[k-2]=l2[k-2])&amp;&amp;(l1[k-1]&lt;l2[k-1])，(这里的作用是为了保证不产生重复的k项集)，那认为l1和l2是可连接。连接l1和l2 产生的结果是{l1[1],l1[2],……,l1[k-1],l2[k-1]}。</p>
+</li>
+<li><p>剪枝步:<br>CK是LK的超集，也就是说，CK的成员可能是也可能不是频繁的。通过扫描所有的事务（交易），确定CK中每个候选的计数，判断是否小于最小支持度计数，如果不是，则认为该候选是频繁的。为了压缩Ck,可以利用Apriori性质：任一频繁项集的所有非空子集也必须是频繁的，反之，如果某个候选的非空子集不是频繁的，那么该候选肯定不是频繁的，从而可以将其从CK中删除。</p>
+</li>
+</ul>
+</li>
+<li><p>e.g.</p>
+<p><a href="https://blog.csdn.net/u011067360/article/details/24810415" target="_blank" rel="noopener">例子</a></p>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/14/knn/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hero">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hero's notebooks">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/14/knn/" itemprop="url">KNN</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-14T15:03:48+08:00">
                 2019-03-14
               </time>
             
@@ -401,69 +781,18 @@
         
           
             <ol>
-<li><p>决策树<br><strong><em>问题：如何挑选用于分裂节点的特征–&gt;ID3 C4.5 …(一个标准：使分裂出来的节点尽可能纯，即一个分支尽可能属于同类)</em></strong></p>
-</li>
-<li><p>ID3<br><em><strong>信息增益</strong></em></p>
-<p> 信息增益 = 信息熵 - 条件熵</p>
+<li><p>算法步骤</p>
 <ul>
-<li>信息增益：针对每个 <em><strong>属性</strong></em></li>
-<li>信息熵：整个样本空间的不确定度。其中Pk一定是label取值的概率。</li>
-<li><p>条件熵：给定某个属性，求其信息熵</p>
-<p>–&gt; 问题：某属性所包括的类别越多，信息增益越大。极限：每个类别仅有1个实例（label数量为1），log p = log1 = 0， 所以最终条件熵=0。或：属性类别越多，条件熵越小，其纯度越高。</p>
-<p>–&gt; 信息增益准则其实是对可取值数目较多的属性有所偏好！</p>
-<p>–&gt; 泛化能力不强</p>
-</li>
+<li>给定已经分好类的训练集</li>
+<li>对给定的测试数据，计算其与训练集中每一个样本的距离</li>
+<li>取距离最小的前K个，按多数表决的方法决定属于哪一类</li>
 </ul>
 </li>
-<li><p>C4.5 <em><strong>信息增益率+信息增益</strong></em></p>
-<p> 属性a的信息增益率 = 属性a的信息增益 / a的某个固有统计量IV(a)</p>
-<p> <img src="https://pic4.zhimg.com/80/v2-812104c0291d20935e910919a9fa5c27_hd.png" alt="IV(a)公式"></p>
-<p> V为a的取值数目。<br> （实际上是属性a的信息熵）</p>
+<li><p>注意事项</p>
 <ul>
-<li>直接使用信息增益率：偏好取值数目小的属性。</li>
-<li>先选择高于平均水平信息增益的属性，再选择最高信息增益率的属性。</li>
-</ul>
-</li>
-<li><p>CART <em><strong>基尼系数+MAE/MSE</strong></em></p>
-<p>与ID3、C4.5的不同：形成二叉树，因此 –&gt; 既要确定要分割的属性，也要确定要分割的值</p>
-<ul>
-<li>回归树：MAE/MSE<ul>
-<li>example(MSE)：<blockquote>
-<ol>
-<li>考虑数据集 D 上的所有特征 j，遍历每一个特征下所有可能的取值或者切分点 s，将数据集 D 划分成两部分 D1 和 D2</li>
-<li>分别计算上述两个子集的平方误差和，选择最小的平方误差对应的特征与分割点，生成两个子节点。</li>
-<li>对上述两个子节点递归调用步骤1 2,直到满足停止条件。</li>
-</ol>
-</blockquote>
-</li>
-</ul>
-</li>
-<li><p>分类树：(Gini)</p>
-<p><img src="https://img-blog.csdn.net/20150109184544578?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvQW5kcm9pZGx1c2hhbmdkZXJlbg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="某属性A的基尼系数"><br>基尼系数越小，纯度越高</p>
-</li>
-</ul>
-<blockquote>
-<ol>
-<li>对每个特征 A，对它的所有可能取值 a，将数据集分为 A＝a，和 A!＝a 两个子集，计算集合 D 的基尼指数：<br>Gini(A) = D1/D <em> Gini(D1) + D2/D </em> Gini(D2)</li>
-<li>遍历所有的特征 A，计算其所有可能取值 a 的基尼指数，选择 D 的基尼指数最小值对应的特征及切分点作为最优的划分，将数据分为两个子集。</li>
-<li>对上述两个子节点递归调用步骤1 2, 直到满足停止条件。</li>
-<li>生成 CART 决策树。</li>
-</ol>
-</blockquote>
-<pre><code>停止条件有：
-1. 节点中的样本个数小于预定阈值;
-2. 样本集的Gini系数小于预定阈值（此时样本基本属于同一类）;
-3. 没有更多特征。
-</code></pre><ul>
-<li>剪枝</li>
-<li>例子：<a href="https://www.jianshu.com/p/b90a9ce05b28" target="_blank" rel="noopener">example</a></li>
-</ul>
-</li>
-<li><p>控制决策树过拟合的方法</p>
-<ul>
-<li>剪枝</li>
-<li>控制终止条件，避免树形结构过细</li>
-<li>构建随机森林</li>
+<li>数据要fair</li>
+<li>可以通过对距离近的样本点加更大的权重优化</li>
+<li>计算量较大</li>
 </ul>
 </li>
 </ol>
@@ -1180,194 +1509,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/14/自然辩证法#2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Hero">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hero's notebooks">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/14/自然辩证法#2/" itemprop="url">自然辩证法#2</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-14T09:54:35+08:00">
-                2019-03-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Learning</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>现代自然观</p>
-<h1 id="现代自然观的来源"><a href="#现代自然观的来源" class="headerlink" title="现代自然观的来源"></a>现代自然观的来源</h1><ul>
-<li>起源于古希腊，兴于近代欧洲，完成于牛顿。</li>
-<li>粒子论 机械论 还原论</li>
-<li>时空观：时间、空间相互独立；空间均匀、平直、三维、各向同性；时间均匀、平直、一维、不可逆；时间、空间与物质各自独立。</li>
-<li>物质观：物质只具有几何属性（形状、大小、位置）和机械属性（质量、弹性）。</li>
-<li>从古希腊哲学到现代自然观<br>古希腊知识分子的民间性：<br>（非官方，正式由于其哲学本身上的纯粹性，才获得了很大的进步）<ul>
-<li>世界是物质的（麦乐斯“水是万物的本源”）</li>
-<li>物质是质料的（原子论者，亚里士多德etc）</li>
-<li>质料是形式的（毕达哥拉斯学派，希罗多德历史）</li>
-<li>形式是几何的（欧几里得，阿基米德，天球）</li>
-<li>运动是机械的（哥白尼，开普勒，伽利略，牛顿）<br>中世纪奔溃，资产阶级重新选择文化的时候，选择了古希腊。</li>
-</ul>
-</li>
-</ul>
-<h1 id="科学进步与自然观的更新"><a href="#科学进步与自然观的更新" class="headerlink" title="科学进步与自然观的更新"></a>科学进步与自然观的更新</h1><ul>
-<li>牛顿力学自然观本身就是一次科学大进步的产物</li>
-<li>现代科学对机械论自然观的几次有限突破，都伴随着科学的重大突破</li>
-<li>相对论自然观</li>
-<li>量子力学自然观</li>
-<li>复杂系统自然观</li>
-<li><strong>但语境还是机械论，自然观的反思和革命还将继续。</strong></li>
-</ul>
-<h1 id="人与自然关系的反思"><a href="#人与自然关系的反思" class="headerlink" title="人与自然关系的反思"></a>人与自然关系的反思</h1><ol>
-<li>悲观主义</li>
-<li>乐观主义</li>
-<li>现实主义</li>
-</ol>
-<p>三个流派的共同出发点：</p>
-<ol>
-<li>人与自然的关系恶化</li>
-<li>恶化的本质：现代人类对自然界的影响超过了自然界对人类活动的承载力。</li>
-</ol>
-<h2 id="悲观主义"><a href="#悲观主义" class="headerlink" title="悲观主义"></a>悲观主义</h2><p>代表：罗马俱乐部</p>
-<h2 id="乐观主义"><a href="#乐观主义" class="headerlink" title="乐观主义"></a>乐观主义</h2><p>《今后二百年——美国和世界的一幅远景》</p>
-<ul>
-<li>在过去到未来的前后各二百年中，人类将从困境中摆脱出来，自然因素并不构成限制，科学技术的发展将会是自然环境和社会环境充满活力。</li>
-<li>自然资源供应无限，人类的资源短缺等问题可以通过技术进步来解决。</li>
-<li>当穷国富起来时，人口增长就会自动停止。</li>
-</ul>
-<p>各有缺点：</p>
-<ul>
-<li>悲观论者：线性外推，但忽略现有的社会生产方式、社会制度、社会意识形态都是可以改变的。</li>
-<li>乐观论者：以自然资源潜力无限和科学技术能力无限为前提，但忽略了自然资源在理论上的潜在存在和…</li>
-</ul>
-<h2 id="现实主义"><a href="#现实主义" class="headerlink" title="现实主义"></a>现实主义</h2><p>《纵观世界全局》（美国世界观察研究所）</p>
-<p>世界明天的好坏不是命运决定的，也不是科学技术的本性决定的，它取决于人类今后20年左右做出的决策是否明智。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/14/中国古代典籍文化#1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1671,7 +1812,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/14/ROC  AUC/">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/14/自然辩证法#2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Hero">
@@ -1690,7 +1831,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/14/ROC  AUC/" itemprop="url">ROC AUC, Accuracy, Recall, F1</a></h1>
+                <a class="post-title-link" href="/2019/03/14/自然辩证法#2/" itemprop="url">自然辩证法#2</a></h1>
         
 
         <div class="post-meta">
@@ -1764,203 +1905,53 @@
       
         
           
-            <p>类不平衡（class imbalance）现象：即负样本比正样本多很多（或者相反）</p>
+            <p>现代自然观</p>
+<h1 id="现代自然观的来源"><a href="#现代自然观的来源" class="headerlink" title="现代自然观的来源"></a>现代自然观的来源</h1><ul>
+<li>起源于古希腊，兴于近代欧洲，完成于牛顿。</li>
+<li>粒子论 机械论 还原论</li>
+<li>时空观：时间、空间相互独立；空间均匀、平直、三维、各向同性；时间均匀、平直、一维、不可逆；时间、空间与物质各自独立。</li>
+<li>物质观：物质只具有几何属性（形状、大小、位置）和机械属性（质量、弹性）。</li>
+<li>从古希腊哲学到现代自然观<br>古希腊知识分子的民间性：<br>（非官方，正式由于其哲学本身上的纯粹性，才获得了很大的进步）<ul>
+<li>世界是物质的（麦乐斯“水是万物的本源”）</li>
+<li>物质是质料的（原子论者，亚里士多德etc）</li>
+<li>质料是形式的（毕达哥拉斯学派，希罗多德历史）</li>
+<li>形式是几何的（欧几里得，阿基米德，天球）</li>
+<li>运动是机械的（哥白尼，开普勒，伽利略，牛顿）<br>中世纪奔溃，资产阶级重新选择文化的时候，选择了古希腊。</li>
+</ul>
+</li>
+</ul>
+<h1 id="科学进步与自然观的更新"><a href="#科学进步与自然观的更新" class="headerlink" title="科学进步与自然观的更新"></a>科学进步与自然观的更新</h1><ul>
+<li>牛顿力学自然观本身就是一次科学大进步的产物</li>
+<li>现代科学对机械论自然观的几次有限突破，都伴随着科学的重大突破</li>
+<li>相对论自然观</li>
+<li>量子力学自然观</li>
+<li>复杂系统自然观</li>
+<li><strong>但语境还是机械论，自然观的反思和革命还将继续。</strong></li>
+</ul>
+<h1 id="人与自然关系的反思"><a href="#人与自然关系的反思" class="headerlink" title="人与自然关系的反思"></a>人与自然关系的反思</h1><ol>
+<li>悲观主义</li>
+<li>乐观主义</li>
+<li>现实主义</li>
+</ol>
+<p>三个流派的共同出发点：</p>
 <ol>
-<li>ACCURACY/RECALL/F1</li>
+<li>人与自然的关系恶化</li>
+<li>恶化的本质：现代人类对自然界的影响超过了自然界对人类活动的承载力。</li>
 </ol>
+<h2 id="悲观主义"><a href="#悲观主义" class="headerlink" title="悲观主义"></a>悲观主义</h2><p>代表：罗马俱乐部</p>
+<h2 id="乐观主义"><a href="#乐观主义" class="headerlink" title="乐观主义"></a>乐观主义</h2><p>《今后二百年——美国和世界的一幅远景》</p>
 <ul>
-<li><p>Accuracy：TP/(TP+TN) 即预测对的数据个数与总数据个数的比</p>
-<p>  <strong><em>A和R的问题在于如果样本不平衡，则参考意义很小</em></strong></p>
-</li>
-<li><p>准确率（Precision）：P=TP/(TP+FP)。通俗地讲，就是预测正确的正例数据占预测为正例数据的比例。</p>
-<p>  <strong>针对判别结果 查准率</strong></p>
-</li>
-<li><p>召回率（Recall）：R=TP/(TP+FN)。通俗地讲，就是预测为正例的数据占实际为正例数据的比例。</p>
-<p>  <strong>针对样本 查全率</strong></p>
-</li>
-<li>F1 = 2*P*R/(P+R)：既有P又有R</li>
-<li><p>PRC， precision recall curve，与下面的ROC一样，先看是否光滑，光滑的话说明过拟合不大。越往右上越好。</p>
-<p>  <strong><em>A和R的问题在于如果样本不平衡，则参考意义很小</em></strong></p>
-</li>
+<li>在过去到未来的前后各二百年中，人类将从困境中摆脱出来，自然因素并不构成限制，科学技术的发展将会是自然环境和社会环境充满活力。</li>
+<li>自然资源供应无限，人类的资源短缺等问题可以通过技术进步来解决。</li>
+<li>当穷国富起来时，人口增长就会自动停止。</li>
 </ul>
-<ol start="2">
-<li><p>ROC AUC<br>TPR=TP/(TP+FN)=TP/actual positives 也就是Recall<br>FPR=FP/(FP+TN)=FP/actual negatives<br>ROC是由点（TPR,FPR）组成的曲线，AUC就是ROC的面积。AUC越大越好。</p>
-<p> 一般来说，如果ROC是光滑的，那么基本可以判断没有太大的overfitting。</p>
-<p> 越往左上越好。</p>
-<p> 画法：ROC曲线其实是多个混淆矩阵的结果组合，如果在上述模型中我们没有定好阈值，而是将模型预测结果从高到低排序，将每个概率值依次作为阈值，那么就有多个混淆矩阵。对于每个混淆矩阵，我们计算两个指标TPR（True positive rate）和FPR（False positive rate），TPR=TP/(TP+FN)=Recall，TPR就是召回率。FPR=FP/(FP+TN)，FPR即为实际为好人的人中，预测为坏人的人占比。我们以FPR为x轴，TPR为y轴画图，就得到了ROC曲线。</p>
-<p><strong><em>也就是说，ROC曲线的阈值不是多次运行模型得到的，是同一个模型中通过对所得结果按照概率的排序得到了一个threshold</em></strong></p>
-<p> 所以使用ROC的话，它会先对预测到的结果进行排序，然后再根据排序的结果画图，所以他的曲线形状不会因为数据不平衡而发生大的改变。<br> <strong>但是当数据极度不平衡时，ROC仍然有问题，下面的PRC表现更好。</strong></p>
-</li>
-<li>PRC， precision recall curve，与上面的ROC一样，先看是否光滑，光滑的话说明过拟合不大。越往右上越好。</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/14/WNSP#2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Hero">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hero's notebooks">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/14/WNSP#2/" itemprop="url">WNSP#2</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-14T09:54:35+08:00">
-                2019-03-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Learning</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li>50GHz<ul>
-<li>丰富的频谱资源，即频带宽</li>
-<li>速度快</li>
-<li>波长短，更适合短距传输。穿透性差。</li>
-<li>高度方向性</li>
-<li>安全性</li>
+<p>各有缺点：</p>
+<ul>
+<li>悲观论者：线性外推，但忽略现有的社会生产方式、社会制度、社会意识形态都是可以改变的。</li>
+<li>乐观论者：以自然资源潜力无限和科学技术能力无限为前提，但忽略了自然资源在理论上的潜在存在和…</li>
 </ul>
-</li>
-<li>Li-Fi(Light Fidelity)<ul>
-<li>安全性和低穿透性：灯光具有可遮挡性</li>
-<li>频谱资源丰富</li>
-<li>无电磁辐射和电磁干扰</li>
-</ul>
-</li>
-<li>LP-WAN<ul>
-<li>NB-IoT</li>
-<li>数据安全及隐私：公网传输导致数据泄露</li>
-<li>通信安全：通信网络面临攻击</li>
-<li>设备安全</li>
-</ul>
-</li>
-</ul>
-<h1 id="密码学"><a href="#密码学" class="headerlink" title="密码学"></a>密码学</h1><ul>
-<li>唯密文、唯明文、选择性密文、选择性明文</li>
-<li>保密性 完整性 可用性 真实性 可追溯性 不可抵赖性 匿名性</li>
-</ul>
+<h2 id="现实主义"><a href="#现实主义" class="headerlink" title="现实主义"></a>现实主义</h2><p>《纵观世界全局》（美国世界观察研究所）</p>
+<p>世界明天的好坏不是命运决定的，也不是科学技术的本性决定的，它取决于人类今后20年左右做出的决策是否明智。</p>
 
           
         
@@ -2044,7 +2035,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">23</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -2066,7 +2057,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
