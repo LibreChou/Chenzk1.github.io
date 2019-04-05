@@ -307,6 +307,334 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/04/05/TF_IDF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hero">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hero's notebooks">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/05/TF_IDF/" itemprop="url">TF-IDF</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-05T13:40:47+08:00">
+                2019-04-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>TF: term frequency —— (# occurrences of term t in document) / (# of words in documents)</li>
+<li>IDF: inverse document frequency —— log(# of documents / # documents with term t in it)</li>
+<li><p>TF * IDF</p>
+</li>
+<li><p>一字词对于一个文件集或一个语料库中的其中一份文件的重要程度。一个词term的重要性与其在整个文件中出现的频率成正比；与它在语料库中的频率成反比。</p>
+</li>
+<li>可以用来提取关键词</li>
+<li>有不足：比如某次在每个文件中都出现，这个词可能是is are之类的无用词，也可能是可以代表该文件库的关键词—-&gt;结合停用词处理？</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/04/04/LSTM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hero">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hero's notebooks">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/04/LSTM/" itemprop="url">RNN & LSTM & GRU</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-04T08:05:19+08:00">
+                2019-04-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ol>
+<li>RNN</li>
+</ol>
+<p><img src="https://pic1.zhimg.com/v2-206db7ba9d32a80ff56b6cc988a62440_r.jpg" alt="示意图"></p>
+<ul>
+<li>动机：RNN之前，语言模型主要是N-gram，N可以变动，其作用是某位置的词取决于前N个词，所以该方法对任意序列的文本处理存在问题。</li>
+<li>RNN：<em>理论上</em>可以看到往前看/往后看任意的长度。</li>
+<li>最简单的RNN，即t时刻隐藏层的值既取决于t时刻的输入，也取决于t-1时刻的隐藏层的值。</li>
+<li>双向循环网络，应用了下文的信息；深度循环网络，使用了多层隐藏层，更复杂了。</li>
+</ul>
+<p>一个教程：<a href="https://zybuluo.com/hanbingtao/note/541458" target="_blank" rel="noopener">RNN</a></p>
+<ol start="2">
+<li>LSTM(Long Short Term)</li>
+</ol>
+<ul>
+<li>动机：由RNN的机理可知，如果每层向下一个时刻传输的权重w大于1，则容易产生梯度爆炸问题，小于1，则会产生梯度消失<br>一个对比图<br><img src="https://pic4.zhimg.com/v2-e4f9851cad426dfe4ab1c76209546827_r.jpg" alt="RNN&amp;LSTM"><br>RNN只有一个传递状态ht，而LSTM有两个传递状态：cell state, hidden state。<br>其中cell state是上一序列的隐藏层输出加上一些东西（有点类似于RNN中的ht）；而ht变化会比较大。</li>
+<li>过程：<ul>
+<li>计算四个状态：<br><img src="https://pic4.zhimg.com/80/v2-15c5eb554f843ec492579c6d87e1497b_hd.jpg" alt="z&amp;zi"><br><img src="https://pic1.zhimg.com/80/v2-d044fd0087e1df5d2a1089b441db9970_hd.jpg" alt="zo&amp;zf"><br>z是输入，用了tanh，取值范围为-1，相当于归一化；zi&amp;zo&amp;zf为门控，用了sigmoid，输出为0~1，与某值相乘后是对该值的选择，其中i是information，f是forget，o是output；</li>
+<li>四个状态在LSTM中的应用：<br><img src="https://pic2.zhimg.com/80/v2-556c74f0e025a47fea05dc0f76ea775d_hd.jpg" alt="LSTM结构"><ul>
+<li>忘记：zf点乘ct，即通过zf忘记不重要的</li>
+<li>选择记忆：对于输入信息z，点乘zi，进行有选择的记忆</li>
+<li>输出：对上一阶段的c通过tanh进行放缩，再通过zo控制输出</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ol start="3">
+<li>GRU(Gate Recurrent Unit)</li>
+</ol>
+<ul>
+<li>同样为了解决梯度问题</li>
+<li>比LSTM：运算量小</li>
+<li>使用了同一个门控状态控制记忆和忘记</li>
+</ul>
+<p>具体：<br><a href="https://zhuanlan.zhihu.com/p/32481747" target="_blank" rel="noopener">原文</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/19/FP Tree/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1509,160 +1837,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/14/中国古代典籍文化#1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Hero">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hero's notebooks">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/14/中国古代典籍文化#1/" itemprop="url">中国古代典籍文化#1</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-14T09:54:35+08:00">
-                2019-03-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Learning</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><em>考核：第四五周布置论文题目，第八周交论文</em></p>
-<h1 id="古代典籍的载体和装帧"><a href="#古代典籍的载体和装帧" class="headerlink" title="古代典籍的载体和装帧"></a>古代典籍的载体和装帧</h1><h2 id="甲骨"><a href="#甲骨" class="headerlink" title="甲骨"></a>甲骨</h2><ul>
-<li>龟甲和兽骨的合称<ul>
-<li>甲：龟甲的腹板</li>
-<li>骨：牛的肩胛骨和胫骨，也有猪羊的肩胛骨</li>
-</ul>
-</li>
-</ul>
-<h2 id="金"><a href="#金" class="headerlink" title="金"></a>金</h2><ul>
-<li>铜，指青铜器（铜和锡的合金，呈青灰色）上的铭文。</li>
-<li>金文铸刻的器具以钟鼎居多，又称钟鼎文</li>
-<li>西周是钟鼎文最盛行的时代</li>
-</ul>
-<h2 id="石"><a href="#石" class="headerlink" title="石"></a>石</h2><h2 id="木牍"><a href="#木牍" class="headerlink" title="木牍"></a>木牍</h2>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/14/自然辩证法#1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1799,194 +1973,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/14/自然辩证法#2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Hero">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hero's notebooks">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/14/自然辩证法#2/" itemprop="url">自然辩证法#2</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-14T09:54:35+08:00">
-                2019-03-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Learning</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>现代自然观</p>
-<h1 id="现代自然观的来源"><a href="#现代自然观的来源" class="headerlink" title="现代自然观的来源"></a>现代自然观的来源</h1><ul>
-<li>起源于古希腊，兴于近代欧洲，完成于牛顿。</li>
-<li>粒子论 机械论 还原论</li>
-<li>时空观：时间、空间相互独立；空间均匀、平直、三维、各向同性；时间均匀、平直、一维、不可逆；时间、空间与物质各自独立。</li>
-<li>物质观：物质只具有几何属性（形状、大小、位置）和机械属性（质量、弹性）。</li>
-<li>从古希腊哲学到现代自然观<br>古希腊知识分子的民间性：<br>（非官方，正式由于其哲学本身上的纯粹性，才获得了很大的进步）<ul>
-<li>世界是物质的（麦乐斯“水是万物的本源”）</li>
-<li>物质是质料的（原子论者，亚里士多德etc）</li>
-<li>质料是形式的（毕达哥拉斯学派，希罗多德历史）</li>
-<li>形式是几何的（欧几里得，阿基米德，天球）</li>
-<li>运动是机械的（哥白尼，开普勒，伽利略，牛顿）<br>中世纪奔溃，资产阶级重新选择文化的时候，选择了古希腊。</li>
-</ul>
-</li>
-</ul>
-<h1 id="科学进步与自然观的更新"><a href="#科学进步与自然观的更新" class="headerlink" title="科学进步与自然观的更新"></a>科学进步与自然观的更新</h1><ul>
-<li>牛顿力学自然观本身就是一次科学大进步的产物</li>
-<li>现代科学对机械论自然观的几次有限突破，都伴随着科学的重大突破</li>
-<li>相对论自然观</li>
-<li>量子力学自然观</li>
-<li>复杂系统自然观</li>
-<li><strong>但语境还是机械论，自然观的反思和革命还将继续。</strong></li>
-</ul>
-<h1 id="人与自然关系的反思"><a href="#人与自然关系的反思" class="headerlink" title="人与自然关系的反思"></a>人与自然关系的反思</h1><ol>
-<li>悲观主义</li>
-<li>乐观主义</li>
-<li>现实主义</li>
-</ol>
-<p>三个流派的共同出发点：</p>
-<ol>
-<li>人与自然的关系恶化</li>
-<li>恶化的本质：现代人类对自然界的影响超过了自然界对人类活动的承载力。</li>
-</ol>
-<h2 id="悲观主义"><a href="#悲观主义" class="headerlink" title="悲观主义"></a>悲观主义</h2><p>代表：罗马俱乐部</p>
-<h2 id="乐观主义"><a href="#乐观主义" class="headerlink" title="乐观主义"></a>乐观主义</h2><p>《今后二百年——美国和世界的一幅远景》</p>
-<ul>
-<li>在过去到未来的前后各二百年中，人类将从困境中摆脱出来，自然因素并不构成限制，科学技术的发展将会是自然环境和社会环境充满活力。</li>
-<li>自然资源供应无限，人类的资源短缺等问题可以通过技术进步来解决。</li>
-<li>当穷国富起来时，人口增长就会自动停止。</li>
-</ul>
-<p>各有缺点：</p>
-<ul>
-<li>悲观论者：线性外推，但忽略现有的社会生产方式、社会制度、社会意识形态都是可以改变的。</li>
-<li>乐观论者：以自然资源潜力无限和科学技术能力无限为前提，但忽略了自然资源在理论上的潜在存在和…</li>
-</ul>
-<h2 id="现实主义"><a href="#现实主义" class="headerlink" title="现实主义"></a>现实主义</h2><p>《纵观世界全局》（美国世界观察研究所）</p>
-<p>世界明天的好坏不是命运决定的，也不是科学技术的本性决定的，它取决于人类今后20年左右做出的决策是否明智。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2035,7 +2021,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -2057,7 +2043,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

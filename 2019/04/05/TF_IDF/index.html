@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="ML,NLP,">
 
 
 
@@ -96,16 +96,18 @@
 
 
 
-<meta name="description" content="hero&apos;s notebooks">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Hero&#39;s notebooks">
-<meta property="og:url" content="https://chenzk1.github.io/categories/Learning/index.html">
+<meta name="description" content="TF: term frequency —— (# occurrences of term t in document) / (# of words in documents) IDF: inverse document frequency —— log(# of documents / # documents with term t in it) TF * IDF  一字词对于一个文件集或一个语">
+<meta name="keywords" content="ML,NLP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TF-IDF">
+<meta property="og:url" content="https://chenzk1.github.io/2019/04/05/TF_IDF/index.html">
 <meta property="og:site_name" content="Hero&#39;s notebooks">
-<meta property="og:description" content="hero&apos;s notebooks">
+<meta property="og:description" content="TF: term frequency —— (# occurrences of term t in document) / (# of words in documents) IDF: inverse document frequency —— log(# of documents / # documents with term t in it) TF * IDF  一字词对于一个文件集或一个语">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-04-05T07:01:48.706Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hero&#39;s notebooks">
-<meta name="twitter:description" content="hero&apos;s notebooks">
+<meta name="twitter:title" content="TF-IDF">
+<meta name="twitter:description" content="TF: term frequency —— (# occurrences of term t in document) / (# of words in documents) IDF: inverse document frequency —— log(# of documents / # documents with term t in it) TF * IDF  一字词对于一个文件集或一个语">
 
 
 
@@ -134,13 +136,13 @@
 
 
 
-  <link rel="canonical" href="https://chenzk1.github.io/categories/Learning/">
+  <link rel="canonical" href="https://chenzk1.github.io/2019/04/05/TF_IDF/">
 
 
 
 
 
-  <title>Category: Learning | Hero's notebooks</title>
+  <title>TF-IDF | Hero's notebooks</title>
   
 
 
@@ -165,7 +167,7 @@
     
   
 
-  <div class="container sidebar-position-left  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -291,291 +293,180 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block category">
-
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>Learning<small>Category</small>
-        </h1>
-      </div>
-
-      
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/04/05/TF_IDF/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hero">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hero's notebooks">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2019/04/05/TF_IDF/" itemprop="url">
-              
-                <span itemprop="name">TF-IDF</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">TF-IDF</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-04-05T13:40:47+08:00" content="2019-04-05">
-          04-05
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-05T13:40:47+08:00">
+                2019-04-05
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/04/04/LSTM/" itemprop="url">
-              
-                <span itemprop="name">RNN & LSTM & GRU</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-04-04T08:05:19+08:00" content="2019-04-04">
-          04-04
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/03/19/FP Tree/" itemprop="url">
-              
-                <span itemprop="name">FP Tree算法</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-19T21:51:07+08:00" content="2019-03-19">
-          03-19
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/03/18/Apriori 关联规则挖掘/" itemprop="url">
-              
-                <span itemprop="name">Apriori 关联规则挖掘</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-18T09:43:37+08:00" content="2019-03-18">
-          03-18
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/03/14/knn/" itemprop="url">
-              
-                <span itemprop="name">KNN</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-14T15:03:48+08:00" content="2019-03-14">
-          03-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/03/14/自然辩证法#6/" itemprop="url">
-              
-                <span itemprop="name">自然辩证法#6</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-14T09:54:35+08:00" content="2019-03-14">
-          03-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/03/14/自然辩证法#5/" itemprop="url">
-              
-                <span itemprop="name">自然辩证法#5</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-14T09:54:35+08:00" content="2019-03-14">
-          03-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/03/14/自然辩证法#4/" itemprop="url">
-              
-                <span itemprop="name">自然辩证法#4</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-14T09:54:35+08:00" content="2019-03-14">
-          03-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/03/14/自然辩证法#3/" itemprop="url">
-              
-                <span itemprop="name">自然辩证法#3</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-14T09:54:35+08:00" content="2019-03-14">
-          03-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/03/14/自然辩证法#1/" itemprop="url">
-              
-                <span itemprop="name">自然辩证法#1</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-14T09:54:35+08:00" content="2019-03-14">
-          03-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+        <ul>
+<li>TF: term frequency —— (# occurrences of term t in document) / (# of words in documents)</li>
+<li>IDF: inverse document frequency —— log(# of documents / # documents with term t in it)</li>
+<li><p>TF * IDF</p>
+</li>
+<li><p>一字词对于一个文件集或一个语料库中的其中一份文件的重要程度。一个词term的重要性与其在整个文件中出现的频率成正比；与它在语料库中的频率成反比。</p>
+</li>
+<li>可以用来提取关键词</li>
+<li>有不足：比如某次在每个文件中都出现，这个词可能是is are之类的无用词，也可能是可以代表该文件库的关键词—-&gt;结合停用词处理？</li>
+</ul>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ML/" rel="tag"># ML</a>
+          
+            <a href="/tags/NLP/" rel="tag"># NLP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/04/LSTM/" rel="next" title="RNN & LSTM & GRU">
+                <i class="fa fa-chevron-left"></i> RNN & LSTM & GRU
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/categories/Learning/page/2/">2</a><a class="page-number" href="/categories/Learning/page/3/">3</a><a class="extend next" rel="next" href="/categories/Learning/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
+  </article>
 
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -583,6 +474,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -791,10 +686,10 @@
 
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
 
-  
+
 
   
 

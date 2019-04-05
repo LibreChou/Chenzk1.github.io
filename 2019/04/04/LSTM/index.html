@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="ML,">
 
 
 
@@ -96,16 +96,24 @@
 
 
 
-<meta name="description" content="hero&apos;s notebooks">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Hero&#39;s notebooks">
-<meta property="og:url" content="https://chenzk1.github.io/categories/Learning/index.html">
+<meta name="description" content="RNN    动机：RNN之前，语言模型主要是N-gram，N可以变动，其作用是某位置的词取决于前N个词，所以该方法对任意序列的文本处理存在问题。 RNN：理论上可以看到往前看/往后看任意的长度。 最简单的RNN，即t时刻隐藏层的值既取决于t时刻的输入，也取决于t-1时刻的隐藏层的值。 双向循环网络，应用了下文的信息；深度循环网络，使用了多层隐藏层，更复杂了。  一个教程：RNN  LSTM(L">
+<meta name="keywords" content="ML">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RNN &amp; LSTM &amp; GRU">
+<meta property="og:url" content="https://chenzk1.github.io/2019/04/04/LSTM/index.html">
 <meta property="og:site_name" content="Hero&#39;s notebooks">
-<meta property="og:description" content="hero&apos;s notebooks">
+<meta property="og:description" content="RNN    动机：RNN之前，语言模型主要是N-gram，N可以变动，其作用是某位置的词取决于前N个词，所以该方法对任意序列的文本处理存在问题。 RNN：理论上可以看到往前看/往后看任意的长度。 最简单的RNN，即t时刻隐藏层的值既取决于t时刻的输入，也取决于t-1时刻的隐藏层的值。 双向循环网络，应用了下文的信息；深度循环网络，使用了多层隐藏层，更复杂了。  一个教程：RNN  LSTM(L">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="https://pic1.zhimg.com/v2-206db7ba9d32a80ff56b6cc988a62440_r.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/v2-e4f9851cad426dfe4ab1c76209546827_r.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/80/v2-15c5eb554f843ec492579c6d87e1497b_hd.jpg">
+<meta property="og:image" content="https://pic1.zhimg.com/80/v2-d044fd0087e1df5d2a1089b441db9970_hd.jpg">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-556c74f0e025a47fea05dc0f76ea775d_hd.jpg">
+<meta property="og:updated_time" content="2019-04-05T07:03:21.021Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hero&#39;s notebooks">
-<meta name="twitter:description" content="hero&apos;s notebooks">
+<meta name="twitter:title" content="RNN &amp; LSTM &amp; GRU">
+<meta name="twitter:description" content="RNN    动机：RNN之前，语言模型主要是N-gram，N可以变动，其作用是某位置的词取决于前N个词，所以该方法对任意序列的文本处理存在问题。 RNN：理论上可以看到往前看/往后看任意的长度。 最简单的RNN，即t时刻隐藏层的值既取决于t时刻的输入，也取决于t-1时刻的隐藏层的值。 双向循环网络，应用了下文的信息；深度循环网络，使用了多层隐藏层，更复杂了。  一个教程：RNN  LSTM(L">
+<meta name="twitter:image" content="https://pic1.zhimg.com/v2-206db7ba9d32a80ff56b6cc988a62440_r.jpg">
 
 
 
@@ -134,13 +142,13 @@
 
 
 
-  <link rel="canonical" href="https://chenzk1.github.io/categories/Learning/">
+  <link rel="canonical" href="https://chenzk1.github.io/2019/04/04/LSTM/">
 
 
 
 
 
-  <title>Category: Learning | Hero's notebooks</title>
+  <title>RNN & LSTM & GRU | Hero's notebooks</title>
   
 
 
@@ -165,7 +173,7 @@
     
   
 
-  <div class="container sidebar-position-left  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -291,291 +299,208 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block category">
-
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>Learning<small>Category</small>
-        </h1>
-      </div>
-
-      
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/04/04/LSTM/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hero">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hero's notebooks">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2019/04/05/TF_IDF/" itemprop="url">
-              
-                <span itemprop="name">TF-IDF</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">RNN & LSTM & GRU</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-04-05T13:40:47+08:00" content="2019-04-05">
-          04-05
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-04T08:05:19+08:00">
+                2019-04-04
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/04/04/LSTM/" itemprop="url">
-              
-                <span itemprop="name">RNN & LSTM & GRU</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-04-04T08:05:19+08:00" content="2019-04-04">
-          04-04
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/03/19/FP Tree/" itemprop="url">
-              
-                <span itemprop="name">FP Tree算法</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-19T21:51:07+08:00" content="2019-03-19">
-          03-19
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/03/18/Apriori 关联规则挖掘/" itemprop="url">
-              
-                <span itemprop="name">Apriori 关联规则挖掘</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-18T09:43:37+08:00" content="2019-03-18">
-          03-18
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/03/14/knn/" itemprop="url">
-              
-                <span itemprop="name">KNN</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-14T15:03:48+08:00" content="2019-03-14">
-          03-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/03/14/自然辩证法#6/" itemprop="url">
-              
-                <span itemprop="name">自然辩证法#6</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-14T09:54:35+08:00" content="2019-03-14">
-          03-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/03/14/自然辩证法#5/" itemprop="url">
-              
-                <span itemprop="name">自然辩证法#5</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-14T09:54:35+08:00" content="2019-03-14">
-          03-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/03/14/自然辩证法#4/" itemprop="url">
-              
-                <span itemprop="name">自然辩证法#4</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-14T09:54:35+08:00" content="2019-03-14">
-          03-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/03/14/自然辩证法#3/" itemprop="url">
-              
-                <span itemprop="name">自然辩证法#3</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-14T09:54:35+08:00" content="2019-03-14">
-          03-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/03/14/自然辩证法#1/" itemprop="url">
-              
-                <span itemprop="name">自然辩证法#1</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-14T09:54:35+08:00" content="2019-03-14">
-          03-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+        <ol>
+<li>RNN</li>
+</ol>
+<p><img src="https://pic1.zhimg.com/v2-206db7ba9d32a80ff56b6cc988a62440_r.jpg" alt="示意图"></p>
+<ul>
+<li>动机：RNN之前，语言模型主要是N-gram，N可以变动，其作用是某位置的词取决于前N个词，所以该方法对任意序列的文本处理存在问题。</li>
+<li>RNN：<em>理论上</em>可以看到往前看/往后看任意的长度。</li>
+<li>最简单的RNN，即t时刻隐藏层的值既取决于t时刻的输入，也取决于t-1时刻的隐藏层的值。</li>
+<li>双向循环网络，应用了下文的信息；深度循环网络，使用了多层隐藏层，更复杂了。</li>
+</ul>
+<p>一个教程：<a href="https://zybuluo.com/hanbingtao/note/541458" target="_blank" rel="noopener">RNN</a></p>
+<ol start="2">
+<li>LSTM(Long Short Term)</li>
+</ol>
+<ul>
+<li>动机：由RNN的机理可知，如果每层向下一个时刻传输的权重w大于1，则容易产生梯度爆炸问题，小于1，则会产生梯度消失<br>一个对比图<br><img src="https://pic4.zhimg.com/v2-e4f9851cad426dfe4ab1c76209546827_r.jpg" alt="RNN&amp;LSTM"><br>RNN只有一个传递状态ht，而LSTM有两个传递状态：cell state, hidden state。<br>其中cell state是上一序列的隐藏层输出加上一些东西（有点类似于RNN中的ht）；而ht变化会比较大。</li>
+<li>过程：<ul>
+<li>计算四个状态：<br><img src="https://pic4.zhimg.com/80/v2-15c5eb554f843ec492579c6d87e1497b_hd.jpg" alt="z&amp;zi"><br><img src="https://pic1.zhimg.com/80/v2-d044fd0087e1df5d2a1089b441db9970_hd.jpg" alt="zo&amp;zf"><br>z是输入，用了tanh，取值范围为-1，相当于归一化；zi&amp;zo&amp;zf为门控，用了sigmoid，输出为0~1，与某值相乘后是对该值的选择，其中i是information，f是forget，o是output；</li>
+<li>四个状态在LSTM中的应用：<br><img src="https://pic2.zhimg.com/80/v2-556c74f0e025a47fea05dc0f76ea775d_hd.jpg" alt="LSTM结构"><ul>
+<li>忘记：zf点乘ct，即通过zf忘记不重要的</li>
+<li>选择记忆：对于输入信息z，点乘zi，进行有选择的记忆</li>
+<li>输出：对上一阶段的c通过tanh进行放缩，再通过zo控制输出</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ol start="3">
+<li>GRU(Gate Recurrent Unit)</li>
+</ol>
+<ul>
+<li>同样为了解决梯度问题</li>
+<li>比LSTM：运算量小</li>
+<li>使用了同一个门控状态控制记忆和忘记</li>
+</ul>
+<p>具体：<br><a href="https://zhuanlan.zhihu.com/p/32481747" target="_blank" rel="noopener">原文</a></p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ML/" rel="tag"># ML</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/19/FP Tree/" rel="next" title="FP Tree算法">
+                <i class="fa fa-chevron-left"></i> FP Tree算法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/05/TF_IDF/" rel="prev" title="TF-IDF">
+                TF-IDF <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/categories/Learning/page/2/">2</a><a class="page-number" href="/categories/Learning/page/3/">3</a><a class="extend next" rel="next" href="/categories/Learning/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
+  </article>
 
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -583,6 +508,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -791,10 +720,10 @@
 
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
 
-  
+
 
   
 

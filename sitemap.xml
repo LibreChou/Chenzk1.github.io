@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://chenzk1.github.io/2019/04/04/LSTM/</loc>
+    
+    <lastmod>2019-04-05T07:03:21.021Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://chenzk1.github.io/2019/04/05/TF_IDF/</loc>
+    
+    <lastmod>2019-04-05T07:01:48.706Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://chenzk1.github.io/2019/03/19/FP%20Tree/</loc>
     
     <lastmod>2019-03-19T14:24:41.333Z</lastmod>

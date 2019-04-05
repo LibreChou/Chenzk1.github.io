@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://chenzk1.github.io/"/>
-  <updated>2019-03-19T14:24:41.333Z</updated>
+  <updated>2019-04-05T07:01:48.706Z</updated>
   <id>https://chenzk1.github.io/</id>
   
   <author>
@@ -15,6 +15,65 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>TF-IDF</title>
+    <link href="https://chenzk1.github.io/2019/04/05/TF_IDF/"/>
+    <id>https://chenzk1.github.io/2019/04/05/TF_IDF/</id>
+    <published>2019-04-05T05:40:47.788Z</published>
+    <updated>2019-04-05T07:01:48.706Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>TF: term frequency —— (# occurrences of term t in document) / (# of words in documents)</li><li>IDF: inverse document frequency —— log(# of documents / # documents with term t in it)</li><li><p>TF * IDF</p></li><li><p>一字词对于一个文件集或一个语料库中的其中一份文件的重要程度。一个词term的重要性与其在整个文件中出现的频率成正比；与它在语料库中的频率成反比。</p></li><li>可以用来提取关键词</li><li>有不足：比如某次在每个文件中都出现，这个词可能是is are之类的无用词，也可能是可以代表该文件库的关键词—-&gt;结合停用词处理？</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;TF: term frequency —— (# occurrences of term t in document) / (# of words in documents)&lt;/li&gt;
+&lt;li&gt;IDF: inverse document frequency ——
+      
+    
+    </summary>
+    
+      <category term="Learning" scheme="https://chenzk1.github.io/categories/Learning/"/>
+    
+    
+      <category term="ML" scheme="https://chenzk1.github.io/tags/ML/"/>
+    
+      <category term="NLP" scheme="https://chenzk1.github.io/tags/NLP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>RNN &amp; LSTM &amp; GRU</title>
+    <link href="https://chenzk1.github.io/2019/04/04/LSTM/"/>
+    <id>https://chenzk1.github.io/2019/04/04/LSTM/</id>
+    <published>2019-04-04T00:05:19.299Z</published>
+    <updated>2019-04-05T07:03:21.021Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>RNN</li></ol><p><img src="https://pic1.zhimg.com/v2-206db7ba9d32a80ff56b6cc988a62440_r.jpg" alt="示意图"></p><ul><li>动机：RNN之前，语言模型主要是N-gram，N可以变动，其作用是某位置的词取决于前N个词，所以该方法对任意序列的文本处理存在问题。</li><li>RNN：<em>理论上</em>可以看到往前看/往后看任意的长度。</li><li>最简单的RNN，即t时刻隐藏层的值既取决于t时刻的输入，也取决于t-1时刻的隐藏层的值。</li><li>双向循环网络，应用了下文的信息；深度循环网络，使用了多层隐藏层，更复杂了。</li></ul><p>一个教程：<a href="https://zybuluo.com/hanbingtao/note/541458" target="_blank" rel="noopener">RNN</a></p><ol start="2"><li>LSTM(Long Short Term)</li></ol><ul><li>动机：由RNN的机理可知，如果每层向下一个时刻传输的权重w大于1，则容易产生梯度爆炸问题，小于1，则会产生梯度消失<br>一个对比图<br><img src="https://pic4.zhimg.com/v2-e4f9851cad426dfe4ab1c76209546827_r.jpg" alt="RNN&amp;LSTM"><br>RNN只有一个传递状态ht，而LSTM有两个传递状态：cell state, hidden state。<br>其中cell state是上一序列的隐藏层输出加上一些东西（有点类似于RNN中的ht）；而ht变化会比较大。</li><li>过程：<ul><li>计算四个状态：<br><img src="https://pic4.zhimg.com/80/v2-15c5eb554f843ec492579c6d87e1497b_hd.jpg" alt="z&amp;zi"><br><img src="https://pic1.zhimg.com/80/v2-d044fd0087e1df5d2a1089b441db9970_hd.jpg" alt="zo&amp;zf"><br>z是输入，用了tanh，取值范围为-1，相当于归一化；zi&amp;zo&amp;zf为门控，用了sigmoid，输出为0~1，与某值相乘后是对该值的选择，其中i是information，f是forget，o是output；</li><li>四个状态在LSTM中的应用：<br><img src="https://pic2.zhimg.com/80/v2-556c74f0e025a47fea05dc0f76ea775d_hd.jpg" alt="LSTM结构"><ul><li>忘记：zf点乘ct，即通过zf忘记不重要的</li><li>选择记忆：对于输入信息z，点乘zi，进行有选择的记忆</li><li>输出：对上一阶段的c通过tanh进行放缩，再通过zo控制输出</li></ul></li></ul></li></ul><ol start="3"><li>GRU(Gate Recurrent Unit)</li></ol><ul><li>同样为了解决梯度问题</li><li>比LSTM：运算量小</li><li>使用了同一个门控状态控制记忆和忘记</li></ul><p>具体：<br><a href="https://zhuanlan.zhihu.com/p/32481747" target="_blank" rel="noopener">原文</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ol&gt;
+&lt;li&gt;RNN&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&quot;https://pic1.zhimg.com/v2-206db7ba9d32a80ff56b6cc988a62440_r.jpg&quot; alt=&quot;示意图&quot;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;动机：RNN之前，语言模型
+      
+    
+    </summary>
+    
+      <category term="Learning" scheme="https://chenzk1.github.io/categories/Learning/"/>
+    
+    
+      <category term="ML" scheme="https://chenzk1.github.io/tags/ML/"/>
+    
+  </entry>
   
   <entry>
     <title>FP Tree算法</title>
@@ -219,32 +278,6 @@
   </entry>
   
   <entry>
-    <title>中国古代典籍文化#1</title>
-    <link href="https://chenzk1.github.io/2019/03/14/%E4%B8%AD%E5%9B%BD%E5%8F%A4%E4%BB%A3%E5%85%B8%E7%B1%8D%E6%96%87%E5%8C%96#1/"/>
-    <id>https://chenzk1.github.io/2019/03/14/中国古代典籍文化#1/</id>
-    <published>2019-03-14T01:54:35.252Z</published>
-    <updated>2019-02-27T13:31:46.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><em>考核：第四五周布置论文题目，第八周交论文</em></p><h1 id="古代典籍的载体和装帧"><a href="#古代典籍的载体和装帧" class="headerlink" title="古代典籍的载体和装帧"></a>古代典籍的载体和装帧</h1><h2 id="甲骨"><a href="#甲骨" class="headerlink" title="甲骨"></a>甲骨</h2><ul><li>龟甲和兽骨的合称<ul><li>甲：龟甲的腹板</li><li>骨：牛的肩胛骨和胫骨，也有猪羊的肩胛骨</li></ul></li></ul><h2 id="金"><a href="#金" class="headerlink" title="金"></a>金</h2><ul><li>铜，指青铜器（铜和锡的合金，呈青灰色）上的铭文。</li><li>金文铸刻的器具以钟鼎居多，又称钟鼎文</li><li>西周是钟鼎文最盛行的时代</li></ul><h2 id="石"><a href="#石" class="headerlink" title="石"></a>石</h2><h2 id="木牍"><a href="#木牍" class="headerlink" title="木牍"></a>木牍</h2>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;&lt;em&gt;考核：第四五周布置论文题目，第八周交论文&lt;/em&gt;&lt;/p&gt;
-&lt;h1 id=&quot;古代典籍的载体和装帧&quot;&gt;&lt;a href=&quot;#古代典籍的载体和装帧&quot; class=&quot;headerlink&quot; title=&quot;古代典籍的载体和装帧&quot;&gt;&lt;/a&gt;古代典籍的载体和装帧&lt;/h1&gt;&lt;h2 
-      
-    
-    </summary>
-    
-      <category term="Learning" scheme="https://chenzk1.github.io/categories/Learning/"/>
-    
-    
-      <category term="中国古代典籍文化" scheme="https://chenzk1.github.io/tags/%E4%B8%AD%E5%9B%BD%E5%8F%A4%E4%BB%A3%E5%85%B8%E7%B1%8D%E6%96%87%E5%8C%96/"/>
-    
-  </entry>
-  
-  <entry>
     <title>自然辩证法#1</title>
     <link href="https://chenzk1.github.io/2019/03/14/%E8%87%AA%E7%84%B6%E8%BE%A9%E8%AF%81%E6%B3%95#1/"/>
     <id>https://chenzk1.github.io/2019/03/14/自然辩证法#1/</id>
@@ -269,6 +302,32 @@
     
     
       <category term="自然辩证法" scheme="https://chenzk1.github.io/tags/%E8%87%AA%E7%84%B6%E8%BE%A9%E8%AF%81%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>中国古代典籍文化#1</title>
+    <link href="https://chenzk1.github.io/2019/03/14/%E4%B8%AD%E5%9B%BD%E5%8F%A4%E4%BB%A3%E5%85%B8%E7%B1%8D%E6%96%87%E5%8C%96#1/"/>
+    <id>https://chenzk1.github.io/2019/03/14/中国古代典籍文化#1/</id>
+    <published>2019-03-14T01:54:35.252Z</published>
+    <updated>2019-02-27T13:31:46.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><em>考核：第四五周布置论文题目，第八周交论文</em></p><h1 id="古代典籍的载体和装帧"><a href="#古代典籍的载体和装帧" class="headerlink" title="古代典籍的载体和装帧"></a>古代典籍的载体和装帧</h1><h2 id="甲骨"><a href="#甲骨" class="headerlink" title="甲骨"></a>甲骨</h2><ul><li>龟甲和兽骨的合称<ul><li>甲：龟甲的腹板</li><li>骨：牛的肩胛骨和胫骨，也有猪羊的肩胛骨</li></ul></li></ul><h2 id="金"><a href="#金" class="headerlink" title="金"></a>金</h2><ul><li>铜，指青铜器（铜和锡的合金，呈青灰色）上的铭文。</li><li>金文铸刻的器具以钟鼎居多，又称钟鼎文</li><li>西周是钟鼎文最盛行的时代</li></ul><h2 id="石"><a href="#石" class="headerlink" title="石"></a>石</h2><h2 id="木牍"><a href="#木牍" class="headerlink" title="木牍"></a>木牍</h2>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;em&gt;考核：第四五周布置论文题目，第八周交论文&lt;/em&gt;&lt;/p&gt;
+&lt;h1 id=&quot;古代典籍的载体和装帧&quot;&gt;&lt;a href=&quot;#古代典籍的载体和装帧&quot; class=&quot;headerlink&quot; title=&quot;古代典籍的载体和装帧&quot;&gt;&lt;/a&gt;古代典籍的载体和装帧&lt;/h1&gt;&lt;h2 
+      
+    
+    </summary>
+    
+      <category term="Learning" scheme="https://chenzk1.github.io/categories/Learning/"/>
+    
+    
+      <category term="中国古代典籍文化" scheme="https://chenzk1.github.io/tags/%E4%B8%AD%E5%9B%BD%E5%8F%A4%E4%BB%A3%E5%85%B8%E7%B1%8D%E6%96%87%E5%8C%96/"/>
     
   </entry>
   
@@ -444,34 +503,6 @@
   </entry>
   
   <entry>
-    <title>LightGBM</title>
-    <link href="https://chenzk1.github.io/2019/03/14/LightGBM/"/>
-    <id>https://chenzk1.github.io/2019/03/14/LightGBM/</id>
-    <published>2019-03-14T01:54:35.205Z</published>
-    <updated>2019-01-18T11:38:54.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h1><ul><li>可以接受categorical features：LightGBM 可以直接使用 categorical features（分类特征）作为 input（输入）. 它不需要被转换成 one-hot coding（独热编码）, 并且它比 one-hot coding（独热编码）更快（约快上 8 倍）。注意: 在你构造 Dataset 之前, 你应该将分类特征转换为 int 类型的值.</li></ul><h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;特性&quot;&gt;&lt;a href=&quot;#特性&quot; class=&quot;headerlink&quot; title=&quot;特性&quot;&gt;&lt;/a&gt;特性&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;可以接受categorical features：LightGBM 可以直接使用 categorical features（分类
-      
-    
-    </summary>
-    
-      <category term="Learning" scheme="https://chenzk1.github.io/categories/Learning/"/>
-    
-    
-      <category term="ML" scheme="https://chenzk1.github.io/tags/ML/"/>
-    
-      <category term="DOC" scheme="https://chenzk1.github.io/tags/DOC/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Naive Bayes及其sklearn实现</title>
     <link href="https://chenzk1.github.io/2019/03/14/Naive%20Bayes/"/>
     <id>https://chenzk1.github.io/2019/03/14/Naive Bayes/</id>
@@ -502,22 +533,20 @@
   </entry>
   
   <entry>
-    <title>ID3 C4.5 CART</title>
-    <link href="https://chenzk1.github.io/2019/03/14/Decision%20Tree/"/>
-    <id>https://chenzk1.github.io/2019/03/14/Decision Tree/</id>
-    <published>2019-03-14T01:54:35.189Z</published>
-    <updated>2019-03-13T02:21:22.000Z</updated>
+    <title>LightGBM</title>
+    <link href="https://chenzk1.github.io/2019/03/14/LightGBM/"/>
+    <id>https://chenzk1.github.io/2019/03/14/LightGBM/</id>
+    <published>2019-03-14T01:54:35.205Z</published>
+    <updated>2019-01-18T11:38:54.000Z</updated>
     
-    <content type="html"><![CDATA[<ol><li><p>决策树<br><strong><em>问题：如何挑选用于分裂节点的特征–&gt;ID3 C4.5 …(一个标准：使分裂出来的节点尽可能纯，即一个分支尽可能属于同类)</em></strong></p></li><li><p>ID3<br><em><strong>信息增益</strong></em></p><p> 信息增益 = 信息熵 - 条件熵</p><ul><li>信息增益：针对每个 <em><strong>属性</strong></em></li><li>信息熵：整个样本空间的不确定度。其中Pk一定是label取值的概率。</li><li><p>条件熵：给定某个属性，求其信息熵</p><p>–&gt; 问题：某属性所包括的类别越多，信息增益越大。极限：每个类别仅有1个实例（label数量为1），log p = log1 = 0， 所以最终条件熵=0。或：属性类别越多，条件熵越小，其纯度越高。</p><p>–&gt; 信息增益准则其实是对可取值数目较多的属性有所偏好！</p><p>–&gt; 泛化能力不强</p></li></ul></li><li><p>C4.5 <em><strong>信息增益率+信息增益</strong></em></p><p> 属性a的信息增益率 = 属性a的信息增益 / a的某个固有统计量IV(a)</p><p> <img src="https://pic4.zhimg.com/80/v2-812104c0291d20935e910919a9fa5c27_hd.png" alt="IV(a)公式"></p><p> V为a的取值数目。<br> （实际上是属性a的信息熵）</p><ul><li>直接使用信息增益率：偏好取值数目小的属性。</li><li>先选择高于平均水平信息增益的属性，再选择最高信息增益率的属性。</li></ul></li><li><p>CART <em><strong>基尼系数+MAE/MSE</strong></em></p><p>与ID3、C4.5的不同：形成二叉树，因此 –&gt; 既要确定要分割的属性，也要确定要分割的值</p><ul><li>回归树：MAE/MSE<ul><li>example(MSE)：<blockquote><ol><li>考虑数据集 D 上的所有特征 j，遍历每一个特征下所有可能的取值或者切分点 s，将数据集 D 划分成两部分 D1 和 D2</li><li>分别计算上述两个子集的平方误差和，选择最小的平方误差对应的特征与分割点，生成两个子节点。</li><li>对上述两个子节点递归调用步骤1 2,直到满足停止条件。</li></ol></blockquote></li></ul></li><li><p>分类树：(Gini)</p><p><img src="https://img-blog.csdn.net/20150109184544578?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvQW5kcm9pZGx1c2hhbmdkZXJlbg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="某属性A的基尼系数"><br>基尼系数越小，纯度越高</p></li></ul><blockquote><ol><li>对每个特征 A，对它的所有可能取值 a，将数据集分为 A＝a，和 A!＝a 两个子集，计算集合 D 的基尼指数：<br>Gini(A) = D1/D <em> Gini(D1) + D2/D </em> Gini(D2)</li><li>遍历所有的特征 A，计算其所有可能取值 a 的基尼指数，选择 D 的基尼指数最小值对应的特征及切分点作为最优的划分，将数据分为两个子集。</li><li>对上述两个子节点递归调用步骤1 2, 直到满足停止条件。</li><li>生成 CART 决策树。</li></ol></blockquote><pre><code>停止条件有：1. 节点中的样本个数小于预定阈值;2. 样本集的Gini系数小于预定阈值（此时样本基本属于同一类）;3. 没有更多特征。</code></pre><ul><li>剪枝</li><li>例子：<a href="https://www.jianshu.com/p/b90a9ce05b28" target="_blank" rel="noopener">example</a></li></ul></li><li><p>控制决策树过拟合的方法</p><ul><li>剪枝</li><li>控制终止条件，避免树形结构过细</li><li>构建随机森林</li></ul></li></ol>]]></content>
+    <content type="html"><![CDATA[<h1 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h1><ul><li>可以接受categorical features：LightGBM 可以直接使用 categorical features（分类特征）作为 input（输入）. 它不需要被转换成 one-hot coding（独热编码）, 并且它比 one-hot coding（独热编码）更快（约快上 8 倍）。注意: 在你构造 Dataset 之前, 你应该将分类特征转换为 int 类型的值.</li></ul><h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;ol&gt;
-&lt;li&gt;&lt;p&gt;决策树&lt;br&gt;&lt;strong&gt;&lt;em&gt;问题：如何挑选用于分裂节点的特征–&amp;gt;ID3 C4.5 …(一个标准：使分裂出来的节点尽可能纯，即一个分支尽可能属于同类)&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p&gt;ID3&lt;br&gt;&lt;em&gt;&lt;st
+        &lt;h1 id=&quot;特性&quot;&gt;&lt;a href=&quot;#特性&quot; class=&quot;headerlink&quot; title=&quot;特性&quot;&gt;&lt;/a&gt;特性&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;可以接受categorical features：LightGBM 可以直接使用 categorical features（分类
       
     
     </summary>
@@ -527,7 +556,7 @@
     
       <category term="ML" scheme="https://chenzk1.github.io/tags/ML/"/>
     
-      <category term="Decision Tree" scheme="https://chenzk1.github.io/tags/Decision-Tree/"/>
+      <category term="DOC" scheme="https://chenzk1.github.io/tags/DOC/"/>
     
   </entry>
   
@@ -555,31 +584,6 @@
       <category term="ML" scheme="https://chenzk1.github.io/tags/ML/"/>
     
       <category term="DOC" scheme="https://chenzk1.github.io/tags/DOC/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>DS Competition_Coursera#1</title>
-    <link href="https://chenzk1.github.io/2019/03/14/D%20S%20competition_Coursera#1/"/>
-    <id>https://chenzk1.github.io/2019/03/14/D S competition_Coursera#1/</id>
-    <published>2019-03-14T01:54:35.174Z</published>
-    <updated>2018-12-02T13:27:58.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Recap"><a href="#Recap" class="headerlink" title="Recap"></a>Recap</h1><h2 id="Linear-model"><a href="#Linear-model" class="headerlink" title="Linear model"></a>Linear model</h2><p>非常适合于高维稀疏数据<br>e.g.<br>SVM, Logistic</p><p>SVM也是非线性</p><h2 id="Tree-based"><a href="#Tree-based" class="headerlink" title="Tree-based"></a>Tree-based</h2><p>Decision Tree, Random Forest, GBDT</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;Recap&quot;&gt;&lt;a href=&quot;#Recap&quot; class=&quot;headerlink&quot; title=&quot;Recap&quot;&gt;&lt;/a&gt;Recap&lt;/h1&gt;&lt;h2 id=&quot;Linear-model&quot;&gt;&lt;a href=&quot;#Linear-model&quot; class=&quot;headerli
-      
-    
-    </summary>
-    
-      <category term="Learning" scheme="https://chenzk1.github.io/categories/Learning/"/>
-    
-    
-      <category term="ML" scheme="https://chenzk1.github.io/tags/ML/"/>
     
   </entry>
   
