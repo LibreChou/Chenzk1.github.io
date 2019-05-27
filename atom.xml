@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://chenzk1.github.io/"/>
-  <updated>2019-04-05T07:01:48.706Z</updated>
+  <updated>2019-05-26T12:57:46.294Z</updated>
   <id>https://chenzk1.github.io/</id>
   
   <author>
@@ -17,21 +17,88 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>TF-IDF</title>
-    <link href="https://chenzk1.github.io/2019/04/05/TF_IDF/"/>
-    <id>https://chenzk1.github.io/2019/04/05/TF_IDF/</id>
-    <published>2019-04-05T05:40:47.788Z</published>
-    <updated>2019-04-05T07:01:48.706Z</updated>
+    <title></title>
+    <link href="https://chenzk1.github.io/2019/05/26/CTR/"/>
+    <id>https://chenzk1.github.io/2019/05/26/CTR/</id>
+    <published>2019-05-26T12:57:46.294Z</published>
+    <updated>2019-05-26T12:57:46.294Z</updated>
     
-    <content type="html"><![CDATA[<ul><li>TF: term frequency —— (# occurrences of term t in document) / (# of words in documents)</li><li>IDF: inverse document frequency —— log(# of documents / # documents with term t in it)</li><li><p>TF * IDF</p></li><li><p>一字词对于一个文件集或一个语料库中的其中一份文件的重要程度。一个词term的重要性与其在整个文件中出现的频率成正比；与它在语料库中的频率成反比。</p></li><li>可以用来提取关键词</li><li>有不足：比如某次在每个文件中都出现，这个词可能是is are之类的无用词，也可能是可以代表该文件库的关键词—-&gt;结合停用词处理？</li></ul>]]></content>
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Tips in DS Competition</title>
+    <link href="https://chenzk1.github.io/2019/04/11/Tips%20in%20DS%20Competition/"/>
+    <id>https://chenzk1.github.io/2019/04/11/Tips in DS Competition/</id>
+    <published>2019-04-11T12:30:34.956Z</published>
+    <updated>2019-04-11T14:03:24.795Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="处理缺失数据"><a href="#处理缺失数据" class="headerlink" title="处理缺失数据"></a>处理缺失数据</h2><ul><li>删除</li><li>imputation: mean mode …</li><li>imputation + missing_flag</li><li>…</li></ul><h2 id="Categorial-Columns"><a href="#Categorial-Columns" class="headerlink" title="Categorial Columns"></a>Categorial Columns</h2><ul><li>对于种类不是很多的：onehot encoder<ul><li>sklearn.preprocessing.OneHotEncoder: 如果使用线性模型，存在一个问题就是生成的n列是线性相关的，因此要满足线性无关就要删除其中一列。该类提供了drop_first参数</li></ul></li><li>不用label encoder的原因：label encoder引入了大小顺序</li></ul><h2 id="XGBOOST"><a href="#XGBOOST" class="headerlink" title="XGBOOST"></a>XGBOOST</h2>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;ul&gt;
-&lt;li&gt;TF: term frequency —— (# occurrences of term t in document) / (# of words in documents)&lt;/li&gt;
-&lt;li&gt;IDF: inverse document frequency ——
+        &lt;h2 id=&quot;处理缺失数据&quot;&gt;&lt;a href=&quot;#处理缺失数据&quot; class=&quot;headerlink&quot; title=&quot;处理缺失数据&quot;&gt;&lt;/a&gt;处理缺失数据&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;删除&lt;/li&gt;
+&lt;li&gt;imputation: mean mode …&lt;/li&gt;
+&lt;li&gt;imp
+      
+    
+    </summary>
+    
+      <category term="Learning" scheme="https://chenzk1.github.io/categories/Learning/"/>
+    
+    
+      <category term="ML" scheme="https://chenzk1.github.io/tags/ML/"/>
+    
+      <category term="DataScience" scheme="https://chenzk1.github.io/tags/DataScience/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SVD&amp;PCA</title>
+    <link href="https://chenzk1.github.io/2019/04/06/SVD&amp;PCA/"/>
+    <id>https://chenzk1.github.io/2019/04/06/SVD&amp;PCA/</id>
+    <published>2019-04-06T03:07:20.164Z</published>
+    <updated>2019-04-06T08:09:32.000Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="特征值分解-Eigen-Value-Decomposition"><a href="#特征值分解-Eigen-Value-Decomposition" class="headerlink" title="特征值分解(Eigen Value Decomposition)"></a>特征值分解(Eigen Value Decomposition)</h3><p>Ax = λx</p><p>-&gt; A = WΣW^(-1)</p><p>其中Σ为对角阵，对角的值是A的特征值；W的列向量为对应的特征向量</p><p>对W标准化后，即Wi^(T).wi = 1</p><p>所以W^(T).W = I –&gt; W^(T) = W^(-1)</p><p><strong>W经标准化后为酉矩阵</strong></p><p>-&gt; A = WΣW^(T)</p><p><strong>!!A必须是方阵</strong></p><h3 id="SVD-Singular-Value-Decomposition"><a href="#SVD-Singular-Value-Decomposition" class="headerlink" title="SVD(Singular Value Decomposition)"></a>SVD(Singular Value Decomposition)</h3><ul><li>可以对<strong>非方阵</strong>分解</li><li>A = UΣV^(T), A: m x n, U: m x m, V: n x n, Σ: m x n; <strong>U和V都为酉矩阵</strong>，Σ主对角线上元素为奇异值</li><li>UVΣ的求解：<ul><li>U: AA^(T) = UΣ1U^(T)</li><li>V: A^(T)A = VΣ2V^(T)</li><li>Σ: A = UΣV^(T) =&gt; AV = UΣ =&gt; U^(T)AV = Σ =&gt; σi = Avi/ui</li></ul></li><li>性质：可以用几个最大的奇异值及其左右奇异向量近似原矩阵</li><li>应用：降维，数据压缩，去噪声；也可用于NLP，如LSA…</li></ul><h3 id="PCA"><a href="#PCA" class="headerlink" title="PCA"></a>PCA</h3><h4 id="基"><a href="#基" class="headerlink" title="基"></a>基</h4><p>由线性不相关的向量组成，有时会取正交。</p><h4 id="坐标变换-amp-矩阵相乘"><a href="#坐标变换-amp-矩阵相乘" class="headerlink" title="坐标变换&amp;矩阵相乘"></a>坐标变换&amp;矩阵相乘</h4><p>AB = C，B矩阵的每一个列向量变换到以A矩阵的行向量为基表示的空间中，最终得到的向量的维度（C的行数）取决于基的个数 –&gt; 可用于降、升维</p><h4 id="降维"><a href="#降维" class="headerlink" title="降维"></a>降维</h4><ul><li>降维的目标：维数变低&amp;尽量保留更多的信息。</li><li>对于二维降到一维，要保留更多的信息，则原始向量在基向量上的投影应相隔距离尽量远 –&gt; 大方差</li><li><p>对于高维数据，如3维到2维，若只遵循大方差的原则，则两个基向量会相隔很近 –&gt; 信息不够分散 –&gt; 基向量之间的相关系数应尽量小</p></li><li><p>方差：单个随机变量之间的离散程度；协方差：多个随机变量之间的相似性</p></li></ul><p><strong>综上 –&gt; 协方差矩阵</strong></p><h4 id="协方差矩阵"><a href="#协方差矩阵" class="headerlink" title="协方差矩阵"></a>协方差矩阵</h4><p>协方差矩阵对角线上是原矩阵的方差，其他位置的元素是原矩阵两两向量之间的协方差 –&gt; 协方差矩阵是实对称矩阵 –&gt; 可逆</p><ul><li>原始问题即协方差矩阵的对角化</li></ul><h4 id="协方差矩阵对角化"><a href="#协方差矩阵对角化" class="headerlink" title="协方差矩阵对角化"></a>协方差矩阵对角化</h4><ul><li>原向量X，对应的协方差矩阵为C，P为基向量组成的变换矩阵；X经变换后为Y，Y=PX，Y的协方差矩阵为D，则：设X Y的期望为0，<br>D = YY^(T) / m = PX X^(T)P^(T) / m = PCP^(T)</li><li>PCA即寻找矩阵P使得 PCP^(T)是一个对角矩阵，且对角线上的值从大到小排列，取前k个值，以及对应P中的k个向量，即可将原n维矩阵降维至k维 –&gt; D对角线上的值即特征值，P为特征向量组成的矩阵</li></ul><h4 id="PCA-1"><a href="#PCA-1" class="headerlink" title="PCA"></a>PCA</h4><ul><li>总结：寻找实现协方差矩阵对角化的矩阵P，并应用P对原有数据进行变换</li><li>算法步骤<br>设有m条n维数据：</li></ul><ol><li>将原始数据按列组成n行m列矩阵X</li><li>将X的每一行（代表一个属性字段）进行零均值化，即减去这一行的均值</li><li>求出协方差矩阵C = XX^(T) / m</li><li>求出协方差矩阵的特征值及对应的特征向量</li><li>将特征向量按对应特征值大小从上到下按行排列成矩阵，取前k行组成矩阵P</li><li>Y=PX即为降维到k维后的数据</li></ol><ul><li>优点：降低数据特征维度，减少数据存储量；加快运行速度</li><li>注意事项：<strong>量纲敏感性</strong>，最好进行量纲统一化；适用于大样本，小样本的话建议因子分析法</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;特征值分解-Eigen-Value-Decomposition&quot;&gt;&lt;a href=&quot;#特征值分解-Eigen-Value-Decomposition&quot; class=&quot;headerlink&quot; title=&quot;特征值分解(Eigen Value Decompositio
+      
+    
+    </summary>
+    
+      <category term="Learning" scheme="https://chenzk1.github.io/categories/Learning/"/>
+    
+    
+      <category term="ML" scheme="https://chenzk1.github.io/tags/ML/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Topic Model__TF-IDF/LSA/pLSA/NMF</title>
+    <link href="https://chenzk1.github.io/2019/04/05/Topic%20Model__TF-IDF_LSA_pLSA_NMF/"/>
+    <id>https://chenzk1.github.io/2019/04/05/Topic Model__TF-IDF_LSA_pLSA_NMF/</id>
+    <published>2019-04-05T05:40:47.788Z</published>
+    <updated>2019-04-08T12:50:47.316Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Topic-Model"><a href="#Topic-Model" class="headerlink" title="Topic Model"></a>Topic Model</h1><p><em><strong>主题模型即在大量文档中发现潜在主题的统计模型</strong></em></p><p>主题模型是一种<strong>生成式有向图</strong>模型，即文档以一定概率选择主题，而主题是单词的概率分布。</p><p>文档 –&gt; 主题 –&gt; 单词</p><h2 id="TF-IDF"><a href="#TF-IDF" class="headerlink" title="TF-IDF"></a>TF-IDF</h2><ul><li>TF: term frequency —— (# occurrences of term t in document) / (# of words in documents)</li><li>IDF: inverse document frequency —— log(# of documents / # documents with term t in it)</li><li><p>TF * IDF</p></li><li><p>一字词对于一个文件集或一个语料库中的其中一份文件的重要程度。一个词term的重要性与其在整个文件中出现的频率成正比；与它在语料库中的频率成反比。</p></li><li>可以用来提取关键词</li><li>有不足：比如某次在每个文件中都出现，这个词可能是is are之类的无用词，也可能是可以代表该文件库的关键词—-&gt;结合停用词处理？；没有考虑语义关联</li></ul><h2 id="LSA-LSI-Latent-Semantic-Analysis-Indexing"><a href="#LSA-LSI-Latent-Semantic-Analysis-Indexing" class="headerlink" title="LSA/LSI(Latent Semantic Analysis/Indexing)"></a>LSA/LSI(Latent Semantic Analysis/Indexing)</h2><p>潜在语义分析/检索</p><ul><li>假设有m个输入文档，每个文档有n个词项，则可以组成一个term-document的稀疏矩阵A∈Rm*n，它的行对应词项、列对应文档；Aij对应第i个文档的第j个词项，可以通过TF-IDF、词项在文档中出现的次数等方式确定矩阵每个元素的权重作为计算输入。经过SVD分解后将奇异值从大到小排列，取前k个最大的奇异值作为对原矩阵A的近似表示，Σ中的每个奇异值代表了潜在语义的重要度。</li><li>通过一次SVD分解就可以得到主题模型，同时解决语义的问题，但是计算得到的矩阵U、V中经常存在负数；可以通过计算词项（U的行）、文档（V的行or VT的列）之间的余弦相似度得到词项与词项、文档与文档之间的相似度；还可以对U、V中的词项和文档直接进行聚类，提取语义级别的近义词集合，便于搜索且减少数据存储量。</li><li>LSA适用于较小规模数据，可用于文档分类/聚类、同义词/多义词检索、跨语言搜索；SVD的计算很耗时，且潜在语义的数量k的选择对结果的影响非常大；LSA的原理简单但得到的不是概率模型，缺乏统计基础，矩阵中的负值难以解释，无法对应成现实中的概念。</li></ul><h2 id="pLSA-Potential-Latent-Semantic-Analysis-Indexing"><a href="#pLSA-Potential-Latent-Semantic-Analysis-Indexing" class="headerlink" title="pLSA(Potential Latent Semantic Analysis/Indexing)"></a>pLSA(Potential Latent Semantic Analysis/Indexing)</h2><p>引入了隐含变量，并使用了EM算法求解</p><h2 id="NMF-Non-negative-Matrix-Factorization"><a href="#NMF-Non-negative-Matrix-Factorization" class="headerlink" title="NMF(Non-negative Matrix Factorization)"></a>NMF(Non-negative Matrix Factorization)</h2><ul><li>V ≈ WH，其中V∈Rn<em>m为文档-单词矩阵，W∈Rn</em>r体现文档和主题的概率相关度，H∈Rr*m体现单词和主题的概率相关度。<br><img src="https://img-blog.csdn.net/20180713123152376?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpdXk5ODAz/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="V=WH"></li><li>目的：V与WH的误差最小化，度量方式可选择欧几里得距离、KL散度…</li><li>NMF的目标函数中共包含了n<em>r+r</em>m个参数，可以使用梯度下降法、拟牛顿法、坐标轴下降法等进行求解。</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;Topic-Model&quot;&gt;&lt;a href=&quot;#Topic-Model&quot; class=&quot;headerlink&quot; title=&quot;Topic Model&quot;&gt;&lt;/a&gt;Topic Model&lt;/h1&gt;&lt;p&gt;&lt;em&gt;&lt;strong&gt;主题模型即在大量文档中发现潜在主题的统计模型
       
     
     </summary>
@@ -306,32 +373,6 @@
   </entry>
   
   <entry>
-    <title>中国古代典籍文化#1</title>
-    <link href="https://chenzk1.github.io/2019/03/14/%E4%B8%AD%E5%9B%BD%E5%8F%A4%E4%BB%A3%E5%85%B8%E7%B1%8D%E6%96%87%E5%8C%96#1/"/>
-    <id>https://chenzk1.github.io/2019/03/14/中国古代典籍文化#1/</id>
-    <published>2019-03-14T01:54:35.252Z</published>
-    <updated>2019-02-27T13:31:46.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><em>考核：第四五周布置论文题目，第八周交论文</em></p><h1 id="古代典籍的载体和装帧"><a href="#古代典籍的载体和装帧" class="headerlink" title="古代典籍的载体和装帧"></a>古代典籍的载体和装帧</h1><h2 id="甲骨"><a href="#甲骨" class="headerlink" title="甲骨"></a>甲骨</h2><ul><li>龟甲和兽骨的合称<ul><li>甲：龟甲的腹板</li><li>骨：牛的肩胛骨和胫骨，也有猪羊的肩胛骨</li></ul></li></ul><h2 id="金"><a href="#金" class="headerlink" title="金"></a>金</h2><ul><li>铜，指青铜器（铜和锡的合金，呈青灰色）上的铭文。</li><li>金文铸刻的器具以钟鼎居多，又称钟鼎文</li><li>西周是钟鼎文最盛行的时代</li></ul><h2 id="石"><a href="#石" class="headerlink" title="石"></a>石</h2><h2 id="木牍"><a href="#木牍" class="headerlink" title="木牍"></a>木牍</h2>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;&lt;em&gt;考核：第四五周布置论文题目，第八周交论文&lt;/em&gt;&lt;/p&gt;
-&lt;h1 id=&quot;古代典籍的载体和装帧&quot;&gt;&lt;a href=&quot;#古代典籍的载体和装帧&quot; class=&quot;headerlink&quot; title=&quot;古代典籍的载体和装帧&quot;&gt;&lt;/a&gt;古代典籍的载体和装帧&lt;/h1&gt;&lt;h2 
-      
-    
-    </summary>
-    
-      <category term="Learning" scheme="https://chenzk1.github.io/categories/Learning/"/>
-    
-    
-      <category term="中国古代典籍文化" scheme="https://chenzk1.github.io/tags/%E4%B8%AD%E5%9B%BD%E5%8F%A4%E4%BB%A3%E5%85%B8%E7%B1%8D%E6%96%87%E5%8C%96/"/>
-    
-  </entry>
-  
-  <entry>
     <title>自然辩证法#2</title>
     <link href="https://chenzk1.github.io/2019/03/14/%E8%87%AA%E7%84%B6%E8%BE%A9%E8%AF%81%E6%B3%95#2/"/>
     <id>https://chenzk1.github.io/2019/03/14/自然辩证法#2/</id>
@@ -356,6 +397,32 @@
     
     
       <category term="自然辩证法" scheme="https://chenzk1.github.io/tags/%E8%87%AA%E7%84%B6%E8%BE%A9%E8%AF%81%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>中国古代典籍文化#1</title>
+    <link href="https://chenzk1.github.io/2019/03/14/%E4%B8%AD%E5%9B%BD%E5%8F%A4%E4%BB%A3%E5%85%B8%E7%B1%8D%E6%96%87%E5%8C%96#1/"/>
+    <id>https://chenzk1.github.io/2019/03/14/中国古代典籍文化#1/</id>
+    <published>2019-03-14T01:54:35.252Z</published>
+    <updated>2019-02-27T13:31:46.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><em>考核：第四五周布置论文题目，第八周交论文</em></p><h1 id="古代典籍的载体和装帧"><a href="#古代典籍的载体和装帧" class="headerlink" title="古代典籍的载体和装帧"></a>古代典籍的载体和装帧</h1><h2 id="甲骨"><a href="#甲骨" class="headerlink" title="甲骨"></a>甲骨</h2><ul><li>龟甲和兽骨的合称<ul><li>甲：龟甲的腹板</li><li>骨：牛的肩胛骨和胫骨，也有猪羊的肩胛骨</li></ul></li></ul><h2 id="金"><a href="#金" class="headerlink" title="金"></a>金</h2><ul><li>铜，指青铜器（铜和锡的合金，呈青灰色）上的铭文。</li><li>金文铸刻的器具以钟鼎居多，又称钟鼎文</li><li>西周是钟鼎文最盛行的时代</li></ul><h2 id="石"><a href="#石" class="headerlink" title="石"></a>石</h2><h2 id="木牍"><a href="#木牍" class="headerlink" title="木牍"></a>木牍</h2>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;em&gt;考核：第四五周布置论文题目，第八周交论文&lt;/em&gt;&lt;/p&gt;
+&lt;h1 id=&quot;古代典籍的载体和装帧&quot;&gt;&lt;a href=&quot;#古代典籍的载体和装帧&quot; class=&quot;headerlink&quot; title=&quot;古代典籍的载体和装帧&quot;&gt;&lt;/a&gt;古代典籍的载体和装帧&lt;/h1&gt;&lt;h2 
+      
+    
+    </summary>
+    
+      <category term="Learning" scheme="https://chenzk1.github.io/categories/Learning/"/>
+    
+    
+      <category term="中国古代典籍文化" scheme="https://chenzk1.github.io/tags/%E4%B8%AD%E5%9B%BD%E5%8F%A4%E4%BB%A3%E5%85%B8%E7%B1%8D%E6%96%87%E5%8C%96/"/>
     
   </entry>
   
@@ -476,33 +543,6 @@
   </entry>
   
   <entry>
-    <title>Kaggle相关</title>
-    <link href="https://chenzk1.github.io/2019/03/14/kaggle%E7%9B%B8%E5%85%B3/"/>
-    <id>https://chenzk1.github.io/2019/03/14/kaggle相关/</id>
-    <published>2019-03-14T01:54:35.205Z</published>
-    <updated>2018-11-27T10:43:36.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="如何在-Kaggle-首战中进入前-10"><a href="#如何在-Kaggle-首战中进入前-10" class="headerlink" title="如何在 Kaggle 首战中进入前 10%"></a>如何在 Kaggle 首战中进入前 10%</h1><p><a href="https://dnc1994.com/2016/04/rank-10-percent-in-first-kaggle-competition/" target="_blank" rel="noopener">原文</a></p><h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><h3 id="Exploration-Data-Analysis-EDA"><a href="#Exploration-Data-Analysis-EDA" class="headerlink" title="Exploration Data Analysis(EDA)"></a>Exploration Data Analysis(EDA)</h3><h4 id="Visualization"><a href="#Visualization" class="headerlink" title="Visualization"></a>Visualization</h4><p>matplotlib + seaborn</p><ul><li>查看目标变量的分布。当分布不平衡时，根据评分标准和具体模型的使用不同，可能会严重影响性能。</li><li>对 Numerical Variable，可以用 Box Plot 来直观地查看它的分布。</li><li>对于坐标类数据，可以用 Scatter Plot 来查看它们的分布趋势和是否有离群点的存在。</li><li>对于分类问题，将数据根据 Label 的不同着不同的颜色绘制出来，这对 Feature 的构造很有帮助。</li><li>绘制变量之间两两的分布和相关度图表。</li></ul><p><a href="https://www.kaggle.com/benhamner/python-data-visualizations" target="_blank" rel="noopener">example_visualization</a></p><h4 id="Statistical-Tests"><a href="#Statistical-Tests" class="headerlink" title="Statistical Tests"></a>Statistical Tests</h4><p>可视化为定性，这里专注于定量，例如对于新创造的特征，可以将其加入原模型当中，看结果的变化。</p><p>在某些比赛中，由于数据分布比较奇葩或是噪声过强，Public LB(Leader board)的分数可能会跟 Local CV(Cross Validation)的结果相去甚远。可以根据一些统计测试的结果来粗略地建立一个阈值，用来衡量一次分数的提高究竟是实质的提高还是由于数据的随机性导致的。</p><h3 id="Data-Preprossing"><a href="#Data-Preprossing" class="headerlink" title="Data Preprossing"></a>Data Preprossing</h3><p>处理策略主要依赖于EDA中得到的结论。</p><ul><li>有时数据会分散在几个不同的文件中，需要 Join 起来。</li><li>处理 Missing Data。</li><li>处理 Outlier。</li><li>必要时转换某些 Categorical Variable 的表示方式。例如应用one-hot encoding(pd.get_dummies)将categorical variable转化为数字变量。</li><li>有些 Float 变量可能是从未知的 Int 变量转换得到的，这个过程中发生精度损失会在数据中产生不必要的 Noise，即两个数值原本是相同的却在小数点后某一位开始有不同。这对 Model 可能会产生很负面的影响，需要设法去除或者减弱 Noise。</li></ul><h3 id="Feature-Engineering"><a href="#Feature-Engineering" class="headerlink" title="Feature Engineering"></a>Feature Engineering</h3><h4 id="Feature-Selection"><a href="#Feature-Selection" class="headerlink" title="Feature Selection"></a>Feature Selection</h4><p>总的来说，应该<strong>生成尽量多的 Feature，相信 Model 能够挑出最有用的 Feature</strong>。但有时先做一遍 Feature Selection 也能带来一些好处：</p><ul><li>Feature 越少，训练越快。</li><li>有些 Feature 之间可能存在线性关系，影响 Model 的性能。</li><li>通过挑选出最重要的 Feature，可以将它们之间进行各种运算和操作的结果作为新的 Feature，可能带来意外的提高。</li><li>Feature Selection 最实用的方法也就是看 Random Forest 训练完以后得到的 Feature Importance 了。其他有一些更复杂的算法在理论上更加 Robust，但是缺乏实用高效的实现。从原理上来讲，增加 Random Forest 中树的数量可以在一定程度上加强其对于 Noisy Data 的 Robustness。</li></ul><p>看 Feature Importance 对于某些数据经过脱敏处理的比赛尤其重要。这可以免得你浪费大把时间在琢磨一个不重要的变量的意义上。(脱敏：数据脱敏(Data Masking),又称数据漂白、数据去隐私化或数据变形。百度百科对数据脱敏的定义为：指对某些敏感信息通过脱敏规则进行数据的变形，实现敏感隐私数据的可靠保护。在涉及客户安全数据或者一些商业性敏感数据的情况下，在不违反系统规则条件下，对真实数据进行改造并提供测试使用，如身份证号、手机号、卡号、客户号等个人信息都需要进行数据脱敏。)</p><h4 id="Feature-Encoding"><a href="#Feature-Encoding" class="headerlink" title="Feature Encoding"></a>Feature Encoding</h4><p>假设有一个 Categorical Variable 一共有几万个取值可能，那么创建 Dummy Variables 的方法就不可行了。这时一个比较好的方法是根据 Feature Importance 或是这些取值本身在数据中的出现频率，为最重要（比如说前 95% 的 Importance）那些取值（有很大可能只有几个或是十几个）创建 Dummy Variables，而所有其他取值都归到一个“其他”类里面。</p><h3 id="Model-Selection"><a href="#Model-Selection" class="headerlink" title="Model Selection"></a>Model Selection</h3><p>Base Model:</p><ul><li>SVM</li><li>Linear Regression</li><li>Logistic Regression</li><li>Neural Networks</li></ul><p>Most Used Models:</p><ul><li>Gradient Boosting</li><li>Random Forest</li><li><p>Extra Randomized Trees</p><p><strong>XGBoost</strong></p></li></ul><h4 id="Model-Training"><a href="#Model-Training" class="headerlink" title="Model Training"></a>Model Training</h4><p>通过Grid Search来确定模型的最佳参数。<br>e.g.</p><ul><li>sklearn 的 RandomForestClassifier 来说，比较重要的就是随机森林中树的数量 n_estimators 以及在训练每棵树时最多选择的特征数量 max_features。</li><li><p>Xgboost 的调参。通常认为对它性能影响较大的参数有：</p><ul><li>eta：每次迭代完成后更新权重时的步长。越小训练越慢。</li><li>num_round：总共迭代的次数。</li><li>subsample：训练每棵树时用来训练的数据占全部的比例。用于防止 Overfitting。</li><li>colsample_bytree：训练每棵树时用来训练的特征的比例，类似 RandomForestClassifier 的 max_features。</li><li>max_depth：每棵树的最大深度限制。与 Random Forest 不同，Gradient Boosting 如果不对深度加以限制，最终是会 Overfit 的。</li><li>early_stopping_rounds：用于控制在 Out Of Sample 的验证集上连续多少个迭代的分数都没有提高后就提前终止训练。用于防止 Overfitting。</li></ul><p>一般的调参步骤是：</p><ol><li>将训练数据的一部分划出来作为验证集。</li><li>先将 eta 设得比较高（比如 0.1），num_round 设为 300 ~ 500。</li><li>用 Grid Search 对其他参数进行搜索。</li><li>逐步将 eta 降低，找到最佳值。</li><li>以验证集为 watchlist，用找到的最佳参数组合重新在训练集上训练。注意观察算法的输出，看每次迭代后在验证集上分数的变化情况，从而得到最佳的 early_stopping_rounds。</li></ol><p><em>所有具有随机性的 Model 一般都会有一个 seed 或是 random_state 参数用于控制随机种子。得到一个好的 Model 后，在记录参数时务必也记录下这个值，从而能够在之后重现 Model。</em></p></li></ul><h4 id="Cross-Validation"><a href="#Cross-Validation" class="headerlink" title="Cross Validation"></a>Cross Validation</h4><p>一般5-fold。</p><p>fold越多训练越慢。</p><h4 id="Ensemble-Generation"><a href="#Ensemble-Generation" class="headerlink" title="Ensemble Generation"></a>Ensemble Generation</h4><p>常见的 Ensemble 方法有这么几种：</p><ul><li>Bagging：使用训练数据的不同随机子集来训练每个 Base Model，最后进行每个 Base Model 权重相同的 Vote。也即 Random Forest 的原理。</li><li>Boosting：迭代地训练 Base Model，每次根据上一个迭代中预测错误的情况修改训练样本的权重。也即 Gradient Boosting 的原理。比 Bagging 效果好，但更容易 Overfit。</li><li>Blending：用不相交的数据训练不同的 Base Model，将它们的输出取（加权）平均。实现简单，但对训练数据利用少了。</li><li>Stacking：接下来会详细介绍。</li></ul><p>从理论上讲，Ensemble 要成功，有两个要素：</p><ul><li>Base Model 之间的相关性要尽可能的小。这就是为什么非 Tree-based Model 往往表现不是最好但还是要将它们包括在 Ensemble 里面的原因。Ensemble 的 Diversity 越大，最终 Model 的 Bias 就越低。</li><li>Base Model 之间的性能表现不能差距太大。这其实是一个 Trade-off，在实际中很有可能表现相近的 Model 只有寥寥几个而且它们之间相关性还不低。但是实践告诉我们即使在这种情况下 Ensemble 还是能大幅提高成绩。</li></ul><h3 id="Pipeline"><a href="#Pipeline" class="headerlink" title="Pipeline"></a>Pipeline</h3><p>workflow比较复杂，因此一个高自动化的pipeline比较重要。</p><p>这里是以一个例子：<a href="https://github.com/ChenglongChen/Kaggle_CrowdFlower" target="_blank" rel="noopener">example</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;如何在-Kaggle-首战中进入前-10&quot;&gt;&lt;a href=&quot;#如何在-Kaggle-首战中进入前-10&quot; class=&quot;headerlink&quot; title=&quot;如何在 Kaggle 首战中进入前 10%&quot;&gt;&lt;/a&gt;如何在 Kaggle 首战中进入前 10%&lt;/h1
-      
-    
-    </summary>
-    
-      <category term="Learning" scheme="https://chenzk1.github.io/categories/Learning/"/>
-    
-    
-      <category term="ML" scheme="https://chenzk1.github.io/tags/ML/"/>
-    
-      <category term="Kaggle" scheme="https://chenzk1.github.io/tags/Kaggle/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Naive Bayes及其sklearn实现</title>
     <link href="https://chenzk1.github.io/2019/03/14/Naive%20Bayes/"/>
     <id>https://chenzk1.github.io/2019/03/14/Naive Bayes/</id>
@@ -529,61 +569,6 @@
       <category term="ML" scheme="https://chenzk1.github.io/tags/ML/"/>
     
       <category term="Classification" scheme="https://chenzk1.github.io/tags/Classification/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LightGBM</title>
-    <link href="https://chenzk1.github.io/2019/03/14/LightGBM/"/>
-    <id>https://chenzk1.github.io/2019/03/14/LightGBM/</id>
-    <published>2019-03-14T01:54:35.205Z</published>
-    <updated>2019-01-18T11:38:54.000Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h1><ul><li>可以接受categorical features：LightGBM 可以直接使用 categorical features（分类特征）作为 input（输入）. 它不需要被转换成 one-hot coding（独热编码）, 并且它比 one-hot coding（独热编码）更快（约快上 8 倍）。注意: 在你构造 Dataset 之前, 你应该将分类特征转换为 int 类型的值.</li></ul><h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;特性&quot;&gt;&lt;a href=&quot;#特性&quot; class=&quot;headerlink&quot; title=&quot;特性&quot;&gt;&lt;/a&gt;特性&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;可以接受categorical features：LightGBM 可以直接使用 categorical features（分类
-      
-    
-    </summary>
-    
-      <category term="Learning" scheme="https://chenzk1.github.io/categories/Learning/"/>
-    
-    
-      <category term="ML" scheme="https://chenzk1.github.io/tags/ML/"/>
-    
-      <category term="DOC" scheme="https://chenzk1.github.io/tags/DOC/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>GBDT &amp; XGBoost</title>
-    <link href="https://chenzk1.github.io/2019/03/14/GBDT%20&amp;%20XGBoost/"/>
-    <id>https://chenzk1.github.io/2019/03/14/GBDT &amp; XGBoost/</id>
-    <published>2019-03-14T01:54:35.189Z</published>
-    <updated>2019-01-23T12:07:16.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://xgboost.readthedocs.io/en/latest/tutorials/model.html" target="_blank" rel="noopener">Doc</a><br><a href="https://homes.cs.washington.edu/~tqchen/pdf/BoostedTree.pdf" target="_blank" rel="noopener">Slides</a></p><h1 id="为何要推导出目标函数而不是直接增加树"><a href="#为何要推导出目标函数而不是直接增加树" class="headerlink" title="为何要推导出目标函数而不是直接增加树"></a>为何要推导出目标函数而不是直接增加树</h1><p><img src="http://i.imgur.com/quPhp1K.png" alt="Objective function"></p><ul><li>理论上：搞清楚learning的目的，以及其收敛性。</li><li>工程上：<ul><li>gi和hi是对loss function的一次、二次导</li><li>目标函数以及整个学习过程只依赖于gi和hi</li><li>可以根据实际问题，自定义loss function</li></ul></li></ul><h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><p><img src="http://i.imgur.com/L7PhJwO.png" alt="Summary"></p><h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><h2 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h2><p>$$ \text{obj} = \sum_{i=1}^n l(y_i, \hat{y}<em>i^{(t)}) + \sum</em>{i=1}^t\Omega(f_i)$$<br>l为loss，\ \Omega \ 为正则项</p><ul><li>loss：采用加法策略，第t颗树时：<br>$$ \hat{y}_i^{(0)} = 0 $$<br>$$ \hat{y}_i^{(1)} = f_1(x_i) = \hat{y}_i^{(0)} + f_1(x_i) $$<br>$$ \hat{y}_i^{(2)} = f_1(x_i) + f_2(x_i)= \hat{y}_i^{(1)} + f_2(x_i) $$<br>$$ \dots $$<br>$$ \hat{y}<em>i^{(t)} = \sum</em>{k=1}^t f_k(x_i)= \hat{y}_i^{(t-1)} + f_t(x_i) $$<br>在添加第t颗树时，需要优化的目标函数为：<br>$$ \sum_{i=1}^n [g_i f_t(x_i) + \frac{1}{2} h_i f_t^2(x_i)] + \Omega(f_t) $$<br>其中h和f：<br>$$ g_i = \partial_{\hat{y}_i^{(t-1)}} l(y_i, \hat{y}_i^{(t-1)}) $$<br>$$ h_i = \partial_{\hat{y}_i^{(t-1)}}^2 l(y_i, \hat{y}_i^{(t-1)}) $$<br>note: 是对谁的导</li><li>正则项：复杂度：<br>$$ \Omega(f) = \gamma T + \frac{1}{2}\lambda \sum_{j=1}^T w_j^2 $$<br>其中w是叶子上的score vector，T是叶子数量</li></ul><h2 id="DART-Booster"><a href="#DART-Booster" class="headerlink" title="DART Booster"></a>DART Booster</h2><p>为了解决过拟合，会随机drop trees:</p><ul><li>训练速度可能慢于gbtree</li><li>由于随机性，早停可能不稳定</li></ul><h1 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h1><h2 id="Monotonic-Constraints单调性限制"><a href="#Monotonic-Constraints单调性限制" class="headerlink" title="Monotonic Constraints单调性限制"></a>Monotonic Constraints单调性限制</h2><ul><li><p>一个可选特性:<br>会限制模型的结果按照某个特征 单调的进行增减</p><p>也就是说可以降低模型对数据的敏感度，如果明确已知某个特征与预测结果呈单调关系时，那在生成模型的时候就会跟特征数据的单调性有关。</p></li></ul><h2 id="Feature-Interaction-Constraints单调性限制"><a href="#Feature-Interaction-Constraints单调性限制" class="headerlink" title="Feature Interaction Constraints单调性限制"></a>Feature Interaction Constraints单调性限制</h2><ul><li><p>一个可选特性：<br>不用时，在tree生成的时候，一棵树上的节点会无限制地选用多个特征</p><p>设置此特性时，可以规定，哪些特征可以有interaction（一般独立变量之间可以interaction，非独立变量的话可能会引入噪声）</p></li><li>好处：<ul><li>预测时更小的噪声</li><li>对模型更好地控制</li></ul></li></ul><h2 id="Instance-Weight-File"><a href="#Instance-Weight-File" class="headerlink" title="Instance Weight File"></a>Instance Weight File</h2><ul><li>规定了模型训练时data中每一条instance的权重</li><li>有些instance质量较差，或与前一示例相比变化不大，所以可以调节其所占权重</li></ul><h1 id="调参"><a href="#调参" class="headerlink" title="调参"></a>调参</h1><h2 id="Overfitting"><a href="#Overfitting" class="headerlink" title="Overfitting"></a>Overfitting</h2><p>与overfitting有关的参数：</p><ul><li>直接控制模型复杂度：max_depth, min_child_weight and gamma.</li><li>增加模型随机性以使得模型对噪声有更强的鲁棒性：<ul><li>subsample and colsample_bytree. </li><li>Reduce stepsize eta. Remember to increase num_round when you do so.</li></ul></li></ul><h2 id="Imbalanced-Dataset"><a href="#Imbalanced-Dataset" class="headerlink" title="Imbalanced Dataset"></a>Imbalanced Dataset</h2><ul><li>只关注测量指标的大小<ul><li>平衡数据集 via scale_pos_weight</li><li>使用AUC作为metric</li></ul></li><li>关注预测正确的概率<ul><li>此时不能re-balance数据集</li><li>Set parameter max_delta_step to a finite number (say 1) to help convergence</li></ul></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;&lt;a href=&quot;https://xgboost.readthedocs.io/en/latest/tutorials/model.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Doc&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;https://homes.
-      
-    
-    </summary>
-    
-      <category term="Learning" scheme="https://chenzk1.github.io/categories/Learning/"/>
-    
-    
-      <category term="ML" scheme="https://chenzk1.github.io/tags/ML/"/>
-    
-      <category term="DOC" scheme="https://chenzk1.github.io/tags/DOC/"/>
     
   </entry>
   

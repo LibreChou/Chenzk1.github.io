@@ -2,16 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://chenzk1.github.io/2019/04/04/LSTM/</loc>
+    <loc>https://chenzk1.github.io/2019/05/26/CTR/</loc>
     
-    <lastmod>2019-04-05T07:03:21.021Z</lastmod>
+    <lastmod>2019-05-26T12:57:46.294Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://chenzk1.github.io/2019/04/05/TF_IDF/</loc>
+    <loc>https://chenzk1.github.io/2019/04/11/Tips%20in%20DS%20Competition/</loc>
     
-    <lastmod>2019-04-05T07:01:48.706Z</lastmod>
+    <lastmod>2019-04-11T14:03:24.795Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://chenzk1.github.io/2019/04/05/Topic%20Model__TF-IDF_LSA_pLSA_NMF/</loc>
+    
+    <lastmod>2019-04-08T12:50:47.316Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://chenzk1.github.io/2019/04/06/SVD&PCA/</loc>
+    
+    <lastmod>2019-04-06T08:09:32.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://chenzk1.github.io/2019/04/04/LSTM/</loc>
+    
+    <lastmod>2019-04-05T07:03:21.021Z</lastmod>
     
   </url>
   
