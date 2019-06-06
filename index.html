@@ -307,7 +307,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/05/26/CTR/">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/05/27/信息熵、交叉熵、条件熵、互信息/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Hero">
@@ -326,7 +326,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/26/CTR/" itemprop="url">Untitled</a></h1>
+                <a class="post-title-link" href="/2019/05/27/信息熵、交叉熵、条件熵、互信息/" itemprop="url">信息熵、交叉熵、条件熵、互信息</a></h1>
         
 
         <div class="post-meta">
@@ -338,8 +338,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-26T20:57:46+08:00">
-                2019-05-26
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-27T08:17:35+08:00">
+                2019-05-27
               </time>
             
 
@@ -348,6 +348,28 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -378,7 +400,250 @@
       
         
           
+            <ul>
+<li>设随机变量X，有n个事件$x_i$ –&gt; $x_n$，概率分布为p(x)</li>
+</ul>
+<ol>
+<li><p>信息</p>
+<ul>
+<li>某随机变量X取值为xi的信息为 $I(X=xi)=\log_2\frac{1}{p(x_i)}=-\log_2p(x_i)$<br>：某事件xi的信息代表这个事件能提供的信息，一个发生概率越小的事件能够提供的信息量越大。</li>
+</ul>
+</li>
+<li><p>信息熵</p>
+<ul>
+<li>信息代表一个事件的不确定性，信息熵是整个随机变量X不确定性的度量：<strong>信息的期望</strong>。<br>$H(X)=\sum_0^np(x_i)*I(x_i)=-\sum_0^np(x_i)\log_2(p(x_i))$</li>
+<li>信息熵只与变量X的分布有关，与其取值无关。例如二分类中，两取值的概率均为0.5时，其熵最大，也最难预测某时刻哪一类别会发生。</li>
+<li>如何通俗的解释交叉熵与相对熵? - CyberRep的回答 - 知乎<br><a href="https://www.zhihu.com/question/41252833/answer/195901726" target="_blank" rel="noopener">https://www.zhihu.com/question/41252833/answer/195901726</a></li>
+<li>对于一个系统而言，若获知其真实分布，则我们能够找到一个最优策略，以最小的代价来消除系统的不确定性，而这个最小的代价（猜题次数、编码长度等）就是信息熵。</li>
+</ul>
+</li>
+<li><p>条件熵</p>
+<ul>
+<li>定义为：给定条件X下，Y的分布（Y|X）的熵对X的数学期望：$H(Y|X)=\sum_xp(x)H(Y|X=x)$</li>
+<li>在ML中，即选定某个特征X(X有n类)后，label(Y)的条件概率熵求期望：<strong>给定X特征的条件下Y的信息熵</strong>。</li>
+<li>条件熵越小，代表在这个特征下，label的信息熵越小，也就是说要解决问题的代价越小。</li>
+</ul>
+</li>
+<li><p>信息增益 — ID3</p>
+<ul>
+<li>$IG(Y|X)=H(Y)-H(Y|X)$</li>
+<li>在决策树中作为选择特征的指标，IG越大，这个特征的选择性越好，也可以理解为：待分类的集合的熵和选定某个特征的条件熵之差越大，这个特征对整个集合的影响越大。</li>
+<li>对于条件熵来说，条件熵越小，分类后的纯度越高，但是问题是：X的取值越多，每个取值下Y的纯度越高，H(Y|X)越小，但此时并不有利于Y的区分。信息增益也是如此。–&gt; 信息增益率。</li>
+</ul>
+</li>
+<li><p>信息增益率/信息增益比 — C4.5</p>
+<ul>
+<li>偏好取值少的特征。C4.5：先选择高于平均水平信息增益的特征，再在其中选择最高信息增益率的特征。</li>
+<li>见<a href="https://chenzk1.github.io/2019/03/14/Decision%20Tree/">Decision Tree</a></li>
+</ul>
+</li>
+<li><p>基尼系数 — CART</p>
+<ul>
+<li><p>表示数据的不纯度。既有分类也有回归，既要确定特征，也要确定特征的分叉值。</p>
+</li>
+<li><p>见<a href="https://chenzk1.github.io/2019/03/14/Decision%20Tree/">Decision Tree</a></p>
+</li>
+</ul>
+</li>
+<li><p>交叉熵</p>
+<ul>
+<li>前面提到：信息熵是最优策略下，消除系统不确定性的最小代价。这里的前提是：<strong>我们得到了系统的真实分布</strong>。</li>
+<li>实际中，一般难以获知系统真实分布，所以要以假设分布去近似。<strong>交叉熵：用来衡量在给定的真实分布下，使用非真实分布所指定的策略消除系统的不确定性所需要付出的努力的大小</strong>。$CEH(p,q)=\sum_{k=1}^np_k\log_2\frac{1}{q_k}$，注意这里log中是q，是基于非真实分布q的信息量对真实分布的期望。</li>
+<li>当假设分布$q_k$与真实分布$p_k$相同时，交叉熵最低，等于信息熵，所以得到的策略为最优策略。<blockquote>
+<p>在机器学习中的分类算法中，我们总是最小化交叉熵，因为交叉熵越低，就证明由算法所产生的策略最接近最优策略，也间接证明我们算法所算出的非真实分布越接近真实分布。</p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>例如：在逻辑斯蒂回归或者神经网络中都有用到交叉熵作为评价指标，其中p即为真实分布的概率，而q为预测的分布，以此衡量两不同<strong>分布</strong>的相似性。 </p>
+<ul>
+<li>如何衡量不同<strong>策略</strong>的差异：相对熵</li>
+</ul>
+</blockquote>
+</li>
+<li><p>相对熵/K-L散度</p>
+<ul>
+<li>用来衡量两个取值为正的函数或概率分布之间的差异。两者相同相对熵为0</li>
+<li>使用非真实分布q的交叉熵，与使用真实分布p的的信息熵的差值：相对熵，又称K-L散度。</li>
+<li>$KL(p,q)=CEH(p,q)-H(p)=\sum_{i=1}^np(x_i)\log\frac{p(x_i)}{q(x_i)}$</li>
+</ul>
+</li>
+<li><p>联合熵</p>
+<ul>
+<li>H(X,Y) 随机变量X,Y联合表示的信息熵</li>
+</ul>
+</li>
+<li><p>互信息</p>
+<ul>
+<li>H（X；Y）俩变量交集，也记作I(X;Y)</li>
+<li>H（X；Y) = H(X,Y)-H(Y|X)-H(X|Y)</li>
+<li>I(X;Y)=KL(P(X,Y), P(X)P(Y))</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>互信息越小，两变量独立性越强，P(X,Y)与P(X)P(Y)差异越小，P(X,Y)与P(X)P(Y)的相对熵越小  </li>
+<li>相对熵(p,q) = 信息熵(p) - 交叉熵(p,q)</li>
+<li>信息增益(Y|X) = 信息熵(Y) - 条件熵(Y|X)</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/05/26/CTR/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hero">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hero's notebooks">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/26/CTR/" itemprop="url">CTR_LR/Poly2/FM/FFM</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
             
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-26T20:57:46+08:00">
+                2019-05-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ol>
+<li>LR</li>
+</ol>
+<ul>
+<li>问题：特征之间无相关性</li>
+</ul>
+<ol start="2">
+<li>Ploy2</li>
+</ol>
+<ul>
+<li>暴力加入两两特征组合（权重*两特征点积）</li>
+<li>问题：大部分特征是稀疏的，得到的特征值都是0，所以梯度更新时，因为大部分feature为0所以梯度并不会更新</li>
+</ul>
+<ol start="3">
+<li>FM(Factorization Machine、因子机)</li>
+</ol>
+
           
         
       
@@ -1797,179 +2062,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/14/自然辩证法#5/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Hero">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hero's notebooks">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/14/自然辩证法#5/" itemprop="url">自然辩证法#5</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-14T09:54:35+08:00">
-                2019-03-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Learning</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="当代西方科学论"><a href="#当代西方科学论" class="headerlink" title="当代西方科学论"></a>当代西方科学论</h1><p>科学的地位、作用和权力剧增，科学的合理性被关注</p>
-<p>英，波普尔，证伪主义</p>
-<p>美，库恩，历史主义</p>
-<p>科学划界和科学动力学</p>
-<h2 id="“可证实性”与“可证伪性”"><a href="#“可证实性”与“可证伪性”" class="headerlink" title="“可证实性”与“可证伪性”"></a>“可证实性”与“可证伪性”</h2><p>波普尔对“可证实性”的反思：</p>
-<ul>
-<li>有无意义不取决于属于本身，而取决于理论（语境）；</li>
-<li>只有单称陈述可证实，而科学理论是全称陈述；</li>
-<li>单称陈述也未必可证实，观察中渗透着理论；</li>
-<li>“可证实性”使科学划界混乱。</li>
-</ul>
-<p>可证伪性：任何科学命题在逻辑上都可以被经验证明为假。</p>
-<p>什么命题是无法被证明为假的</p>
-<p>可证伪度：普遍性、精确性、简单性。这正好是科学理论命题的性质。</p>
-<p>可证伪：证伪主义的科学划界标准。</p>
-<h2 id="证伪主义的科学动力学"><a href="#证伪主义的科学动力学" class="headerlink" title="证伪主义的科学动力学"></a>证伪主义的科学动力学</h2><p>对归纳逻辑的反思：归纳法几乎总是受预设的干扰；归纳法非常有可能把重要的因素排除在外；归纳法有可能建立假的因果关系。总之，归纳法不是科学合理性的基础。</p>
-<p>科学始于问题</p>
-<p>P1 -&gt; TT -&gt; EE -&gt; P2</p>
-<ul>
-<li>P: Problem</li>
-<li>TT: Tentative Theory</li>
-<li>EE: Elimation of Error</li>
-</ul>
-<p>库恩对证伪主义的批判：科学史表明，自然现象喊“不”，科学家喊得更响。</p>
-<p>观察渗透理论的问题。</p>
-<p>证伪主义的启发：“正确”和有效。</p>
-<p>至此，真理问题换为合理性问题，再换为有效性问题。</p>
-<h2 id="范式和科学共同体"><a href="#范式和科学共同体" class="headerlink" title="范式和科学共同体"></a>范式和科学共同体</h2><p>库恩的历史主义科学哲学试图回答：一致性来自何处？科学是如何进步的？</p>
-<p>范式：信念、信仰、习惯、原则、原理…</p>
-<p>科学共同体：掌握、遵守和使用范式的群体。职业的、紧密的、有话语权的专家。</p>
-<h2 id="历史主义的科学动力学"><a href="#历史主义的科学动力学" class="headerlink" title="历史主义的科学动力学"></a>历史主义的科学动力学</h2><p>前科学 无范式 -&gt; 常规科学 范式 -&gt; 反思 -&gt; 危机 -&gt; 科学革命新的范式</p>
-<p>库恩列举几大科学革命：哥白尼日心说、氧化理论、相对论和量子力学</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2018,7 +2110,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">29</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -2040,7 +2132,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

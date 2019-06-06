@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://chenzk1.github.io/"/>
-  <updated>2019-05-26T12:57:46.294Z</updated>
+  <updated>2019-06-06T03:12:58.821Z</updated>
   <id>https://chenzk1.github.io/</id>
   
   <author>
@@ -17,16 +17,71 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title></title>
-    <link href="https://chenzk1.github.io/2019/05/26/CTR/"/>
-    <id>https://chenzk1.github.io/2019/05/26/CTR/</id>
-    <published>2019-05-26T12:57:46.294Z</published>
-    <updated>2019-05-26T12:57:46.294Z</updated>
+    <title>信息熵、交叉熵、条件熵、互信息</title>
+    <link href="https://chenzk1.github.io/2019/05/27/%E4%BF%A1%E6%81%AF%E7%86%B5%E3%80%81%E4%BA%A4%E5%8F%89%E7%86%B5%E3%80%81%E6%9D%A1%E4%BB%B6%E7%86%B5%E3%80%81%E4%BA%92%E4%BF%A1%E6%81%AF/"/>
+    <id>https://chenzk1.github.io/2019/05/27/信息熵、交叉熵、条件熵、互信息/</id>
+    <published>2019-05-27T00:17:35.958Z</published>
+    <updated>2019-06-06T03:12:58.821Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>设随机变量X，有n个事件$x_i$ –&gt; $x_n$，概率分布为p(x)</li></ul><ol><li><p>信息</p><ul><li>某随机变量X取值为xi的信息为 $I(X=xi)=\log_2\frac{1}{p(x_i)}=-\log_2p(x_i)$<br>：某事件xi的信息代表这个事件能提供的信息，一个发生概率越小的事件能够提供的信息量越大。</li></ul></li><li><p>信息熵</p><ul><li>信息代表一个事件的不确定性，信息熵是整个随机变量X不确定性的度量：<strong>信息的期望</strong>。<br>$H(X)=\sum_0^np(x_i)*I(x_i)=-\sum_0^np(x_i)\log_2(p(x_i))$</li><li>信息熵只与变量X的分布有关，与其取值无关。例如二分类中，两取值的概率均为0.5时，其熵最大，也最难预测某时刻哪一类别会发生。</li><li>如何通俗的解释交叉熵与相对熵? - CyberRep的回答 - 知乎<br><a href="https://www.zhihu.com/question/41252833/answer/195901726" target="_blank" rel="noopener">https://www.zhihu.com/question/41252833/answer/195901726</a></li><li>对于一个系统而言，若获知其真实分布，则我们能够找到一个最优策略，以最小的代价来消除系统的不确定性，而这个最小的代价（猜题次数、编码长度等）就是信息熵。</li></ul></li><li><p>条件熵</p><ul><li>定义为：给定条件X下，Y的分布（Y|X）的熵对X的数学期望：$H(Y|X)=\sum_xp(x)H(Y|X=x)$</li><li>在ML中，即选定某个特征X(X有n类)后，label(Y)的条件概率熵求期望：<strong>给定X特征的条件下Y的信息熵</strong>。</li><li>条件熵越小，代表在这个特征下，label的信息熵越小，也就是说要解决问题的代价越小。</li></ul></li><li><p>信息增益 — ID3</p><ul><li>$IG(Y|X)=H(Y)-H(Y|X)$</li><li>在决策树中作为选择特征的指标，IG越大，这个特征的选择性越好，也可以理解为：待分类的集合的熵和选定某个特征的条件熵之差越大，这个特征对整个集合的影响越大。</li><li>对于条件熵来说，条件熵越小，分类后的纯度越高，但是问题是：X的取值越多，每个取值下Y的纯度越高，H(Y|X)越小，但此时并不有利于Y的区分。信息增益也是如此。–&gt; 信息增益率。</li></ul></li><li><p>信息增益率/信息增益比 — C4.5</p><ul><li>偏好取值少的特征。C4.5：先选择高于平均水平信息增益的特征，再在其中选择最高信息增益率的特征。</li><li>见<a href="https://chenzk1.github.io/2019/03/14/Decision%20Tree/">Decision Tree</a></li></ul></li><li><p>基尼系数 — CART</p><ul><li><p>表示数据的不纯度。既有分类也有回归，既要确定特征，也要确定特征的分叉值。</p></li><li><p>见<a href="https://chenzk1.github.io/2019/03/14/Decision%20Tree/">Decision Tree</a></p></li></ul></li><li><p>交叉熵</p><ul><li>前面提到：信息熵是最优策略下，消除系统不确定性的最小代价。这里的前提是：<strong>我们得到了系统的真实分布</strong>。</li><li>实际中，一般难以获知系统真实分布，所以要以假设分布去近似。<strong>交叉熵：用来衡量在给定的真实分布下，使用非真实分布所指定的策略消除系统的不确定性所需要付出的努力的大小</strong>。$CEH(p,q)=\sum_{k=1}^np_k\log_2\frac{1}{q_k}$，注意这里log中是q，是基于非真实分布q的信息量对真实分布的期望。</li><li>当假设分布$q_k$与真实分布$p_k$相同时，交叉熵最低，等于信息熵，所以得到的策略为最优策略。<blockquote><p>在机器学习中的分类算法中，我们总是最小化交叉熵，因为交叉熵越低，就证明由算法所产生的策略最接近最优策略，也间接证明我们算法所算出的非真实分布越接近真实分布。</p></blockquote></li></ul><blockquote><p>例如：在逻辑斯蒂回归或者神经网络中都有用到交叉熵作为评价指标，其中p即为真实分布的概率，而q为预测的分布，以此衡量两不同<strong>分布</strong>的相似性。 </p><ul><li>如何衡量不同<strong>策略</strong>的差异：相对熵</li></ul></blockquote></li><li><p>相对熵/K-L散度</p><ul><li>用来衡量两个取值为正的函数或概率分布之间的差异。两者相同相对熵为0</li><li>使用非真实分布q的交叉熵，与使用真实分布p的的信息熵的差值：相对熵，又称K-L散度。</li><li>$KL(p,q)=CEH(p,q)-H(p)=\sum_{i=1}^np(x_i)\log\frac{p(x_i)}{q(x_i)}$</li></ul></li><li><p>联合熵</p><ul><li>H(X,Y) 随机变量X,Y联合表示的信息熵</li></ul></li><li><p>互信息</p><ul><li>H（X；Y）俩变量交集，也记作I(X;Y)</li><li>H（X；Y) = H(X,Y)-H(Y|X)-H(X|Y)</li><li>I(X;Y)=KL(P(X,Y), P(X)P(Y))</li></ul></li></ol><ul><li>互信息越小，两变量独立性越强，P(X,Y)与P(X)P(Y)差异越小，P(X,Y)与P(X)P(Y)的相对熵越小  </li><li>相对熵(p,q) = 信息熵(p) - 交叉熵(p,q)</li><li>信息增益(Y|X) = 信息熵(Y) - 条件熵(Y|X)</li></ul>]]></content>
     
     <summary type="html">
     
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;设随机变量X，有n个事件$x_i$ –&amp;gt; $x_n$，概率分布为p(x)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;信息&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;某随机变量X取值为xi的信息为 $I(X=xi)=\log_2\frac{1}{p(x_i)}=-\lo
+      
+    
     </summary>
     
+      <category term="Learning" scheme="https://chenzk1.github.io/categories/Learning/"/>
+    
+    
+      <category term="ML" scheme="https://chenzk1.github.io/tags/ML/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CTR_LR/Poly2/FM/FFM</title>
+    <link href="https://chenzk1.github.io/2019/05/26/CTR/"/>
+    <id>https://chenzk1.github.io/2019/05/26/CTR/</id>
+    <published>2019-05-26T12:57:46.294Z</published>
+    <updated>2019-06-06T00:31:45.509Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>LR</li></ol><ul><li>问题：特征之间无相关性</li></ul><ol start="2"><li>Ploy2</li></ol><ul><li>暴力加入两两特征组合（权重*两特征点积）</li><li>问题：大部分特征是稀疏的，得到的特征值都是0，所以梯度更新时，因为大部分feature为0所以梯度并不会更新</li></ul><ol start="3"><li>FM(Factorization Machine、因子机)</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ol&gt;
+&lt;li&gt;LR&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;问题：特征之间无相关性&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;Ploy2&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;暴力加入两两特征组合（权重*两特征点积）&lt;/li&gt;
+&lt;li&gt;问题：大部分特征是稀
+      
+    
+    </summary>
+    
+      <category term="Learning" scheme="https://chenzk1.github.io/categories/Learning/"/>
+    
+    
+      <category term="ML" scheme="https://chenzk1.github.io/tags/ML/"/>
+    
+      <category term="CTR" scheme="https://chenzk1.github.io/tags/CTR/"/>
     
   </entry>
   
@@ -345,34 +400,6 @@
   </entry>
   
   <entry>
-    <title>自然辩证法#1</title>
-    <link href="https://chenzk1.github.io/2019/03/14/%E8%87%AA%E7%84%B6%E8%BE%A9%E8%AF%81%E6%B3%95#1/"/>
-    <id>https://chenzk1.github.io/2019/03/14/自然辩证法#1/</id>
-    <published>2019-03-14T01:54:35.252Z</published>
-    <updated>2018-11-27T05:37:14.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>次数不定随堂测验 | 80</p><p>平时成绩(课堂汇报) | 20</p><h1 id="西方哲学认识论"><a href="#西方哲学认识论" class="headerlink" title="西方哲学认识论"></a>西方哲学认识论</h1><ul><li>内省型文化主客体关系</li><li>主体凸现和客体廓清<br>主体凸现：反思，内省<br>客体廓清：形式，语言，理论（模型、线索、规范、logos）<br>语言和语言产品成为主客体中介<br>从古希腊到近代欧洲，逻辑学、几何学、力学成为主客体中介</li></ul><h1 id="经典科学与哲学"><a href="#经典科学与哲学" class="headerlink" title="经典科学与哲学"></a>经典科学与哲学</h1><p>哲学是关于反思的<br>人如何获知真理：经验论与唯理论<br>经验论：洛克、休谟、贝克莱<br>孔洞生成定律<br>唯理论：笛卡尔、莱布尼兹、斯宾诺莎<br>抽象思维，形式化概念体系<br>恐惧：对恶的期待</p><h1 id="（空）"><a href="#（空）" class="headerlink" title="（空）"></a>（空）</h1><h1 id="现代科学哲学"><a href="#现代科学哲学" class="headerlink" title="现代科学哲学"></a>现代科学哲学</h1><h1 id="当代科学技术哲学与自然辩证法"><a href="#当代科学技术哲学与自然辩证法" class="headerlink" title="当代科学技术哲学与自然辩证法"></a>当代科学技术哲学与自然辩证法</h1><p>《反杜林论》和《自然辩证法手稿》</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;次数不定随堂测验 | 80&lt;/p&gt;
-&lt;p&gt;平时成绩(课堂汇报) | 20&lt;/p&gt;
-&lt;h1 id=&quot;西方哲学认识论&quot;&gt;&lt;a href=&quot;#西方哲学认识论&quot; class=&quot;headerlink&quot; title=&quot;西方哲学认识论&quot;&gt;&lt;/a&gt;西方哲学认识论&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;
-      
-    
-    </summary>
-    
-      <category term="Learning" scheme="https://chenzk1.github.io/categories/Learning/"/>
-    
-    
-      <category term="自然辩证法" scheme="https://chenzk1.github.io/tags/%E8%87%AA%E7%84%B6%E8%BE%A9%E8%AF%81%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
     <title>自然辩证法#2</title>
     <link href="https://chenzk1.github.io/2019/03/14/%E8%87%AA%E7%84%B6%E8%BE%A9%E8%AF%81%E6%B3%95#2/"/>
     <id>https://chenzk1.github.io/2019/03/14/自然辩证法#2/</id>
@@ -389,6 +416,34 @@
 &lt;h1 id=&quot;现代自然观的来源&quot;&gt;&lt;a href=&quot;#现代自然观的来源&quot; class=&quot;headerlink&quot; title=&quot;现代自然观的来源&quot;&gt;&lt;/a&gt;现代自然观的来源&lt;/h1&gt;&lt;ul&gt;
 &lt;li&gt;起源于古希腊，兴于近代欧洲，完成于牛顿。&lt;/li&gt;
 &lt;
+      
+    
+    </summary>
+    
+      <category term="Learning" scheme="https://chenzk1.github.io/categories/Learning/"/>
+    
+    
+      <category term="自然辩证法" scheme="https://chenzk1.github.io/tags/%E8%87%AA%E7%84%B6%E8%BE%A9%E8%AF%81%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>自然辩证法#1</title>
+    <link href="https://chenzk1.github.io/2019/03/14/%E8%87%AA%E7%84%B6%E8%BE%A9%E8%AF%81%E6%B3%95#1/"/>
+    <id>https://chenzk1.github.io/2019/03/14/自然辩证法#1/</id>
+    <published>2019-03-14T01:54:35.252Z</published>
+    <updated>2018-11-27T05:37:14.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>次数不定随堂测验 | 80</p><p>平时成绩(课堂汇报) | 20</p><h1 id="西方哲学认识论"><a href="#西方哲学认识论" class="headerlink" title="西方哲学认识论"></a>西方哲学认识论</h1><ul><li>内省型文化主客体关系</li><li>主体凸现和客体廓清<br>主体凸现：反思，内省<br>客体廓清：形式，语言，理论（模型、线索、规范、logos）<br>语言和语言产品成为主客体中介<br>从古希腊到近代欧洲，逻辑学、几何学、力学成为主客体中介</li></ul><h1 id="经典科学与哲学"><a href="#经典科学与哲学" class="headerlink" title="经典科学与哲学"></a>经典科学与哲学</h1><p>哲学是关于反思的<br>人如何获知真理：经验论与唯理论<br>经验论：洛克、休谟、贝克莱<br>孔洞生成定律<br>唯理论：笛卡尔、莱布尼兹、斯宾诺莎<br>抽象思维，形式化概念体系<br>恐惧：对恶的期待</p><h1 id="（空）"><a href="#（空）" class="headerlink" title="（空）"></a>（空）</h1><h1 id="现代科学哲学"><a href="#现代科学哲学" class="headerlink" title="现代科学哲学"></a>现代科学哲学</h1><h1 id="当代科学技术哲学与自然辩证法"><a href="#当代科学技术哲学与自然辩证法" class="headerlink" title="当代科学技术哲学与自然辩证法"></a>当代科学技术哲学与自然辩证法</h1><p>《反杜林论》和《自然辩证法手稿》</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;次数不定随堂测验 | 80&lt;/p&gt;
+&lt;p&gt;平时成绩(课堂汇报) | 20&lt;/p&gt;
+&lt;h1 id=&quot;西方哲学认识论&quot;&gt;&lt;a href=&quot;#西方哲学认识论&quot; class=&quot;headerlink&quot; title=&quot;西方哲学认识论&quot;&gt;&lt;/a&gt;西方哲学认识论&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;
       
     
     </summary>
@@ -427,38 +482,6 @@
   </entry>
   
   <entry>
-    <title>WNSP#2</title>
-    <link href="https://chenzk1.github.io/2019/03/14/WNSP#2/"/>
-    <id>https://chenzk1.github.io/2019/03/14/WNSP#2/</id>
-    <published>2019-03-14T01:54:35.236Z</published>
-    <updated>2018-09-29T05:17:10.000Z</updated>
-    
-    <content type="html"><![CDATA[<ul><li>50GHz<ul><li>丰富的频谱资源，即频带宽</li><li>速度快</li><li>波长短，更适合短距传输。穿透性差。</li><li>高度方向性</li><li>安全性</li></ul></li><li>Li-Fi(Light Fidelity)<ul><li>安全性和低穿透性：灯光具有可遮挡性</li><li>频谱资源丰富</li><li>无电磁辐射和电磁干扰</li></ul></li><li>LP-WAN<ul><li>NB-IoT</li><li>数据安全及隐私：公网传输导致数据泄露</li><li>通信安全：通信网络面临攻击</li><li>设备安全</li></ul></li></ul><h1 id="密码学"><a href="#密码学" class="headerlink" title="密码学"></a>密码学</h1><ul><li>唯密文、唯明文、选择性密文、选择性明文</li><li>保密性 完整性 可用性 真实性 可追溯性 不可抵赖性 匿名性</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;ul&gt;
-&lt;li&gt;50GHz&lt;ul&gt;
-&lt;li&gt;丰富的频谱资源，即频带宽&lt;/li&gt;
-&lt;li&gt;速度快&lt;/li&gt;
-&lt;li&gt;波长短，更适合短距传输。穿透性差。&lt;/li&gt;
-&lt;li&gt;高度方向性&lt;/li&gt;
-&lt;li&gt;安全性&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Li-Fi(Light Fid
-      
-    
-    </summary>
-    
-      <category term="Learning" scheme="https://chenzk1.github.io/categories/Learning/"/>
-    
-    
-  </entry>
-  
-  <entry>
     <title>ROC AUC, Accuracy, Recall, F1</title>
     <link href="https://chenzk1.github.io/2019/03/14/ROC%20%20AUC/"/>
     <id>https://chenzk1.github.io/2019/03/14/ROC  AUC/</id>
@@ -491,28 +514,34 @@
   </entry>
   
   <entry>
-    <title>Presentation of WNSP and IS</title>
-    <link href="https://chenzk1.github.io/2019/03/14/Presentation%20of%20WNSP%20and%20IS/"/>
-    <id>https://chenzk1.github.io/2019/03/14/Presentation of WNSP and IS/</id>
-    <published>2019-03-14T01:54:35.221Z</published>
-    <updated>2018-10-04T14:08:36.000Z</updated>
+    <title>WNSP#2</title>
+    <link href="https://chenzk1.github.io/2019/03/14/WNSP#2/"/>
+    <id>https://chenzk1.github.io/2019/03/14/WNSP#2/</id>
+    <published>2019-03-14T01:54:35.236Z</published>
+    <updated>2018-09-29T05:17:10.000Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h1><ul><li>Behavioral biomertics is the study of individual patterns(hand-writing, typing, mouse movements).</li><li>最早：二战中的电报员keying pattern</li><li>password hardening(secondary authentication)、password-less logins<ul><li>Banks use typing information as an additional layer of security.</li><li>Google is developing methods to authenticate users on mobile devices without passwords.</li></ul></li><li>human chosen passwords are far from safe -&gt; additional authentication -&gt; explicit methods are usually disruptive to the user -&gt; use behavioral biometrics</li></ul><h1 id="goal-design-a-adversarial-algorithms"><a href="#goal-design-a-adversarial-algorithms" class="headerlink" title="goal: design a adversarial algorithms"></a>goal: design a adversarial algorithms</h1><ul><li>前提：the attacker has access to the user’s password, but needs to overcome a keystroke dynamics based authentication layer</li></ul><h1 id="related-work"><a href="#related-work" class="headerlink" title="related work"></a>related work</h1><h2 id="behavioral-biometrics"><a href="#behavioral-biometrics" class="headerlink" title="behavioral biometrics"></a>behavioral biometrics</h2><blockquote><p>hand-writing, typing, mouse movements, touchscreen swipes, gait analysis</p></blockquote><h1 id="Experiments"><a href="#Experiments" class="headerlink" title="Experiments"></a>Experiments</h1><h2 id="Experimental-Setup"><a href="#Experimental-Setup" class="headerlink" title="Experimental Setup"></a>Experimental Setup</h2><h3 id="Protocols"><a href="#Protocols" class="headerlink" title="Protocols"></a>Protocols</h3><p><em>for collecting new data, and selecting new samples for training and testing</em></p><ol><li><p>collectign MTurk dataset</p><ul><li>pre-processing: drop any malformed samples(due to a combination of reasons that include: different behavior of browsers, differences in internet speed, or other noise as the subjects took the study simultaneously)</li><li>describe the protocol for selecting samples for training and testing, and creating adversarial samples across all datasets.</li><li></li></ul><p>生物行为学有两种分类器：一类分类器和两类分类器。前者只用正确样本，后者还会用到假样本。一般用一类分类器：1. because it is very impractical to expect negative samples for an arbitrary password.2. both the two class classifiers, and one class classifiers appear to give similar EER scores</p></li><li><p>Genuine User Samples真实样本<br>use the first half of the samples for training, the second half of the samples for testing</p></li><li>imposter training samples虚假训练样本<br>随机选择，与真实样本同数量</li><li>imposter testing samples虚假测试样本<br>DSN: first four samples of every user besides the genuine user<br>MYurk and touchscreen swipes dataset: randomly sampled the same number of impostor samples as the genuine user’s test samples</li><li>adversary对抗样本<br>The <strong>Targeted K-means++ adversary</strong> used all the samples from the data set excluding the ones from the target user and the ones used for training and testing the user’s classifier. For <strong>the Indiscriminate K-means++ </strong>adversary, we conducted a new MTurk study, as described before, a few months after the original study. We used all the samples from this new study. In Algorithm 2, we set the parameter “SAMPLE-SIZE” to 20000.</li></ol><h3 id="Detection-Algorithms-检测算法"><a href="#Detection-Algorithms-检测算法" class="headerlink" title="Detection Algorithms 检测算法"></a>Detection Algorithms 检测算法</h3><h4 id="One-class-classifiers"><a href="#One-class-classifiers" class="headerlink" title="One class classifiers"></a>One class classifiers</h4><ul><li>Manhattan distance<br>$$ \sum_{i=1}^m\frac{\left|{x_i-y_i}\right|}m $$</li><li>Gaussian高斯<br>training samples are modeled as a Gaussian distribution based on their mean and standard deviation</li><li><p>Gaussian mixture高斯混合模型</p><blockquote><p><a href="https://blog.csdn.net/jinping_shi/article/details/59613054" target="_blank" rel="noopener">https://blog.csdn.net/jinping_shi/article/details/59613054</a> </p></blockquote><blockquote><p>高斯混合模型（Gaussian Mixed Model）指的是多个高斯分布函数的线性组合，理论上GMM可以拟合出任意类型的分布，通常用于解决同一集合下的数据包含多个不同的分布的情况（或者是同一类分布但参数不一样，或者是不同类型的分布，比如正态分布和伯努利分布）。<br>$$ \sum_{k=1}^Kπ_kN\left(x|μ_k,\sum_k\right) $$<br>$$ \sum_{k=1}^Kπ_k=1 $$<br>$$ 0 ≤ Kπ_k ≤ 1 $$<br>即$π_k$相当于每个分量的权重<br>GMM常用于聚类。如果要从 GMM 的分布中随机地取一个点的话，实际上可以分为两步：首先随机地在这 K 个 Component 之中选一个，每个 Component 被选中的概率实际上就是它的系数πkπk \pi_k ，选中 Component 之后，再单独地考虑从这个 Component 的分布中选取一个点就可以了──这里已经回到了普通的 Gaussian 分布，转化为已知的问题。将GMM用于聚类时，假设数据服从混合高斯分布（Mixture Gaussian Distribution），那么只要根据数据推出 GMM 的概率分布来就可以了；然后 GMM 的 K 个 Component 实际上对应KKK个 cluster 。根据数据来推算概率密度通常被称作 density estimation 。</p></blockquote></li><li>one class SVM<br>used the Support Vector Machine(SVM) implementation in sklearn, with radial basis function (RBF) kernel, and kernel parameter 0.9.</li><li>Autoencoder and Contractive Autoencoder自动编码和收缩性自动编码<br>With the advent of deep learning, researchers have started using variants of neural networks in the domain of cybersecurity. One of the key structures used in the past are autoencoders and contractive autoencoders<br>随着深度学习的到来，研究人员开始在网络安全领域使用神经网络的变体。过去使用的关键结构之一是自动编码器和压缩自动编码器</li></ul><h4 id="Two-class-classifiers"><a href="#Two-class-classifiers" class="headerlink" title="Two class classifiers"></a>Two class classifiers</h4><ul><li>Random Forest<br>used a model similar to the one described by Antal et al [4]. Random Forests with 100 trees was their best-performing classifier on the touchscreen swipes dataset. We used the Random Forest implementation in sklearn<br>我们使用了一个类似于Antal et al[4]所描述的模型。随机森林与100棵树是他们在触摸屏滑动数据集上表现最好的分类器。我们在sklearn中使用了Random Forest实现</li><li>Nearest Neighbor<br>Here we classify a test sample based on the majority label among a fixed number of its nearest neighbors in the training set. The neighbours are determined using Euclidean distance. We used the implementation in [32]<br>在测试样本中用最近邻</li><li>Fully Connected Neural Net全连接NN<br>We experimented with multiple variants of multi layer perceptron by using different hyper parameters. The network that performed the best had two hidden layers with 15 neurons each computing scores for genuine and impostor classes. There was no significant improvement in the performance of the network by increasing the number of layers or neurons per layer in the architecture of the neural network.<br>我们使用不同的超参数对多层感知器的多个变体进行了实验。表现最好的网络有两个隐藏层，每个层有15个神经元，计算真实和冒名顶替类的分数。在神经网络体系结构中，每层增加层数或神经元数量，网络性能没有显著改善。</li></ul><h4 id="Monaco’s-Normalization-Technique-标准化"><a href="#Monaco’s-Normalization-Technique-标准化" class="headerlink" title="Monaco’s Normalization Technique 标准化"></a>Monaco’s Normalization Technique 标准化</h4><p>The <strong>key insight of this technique</strong> was that a user’s classifier could normalize future input samples based only on the genuine user’s data given to it at the start. Essentially, this acts like a filtering step - and features that are too far from the mean of the genuine user’s fitting data get filtered out.<br>后续样本基于刚开始给定的真实输入样本来做标准化<br>这个标准化很重要，没这个就无法得出结果we do not even mention our results without this<br>normalization.</p><h2 id="Results"><a href="#Results" class="headerlink" title="Results"></a>Results</h2><h3 id="Equal-error-rate"><a href="#Equal-error-rate" class="headerlink" title="Equal error rate"></a>Equal error rate</h3><table><thead><tr><th>Name of Classifier</th><th>DSN EER</th><th>MTurk EER</th></tr></thead><tbody><tr><td>Manhattan</td><td>0.091</td><td>0.097</td></tr><tr><td>SVM</td><td>0.087</td><td>0.097</td></tr><tr><td>Gaussian</td><td>0.121</td><td>0.109</td></tr><tr><td>Gaussian Mixture</td><td>0.137</td><td>0.135</td></tr><tr><td>…</td><td>…</td><td>…</td></tr></tbody></table><hr><p>(具体见表2)</p><p>注：没有标准化的EER都在0.15左右</p><h3 id="Keystroke-Results"><a href="#Keystroke-Results" class="headerlink" title="Keystroke Results"></a>Keystroke Results</h3><p>In this section we discuss the results of testing our adversaries on the DSN and MTurk datasets, which are summarized in Tables III, IV. We conducted the tests independently on each of the five passwords in the MTurk dataset, but for a more compact presentation, we average the results of all passwords. A few interesting highlights based on these results are given below<br>在本节中,我们讨论的结果,测试DSN和MTurk数据集,总结在表III、IV。我们进行独立测试在MTurk数据集中的密码。为了更紧凑的表示,我们把所有的结果平均之后显示出来。</p><h4 id="MasterKey-VS-K-means"><a href="#MasterKey-VS-K-means" class="headerlink" title="MasterKey VS K-means++"></a>MasterKey VS K-means++</h4><p>K-means++ performs better than MasterKey.<br>Figure 2 展示了最好的一类分类器和二类分类器下，Target K-means++和Indiscriminate K-means++以及MasterKey的性能对比<br>Targeted K-means++ seems to essentially <strong>be able<br>to compromise the security of all the users</strong> in the limit.</p><p>Table3展示了K-means++强于asterKey</p><p>本文中用到的样本量更大，选择train sample和test sample的protocol也不一样，但是EER与原文差不多。如图5所示。</p><p>As can be seen by Table V, and Figure 4, the results on this dataset show the same trends as seen in the keystroke dynamics datasets before. The first try which hits the mean of the impostor samples is not very successful here. This is particularly bad for an adversary like MasterKey which stays around the mean of the distribution, and is reflected in the results in Table V. But the K-means++ adversary is quickly able to explore the sample space to find more challenging queries and in 10 tries itself, breaks into a sizeable proportion of the  classifiers as in the keystrokes dataset. And in the limit, essentially all the user’s classifiers are compromised.由表V和图4可以看出，该数据集上的结果显示了与之前击键动力学数据集相同的趋势。第一次尝试就击中了冒名顶替样本的均值，但并不是很成功。这是特别糟糕的敌人像万能钥匙保持周围分布的均值,并反映在结果表诉。但k - means + +对手很快就能够探索样本空间中找到更有挑战性的查询和10次尝试本身,闯进了一相当大的比例的数据集分类器的按键。在极限情况下，基本上所有用户的分类器都被破坏了。</p><h1 id="Conclusion-and-future-work"><a href="#Conclusion-and-future-work" class="headerlink" title="Conclusion and future work"></a>Conclusion and future work</h1><p>Behavioral biometrics is a promising field of research, but it is not a reliable solution for authentication in its current state. <strong>行为生物识别技术是一个很有前途的研究领域，但在目前的状态下，它并不是一个可靠的认证解决方案。</strong>We proposed two adversarial agents that require a different amount of effort from the adversary. <strong>Both attack methods performed clearly better than the previously studied attack methods</strong> in the literature and show that current state of the art classifiers add little protection against such adversaries. In the case of Indiscriminate K-means++, more than its success rate, it is worrying for the keystroke dynamics systems that such an adversary could conduct its attack without any additional cost incurred to collect samples. Past research has focused much more on improving the classifiers against naive adversaries, but this work shows that a lot more research from the adversarialperspective is required before such authentication systems can be adopted in sensitive contexts.<br>The design of our K-means++ adversaries utilizes a <strong>common intuition about human behavior, which is that a person’s behavioral data belongs to a “cluster”, rather than being absolutely unique</strong>. Thus it is natural to expect such techniques to generalize to other types of behavioral data. The results on the touchscreen touchscreen swipes dataset also supports this claim.<br>我们提出了两种敌对代理人，它们需要不同于对手的努力。这两种攻击方法的性能明显优于文献中先前研究的攻击方法，表明当前的艺术分类器对这类敌人的保护很少。在不加区别的K-means++的情况下，对于击键动力学系统来说，这样的对手可以进行攻击而不需要额外的成本来收集样本，这比其成功率更令人担忧。过去的研究更多地关注于改进针对天真的对手的分类器，但这项工作表明，在这种身份验证系统可以在敏感的上下文中采用之前，需要从adversarialperspective的角度进行更多的研究。我们的k -means++敌人的设计利用了一种关于人类行为的共同直觉，即一个人的行为数据属于一个“集群”，而不是绝对独一无二的。因此，很自然地期望这些技术可以推广到其他类型的行为数据。触屏触摸屏上的结果也支持这一说法。<br>Of course, from a practical perspective, it is much harder to simulate an attack on a touchscreen based system, as opposed to a keystroke dynamics system, because of the diversity of the touchscreen features like pressure, finger size and so on. Unlike keystrokes - we can’t just write an easily automated script to carry out such an attack. This implies that a swipes based classifier is more secure for now. But given enough motivation, it is possible that methods could be devised to bypass such limitations. For instance, such attacks could be carried out by feeding false information to the android sensors, or in an extreme example, by building a robotic arm.<br>当然，从实际角度来看，由于触摸屏的压力、手指大小等特性的多样性，模拟攻击基于触摸屏的系统要比模拟击键动力学系统困难得多。与击键不同的是，我们不能仅仅编写一个易于自动化的脚本来执行这样的攻击。这意味着基于滑动的分类器现在更安全。但只要有足够的动力，就有可能设计出绕过这些限制的方法。例如，这种攻击可以通过向android传感器提供虚假信息来实施，或者在一个极端的例子中，通过制造机械手臂来实施。<br>Previous research has relied exclusively on the average Equal Error Rate scores across all subjects to measure the robustness of classifiers. To develop more robust behavioral biometric classifiers, it would be useful to <strong>benchmark against the adversarial agents proposed in this paper instead.</strong> For instance, one class classifiers have been the dominant method researched in the keystroke dynamics literature as they perform as well as the two class classifiers in terms of EER, while the two class classifiers are not practical because one can not expect impostor samples for arbitrary passwords. Yet, against both the adversarial algorithms, the two class classifiers performed clearly better than the one class classifiers. This suggests that a future direction of research would be to bridge the gap between the idealized and practical versions of such two class classifiers as explained in section IV A.<br>以往的研究完全依赖于所有科目的平均等错误率分数来衡量分类器的鲁棒性。为了开发出更健壮的行为生物特征分类器，我们将对本文提出的抗辩剂进行基准测试。例如，在击键力学文献中，一类分类器是主要的研究方法，因为它们的性能和EER的两个类分类器一样好，而这两个类分类器是不实用的，因为人们不能指望冒名顶替者样本来处理任意的密码。然而，与两种对抗性算法相比，这两个类分类器的性能明显优于一个类分类器。这表明，今后的研究方向将是弥补第四节a所解释的这两类分类器的理想化版本和实际版本之间的差距。<br>From the adversarial perspective, one possibility for future work would be to extend these methods to free text based classifiers. Free text classifiers utilize a continuous stream of input text, as opposed to fixed text passwords, in order to classify keystroke patterns. This leads to differences in the features and algorithms that are utilized for these classifiers. But conceptually, the Indiscriminate K-means++ adversary should be well suited to generate adversarial samples against free text classifiers as well.从敌对的角度来看，未来工作的一种可能是将这些方法扩展到基于自由文本的分类器。自由文本分类器使用连续的输入文本流(与固定文本密码相反)来分类击键模式。这导致了这些分类器所使用的特性和算法的差异。但从概念上讲，不加区分的K-means++对手也应该非常适合针对自由文本分类器生成对抗性样本。</p>]]></content>
+    <content type="html"><![CDATA[<ul><li>50GHz<ul><li>丰富的频谱资源，即频带宽</li><li>速度快</li><li>波长短，更适合短距传输。穿透性差。</li><li>高度方向性</li><li>安全性</li></ul></li><li>Li-Fi(Light Fidelity)<ul><li>安全性和低穿透性：灯光具有可遮挡性</li><li>频谱资源丰富</li><li>无电磁辐射和电磁干扰</li></ul></li><li>LP-WAN<ul><li>NB-IoT</li><li>数据安全及隐私：公网传输导致数据泄露</li><li>通信安全：通信网络面临攻击</li><li>设备安全</li></ul></li></ul><h1 id="密码学"><a href="#密码学" class="headerlink" title="密码学"></a>密码学</h1><ul><li>唯密文、唯明文、选择性密文、选择性明文</li><li>保密性 完整性 可用性 真实性 可追溯性 不可抵赖性 匿名性</li></ul>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;h1 id=&quot;动机&quot;&gt;&lt;a href=&quot;#动机&quot; class=&quot;headerlink&quot; title=&quot;动机&quot;&gt;&lt;/a&gt;动机&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;Behavioral biomertics is the study of individual patterns(hand-w
+        &lt;ul&gt;
+&lt;li&gt;50GHz&lt;ul&gt;
+&lt;li&gt;丰富的频谱资源，即频带宽&lt;/li&gt;
+&lt;li&gt;速度快&lt;/li&gt;
+&lt;li&gt;波长短，更适合短距传输。穿透性差。&lt;/li&gt;
+&lt;li&gt;高度方向性&lt;/li&gt;
+&lt;li&gt;安全性&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Li-Fi(Light Fid
       
     
     </summary>
     
       <category term="Learning" scheme="https://chenzk1.github.io/categories/Learning/"/>
     
-    
-      <category term="WNSP" scheme="https://chenzk1.github.io/tags/WNSP/"/>
     
   </entry>
   
@@ -543,22 +572,20 @@
   </entry>
   
   <entry>
-    <title>Naive Bayes及其sklearn实现</title>
-    <link href="https://chenzk1.github.io/2019/03/14/Naive%20Bayes/"/>
-    <id>https://chenzk1.github.io/2019/03/14/Naive Bayes/</id>
-    <published>2019-03-14T01:54:35.205Z</published>
-    <updated>2018-11-28T07:30:12.000Z</updated>
+    <title>Presentation of WNSP and IS</title>
+    <link href="https://chenzk1.github.io/2019/03/14/Presentation%20of%20WNSP%20and%20IS/"/>
+    <id>https://chenzk1.github.io/2019/03/14/Presentation of WNSP and IS/</id>
+    <published>2019-03-14T01:54:35.221Z</published>
+    <updated>2018-10-04T14:08:36.000Z</updated>
     
-    <content type="html"><![CDATA[<p>P(B|A) = P(A|B)*P(B)/P(A)</p><p>朴素：特征之间相互独立</p><h1 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h1><ol><li>x = {a1, a2, …, am}为待分类项，a是特征。</li><li>类别集合C = {y1, …, yn}.</li><li>计算P(y1|x), P(y2|x) …</li><li>P(yk|x) = max{P(yi|x)}，则x属于yk类</li></ol><p><strong>总结：</strong>某类在待分类项出现的条件下的概率是所有类中最大的，这个分类项就属于这一类。</p><p>e.g.判断一个黑人来自哪个洲，求取每个洲黑人的比率，非洲最高，选非洲。</p><p>其中x = {a1, a2, …, am}，即P(C|a1,a2…) = P(C)*P(a1,a2,…|C)/P(a1,a2…)。posterior = prior * likelihood / evidence, 这里evidence是常数，不影响。</p><p>—–&gt;求解P(C) * P(a1,a2,a3…|C)</p><p>—–&gt;链式法则：P(C) * P(a2,a3…|C, a1) * P(a1|C)</p><p>—&gt; …</p><p>—&gt; P(C) * P(a1|C) * P(a2|C, a1) * P(a3|C, a1, a2)…<br>由于特征之间的相互独立性，a2发生于a1无关，转化为</p><p>—&gt; P(C) * P(a1|C) * P(a2|C) …  * P(am|C)</p><p>—–&gt;问题转化为求取条件概率：</p><ol><li>找到一个已知分类的待分类项集合，这个集合叫做训练样本集。</li><li>统计得到在各类别下各个特征属性的条件概率估计。</li></ol>]]></content>
+    <content type="html"><![CDATA[<h1 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h1><ul><li>Behavioral biomertics is the study of individual patterns(hand-writing, typing, mouse movements).</li><li>最早：二战中的电报员keying pattern</li><li>password hardening(secondary authentication)、password-less logins<ul><li>Banks use typing information as an additional layer of security.</li><li>Google is developing methods to authenticate users on mobile devices without passwords.</li></ul></li><li>human chosen passwords are far from safe -&gt; additional authentication -&gt; explicit methods are usually disruptive to the user -&gt; use behavioral biometrics</li></ul><h1 id="goal-design-a-adversarial-algorithms"><a href="#goal-design-a-adversarial-algorithms" class="headerlink" title="goal: design a adversarial algorithms"></a>goal: design a adversarial algorithms</h1><ul><li>前提：the attacker has access to the user’s password, but needs to overcome a keystroke dynamics based authentication layer</li></ul><h1 id="related-work"><a href="#related-work" class="headerlink" title="related work"></a>related work</h1><h2 id="behavioral-biometrics"><a href="#behavioral-biometrics" class="headerlink" title="behavioral biometrics"></a>behavioral biometrics</h2><blockquote><p>hand-writing, typing, mouse movements, touchscreen swipes, gait analysis</p></blockquote><h1 id="Experiments"><a href="#Experiments" class="headerlink" title="Experiments"></a>Experiments</h1><h2 id="Experimental-Setup"><a href="#Experimental-Setup" class="headerlink" title="Experimental Setup"></a>Experimental Setup</h2><h3 id="Protocols"><a href="#Protocols" class="headerlink" title="Protocols"></a>Protocols</h3><p><em>for collecting new data, and selecting new samples for training and testing</em></p><ol><li><p>collectign MTurk dataset</p><ul><li>pre-processing: drop any malformed samples(due to a combination of reasons that include: different behavior of browsers, differences in internet speed, or other noise as the subjects took the study simultaneously)</li><li>describe the protocol for selecting samples for training and testing, and creating adversarial samples across all datasets.</li><li></li></ul><p>生物行为学有两种分类器：一类分类器和两类分类器。前者只用正确样本，后者还会用到假样本。一般用一类分类器：1. because it is very impractical to expect negative samples for an arbitrary password.2. both the two class classifiers, and one class classifiers appear to give similar EER scores</p></li><li><p>Genuine User Samples真实样本<br>use the first half of the samples for training, the second half of the samples for testing</p></li><li>imposter training samples虚假训练样本<br>随机选择，与真实样本同数量</li><li>imposter testing samples虚假测试样本<br>DSN: first four samples of every user besides the genuine user<br>MYurk and touchscreen swipes dataset: randomly sampled the same number of impostor samples as the genuine user’s test samples</li><li>adversary对抗样本<br>The <strong>Targeted K-means++ adversary</strong> used all the samples from the data set excluding the ones from the target user and the ones used for training and testing the user’s classifier. For <strong>the Indiscriminate K-means++ </strong>adversary, we conducted a new MTurk study, as described before, a few months after the original study. We used all the samples from this new study. In Algorithm 2, we set the parameter “SAMPLE-SIZE” to 20000.</li></ol><h3 id="Detection-Algorithms-检测算法"><a href="#Detection-Algorithms-检测算法" class="headerlink" title="Detection Algorithms 检测算法"></a>Detection Algorithms 检测算法</h3><h4 id="One-class-classifiers"><a href="#One-class-classifiers" class="headerlink" title="One class classifiers"></a>One class classifiers</h4><ul><li>Manhattan distance<br>$$ \sum_{i=1}^m\frac{\left|{x_i-y_i}\right|}m $$</li><li>Gaussian高斯<br>training samples are modeled as a Gaussian distribution based on their mean and standard deviation</li><li><p>Gaussian mixture高斯混合模型</p><blockquote><p><a href="https://blog.csdn.net/jinping_shi/article/details/59613054" target="_blank" rel="noopener">https://blog.csdn.net/jinping_shi/article/details/59613054</a> </p></blockquote><blockquote><p>高斯混合模型（Gaussian Mixed Model）指的是多个高斯分布函数的线性组合，理论上GMM可以拟合出任意类型的分布，通常用于解决同一集合下的数据包含多个不同的分布的情况（或者是同一类分布但参数不一样，或者是不同类型的分布，比如正态分布和伯努利分布）。<br>$$ \sum_{k=1}^Kπ_kN\left(x|μ_k,\sum_k\right) $$<br>$$ \sum_{k=1}^Kπ_k=1 $$<br>$$ 0 ≤ Kπ_k ≤ 1 $$<br>即$π_k$相当于每个分量的权重<br>GMM常用于聚类。如果要从 GMM 的分布中随机地取一个点的话，实际上可以分为两步：首先随机地在这 K 个 Component 之中选一个，每个 Component 被选中的概率实际上就是它的系数πkπk \pi_k ，选中 Component 之后，再单独地考虑从这个 Component 的分布中选取一个点就可以了──这里已经回到了普通的 Gaussian 分布，转化为已知的问题。将GMM用于聚类时，假设数据服从混合高斯分布（Mixture Gaussian Distribution），那么只要根据数据推出 GMM 的概率分布来就可以了；然后 GMM 的 K 个 Component 实际上对应KKK个 cluster 。根据数据来推算概率密度通常被称作 density estimation 。</p></blockquote></li><li>one class SVM<br>used the Support Vector Machine(SVM) implementation in sklearn, with radial basis function (RBF) kernel, and kernel parameter 0.9.</li><li>Autoencoder and Contractive Autoencoder自动编码和收缩性自动编码<br>With the advent of deep learning, researchers have started using variants of neural networks in the domain of cybersecurity. One of the key structures used in the past are autoencoders and contractive autoencoders<br>随着深度学习的到来，研究人员开始在网络安全领域使用神经网络的变体。过去使用的关键结构之一是自动编码器和压缩自动编码器</li></ul><h4 id="Two-class-classifiers"><a href="#Two-class-classifiers" class="headerlink" title="Two class classifiers"></a>Two class classifiers</h4><ul><li>Random Forest<br>used a model similar to the one described by Antal et al [4]. Random Forests with 100 trees was their best-performing classifier on the touchscreen swipes dataset. We used the Random Forest implementation in sklearn<br>我们使用了一个类似于Antal et al[4]所描述的模型。随机森林与100棵树是他们在触摸屏滑动数据集上表现最好的分类器。我们在sklearn中使用了Random Forest实现</li><li>Nearest Neighbor<br>Here we classify a test sample based on the majority label among a fixed number of its nearest neighbors in the training set. The neighbours are determined using Euclidean distance. We used the implementation in [32]<br>在测试样本中用最近邻</li><li>Fully Connected Neural Net全连接NN<br>We experimented with multiple variants of multi layer perceptron by using different hyper parameters. The network that performed the best had two hidden layers with 15 neurons each computing scores for genuine and impostor classes. There was no significant improvement in the performance of the network by increasing the number of layers or neurons per layer in the architecture of the neural network.<br>我们使用不同的超参数对多层感知器的多个变体进行了实验。表现最好的网络有两个隐藏层，每个层有15个神经元，计算真实和冒名顶替类的分数。在神经网络体系结构中，每层增加层数或神经元数量，网络性能没有显著改善。</li></ul><h4 id="Monaco’s-Normalization-Technique-标准化"><a href="#Monaco’s-Normalization-Technique-标准化" class="headerlink" title="Monaco’s Normalization Technique 标准化"></a>Monaco’s Normalization Technique 标准化</h4><p>The <strong>key insight of this technique</strong> was that a user’s classifier could normalize future input samples based only on the genuine user’s data given to it at the start. Essentially, this acts like a filtering step - and features that are too far from the mean of the genuine user’s fitting data get filtered out.<br>后续样本基于刚开始给定的真实输入样本来做标准化<br>这个标准化很重要，没这个就无法得出结果we do not even mention our results without this<br>normalization.</p><h2 id="Results"><a href="#Results" class="headerlink" title="Results"></a>Results</h2><h3 id="Equal-error-rate"><a href="#Equal-error-rate" class="headerlink" title="Equal error rate"></a>Equal error rate</h3><table><thead><tr><th>Name of Classifier</th><th>DSN EER</th><th>MTurk EER</th></tr></thead><tbody><tr><td>Manhattan</td><td>0.091</td><td>0.097</td></tr><tr><td>SVM</td><td>0.087</td><td>0.097</td></tr><tr><td>Gaussian</td><td>0.121</td><td>0.109</td></tr><tr><td>Gaussian Mixture</td><td>0.137</td><td>0.135</td></tr><tr><td>…</td><td>…</td><td>…</td></tr></tbody></table><hr><p>(具体见表2)</p><p>注：没有标准化的EER都在0.15左右</p><h3 id="Keystroke-Results"><a href="#Keystroke-Results" class="headerlink" title="Keystroke Results"></a>Keystroke Results</h3><p>In this section we discuss the results of testing our adversaries on the DSN and MTurk datasets, which are summarized in Tables III, IV. We conducted the tests independently on each of the five passwords in the MTurk dataset, but for a more compact presentation, we average the results of all passwords. A few interesting highlights based on these results are given below<br>在本节中,我们讨论的结果,测试DSN和MTurk数据集,总结在表III、IV。我们进行独立测试在MTurk数据集中的密码。为了更紧凑的表示,我们把所有的结果平均之后显示出来。</p><h4 id="MasterKey-VS-K-means"><a href="#MasterKey-VS-K-means" class="headerlink" title="MasterKey VS K-means++"></a>MasterKey VS K-means++</h4><p>K-means++ performs better than MasterKey.<br>Figure 2 展示了最好的一类分类器和二类分类器下，Target K-means++和Indiscriminate K-means++以及MasterKey的性能对比<br>Targeted K-means++ seems to essentially <strong>be able<br>to compromise the security of all the users</strong> in the limit.</p><p>Table3展示了K-means++强于asterKey</p><p>本文中用到的样本量更大，选择train sample和test sample的protocol也不一样，但是EER与原文差不多。如图5所示。</p><p>As can be seen by Table V, and Figure 4, the results on this dataset show the same trends as seen in the keystroke dynamics datasets before. The first try which hits the mean of the impostor samples is not very successful here. This is particularly bad for an adversary like MasterKey which stays around the mean of the distribution, and is reflected in the results in Table V. But the K-means++ adversary is quickly able to explore the sample space to find more challenging queries and in 10 tries itself, breaks into a sizeable proportion of the  classifiers as in the keystrokes dataset. And in the limit, essentially all the user’s classifiers are compromised.由表V和图4可以看出，该数据集上的结果显示了与之前击键动力学数据集相同的趋势。第一次尝试就击中了冒名顶替样本的均值，但并不是很成功。这是特别糟糕的敌人像万能钥匙保持周围分布的均值,并反映在结果表诉。但k - means + +对手很快就能够探索样本空间中找到更有挑战性的查询和10次尝试本身,闯进了一相当大的比例的数据集分类器的按键。在极限情况下，基本上所有用户的分类器都被破坏了。</p><h1 id="Conclusion-and-future-work"><a href="#Conclusion-and-future-work" class="headerlink" title="Conclusion and future work"></a>Conclusion and future work</h1><p>Behavioral biometrics is a promising field of research, but it is not a reliable solution for authentication in its current state. <strong>行为生物识别技术是一个很有前途的研究领域，但在目前的状态下，它并不是一个可靠的认证解决方案。</strong>We proposed two adversarial agents that require a different amount of effort from the adversary. <strong>Both attack methods performed clearly better than the previously studied attack methods</strong> in the literature and show that current state of the art classifiers add little protection against such adversaries. In the case of Indiscriminate K-means++, more than its success rate, it is worrying for the keystroke dynamics systems that such an adversary could conduct its attack without any additional cost incurred to collect samples. Past research has focused much more on improving the classifiers against naive adversaries, but this work shows that a lot more research from the adversarialperspective is required before such authentication systems can be adopted in sensitive contexts.<br>The design of our K-means++ adversaries utilizes a <strong>common intuition about human behavior, which is that a person’s behavioral data belongs to a “cluster”, rather than being absolutely unique</strong>. Thus it is natural to expect such techniques to generalize to other types of behavioral data. The results on the touchscreen touchscreen swipes dataset also supports this claim.<br>我们提出了两种敌对代理人，它们需要不同于对手的努力。这两种攻击方法的性能明显优于文献中先前研究的攻击方法，表明当前的艺术分类器对这类敌人的保护很少。在不加区别的K-means++的情况下，对于击键动力学系统来说，这样的对手可以进行攻击而不需要额外的成本来收集样本，这比其成功率更令人担忧。过去的研究更多地关注于改进针对天真的对手的分类器，但这项工作表明，在这种身份验证系统可以在敏感的上下文中采用之前，需要从adversarialperspective的角度进行更多的研究。我们的k -means++敌人的设计利用了一种关于人类行为的共同直觉，即一个人的行为数据属于一个“集群”，而不是绝对独一无二的。因此，很自然地期望这些技术可以推广到其他类型的行为数据。触屏触摸屏上的结果也支持这一说法。<br>Of course, from a practical perspective, it is much harder to simulate an attack on a touchscreen based system, as opposed to a keystroke dynamics system, because of the diversity of the touchscreen features like pressure, finger size and so on. Unlike keystrokes - we can’t just write an easily automated script to carry out such an attack. This implies that a swipes based classifier is more secure for now. But given enough motivation, it is possible that methods could be devised to bypass such limitations. For instance, such attacks could be carried out by feeding false information to the android sensors, or in an extreme example, by building a robotic arm.<br>当然，从实际角度来看，由于触摸屏的压力、手指大小等特性的多样性，模拟攻击基于触摸屏的系统要比模拟击键动力学系统困难得多。与击键不同的是，我们不能仅仅编写一个易于自动化的脚本来执行这样的攻击。这意味着基于滑动的分类器现在更安全。但只要有足够的动力，就有可能设计出绕过这些限制的方法。例如，这种攻击可以通过向android传感器提供虚假信息来实施，或者在一个极端的例子中，通过制造机械手臂来实施。<br>Previous research has relied exclusively on the average Equal Error Rate scores across all subjects to measure the robustness of classifiers. To develop more robust behavioral biometric classifiers, it would be useful to <strong>benchmark against the adversarial agents proposed in this paper instead.</strong> For instance, one class classifiers have been the dominant method researched in the keystroke dynamics literature as they perform as well as the two class classifiers in terms of EER, while the two class classifiers are not practical because one can not expect impostor samples for arbitrary passwords. Yet, against both the adversarial algorithms, the two class classifiers performed clearly better than the one class classifiers. This suggests that a future direction of research would be to bridge the gap between the idealized and practical versions of such two class classifiers as explained in section IV A.<br>以往的研究完全依赖于所有科目的平均等错误率分数来衡量分类器的鲁棒性。为了开发出更健壮的行为生物特征分类器，我们将对本文提出的抗辩剂进行基准测试。例如，在击键力学文献中，一类分类器是主要的研究方法，因为它们的性能和EER的两个类分类器一样好，而这两个类分类器是不实用的，因为人们不能指望冒名顶替者样本来处理任意的密码。然而，与两种对抗性算法相比，这两个类分类器的性能明显优于一个类分类器。这表明，今后的研究方向将是弥补第四节a所解释的这两类分类器的理想化版本和实际版本之间的差距。<br>From the adversarial perspective, one possibility for future work would be to extend these methods to free text based classifiers. Free text classifiers utilize a continuous stream of input text, as opposed to fixed text passwords, in order to classify keystroke patterns. This leads to differences in the features and algorithms that are utilized for these classifiers. But conceptually, the Indiscriminate K-means++ adversary should be well suited to generate adversarial samples against free text classifiers as well.从敌对的角度来看，未来工作的一种可能是将这些方法扩展到基于自由文本的分类器。自由文本分类器使用连续的输入文本流(与固定文本密码相反)来分类击键模式。这导致了这些分类器所使用的特性和算法的差异。但从概念上讲，不加区分的K-means++对手也应该非常适合针对自由文本分类器生成对抗性样本。</p>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;p&gt;P(B|A) = P(A|B)*P(B)/P(A)&lt;/p&gt;
-&lt;p&gt;朴素：特征之间相互独立&lt;/p&gt;
-&lt;h1 id=&quot;算法流程&quot;&gt;&lt;a href=&quot;#算法流程&quot; class=&quot;headerlink&quot; title=&quot;算法流程&quot;&gt;&lt;/a&gt;算法流程&lt;/h1&gt;&lt;ol&gt;
-&lt;li&gt;x = 
+        &lt;h1 id=&quot;动机&quot;&gt;&lt;a href=&quot;#动机&quot; class=&quot;headerlink&quot; title=&quot;动机&quot;&gt;&lt;/a&gt;动机&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;Behavioral biomertics is the study of individual patterns(hand-w
       
     
     </summary>
@@ -566,9 +593,7 @@
       <category term="Learning" scheme="https://chenzk1.github.io/categories/Learning/"/>
     
     
-      <category term="ML" scheme="https://chenzk1.github.io/tags/ML/"/>
-    
-      <category term="Classification" scheme="https://chenzk1.github.io/tags/Classification/"/>
+      <category term="WNSP" scheme="https://chenzk1.github.io/tags/WNSP/"/>
     
   </entry>
   
