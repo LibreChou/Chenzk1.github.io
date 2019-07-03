@@ -106,7 +106,7 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://pic4.zhimg.com/80/v2-812104c0291d20935e910919a9fa5c27_hd.png">
 <meta property="og:image" content="https://img-blog.csdn.net/20150109184544578?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvQW5kcm9pZGx1c2hhbmdkZXJlbg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
-<meta property="og:updated_time" content="2019-06-06T01:18:16.953Z">
+<meta property="og:updated_time" content="2019-06-29T10:44:30.755Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Decisiong Tree:ID3 C4.5 CART">
 <meta name="twitter:description" content="决策树问题：如何挑选用于分裂节点的特征–&amp;gt;ID3 C4.5 …(一个标准：使分裂出来的节点尽可能纯，即一个分支尽可能属于同类)  ID3信息增益  信息增益 = 信息熵 - 条件熵  信息增益：针对每个 属性 信息熵：整个样本空间的不确定度。其中Pk一定是label取值的概率。 条件熵：给定某个属性，求其信息熵 –&amp;gt; 问题：某属性所包括的类别越多，信息增益越大。极限：每个类别仅有1个">
@@ -425,6 +425,8 @@
 </li>
 <li><p>CART <em><strong>基尼系数+MAE/MSE</strong></em></p>
 <p>与ID3、C4.5的不同：形成二叉树，因此 –&gt; 既要确定要分割的属性，也要确定要分割的值</p>
+<p>回归树和分类树的区别在于样本输出，如果样本输出是离散值，那么这是一颗分类树。如果果样本输出是连续值，那么那么这是一颗回归树。</p>
+<p>回归树和分类树在处理连续特征的时候有区别：</p>
 <ul>
 <li>回归树：MAE/MSE<ul>
 <li>example(MSE)：<blockquote>
@@ -438,7 +440,7 @@
 </ul>
 </li>
 <li><p>分类树：(Gini)</p>
-<p><img src="https://img-blog.csdn.net/20150109184544578?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvQW5kcm9pZGx1c2hhbmdkZXJlbg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="某属性A的基尼系数"><br>基尼系数越小，纯度越高</p>
+<p>$$ Gini(A) = \sum_{k=1}^K p_k(1-p_k)$$<br><img src="https://img-blog.csdn.net/20150109184544578?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvQW5kcm9pZGx1c2hhbmdkZXJlbg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="某属性A的基尼系数"><br>基尼系数越小，纯度越高</p>
 </li>
 </ul>
 <blockquote>
@@ -449,12 +451,17 @@
 <li>生成 CART 决策树。</li>
 </ol>
 </blockquote>
-<pre><code>停止条件有：
-1. 节点中的样本个数小于预定阈值;
-2. 样本集的Gini系数小于预定阈值（此时样本基本属于同一类）;
-3. 没有更多特征。
-</code></pre><ul>
-<li>剪枝</li>
+<ul>
+<li>使用基尼系数处理离散特征：不停地二分</li>
+<li><p>使用基尼系数处理连续特征，将所有n个取值从大到小排列，得到n-1个切分点，求所有的切分点的基尼系数，取最小的，做到连续特征的离散化<br>  停止条件有：</p>
+<ol>
+<li>节点中的样本个数小于预定阈值;</li>
+<li>样本集的Gini系数小于预定阈值（此时样本基本属于同一类）;</li>
+<li>没有更多特征。</li>
+</ol>
+</li>
+<li><p>剪枝</p>
+</li>
 <li>例子：<a href="https://www.jianshu.com/p/b90a9ce05b28" target="_blank" rel="noopener">example</a></li>
 </ul>
 </li>
@@ -576,7 +583,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-count">26</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -598,7 +605,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

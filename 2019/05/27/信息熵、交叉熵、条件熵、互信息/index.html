@@ -99,14 +99,14 @@
 <meta name="description" content="设随机变量X，有n个事件$x_i$ –&amp;gt; $x_n$，概率分布为p(x)   信息  某随机变量X取值为xi的信息为 $I(X=xi)=\log_2\frac{1}{p(x_i)}=-\log_2p(x_i)$：某事件xi的信息代表这个事件能提供的信息，一个发生概率越小的事件能够提供的信息量越大。   信息熵  信息代表一个事件的不确定性，信息熵是整个随机变量X不确定性的度量：信息的期望。">
 <meta name="keywords" content="ML">
 <meta property="og:type" content="article">
-<meta property="og:title" content="信息熵、交叉熵、条件熵、互信息">
+<meta property="og:title" content="信息熵、交叉熵、条件熵、相对熵(K-L散度)、互信息">
 <meta property="og:url" content="https://chenzk1.github.io/2019/05/27/信息熵、交叉熵、条件熵、互信息/index.html">
 <meta property="og:site_name" content="Hero&#39;s notebooks">
 <meta property="og:description" content="设随机变量X，有n个事件$x_i$ –&amp;gt; $x_n$，概率分布为p(x)   信息  某随机变量X取值为xi的信息为 $I(X=xi)=\log_2\frac{1}{p(x_i)}=-\log_2p(x_i)$：某事件xi的信息代表这个事件能提供的信息，一个发生概率越小的事件能够提供的信息量越大。   信息熵  信息代表一个事件的不确定性，信息熵是整个随机变量X不确定性的度量：信息的期望。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-06-06T03:12:58.821Z">
+<meta property="og:updated_time" content="2019-06-06T03:14:04.255Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="信息熵、交叉熵、条件熵、互信息">
+<meta name="twitter:title" content="信息熵、交叉熵、条件熵、相对熵(K-L散度)、互信息">
 <meta name="twitter:description" content="设随机变量X，有n个事件$x_i$ –&amp;gt; $x_n$，概率分布为p(x)   信息  某随机变量X取值为xi的信息为 $I(X=xi)=\log_2\frac{1}{p(x_i)}=-\log_2p(x_i)$：某事件xi的信息代表这个事件能提供的信息，一个发生概率越小的事件能够提供的信息量越大。   信息熵  信息代表一个事件的不确定性，信息熵是整个随机变量X不确定性的度量：信息的期望。">
 
 
@@ -142,7 +142,7 @@
 
 
 
-  <title>信息熵、交叉熵、条件熵、互信息 | Hero's notebooks</title>
+  <title>信息熵、交叉熵、条件熵、相对熵(K-L散度)、互信息 | Hero's notebooks</title>
   
 
 
@@ -324,7 +324,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">信息熵、交叉熵、条件熵、互信息</h1>
+          <h1 class="post-title" itemprop="name headline">信息熵、交叉熵、条件熵、相对熵(K-L散度)、互信息</h1>
         
 
         <div class="post-meta">
@@ -522,6 +522,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/06/19/logstic regression, softmax regression/" rel="prev" title="logistic regression, softmax regression">
+                logistic regression, softmax regression <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -586,7 +590,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-count">26</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -608,7 +612,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

@@ -1,7 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[信息熵、交叉熵、条件熵、互信息]]></title>
+    <title><![CDATA[ROC AUC, Accuracy, Recall, F1]]></title>
+    <url>%2F2019%2F07%2F02%2F%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86%2F</url>
+    <content type="text"><![CDATA[树的遍历，分深度优先：前序，中序，后序；广度优先：层次遍历。 前序：根、左、右 中序：左、根、右 后序：左、右、根 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131132133134135136137138139140141142143144145class Node(object): """节点类""" def __init__(self, elem=-1, lchild=None, rchild=None): self.elem = elem self.lchild = lchild self.rchild = rchildclass Tree(object): """树类""" def __init__(self): self.root = Node() self.myQueue = [] def add(self, elem): """为树添加节点""" node = Node(elem) if self.root.elem == -1: # 如果树是空的，则对根节点赋值 self.root = node self.myQueue.append(self.root) else: treeNode = self.myQueue[0] # 此结点的子树还没有齐。 if treeNode.lchild == None: treeNode.lchild = node self.myQueue.append(treeNode.lchild) else: treeNode.rchild = node self.myQueue.append(treeNode.rchild) self.myQueue.pop(0) # 如果该结点已经有了右子树，将此结点丢弃，从下一个节点插入。 def front_digui(self, root): """利用递归实现树的先序遍历""" if root == None: return print root.elem, self.front_digui(root.lchild) self.front_digui(root.rchild) def middle_digui(self, root): """利用递归实现树的中序遍历""" if root == None: return self.middle_digui(root.lchild) print root.elem, self.middle_digui(root.rchild) def later_digui(self, root): """利用递归实现树的后序遍历""" if root == None: return self.later_digui(root.lchild) self.later_digui(root.rchild) print root.elem, def front_stack(self, root): """利用堆栈实现树的先序遍历""" if root == None: return myStack = [] node = root while node or myStack: while node: #从根节点开始，一直找它的左子树 print node.elem, myStack.append(node) node = node.lchild node = myStack.pop() #while结束表示当前节点node为空，即前一个节点没有左子树了 node = node.rchild #开始查看它的右子树 def middle_stack(self, root): """利用堆栈实现树的中序遍历""" if root == None: return myStack = [] node = root while node or myStack: while node: #从根节点开始，一直找它的左子树 myStack.append(node) node = node.lchild node = myStack.pop() #while结束表示当前节点node为空，即前一个节点没有左子树了 print node.elem, node = node.rchild #开始查看它的右子树 def later_stack(self, root): """利用堆栈实现树的后序遍历""" if root == None: return myStack1 = [] myStack2 = [] node = root myStack1.append(node) while myStack1: #这个while循环的功能是找出后序遍历的逆序，存在myStack2里面 node = myStack1.pop() if node.lchild: myStack1.append(node.lchild) if node.rchild: myStack1.append(node.rchild) myStack2.append(node) while myStack2: #将myStack2中的元素出栈，即为后序遍历次序 print myStack2.pop().elem, def level_queue(self, root): """利用队列实现树的层次遍历""" if root == None: return myQueue = [] node = root myQueue.append(node) while myQueue: node = myQueue.pop(0) print node.elem, if node.lchild != None: myQueue.append(node.lchild) if node.rchild != None: myQueue.append(node.rchild)if __name__ == '__main__': """主函数""" elems = range(10) #生成十个数据作为树节点 tree = Tree() #新建一个树对象 for elem in elems: tree.add(elem) #逐个添加树的节点 print '队列实现层次遍历:' tree.level_queue(tree.root) print '\n\n递归实现先序遍历:' tree.front_digui(tree.root) print '\n递归实现中序遍历:' tree.middle_digui(tree.root) print '\n递归实现后序遍历:' tree.later_digui(tree.root) print '\n\n堆栈实现先序遍历:' tree.front_stack(tree.root) print '\n堆栈实现中序遍历:' tree.middle_stack(tree.root) print '\n堆栈实现后序遍历:' tree.later_stack(tree.root)]]></content>
+      <categories>
+        <category>Learning</category>
+      </categories>
+      <tags>
+        <tag>DS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[十大排序算法python实现]]></title>
+    <url>%2F2019%2F07%2F02%2F%E9%9D%A2%E8%AF%95%2F</url>
+    <content type="text"><![CDATA[语言python python数据类型：Numbers（数字）、String（字符串）、List（列表）、Tuple（元组）、Dictionary（字典） 元组和数组的差别： 元组()不能修改，数组[]可以修改 字典{}，集合set()是无序的 DS 二叉树的遍历 很大的一个文件寻找频率TOP-k的词 一个非递减序列，寻找某个数最后出现的位置 归并排序 123456789101112131415161718def merge_sort(num): if len(num) &lt;= 1: return num mid = num // 2 left = merge_sort(num[:mid]) # 从下往上的递归中，每次递归得到的left和right是排好序的，需要对两者合并后做排序 right = merge_sort(num[mid:]) return merge_result(left, right)def merge_result(left, right): i,j = 0,0 result = [] while i &lt; len(left) and j &lt; len(right): if left[i] &lt;= right[j]: result.append(left[i]) i += 1 else: result.append(right[j]) j += 1 return result+left[i:]+right[j:] 快排 12345678910111213141516def quick_sort1(num,left,right): if left &gt;= right: return low = left high = right pivot = num[left] while left &lt; right: while left &lt; right and num[right] &gt; pivot: right -= 1 num[left] = num[right] while left &lt; right and num[left] &lt;= pivot: left += 1 num[right] = num[left] num[right] = pivot quick_sort1(num, low, left-1) quick_sort1(num, right+1, high) 1234567891011121314def quick_sort2(num,left,right): while left &lt; right: p = partition(num, left, right) quick_sort2(num, left, p-1) quick_sort2(num, p+1, right)def partition(num, left, right): pivot = num[right] # 先挪左指针，用右边界作为pivot i = left for j in range(left,right): if num[j] &lt;= pivot: i += 1 num[i], num[j] = num[j], num[i] num[i+1], num[right] = num[right], num[i+1] # 把基准数移过来 return i+1 1234567def quick_sort3(num): if len(num) &lt;= 1: return num pivot = num[0] left = [num[i] for i in range(len(num)) if num[i] &lt; pivot] right = [num[i] for i in range(len(num)) if num[i] &gt; pivot] return quick_sort3(left) + pivot + quick_sort3(right) O(N)复杂度在一个数组中寻找两数和为指定数的下标 逻辑 一个筛子产生0~9的随机数，要求概率相等 理发师数量估计 操作系统 + 计网 进程和线程 进程和线程的主要差别在于它们是不同的操作系统资源管理方式。进程有独立的地址空间，一个进程崩溃后，在保护模式下不会对其它进程产生影响，而线程只是一个进程中的不同执行路径。线程有自己的堆栈和局部变量，但线程之间没有单独的地址空间，一个线程死掉就等于整个进程死掉，所以多进程的程序要比多线程的程序健壮，但在进程切换时，耗费资源较大，效率要差一些。但对于一些要求同时进行并且又要共享某些变量的并发操作，只能用线程，不能用进程。1) 简而言之,一个程序至少有一个进程,一个进程至少有一个线程。2) 线程的划分尺度小于进程，使得多线程程序的并发性高。3) 进程在执行过程中拥有独立的内存单元，而多个线程共享内存，从而极大地提高了程序的运行效率。4) 线程在执行过程中与进程还是有区别的。每个独立的线程有一个程序运行的入口、顺序执行序列和程序的出口。但是线程不能够独立执行，必须依存在应用程序中，由应用程序提供多个线程执行控制。5) 从逻辑角度来看，多线程的意义在于一个应用程序中，有多个执行部分可以同时执行。但操作系统并没有将多个线程看做多个独立的应用，来实现进程的调度和管理以及资源分配。这就是进程和线程的重要区别。 同步和异步 消息的通知机制 涉及到IO通知机制；所谓同步，就是发起调用后，被调用者处理消息，必须等处理完才直接返回结果，没处理完之前是不返回的，调用者主动等待结果；所谓异步，就是发起调用后，被调用者直接返回，但是并没有返回结果，等处理完消息后，通过状态、通知或者回调函数来通知调用者，调用者被动接收结果。 阻塞和非阻塞 程序等待调用结果时的状态 涉及到CPU线程调度；所谓阻塞，就是调用结果返回之前，该执行线程会被挂起，不释放CPU执行权，线程不能做其它事情，只能等待，只有等到调用结果返回了，才能接着往下执行；所谓非阻塞，就是在没有获取调用结果时，不是一直等待，线程可以往下执行，如果是同步的，通过轮询的方式检查有没有调用结果返回，如果是异步的，会通知回调。 TCP和UDP 基于连接（TCP）与无连接（UDP）； 对系统资源的要求（TCP较多，UDP少）； UDP程序结构较简单； 流模式与数据报模式 ； TCP保证数据正确性，UDP可能丢包，TCP保证数据顺序，UDP不保证。]]></content>
+      <categories>
+        <category>Learning</category>
+      </categories>
+      <tags>
+        <tag>面试</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[线性模型和非线性模型]]></title>
+    <url>%2F2019%2F07%2F02%2F%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B%E5%92%8C%E9%9D%9E%E7%BA%BF%E6%80%A7%E6%A8%A1%E5%9E%8B%2F</url>
+    <content type="text"><![CDATA[判断非线性模型和线性模型：决策边界是否是直线 或 一个变量是否被一个参数所影响（决策空间中，坐标是参数w，而原来的输入x，是该空间中的坐标点） Logistic Regression是线性模型，本身是wx+b，每个变量都由一个参数决定，决策边界为wx+b &lt; c，决策面是wx+b=y,这是线性的，然后再把结果做了一个映射，映射到0~1，相当于分类的置信度。 神经网络则是典型的非线性网络，因为一个变量由多个参数决定，且参数之间有交互。 SVM，有线性和非线性版本。线性SVM，其模型本身就是在寻求一个超平面，只是策略是找到间隔最大的那个超平面。而非线性SVM，虽说在特征空间上仍是分类超平面，但是先采用了核技巧从输入空间向特征空间进行了非线性映射。 MLP，其嵌套函数的特点就反映了，它的非线性更像 LR ，即从每层来看，输入并没有进行 SVM 那样的非线性特征变换，但在输出时进行了非线性映射，那么多层重叠，也就实现了特征的非线性交叉。]]></content>
+      <categories>
+        <category>Learning</category>
+      </categories>
+      <tags>
+        <tag>ML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[十大排序算法python实现]]></title>
+    <url>%2F2019%2F07%2F02%2F%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95python%2F</url>
+    <content type="text"><![CDATA[下文中的稳定是指：若a=b，而排序后的ab顺序与原来的ab顺序一样 交换排序：冒泡、快排；选择排序：选择、堆；插入排序：插入、希尔；归并排序、基数排序 总结： 排序算法 | 时间复杂度（平均） | 时间（最短） | 时间（最长） | 空间复杂度 | 是否稳定— | — | — | — | — | —冒泡 | O(N2) | O(N) | O(N2) | O(1) | 是选择 | O(N2) | O(N2) | O(N2) | 0(1) | 否插入 | O(N2) | O(N) | O(N2) | O(1) | 是希尔 | O(n·log(n)2) | O(n3/2) | O(N2) | O(1) | 否快速 | 冒泡排序 迭代n-1次，两个相邻元素两两相比，每次迭代将最大的元素放在该迭代序列的顶端。 优化后，对于最优的情况，即已经正序排列的，算法复杂度为O(N)12345678910def bubble_sort(num): for i in range(len(num)-1): flag = 0 for j in range(len(num)-i-1): if num[j] &gt; num[j+1]: num[j], num[j+1] = num[j+1], num[j] flag = 1 if flag == 0: return num return num 选择排序 迭代n-1次，每次选择出最小的放到前面 不稳定，因为选择出最小的之后会跟原有数交换顺序，因此会破坏原来的顺序，例如5 3 5 2，第一次之后为2 3 5 5，此时5跟5的顺序变了 12345678def select_sort(num): for i in range(len(num)-1): min_index = i for j in range(i,len(num)-1): if num[j+1] &lt; num[min_index]: min_index = j+1 num[i], num[min_index] = num[min_index], num[i] return num 插入排序 跟打牌类似 最快情况是O(N)，如果大部分数据已经排好序了，while pre_index &gt;= 0 and cur_num &lt; num[pre_index]这句的迭代次数会大大减少，会比较快 123456789def insert_sort(num): for i in range(len(num)-1): pre_index = i # 前一个数 cur_num = num[i+1] # 当前待插入数 while pre_index &gt;= 0 and cur_num &lt; num[pre_index]: num[pre_index+1] = num[pre_index] # 往后挪一位 pre_index -= 1 num[pre_index+1] = cur_num return num 希尔排序 对插入排序的优化，使用了递减的增量序列 如上所述插入排序中：如果大部分数据已经排好序了，while pre_index &gt;= 0 and cur_num &lt; num[pre_index]这句的迭代次数会大大减少，会比较快 –&gt; 所以希尔排序就是针对这个做了优化，即先减少需要排序的数量，再逐步对其排序 希尔排序是不稳定的算法，它满足稳定算法的定义。对于相同的两个数，可能由于分在不同的组中而导致它们的顺序发生变化。 希尔排序的性能根据其选取的序列而变化 使用动态增量序列的代码如下： 12345678910111213def shell_sort(num): gap = 1 while gap &lt; len(num) // 3: #gap &lt; (3a,3a+1,3a+2)//3: (a-1)*3+1=3a-2 gap = gap*3 + 1 while gap &gt; 0: for i in range(gap,len(num)): cur_num = num[gap] pre_index = i-gap while pre_index &gt;= 0 and cur_num &lt; num[pre_index]: num[pre_index+gap] = num[pre_index] pre_index -= gap num[pre_index+gap] = cur_num gap //= 3 归并排序 递归 终止条件：剩一个元素时，返回该元素；再上一层对返回的两个元素比较排序 1234567891011121314151617181920def merge_sort(num): def merge(left,right): # left和right本身是已经排序好的 result = [] i=j=0 while i &lt; len(left) and j &lt; len(right): if left[i] &lt;= right[j]: result.append(left) i+=1 else: result.append(right) j+=1 result = result + left[i:] + right[j:] return result if len(num) &lt;= 1: return num mid = len(num) // 2 left = merge_sort(num[:mid]) right = merge_sort(num[mid:]) return merge(left,right) 快速排序 冒泡+二分+递归分治 核心：每次迭代使选取的基准值插入到序列中，该序列中基准值左边的值小于基准值，右边的值大于基准值，然后再对两边分别迭代 基准数选择以及指针移动顺序：最终两个指针相遇时，要把基准数和相遇的位置交换，此时该位置左边的数小于基准数，右边大于基准数；若选择最左边的数为基准数，肯定要跟比它小的数交换，因此只有右指针先动才能找到比它小的（例如算法2里右指针相遇时找到的一定是上一轮左指针的交换结果，一定是小于基准数的） 12345678## 二分之后不断地递归，每次递归求出基准值的具体位置def quick_sort1(num): if len(num) &lt;= 1: return num pivot = num[0] left = [num[i] for i in range(1,len(num)) if num[i] &lt;= pivot] right = [num[i] for i in range(1,len(num)) if num[i] &gt; pivot] return quick_sort1(left) + pivot + quick_sort2(right) 12345678910111213141516def quick_sort2(num,left,right): if left &gt;= right: # 两指针相遇，则终止 return low = left high = right pivot = num[left] while left &lt; right: while left &lt; right and num[right] &gt; pivot: # 右指针向左移动直到找到小于pivot的 right -= 1 num[left] = num[right] # 右边有小于基准值的，调整到左边 while left &lt; right and num[left] &lt;= pivot: # 右指针向左移动直到找到小于pivot的 left += 1 num[right] = num[left] # 左边有小于基准值的，调整到右边 num[right] = pivot quick_sort2(num, low, left-1) quick_sort2(num, right+1, high) 123456789101112131415def quick_sort3(num,left,right): if left &lt; right: p = partition(num, left, right) quick_sort3(num, left, p-1) quick_sort3(num, p+1, right) def partition(num, left, right): pivot = num[right] # 这里是从左边开始移动指针的，因此是right i = left - 1 for j in range(left, right): if num[j] &lt;= pivot: i += 1 num[i], num[j] = num[j], num[i] num[i+1], num[right] = num[right], num[i+1] # 把基准数移过来 return i+1]]></content>
+      <categories>
+        <category>Learning</category>
+      </categories>
+      <tags>
+        <tag>DS</tag>
+        <tag>排序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[logistic regression, softmax regression]]></title>
+    <url>%2F2019%2F06%2F19%2Flogstic%20regression%2C%20softmax%20regression%2F</url>
+    <content type="text"><![CDATA[post]]></content>
+      <categories>
+        <category>Learning</category>
+      </categories>
+      <tags>
+        <tag>ML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[信息熵、交叉熵、条件熵、相对熵(K-L散度)、互信息]]></title>
     <url>%2F2019%2F05%2F27%2F%E4%BF%A1%E6%81%AF%E7%86%B5%E3%80%81%E4%BA%A4%E5%8F%89%E7%86%B5%E3%80%81%E6%9D%A1%E4%BB%B6%E7%86%B5%E3%80%81%E4%BA%92%E4%BF%A1%E6%81%AF%2F</url>
     <content type="text"><![CDATA[设随机变量X，有n个事件$x_i$ –&gt; $x_n$，概率分布为p(x) 信息 某随机变量X取值为xi的信息为 $I(X=xi)=\log_2\frac{1}{p(x_i)}=-\log_2p(x_i)$：某事件xi的信息代表这个事件能提供的信息，一个发生概率越小的事件能够提供的信息量越大。 信息熵 信息代表一个事件的不确定性，信息熵是整个随机变量X不确定性的度量：信息的期望。$H(X)=\sum_0^np(x_i)*I(x_i)=-\sum_0^np(x_i)\log_2(p(x_i))$ 信息熵只与变量X的分布有关，与其取值无关。例如二分类中，两取值的概率均为0.5时，其熵最大，也最难预测某时刻哪一类别会发生。 如何通俗的解释交叉熵与相对熵? - CyberRep的回答 - 知乎https://www.zhihu.com/question/41252833/answer/195901726 对于一个系统而言，若获知其真实分布，则我们能够找到一个最优策略，以最小的代价来消除系统的不确定性，而这个最小的代价（猜题次数、编码长度等）就是信息熵。 条件熵 定义为：给定条件X下，Y的分布（Y|X）的熵对X的数学期望：$H(Y|X)=\sum_xp(x)H(Y|X=x)$ 在ML中，即选定某个特征X(X有n类)后，label(Y)的条件概率熵求期望：给定X特征的条件下Y的信息熵。 条件熵越小，代表在这个特征下，label的信息熵越小，也就是说要解决问题的代价越小。 信息增益 — ID3 $IG(Y|X)=H(Y)-H(Y|X)$ 在决策树中作为选择特征的指标，IG越大，这个特征的选择性越好，也可以理解为：待分类的集合的熵和选定某个特征的条件熵之差越大，这个特征对整个集合的影响越大。 对于条件熵来说，条件熵越小，分类后的纯度越高，但是问题是：X的取值越多，每个取值下Y的纯度越高，H(Y|X)越小，但此时并不有利于Y的区分。信息增益也是如此。–&gt; 信息增益率。 信息增益率/信息增益比 — C4.5 偏好取值少的特征。C4.5：先选择高于平均水平信息增益的特征，再在其中选择最高信息增益率的特征。 见Decision Tree 基尼系数 — CART 表示数据的不纯度。既有分类也有回归，既要确定特征，也要确定特征的分叉值。 见Decision Tree 交叉熵 前面提到：信息熵是最优策略下，消除系统不确定性的最小代价。这里的前提是：我们得到了系统的真实分布。 实际中，一般难以获知系统真实分布，所以要以假设分布去近似。交叉熵：用来衡量在给定的真实分布下，使用非真实分布所指定的策略消除系统的不确定性所需要付出的努力的大小。$CEH(p,q)=\sum_{k=1}^np_k\log_2\frac{1}{q_k}$，注意这里log中是q，是基于非真实分布q的信息量对真实分布的期望。 当假设分布$q_k$与真实分布$p_k$相同时，交叉熵最低，等于信息熵，所以得到的策略为最优策略。 在机器学习中的分类算法中，我们总是最小化交叉熵，因为交叉熵越低，就证明由算法所产生的策略最接近最优策略，也间接证明我们算法所算出的非真实分布越接近真实分布。 例如：在逻辑斯蒂回归或者神经网络中都有用到交叉熵作为评价指标，其中p即为真实分布的概率，而q为预测的分布，以此衡量两不同分布的相似性。 如何衡量不同策略的差异：相对熵 相对熵/K-L散度 用来衡量两个取值为正的函数或概率分布之间的差异。两者相同相对熵为0 使用非真实分布q的交叉熵，与使用真实分布p的的信息熵的差值：相对熵，又称K-L散度。 $KL(p,q)=CEH(p,q)-H(p)=\sum_{i=1}^np(x_i)\log\frac{p(x_i)}{q(x_i)}$ 联合熵 H(X,Y) 随机变量X,Y联合表示的信息熵 互信息 H（X；Y）俩变量交集，也记作I(X;Y) H（X；Y) = H(X,Y)-H(Y|X)-H(X|Y) I(X;Y)=KL(P(X,Y), P(X)P(Y)) 互信息越小，两变量独立性越强，P(X,Y)与P(X)P(Y)差异越小，P(X,Y)与P(X)P(Y)的相对熵越小 相对熵(p,q) = 信息熵(p) - 交叉熵(p,q) 信息增益(Y|X) = 信息熵(Y) - 条件熵(Y|X)]]></content>
       <categories>
@@ -104,83 +160,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[自然辩证法#6]]></title>
-    <url>%2F2019%2F03%2F14%2F%E8%87%AA%E7%84%B6%E8%BE%A9%E8%AF%81%E6%B3%95%236%2F</url>
-    <content type="text"><![CDATA[科技与社会（一） 经典科学 -&gt; 现代科学 学者型科学 -&gt; 产业型科学经典科学：作为纯粹理性的科学，非职业化的科学，追求一般规律的科学，简单和谐的科学。经典科学，经典科学家，与哲学、艺术靠近，应用是附带的次要的，成就及其大小主要由政治经济系统评价。 产业科学或科学的产业化：例如19世纪的重工业 科学的质变： 科学目标：纯粹理性 -&gt; 产品性能（垄断手段）和劳动生产率 科学主体：个体 -&gt; 集体 科学家：自由学者 -&gt; 雇员 科学资源：数学、哲学 -&gt; 市场 科学知识：简谐 -&gt; 爆炸]]></content>
-      <categories>
-        <category>Learning</category>
-      </categories>
-      <tags>
-        <tag>自然辩证法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[自然辩证法#5]]></title>
-    <url>%2F2019%2F03%2F14%2F%E8%87%AA%E7%84%B6%E8%BE%A9%E8%AF%81%E6%B3%95%235%2F</url>
-    <content type="text"><![CDATA[当代西方科学论科学的地位、作用和权力剧增，科学的合理性被关注 英，波普尔，证伪主义 美，库恩，历史主义 科学划界和科学动力学 “可证实性”与“可证伪性”波普尔对“可证实性”的反思： 有无意义不取决于属于本身，而取决于理论（语境）； 只有单称陈述可证实，而科学理论是全称陈述； 单称陈述也未必可证实，观察中渗透着理论； “可证实性”使科学划界混乱。 可证伪性：任何科学命题在逻辑上都可以被经验证明为假。 什么命题是无法被证明为假的 可证伪度：普遍性、精确性、简单性。这正好是科学理论命题的性质。 可证伪：证伪主义的科学划界标准。 证伪主义的科学动力学对归纳逻辑的反思：归纳法几乎总是受预设的干扰；归纳法非常有可能把重要的因素排除在外；归纳法有可能建立假的因果关系。总之，归纳法不是科学合理性的基础。 科学始于问题 P1 -&gt; TT -&gt; EE -&gt; P2 P: Problem TT: Tentative Theory EE: Elimation of Error 库恩对证伪主义的批判：科学史表明，自然现象喊“不”，科学家喊得更响。 观察渗透理论的问题。 证伪主义的启发：“正确”和有效。 至此，真理问题换为合理性问题，再换为有效性问题。 范式和科学共同体库恩的历史主义科学哲学试图回答：一致性来自何处？科学是如何进步的？ 范式：信念、信仰、习惯、原则、原理… 科学共同体：掌握、遵守和使用范式的群体。职业的、紧密的、有话语权的专家。 历史主义的科学动力学前科学 无范式 -&gt; 常规科学 范式 -&gt; 反思 -&gt; 危机 -&gt; 科学革命新的范式 库恩列举几大科学革命：哥白尼日心说、氧化理论、相对论和量子力学]]></content>
-      <categories>
-        <category>Learning</category>
-      </categories>
-      <tags>
-        <tag>自然辩证法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[自然辩证法#4]]></title>
-    <url>%2F2019%2F03%2F14%2F%E8%87%AA%E7%84%B6%E8%BE%A9%E8%AF%81%E6%B3%95%234%2F</url>
-    <content type="text"><![CDATA[历史观点科学：本质。应用于自然事物。技术：应用。人造事物。 现代哲学的观点海德格尔 物Physita：作为自身存在并持续存在的东西 物mathemata：可学的，可描述的，可传授的东西。 Mathemata是使事物成为对象的测量方案，即技术，所以海德格尔不谈科学。 比较： 阳明格竹 赫尔蒙特的柳树生长实验 科学的真正进步取决于技术化程度科学的历史使用测量技术取代形而上学的过程 用几何量取代本性 即，测量技术使物成为可知可控可用的对象 可知可控可用是一回事。重视前者表现为科学，重视后者表现为技术。 所以科学和技术是同一回事：用测量方案和数学模型将对象描述为可控的。两者本无区别，区别在有人想利用这体现哲学目的（宇宙图景）还是经济目的（生产力）。 认为科学和技术有本质区别的习惯从何而来西方，古希腊文化，中世纪神学，近代科学 开普勒追求的元物理学 metaphysics 古代和中世纪：经验几何学实用技术 近代两百年的欧洲：元物理学，劳动生产率 19世纪以后：现代科技一体化 结论： 古代和中世纪，无科学和技术之分。在人类漫长历史中的一小段时间，西方一些地区，即在以牛顿力学为代表的经典科学体系出现之后，在欧洲的几个国家，学者们开始重视演绎性的理论和积累性的技术之间的某种分离状况，并一度将前者的地位放在后者之前。 近代欧洲的文化目标——宇宙的先在秩序。即上帝将数学放进了宇宙，无论人类是否研究宇宙都是简单和谐的。研究只是使人类理智知道这个和谐。这导致对所谓基础理论，纯科学的偏爱。强调科学和技术的区别，只是把近代欧洲的科学理念当成了一般的东西。科学不是超越于具体文化差异的。 欧洲也并不迷信“纯科学”。 现代科技观近代欧洲的理想追求虽然与工业的目标并不矛盾，但是在西方社会的步伐进入工业化之后，仅仅因为那样的理想不被急需，纯科学的意义模糊了。二战期间，科学服务于军事使得科学与技术的区别无关紧要。战争这种重大的社会事件无需借助哲学说明就轻易地改变了近代欧洲的科学理念。科学和技术咋新的用途中成为了同一个东西，这是因为他们本来就是同一种东西。 旧科技观的弊病强调科学和技术的区别只是获得定义上的齐整，但不是一种有效的科学观。]]></content>
-      <categories>
-        <category>Learning</category>
-      </categories>
-      <tags>
-        <tag>自然辩证法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[自然辩证法#3]]></title>
-    <url>%2F2019%2F03%2F14%2F%E8%87%AA%E7%84%B6%E8%BE%A9%E8%AF%81%E6%B3%95%233%2F</url>
-    <content type="text"><![CDATA[科学观——科学是一种公共知识 从另一个角度看近代科学为什么发生在欧洲近代欧洲的社会变革和知识观 古代和中世纪：知识就是权力（权力就是知识） 资产阶级革命 新兴资产阶级和自由知识分子 知识就是力量 首先是对知识一词的含义的重建 离开了经院哲学，知识的起点可以有：经验主义，实验主义，数学精神，科学理性 阿格里科拉和伽利略的共同点：效率，公共性，实证 知识世俗化、知识公共化是大工业、垄断资本和现代金融、现代市场、现代城市需要科学并成就的 影响世界历史进程的书 1532 马基雅维利 君主论文艺复兴后的第一个里程碑政治是一种独立的活动，自身具有区别于道德与宗教的原则和规律。批判 “手段（政治）为目的（为政以德）服务”。权术学。伟大的骗子教程，君主需兼具狮子的凶残和狐狸的狡诈。目的为手段服务，可以不择手段。全套术治理论。 开启了一种新的学术规则——方法有限而非观点优先；以效率为合理性（说服力）的核心；若无这样的规则，任何观点都无法被证明为对的或错的；这与稍后的科学革命不谋而合，且科学革命发扬得更彻底 1543 哥白尼 天体运行论 1628 哈维 心血运动论 1687 牛顿 自然哲学的数学原理 1689 洛克 政府论上篇批判君权神授和世袭制 无个性的基本单元：个人主义者的自然权利（生命、健康、自由、财产），人人平等，互相不得侵犯。 自然状态：人应当自由实践其自我利益，人人具有自然法执行权。但按照牛顿力学，此为布朗运动，需如日星辰城之有序。故人们为了避免冲突，维护公正，需要形成政治共同体，建立斌遵循政治秩序，但需给予政治秩序以理性解释。 1762 卢梭 社会契约论自然状态，自然人（粒子）公民形成文明社会，以众人之力，保护每个个体。为何需要保护？反原罪说。 1832 克劳塞维兹 战争论改革贵族文化中的旧军事体制 1859 达尔文 物种起源进攻目的论，神创论的最后堡垒]]></content>
-      <categories>
-        <category>Learning</category>
-      </categories>
-      <tags>
-        <tag>自然辩证法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[自然辩证法#2]]></title>
-    <url>%2F2019%2F03%2F14%2F%E8%87%AA%E7%84%B6%E8%BE%A9%E8%AF%81%E6%B3%95%232%2F</url>
-    <content type="text"><![CDATA[现代自然观 现代自然观的来源 起源于古希腊，兴于近代欧洲，完成于牛顿。 粒子论 机械论 还原论 时空观：时间、空间相互独立；空间均匀、平直、三维、各向同性；时间均匀、平直、一维、不可逆；时间、空间与物质各自独立。 物质观：物质只具有几何属性（形状、大小、位置）和机械属性（质量、弹性）。 从古希腊哲学到现代自然观古希腊知识分子的民间性：（非官方，正式由于其哲学本身上的纯粹性，才获得了很大的进步） 世界是物质的（麦乐斯“水是万物的本源”） 物质是质料的（原子论者，亚里士多德etc） 质料是形式的（毕达哥拉斯学派，希罗多德历史） 形式是几何的（欧几里得，阿基米德，天球） 运动是机械的（哥白尼，开普勒，伽利略，牛顿）中世纪奔溃，资产阶级重新选择文化的时候，选择了古希腊。 科学进步与自然观的更新 牛顿力学自然观本身就是一次科学大进步的产物 现代科学对机械论自然观的几次有限突破，都伴随着科学的重大突破 相对论自然观 量子力学自然观 复杂系统自然观 但语境还是机械论，自然观的反思和革命还将继续。 人与自然关系的反思 悲观主义 乐观主义 现实主义 三个流派的共同出发点： 人与自然的关系恶化 恶化的本质：现代人类对自然界的影响超过了自然界对人类活动的承载力。 悲观主义代表：罗马俱乐部 乐观主义《今后二百年——美国和世界的一幅远景》 在过去到未来的前后各二百年中，人类将从困境中摆脱出来，自然因素并不构成限制，科学技术的发展将会是自然环境和社会环境充满活力。 自然资源供应无限，人类的资源短缺等问题可以通过技术进步来解决。 当穷国富起来时，人口增长就会自动停止。 各有缺点： 悲观论者：线性外推，但忽略现有的社会生产方式、社会制度、社会意识形态都是可以改变的。 乐观论者：以自然资源潜力无限和科学技术能力无限为前提，但忽略了自然资源在理论上的潜在存在和… 现实主义《纵观世界全局》（美国世界观察研究所） 世界明天的好坏不是命运决定的，也不是科学技术的本性决定的，它取决于人类今后20年左右做出的决策是否明智。]]></content>
-      <categories>
-        <category>Learning</category>
-      </categories>
-      <tags>
-        <tag>自然辩证法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[自然辩证法#1]]></title>
-    <url>%2F2019%2F03%2F14%2F%E8%87%AA%E7%84%B6%E8%BE%A9%E8%AF%81%E6%B3%95%231%2F</url>
-    <content type="text"><![CDATA[次数不定随堂测验 | 80 平时成绩(课堂汇报) | 20 西方哲学认识论 内省型文化主客体关系 主体凸现和客体廓清主体凸现：反思，内省客体廓清：形式，语言，理论（模型、线索、规范、logos）语言和语言产品成为主客体中介从古希腊到近代欧洲，逻辑学、几何学、力学成为主客体中介 经典科学与哲学哲学是关于反思的人如何获知真理：经验论与唯理论经验论：洛克、休谟、贝克莱孔洞生成定律唯理论：笛卡尔、莱布尼兹、斯宾诺莎抽象思维，形式化概念体系恐惧：对恶的期待 （空）现代科学哲学当代科学技术哲学与自然辩证法《反杜林论》和《自然辩证法手稿》]]></content>
-      <categories>
-        <category>Learning</category>
-      </categories>
-      <tags>
-        <tag>自然辩证法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[中国古代典籍文化#1]]></title>
-    <url>%2F2019%2F03%2F14%2F%E4%B8%AD%E5%9B%BD%E5%8F%A4%E4%BB%A3%E5%85%B8%E7%B1%8D%E6%96%87%E5%8C%96%231%2F</url>
-    <content type="text"><![CDATA[考核：第四五周布置论文题目，第八周交论文 古代典籍的载体和装帧甲骨 龟甲和兽骨的合称 甲：龟甲的腹板 骨：牛的肩胛骨和胫骨，也有猪羊的肩胛骨 金 铜，指青铜器（铜和锡的合金，呈青灰色）上的铭文。 金文铸刻的器具以钟鼎居多，又称钟鼎文 西周是钟鼎文最盛行的时代 石木牍]]></content>
-      <categories>
-        <category>Learning</category>
-      </categories>
-      <tags>
-        <tag>中国古代典籍文化</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[ROC AUC, Accuracy, Recall, F1]]></title>
     <url>%2F2019%2F03%2F14%2FROC%20%20AUC%2F</url>
     <content type="text"><![CDATA[类不平衡（class imbalance）现象：即负样本比正样本多很多（或者相反） ACCURACY/RECALL/F1 Accuracy：TP/(TP+TN) 即预测对的数据个数与总数据个数的比 A和R的问题在于如果样本不平衡，则参考意义很小 准确率（Precision）：P=TP/(TP+FP)。通俗地讲，就是预测正确的正例数据占预测为正例数据的比例。 针对判别结果 查准率 召回率（Recall）：R=TP/(TP+FN)。通俗地讲，就是预测为正例的数据占实际为正例数据的比例。 针对样本 查全率 F1 = 2*P*R/(P+R)：既有P又有R PRC， precision recall curve，与下面的ROC一样，先看是否光滑，光滑的话说明过拟合不大。越往右上越好。 A和R的问题在于如果样本不平衡，则参考意义很小 ROC AUC（receiver operating characteristic curve） TPR=TP/(TP+FN)=TP/actual positives 也就是RecallFPR=FP/(FP+TN)=FP/actual negativesROC是由点（TPR,FPR）组成的曲线，AUC就是ROC的面积。AUC越大越好。 画法：ROC曲线其实是多个混淆矩阵的结果组合，如果在上述模型中我们没有定好阈值，而是将模型预测结果从高到低排序，将每个概率值依次作为阈值，那么就有多个混淆矩阵。对于每个混淆矩阵，我们计算两个指标TPR（True positive rate）和FPR（False positive rate），TPR=TP/(TP+FN)=Recall，TPR就是召回率。FPR=FP/(FP+TN)，FPR即为实际为好人的人中，预测为坏人的人占比。我们以FPR为x轴，TPR为y轴画图，就得到了ROC曲线。 也就是说，ROC曲线的阈值不是多次运行模型得到的，是同一个模型中通过对所得结果按照概率的排序得到了一个threshold 原理： 在画图描点过程中，每取一个样本，会以此样本被预测为1的概率作为阈值，概率排序在此之上的样本认为是1，之下的样本会被认为是0（解释了ROC为何与样本预测值的排序有关）。 AUC的值代表了：取真实label为1和为0的两个样本，其中真样本被预测为1的概率大于假样本被预测为1的概率这一事件的概率。假设有M个真样本，N个假样本，M个真样本的预测概率升序排序，其值从大到小分别为rank_1…rank_m,例如6个真4个假，假设真样本概率最高的排序为10，则比它低的假样本有10-6=4个，下一个排序为8，则比它低的假样本有8-(6-1)=3个，此概率为：（rank_1 - m + rank_2 - (m-1) + rank_m - 1）/ M*N AUC=0.5时，任意一个样本被判断为真和判断为假的概率相等 e.g 当threshold取为0.5时：!ex0此时AUC=1：!ex00AUC=0.7:!!AUC=0.5:!!AUC=0:!! 一般来说，如果ROC是光滑的，那么基本可以判断没有太大的overfitting。 越往左上越好。 所以使用ROC的话，它会先对预测到的结果进行排序，然后再根据排序的结果画图，所以他的曲线形状不会因为数据不平衡而发生大的改变。 但是当数据极度不平衡时，ROC仍然有问题，下面的PRC表现更好。 参考1参考2 PRC， precision recall curve，与上面的ROC一样，先看是否光滑，光滑的话说明过拟合不大。越往右上越好。]]></content>
@@ -190,25 +169,6 @@
       <tags>
         <tag>ML</tag>
         <tag>Metrics</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[WNSP#2]]></title>
-    <url>%2F2019%2F03%2F14%2FWNSP%232%2F</url>
-    <content type="text"><![CDATA[50GHz 丰富的频谱资源，即频带宽 速度快 波长短，更适合短距传输。穿透性差。 高度方向性 安全性 Li-Fi(Light Fidelity) 安全性和低穿透性：灯光具有可遮挡性 频谱资源丰富 无电磁辐射和电磁干扰 LP-WAN NB-IoT 数据安全及隐私：公网传输导致数据泄露 通信安全：通信网络面临攻击 设备安全 密码学 唯密文、唯明文、选择性密文、选择性明文 保密性 完整性 可用性 真实性 可追溯性 不可抵赖性 匿名性]]></content>
-      <categories>
-        <category>Learning</category>
-      </categories>
-  </entry>
-  <entry>
-    <title><![CDATA[python面向对象]]></title>
-    <url>%2F2019%2F03%2F14%2Fpython%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%2F</url>
-    <content type="text"><![CDATA[属性命名 属性以双下划线开头，类内变量，实例无法访问。但可以通过某些方式访问，例如Student例中定义了__name变量，可以用_Student_name来实现访问，但不建议，因为不同的解释器的转化方式不一样。 单下划线可以打开，但需要注意不能随意更改。 双下划线结尾与开头，特殊变量，类内可以访问，实例不知。 多态开闭原则：定义一个类Animal及其多个之类Dog/Cat/…，当定义一个函数或操作时： 对扩展开放：允许新增Animal的子类； 对修改封闭：不需要修改依赖Animal类型的run_twice()等函数，仍然可以传入Dog/Cat等类。事实上，不需要继承也可以实现多态————鸭子类型。 若干方法 isinstance(object,class) 判断是否属于某个类 dir() 列举出一个对象的属性和方法 getattr()、setattr()、hasattr()可以获得、添加、查询是否需要某个属性 __slots__ 限制可以添加的属性，__slots__ = (‘name’, ‘age’) # 用tuple定义允许绑定的属性名称 装饰器]]></content>
-      <categories>
-        <category>Learning</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
       </tags>
   </entry>
   <entry>
@@ -223,15 +183,14 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Kaggle相关]]></title>
-    <url>%2F2019%2F03%2F14%2Fkaggle%E7%9B%B8%E5%85%B3%2F</url>
-    <content type="text"><![CDATA[如何在 Kaggle 首战中进入前 10%原文 流程Exploration Data Analysis(EDA)Visualizationmatplotlib + seaborn 查看目标变量的分布。当分布不平衡时，根据评分标准和具体模型的使用不同，可能会严重影响性能。 对 Numerical Variable，可以用 Box Plot 来直观地查看它的分布。 对于坐标类数据，可以用 Scatter Plot 来查看它们的分布趋势和是否有离群点的存在。 对于分类问题，将数据根据 Label 的不同着不同的颜色绘制出来，这对 Feature 的构造很有帮助。 绘制变量之间两两的分布和相关度图表。 example_visualization Statistical Tests可视化为定性，这里专注于定量，例如对于新创造的特征，可以将其加入原模型当中，看结果的变化。 在某些比赛中，由于数据分布比较奇葩或是噪声过强，Public LB(Leader board)的分数可能会跟 Local CV(Cross Validation)的结果相去甚远。可以根据一些统计测试的结果来粗略地建立一个阈值，用来衡量一次分数的提高究竟是实质的提高还是由于数据的随机性导致的。 Data Preprossing处理策略主要依赖于EDA中得到的结论。 有时数据会分散在几个不同的文件中，需要 Join 起来。 处理 Missing Data。 处理 Outlier。 必要时转换某些 Categorical Variable 的表示方式。例如应用one-hot encoding(pd.get_dummies)将categorical variable转化为数字变量。 有些 Float 变量可能是从未知的 Int 变量转换得到的，这个过程中发生精度损失会在数据中产生不必要的 Noise，即两个数值原本是相同的却在小数点后某一位开始有不同。这对 Model 可能会产生很负面的影响，需要设法去除或者减弱 Noise。 Feature EngineeringFeature Selection总的来说，应该生成尽量多的 Feature，相信 Model 能够挑出最有用的 Feature。但有时先做一遍 Feature Selection 也能带来一些好处： Feature 越少，训练越快。 有些 Feature 之间可能存在线性关系，影响 Model 的性能。 通过挑选出最重要的 Feature，可以将它们之间进行各种运算和操作的结果作为新的 Feature，可能带来意外的提高。 Feature Selection 最实用的方法也就是看 Random Forest 训练完以后得到的 Feature Importance 了。其他有一些更复杂的算法在理论上更加 Robust，但是缺乏实用高效的实现。从原理上来讲，增加 Random Forest 中树的数量可以在一定程度上加强其对于 Noisy Data 的 Robustness。 看 Feature Importance 对于某些数据经过脱敏处理的比赛尤其重要。这可以免得你浪费大把时间在琢磨一个不重要的变量的意义上。(脱敏：数据脱敏(Data Masking),又称数据漂白、数据去隐私化或数据变形。百度百科对数据脱敏的定义为：指对某些敏感信息通过脱敏规则进行数据的变形，实现敏感隐私数据的可靠保护。在涉及客户安全数据或者一些商业性敏感数据的情况下，在不违反系统规则条件下，对真实数据进行改造并提供测试使用，如身份证号、手机号、卡号、客户号等个人信息都需要进行数据脱敏。) Feature Encoding假设有一个 Categorical Variable 一共有几万个取值可能，那么创建 Dummy Variables 的方法就不可行了。这时一个比较好的方法是根据 Feature Importance 或是这些取值本身在数据中的出现频率，为最重要（比如说前 95% 的 Importance）那些取值（有很大可能只有几个或是十几个）创建 Dummy Variables，而所有其他取值都归到一个“其他”类里面。 Model SelectionBase Model: SVM Linear Regression Logistic Regression Neural Networks Most Used Models: Gradient Boosting Random Forest Extra Randomized Trees XGBoost Model Training通过Grid Search来确定模型的最佳参数。e.g. sklearn 的 RandomForestClassifier 来说，比较重要的就是随机森林中树的数量 n_estimators 以及在训练每棵树时最多选择的特征数量 max_features。 Xgboost 的调参。通常认为对它性能影响较大的参数有： eta：每次迭代完成后更新权重时的步长。越小训练越慢。 num_round：总共迭代的次数。 subsample：训练每棵树时用来训练的数据占全部的比例。用于防止 Overfitting。 colsample_bytree：训练每棵树时用来训练的特征的比例，类似 RandomForestClassifier 的 max_features。 max_depth：每棵树的最大深度限制。与 Random Forest 不同，Gradient Boosting 如果不对深度加以限制，最终是会 Overfit 的。 early_stopping_rounds：用于控制在 Out Of Sample 的验证集上连续多少个迭代的分数都没有提高后就提前终止训练。用于防止 Overfitting。 一般的调参步骤是： 将训练数据的一部分划出来作为验证集。 先将 eta 设得比较高（比如 0.1），num_round 设为 300 ~ 500。 用 Grid Search 对其他参数进行搜索。 逐步将 eta 降低，找到最佳值。 以验证集为 watchlist，用找到的最佳参数组合重新在训练集上训练。注意观察算法的输出，看每次迭代后在验证集上分数的变化情况，从而得到最佳的 early_stopping_rounds。 所有具有随机性的 Model 一般都会有一个 seed 或是 random_state 参数用于控制随机种子。得到一个好的 Model 后，在记录参数时务必也记录下这个值，从而能够在之后重现 Model。 Cross Validation一般5-fold。 fold越多训练越慢。 Ensemble Generation常见的 Ensemble 方法有这么几种： Bagging：使用训练数据的不同随机子集来训练每个 Base Model，最后进行每个 Base Model 权重相同的 Vote。也即 Random Forest 的原理。 Boosting：迭代地训练 Base Model，每次根据上一个迭代中预测错误的情况修改训练样本的权重。也即 Gradient Boosting 的原理。比 Bagging 效果好，但更容易 Overfit。 Blending：用不相交的数据训练不同的 Base Model，将它们的输出取（加权）平均。实现简单，但对训练数据利用少了。 Stacking：接下来会详细介绍。 从理论上讲，Ensemble 要成功，有两个要素： Base Model 之间的相关性要尽可能的小。这就是为什么非 Tree-based Model 往往表现不是最好但还是要将它们包括在 Ensemble 里面的原因。Ensemble 的 Diversity 越大，最终 Model 的 Bias 就越低。 Base Model 之间的性能表现不能差距太大。这其实是一个 Trade-off，在实际中很有可能表现相近的 Model 只有寥寥几个而且它们之间相关性还不低。但是实践告诉我们即使在这种情况下 Ensemble 还是能大幅提高成绩。 Pipelineworkflow比较复杂，因此一个高自动化的pipeline比较重要。 这里是以一个例子：example]]></content>
+    <title><![CDATA[python面向对象]]></title>
+    <url>%2F2019%2F03%2F14%2Fpython%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%2F</url>
+    <content type="text"><![CDATA[属性命名 属性以双下划线开头，类内变量，实例无法访问。但可以通过某些方式访问，例如Student例中定义了__name变量，可以用_Student_name来实现访问，但不建议，因为不同的解释器的转化方式不一样。 单下划线可以打开，但需要注意不能随意更改。 双下划线结尾与开头，特殊变量，类内可以访问，实例不知。 多态开闭原则：定义一个类Animal及其多个之类Dog/Cat/…，当定义一个函数或操作时： 对扩展开放：允许新增Animal的子类； 对修改封闭：不需要修改依赖Animal类型的run_twice()等函数，仍然可以传入Dog/Cat等类。事实上，不需要继承也可以实现多态————鸭子类型。 若干方法 isinstance(object,class) 判断是否属于某个类 dir() 列举出一个对象的属性和方法 getattr()、setattr()、hasattr()可以获得、添加、查询是否需要某个属性 __slots__ 限制可以添加的属性，__slots__ = (‘name’, ‘age’) # 用tuple定义允许绑定的属性名称 装饰器]]></content>
       <categories>
         <category>Learning</category>
       </categories>
       <tags>
-        <tag>ML</tag>
-        <tag>Kaggle</tag>
+        <tag>python</tag>
       </tags>
   </entry>
   <entry>
@@ -247,9 +206,21 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[Kaggle相关]]></title>
+    <url>%2F2019%2F03%2F14%2Fkaggle%E7%9B%B8%E5%85%B3%2F</url>
+    <content type="text"><![CDATA[如何在 Kaggle 首战中进入前 10%原文 流程Exploration Data Analysis(EDA)Visualizationmatplotlib + seaborn 查看目标变量的分布。当分布不平衡时，根据评分标准和具体模型的使用不同，可能会严重影响性能。 对 Numerical Variable，可以用 Box Plot 来直观地查看它的分布。 对于坐标类数据，可以用 Scatter Plot 来查看它们的分布趋势和是否有离群点的存在。 对于分类问题，将数据根据 Label 的不同着不同的颜色绘制出来，这对 Feature 的构造很有帮助。 绘制变量之间两两的分布和相关度图表。 example_visualization Statistical Tests可视化为定性，这里专注于定量，例如对于新创造的特征，可以将其加入原模型当中，看结果的变化。 在某些比赛中，由于数据分布比较奇葩或是噪声过强，Public LB(Leader board)的分数可能会跟 Local CV(Cross Validation)的结果相去甚远。可以根据一些统计测试的结果来粗略地建立一个阈值，用来衡量一次分数的提高究竟是实质的提高还是由于数据的随机性导致的。 Data Preprossing处理策略主要依赖于EDA中得到的结论。 有时数据会分散在几个不同的文件中，需要 Join 起来。 处理 Missing Data。 处理 Outlier。 必要时转换某些 Categorical Variable 的表示方式。例如应用one-hot encoding(pd.get_dummies)将categorical variable转化为数字变量。 有些 Float 变量可能是从未知的 Int 变量转换得到的，这个过程中发生精度损失会在数据中产生不必要的 Noise，即两个数值原本是相同的却在小数点后某一位开始有不同。这对 Model 可能会产生很负面的影响，需要设法去除或者减弱 Noise。 Feature EngineeringFeature Selection总的来说，应该生成尽量多的 Feature，相信 Model 能够挑出最有用的 Feature。但有时先做一遍 Feature Selection 也能带来一些好处： Feature 越少，训练越快。 有些 Feature 之间可能存在线性关系，影响 Model 的性能。 通过挑选出最重要的 Feature，可以将它们之间进行各种运算和操作的结果作为新的 Feature，可能带来意外的提高。 Feature Selection 最实用的方法也就是看 Random Forest 训练完以后得到的 Feature Importance 了。其他有一些更复杂的算法在理论上更加 Robust，但是缺乏实用高效的实现。从原理上来讲，增加 Random Forest 中树的数量可以在一定程度上加强其对于 Noisy Data 的 Robustness。 看 Feature Importance 对于某些数据经过脱敏处理的比赛尤其重要。这可以免得你浪费大把时间在琢磨一个不重要的变量的意义上。(脱敏：数据脱敏(Data Masking),又称数据漂白、数据去隐私化或数据变形。百度百科对数据脱敏的定义为：指对某些敏感信息通过脱敏规则进行数据的变形，实现敏感隐私数据的可靠保护。在涉及客户安全数据或者一些商业性敏感数据的情况下，在不违反系统规则条件下，对真实数据进行改造并提供测试使用，如身份证号、手机号、卡号、客户号等个人信息都需要进行数据脱敏。) Feature Encoding假设有一个 Categorical Variable 一共有几万个取值可能，那么创建 Dummy Variables 的方法就不可行了。这时一个比较好的方法是根据 Feature Importance 或是这些取值本身在数据中的出现频率，为最重要（比如说前 95% 的 Importance）那些取值（有很大可能只有几个或是十几个）创建 Dummy Variables，而所有其他取值都归到一个“其他”类里面。 Model SelectionBase Model: SVM Linear Regression Logistic Regression Neural Networks Most Used Models: Gradient Boosting Random Forest Extra Randomized Trees XGBoost Model Training通过Grid Search来确定模型的最佳参数。e.g. sklearn 的 RandomForestClassifier 来说，比较重要的就是随机森林中树的数量 n_estimators 以及在训练每棵树时最多选择的特征数量 max_features。 Xgboost 的调参。通常认为对它性能影响较大的参数有： eta：每次迭代完成后更新权重时的步长。越小训练越慢。 num_round：总共迭代的次数。 subsample：训练每棵树时用来训练的数据占全部的比例。用于防止 Overfitting。 colsample_bytree：训练每棵树时用来训练的特征的比例，类似 RandomForestClassifier 的 max_features。 max_depth：每棵树的最大深度限制。与 Random Forest 不同，Gradient Boosting 如果不对深度加以限制，最终是会 Overfit 的。 early_stopping_rounds：用于控制在 Out Of Sample 的验证集上连续多少个迭代的分数都没有提高后就提前终止训练。用于防止 Overfitting。 一般的调参步骤是： 将训练数据的一部分划出来作为验证集。 先将 eta 设得比较高（比如 0.1），num_round 设为 300 ~ 500。 用 Grid Search 对其他参数进行搜索。 逐步将 eta 降低，找到最佳值。 以验证集为 watchlist，用找到的最佳参数组合重新在训练集上训练。注意观察算法的输出，看每次迭代后在验证集上分数的变化情况，从而得到最佳的 early_stopping_rounds。 所有具有随机性的 Model 一般都会有一个 seed 或是 random_state 参数用于控制随机种子。得到一个好的 Model 后，在记录参数时务必也记录下这个值，从而能够在之后重现 Model。 Cross Validation一般5-fold。 fold越多训练越慢。 Ensemble Generation常见的 Ensemble 方法有这么几种： Bagging：使用训练数据的不同随机子集来训练每个 Base Model，最后进行每个 Base Model 权重相同的 Vote。也即 Random Forest 的原理。 Boosting：迭代地训练 Base Model，每次根据上一个迭代中预测错误的情况修改训练样本的权重。也即 Gradient Boosting 的原理。比 Bagging 效果好，但更容易 Overfit。 Blending：用不相交的数据训练不同的 Base Model，将它们的输出取（加权）平均。实现简单，但对训练数据利用少了。 Stacking：接下来会详细介绍。 从理论上讲，Ensemble 要成功，有两个要素： Base Model 之间的相关性要尽可能的小。这就是为什么非 Tree-based Model 往往表现不是最好但还是要将它们包括在 Ensemble 里面的原因。Ensemble 的 Diversity 越大，最终 Model 的 Bias 就越低。 Base Model 之间的性能表现不能差距太大。这其实是一个 Trade-off，在实际中很有可能表现相近的 Model 只有寥寥几个而且它们之间相关性还不低。但是实践告诉我们即使在这种情况下 Ensemble 还是能大幅提高成绩。 Pipelineworkflow比较复杂，因此一个高自动化的pipeline比较重要。 这里是以一个例子：example]]></content>
+      <categories>
+        <category>Learning</category>
+      </categories>
+      <tags>
+        <tag>ML</tag>
+        <tag>Kaggle</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[LightGBM]]></title>
     <url>%2F2019%2F03%2F14%2FLightGBM%2F</url>
-    <content type="text"><![CDATA[特性 可以接受categorical features：LightGBM 可以直接使用 categorical features（分类特征）作为 input（输入）. 它不需要被转换成 one-hot coding（独热编码）, 并且它比 one-hot coding（独热编码）更快（约快上 8 倍）。注意: 在你构造 Dataset 之前, 你应该将分类特征转换为 int 类型的值. 原理]]></content>
+    <content type="text"><![CDATA[特性 可以接受categorical features：LightGBM 可以直接使用 categorical features（分类特征）作为 input（输入）. 它不需要被转换成 one-hot coding（独热编码）, 并且它比 one-hot coding（独热编码）更快（约快上 8 倍）。注意: 在你构造 Dataset 之前, 你应该将分类特征转换为 int 类型的值. xgboost的优点 XGB利用了二阶梯度来对节点进行划分，相对其他GBM来说，精度更加高。 利用局部近似算法对分裂节点的贪心算法优化，取适当的eps时，可以保持算法的性能且提高算法的运算速度。 在损失函数中加入了L1/L2项，控制模型的复杂度，提高模型的鲁棒性。 提供并行计算能力，主要是在树节点求不同的候选的分裂点的Gain Infomation（分裂后，损失函数的差值） Tree Shrinkage，column subsampling等不同的处理细节。 xgboost的缺点 每次迭代需要多次遍历整个训练数据。若读入内存，则对训练数据的大小有限制；不读入内存的话，非常慢。 预排序方法：预排序需要大量的空间站占用和时间占用：需要保存数据的特征值，也要保存特征排序的结果，即需要两倍数据的内存占用；遍历每个分割点需要计算每个分割点的增益。此外，对cache优化不友好。在预排序后，特征对梯度的访问是一种随机访问，并且不同的特征访问的顺序不一样，无法对cache进行优化。同时，在每一层长树的时候，需要随机访问一个行索引到叶子索引的数组，并且不同特征访问的顺序也不一样，也会造成较大的cache miss。 lightgbm的优化 基于histogram的决策树算法 带深度限制的leaf-wise的叶子生长策略 直方图做差加速 支持类别特征 cache命中率优化 基于直方图的稀疏特征优化 多线程优化 Histogram算法先把连续的浮点特征值离散化成k个整数，同时构造一个宽度为k的直方图。在遍历数据的时候，根据离散化后的值作为索引在直方图中累积统计量，当遍历一次数据后，直方图累积了需要的统计量，然后根据直方图的离散值，遍历寻找最优的分割点。 带深度限制的leaf-wise的叶子生长策略Level-wise过一次数据可以同时分裂同一层的叶子，容易进行多线程优化，也好控制模型复杂度，不容易过拟合。但实际上Level-wise是一种低效的算法，因为它不加区分的对待同一层的叶子，带来了很多没必要的开销，因为实际上很多叶子的分裂增益较低，没必要进行搜索和分裂。 Leaf-wise则是一种更为高效的策略，每次从当前所有叶子中，找到分裂增益最大的一个叶子，然后分裂，如此循环。因此同Level-wise相比，在分裂次数相同的情况下，Leaf-wise可以降低更多的误差，得到更好的精度。Leaf-wise的缺点是可能会长出比较深的决策树，产生过拟合。因此LightGBM在Leaf-wise之上增加了一个最大深度的限制，在保证高效率的同时防止过拟合。 多线程优化特征并行数据并行减少了数据通信的成本]]></content>
       <categories>
         <category>Learning</category>
       </categories>
@@ -273,7 +244,7 @@
   <entry>
     <title><![CDATA[Decisiong Tree:ID3 C4.5 CART]]></title>
     <url>%2F2019%2F03%2F14%2FDecision%20Tree%2F</url>
-    <content type="text"><![CDATA[决策树问题：如何挑选用于分裂节点的特征–&gt;ID3 C4.5 …(一个标准：使分裂出来的节点尽可能纯，即一个分支尽可能属于同类) ID3信息增益 信息增益 = 信息熵 - 条件熵 信息增益：针对每个 属性 信息熵：整个样本空间的不确定度。其中Pk一定是label取值的概率。 条件熵：给定某个属性，求其信息熵 –&gt; 问题：某属性所包括的类别越多，信息增益越大。极限：每个类别仅有1个实例（label数量为1），log p = log1 = 0， 所以最终条件熵=0。或：属性类别越多，条件熵越小，其纯度越高。 –&gt; 信息增益准则其实是对可取值数目较多的属性有所偏好！ –&gt; 泛化能力不强 C4.5 信息增益率+信息增益 属性a的信息增益率 = 属性a的信息增益 / a的某个固有统计量IV(a) V为a的取值数目。 （实际上是属性a的信息熵） 直接使用信息增益率：偏好取值数目小的属性。 先选择高于平均水平信息增益的属性，再选择最高信息增益率的属性。 CART 基尼系数+MAE/MSE 与ID3、C4.5的不同：形成二叉树，因此 –&gt; 既要确定要分割的属性，也要确定要分割的值 回归树：MAE/MSE example(MSE)： 考虑数据集 D 上的所有特征 j，遍历每一个特征下所有可能的取值或者切分点 s，将数据集 D 划分成两部分 D1 和 D2 分别计算上述两个子集的平方误差和，选择最小的平方误差对应的特征与分割点，生成两个子节点。 对上述两个子节点递归调用步骤1 2,直到满足停止条件。 分类树：(Gini) 基尼系数越小，纯度越高 对每个特征 A，对它的所有可能取值 a，将数据集分为 A＝a，和 A!＝a 两个子集，计算集合 D 的基尼指数：Gini(A) = D1/D Gini(D1) + D2/D Gini(D2) 遍历所有的特征 A，计算其所有可能取值 a 的基尼指数，选择 D 的基尼指数最小值对应的特征及切分点作为最优的划分，将数据分为两个子集。 对上述两个子节点递归调用步骤1 2, 直到满足停止条件。 生成 CART 决策树。 停止条件有： 1. 节点中的样本个数小于预定阈值; 2. 样本集的Gini系数小于预定阈值（此时样本基本属于同一类）; 3. 没有更多特征。 剪枝 例子：example 控制决策树过拟合的方法 剪枝 控制终止条件，避免树形结构过细 构建随机森林]]></content>
+    <content type="text"><![CDATA[决策树问题：如何挑选用于分裂节点的特征–&gt;ID3 C4.5 …(一个标准：使分裂出来的节点尽可能纯，即一个分支尽可能属于同类) ID3信息增益 信息增益 = 信息熵 - 条件熵 信息增益：针对每个 属性 信息熵：整个样本空间的不确定度。其中Pk一定是label取值的概率。 条件熵：给定某个属性，求其信息熵 –&gt; 问题：某属性所包括的类别越多，信息增益越大。极限：每个类别仅有1个实例（label数量为1），log p = log1 = 0， 所以最终条件熵=0。或：属性类别越多，条件熵越小，其纯度越高。 –&gt; 信息增益准则其实是对可取值数目较多的属性有所偏好！ –&gt; 泛化能力不强 C4.5 信息增益率+信息增益 属性a的信息增益率 = 属性a的信息增益 / a的某个固有统计量IV(a) V为a的取值数目。 （实际上是属性a的信息熵） 直接使用信息增益率：偏好取值数目小的属性。 先选择高于平均水平信息增益的属性，再选择最高信息增益率的属性。 CART 基尼系数+MAE/MSE 与ID3、C4.5的不同：形成二叉树，因此 –&gt; 既要确定要分割的属性，也要确定要分割的值 回归树和分类树的区别在于样本输出，如果样本输出是离散值，那么这是一颗分类树。如果果样本输出是连续值，那么那么这是一颗回归树。 回归树和分类树在处理连续特征的时候有区别： 回归树：MAE/MSE example(MSE)： 考虑数据集 D 上的所有特征 j，遍历每一个特征下所有可能的取值或者切分点 s，将数据集 D 划分成两部分 D1 和 D2 分别计算上述两个子集的平方误差和，选择最小的平方误差对应的特征与分割点，生成两个子节点。 对上述两个子节点递归调用步骤1 2,直到满足停止条件。 分类树：(Gini) $$ Gini(A) = \sum_{k=1}^K p_k(1-p_k)$$基尼系数越小，纯度越高 对每个特征 A，对它的所有可能取值 a，将数据集分为 A＝a，和 A!＝a 两个子集，计算集合 D 的基尼指数：Gini(A) = D1/D Gini(D1) + D2/D Gini(D2) 遍历所有的特征 A，计算其所有可能取值 a 的基尼指数，选择 D 的基尼指数最小值对应的特征及切分点作为最优的划分，将数据分为两个子集。 对上述两个子节点递归调用步骤1 2, 直到满足停止条件。 生成 CART 决策树。 使用基尼系数处理离散特征：不停地二分 使用基尼系数处理连续特征，将所有n个取值从大到小排列，得到n-1个切分点，求所有的切分点的基尼系数，取最小的，做到连续特征的离散化 停止条件有： 节点中的样本个数小于预定阈值; 样本集的Gini系数小于预定阈值（此时样本基本属于同一类）; 没有更多特征。 剪枝 例子：example 控制决策树过拟合的方法 剪枝 控制终止条件，避免树形结构过细 构建随机森林]]></content>
       <categories>
         <category>Learning</category>
       </categories>
@@ -306,17 +277,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[CNN]]></title>
-    <url>%2F2019%2F03%2F14%2FCNN%2F</url>
-    <content type="text"><![CDATA[原贴 卷积神经网络卷积神经网络大致就是covolutional layer, pooling layer, ReLu layer, fully-connected layer的组合，例如下图所示的结构。 图片的识别 生物所看到的景象并非世界的原貌，而是长期进化出来的适合自己生存环境的一种感知方式 画面识别实际上是寻找/学习动物的视觉关联形式（即将能量与视觉关联在一起的方式） 画面的识别取决于： 图片本身 被如何观察 图像不变性： rotation viewpoint size illumination …前馈的不足 当出现上述variance时，前馈无法做到适应，即前馈只能对同样的内容进行识别，若出现其他情况时，只能增加样本重新训练 解决方法可以是让图片中不同的位置有相同的权重——共享权重CNN局部连接 空间共享（引入的先验知识） 局部连接（得到的下一层节点与该层并非全连接） depth上是全连接的 每个filter会在width维, height维上，以局部连接和空间共享，并贯串整个depth维的方式得到一个Feature Map。 示例 在输入depth为1时：被filter size为2x2所圈中的4个输入节点连接到1个输出节点上。 在输入depth为3时：被filter size为2x2，但是贯串3个channels后，所圈中的12个输入节点连接到1个输出节点上。 在输入depth为n时：2x2xn个输入节点连接到1个输出节点上。 三个channels的权重并不共享。 即当深度变为3后，权重也跟着扩增到了三组。 zero padding有时为了保证feature map与输入层保持同样大小，会添加zero padding，一般3*3的卷积核padding为1，5*5为2 Feature Map的尺寸等于(input_size + 2 *padding_size − filter_size)/stride+1 形状、概念抓取 卷积层可以对基础形状（包括边缘、棱角、模糊等）、对比度、颜色等概念进行抓取 可以通过多层卷积实现对一个较大区域的抓取 抓取的特征取决于卷积核的权重，而此权重由网络根据数据学习得到，即CNN会自己学习以什么样的方式观察图片 可以有多个filter，从而可以学习到多种特征 此时卷积层的输出depth也就不是1了 卷积层的输入输出均为长方体：其中depth与filters个数相同非线性（以ReLu为例）增强模型的非线性拟合能力pooling比如以步长为2，2x2的 filter pool pooling的主要功能是downsamping，有助减少conv过程中的冗余全连接 当抓取到足以用来识别图片的特征后，接下来的就是如何进行分类。 全连接层（也叫前馈层）就可以用来将最后的输出映射到线性可分的空间。 通常卷积网络的最后会将末端得到的长方体平摊(flatten)成一个长长的向量，并送入全连接层配合输出层进行分类。一些变体中用到的技巧 1x1卷积核：选择不同的个数，用来降维或升维 残差 所有的这些技巧都是对各种不变性的满足]]></content>
-      <categories>
-        <category>Learning</category>
-      </categories>
-      <tags>
-        <tag>CNN</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[CS231n-imgClassification]]></title>
     <url>%2F2019%2F03%2F14%2FCS231n-img_classification%2F</url>
     <content type="text"><![CDATA[kNNs 没有参数需要训练 只计算与训练样本之间的距离 Linear Classfication 可以将其理解为模板匹配，即最终的权重矩阵W的每一行为所学习得到的类别的模板，将其与test img做点积即做一次模板匹配。每个点积的值即为该分类所得的分数。 将权重矩阵的每一行重组后可以得到其信息，可以看出类似于某一类的模板： 可以看出当同一个类别有很多图片时，得到的模板是这些图片的平均。也暴露了它不适合用于多变性复杂的分类。]]></content>
@@ -329,6 +289,17 @@
         <tag>kNN</tag>
         <tag>SVM</tag>
         <tag>imgClassification</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[CNN]]></title>
+    <url>%2F2019%2F03%2F14%2FCNN%2F</url>
+    <content type="text"><![CDATA[原贴 卷积神经网络卷积神经网络大致就是covolutional layer, pooling layer, ReLu layer, fully-connected layer的组合，例如下图所示的结构。 图片的识别 生物所看到的景象并非世界的原貌，而是长期进化出来的适合自己生存环境的一种感知方式 画面识别实际上是寻找/学习动物的视觉关联形式（即将能量与视觉关联在一起的方式） 画面的识别取决于： 图片本身 被如何观察 图像不变性： rotation viewpoint size illumination …前馈的不足 当出现上述variance时，前馈无法做到适应，即前馈只能对同样的内容进行识别，若出现其他情况时，只能增加样本重新训练 解决方法可以是让图片中不同的位置有相同的权重——共享权重CNN局部连接 空间共享（引入的先验知识） 局部连接（得到的下一层节点与该层并非全连接） depth上是全连接的 每个filter会在width维, height维上，以局部连接和空间共享，并贯串整个depth维的方式得到一个Feature Map。 示例 在输入depth为1时：被filter size为2x2所圈中的4个输入节点连接到1个输出节点上。 在输入depth为3时：被filter size为2x2，但是贯串3个channels后，所圈中的12个输入节点连接到1个输出节点上。 在输入depth为n时：2x2xn个输入节点连接到1个输出节点上。 三个channels的权重并不共享。 即当深度变为3后，权重也跟着扩增到了三组。 zero padding有时为了保证feature map与输入层保持同样大小，会添加zero padding，一般3*3的卷积核padding为1，5*5为2 Feature Map的尺寸等于(input_size + 2 *padding_size − filter_size)/stride+1 形状、概念抓取 卷积层可以对基础形状（包括边缘、棱角、模糊等）、对比度、颜色等概念进行抓取 可以通过多层卷积实现对一个较大区域的抓取 抓取的特征取决于卷积核的权重，而此权重由网络根据数据学习得到，即CNN会自己学习以什么样的方式观察图片 可以有多个filter，从而可以学习到多种特征 此时卷积层的输出depth也就不是1了 卷积层的输入输出均为长方体：其中depth与filters个数相同非线性（以ReLu为例）增强模型的非线性拟合能力pooling比如以步长为2，2x2的 filter pool pooling的主要功能是downsamping，有助减少conv过程中的冗余全连接 当抓取到足以用来识别图片的特征后，接下来的就是如何进行分类。 全连接层（也叫前馈层）就可以用来将最后的输出映射到线性可分的空间。 通常卷积网络的最后会将末端得到的长方体平摊(flatten)成一个长长的向量，并送入全连接层配合输出层进行分类。一些变体中用到的技巧 1x1卷积核：选择不同的个数，用来降维或升维 残差 所有的这些技巧都是对各种不变性的满足]]></content>
+      <categories>
+        <category>Learning</category>
+      </categories>
+      <tags>
+        <tag>CNN</tag>
       </tags>
   </entry>
 </search>

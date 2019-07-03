@@ -307,7 +307,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/14/自然辩证法#5/">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/04/04/LSTM/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Hero">
@@ -326,7 +326,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/14/自然辩证法#5/" itemprop="url">自然辩证法#5</a></h1>
+                <a class="post-title-link" href="/2019/04/04/LSTM/" itemprop="url">RNN & LSTM & GRU</a></h1>
         
 
         <div class="post-meta">
@@ -338,8 +338,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-14T09:54:35+08:00">
-                2019-03-14
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-04T08:05:19+08:00">
+                2019-04-04
               </time>
             
 
@@ -400,38 +400,42 @@
       
         
           
-            <h1 id="当代西方科学论"><a href="#当代西方科学论" class="headerlink" title="当代西方科学论"></a>当代西方科学论</h1><p>科学的地位、作用和权力剧增，科学的合理性被关注</p>
-<p>英，波普尔，证伪主义</p>
-<p>美，库恩，历史主义</p>
-<p>科学划界和科学动力学</p>
-<h2 id="“可证实性”与“可证伪性”"><a href="#“可证实性”与“可证伪性”" class="headerlink" title="“可证实性”与“可证伪性”"></a>“可证实性”与“可证伪性”</h2><p>波普尔对“可证实性”的反思：</p>
+            <ol>
+<li>RNN</li>
+</ol>
+<p><img src="https://pic1.zhimg.com/v2-206db7ba9d32a80ff56b6cc988a62440_r.jpg" alt="示意图"></p>
 <ul>
-<li>有无意义不取决于属于本身，而取决于理论（语境）；</li>
-<li>只有单称陈述可证实，而科学理论是全称陈述；</li>
-<li>单称陈述也未必可证实，观察中渗透着理论；</li>
-<li>“可证实性”使科学划界混乱。</li>
+<li>动机：RNN之前，语言模型主要是N-gram，N可以变动，其作用是某位置的词取决于前N个词，所以该方法对任意序列的文本处理存在问题。</li>
+<li>RNN：<em>理论上</em>可以看到往前看/往后看任意的长度。</li>
+<li>最简单的RNN，即t时刻隐藏层的值既取决于t时刻的输入，也取决于t-1时刻的隐藏层的值。</li>
+<li>双向循环网络，应用了下文的信息；深度循环网络，使用了多层隐藏层，更复杂了。</li>
 </ul>
-<p>可证伪性：任何科学命题在逻辑上都可以被经验证明为假。</p>
-<p>什么命题是无法被证明为假的</p>
-<p>可证伪度：普遍性、精确性、简单性。这正好是科学理论命题的性质。</p>
-<p>可证伪：证伪主义的科学划界标准。</p>
-<h2 id="证伪主义的科学动力学"><a href="#证伪主义的科学动力学" class="headerlink" title="证伪主义的科学动力学"></a>证伪主义的科学动力学</h2><p>对归纳逻辑的反思：归纳法几乎总是受预设的干扰；归纳法非常有可能把重要的因素排除在外；归纳法有可能建立假的因果关系。总之，归纳法不是科学合理性的基础。</p>
-<p>科学始于问题</p>
-<p>P1 -&gt; TT -&gt; EE -&gt; P2</p>
+<p>一个教程：<a href="https://zybuluo.com/hanbingtao/note/541458" target="_blank" rel="noopener">RNN</a></p>
+<ol start="2">
+<li>LSTM(Long Short Term)</li>
+</ol>
 <ul>
-<li>P: Problem</li>
-<li>TT: Tentative Theory</li>
-<li>EE: Elimation of Error</li>
+<li>动机：由RNN的机理可知，如果每层向下一个时刻传输的权重w大于1，则容易产生梯度爆炸问题，小于1，则会产生梯度消失<br>一个对比图<br><img src="https://pic4.zhimg.com/v2-e4f9851cad426dfe4ab1c76209546827_r.jpg" alt="RNN&amp;LSTM"><br>RNN只有一个传递状态ht，而LSTM有两个传递状态：cell state, hidden state。<br>其中cell state是上一序列的隐藏层输出加上一些东西（有点类似于RNN中的ht）；而ht变化会比较大。</li>
+<li>过程：<ul>
+<li>计算四个状态：<br><img src="https://pic4.zhimg.com/80/v2-15c5eb554f843ec492579c6d87e1497b_hd.jpg" alt="z&amp;zi"><br><img src="https://pic1.zhimg.com/80/v2-d044fd0087e1df5d2a1089b441db9970_hd.jpg" alt="zo&amp;zf"><br>z是输入，用了tanh，取值范围为-1，相当于归一化；zi&amp;zo&amp;zf为门控，用了sigmoid，输出为0~1，与某值相乘后是对该值的选择，其中i是information，f是forget，o是output；</li>
+<li>四个状态在LSTM中的应用：<br><img src="https://pic2.zhimg.com/80/v2-556c74f0e025a47fea05dc0f76ea775d_hd.jpg" alt="LSTM结构"><ul>
+<li>忘记：zf点乘ct，即通过zf忘记不重要的</li>
+<li>选择记忆：对于输入信息z，点乘zi，进行有选择的记忆</li>
+<li>输出：对上一阶段的c通过tanh进行放缩，再通过zo控制输出</li>
 </ul>
-<p>库恩对证伪主义的批判：科学史表明，自然现象喊“不”，科学家喊得更响。</p>
-<p>观察渗透理论的问题。</p>
-<p>证伪主义的启发：“正确”和有效。</p>
-<p>至此，真理问题换为合理性问题，再换为有效性问题。</p>
-<h2 id="范式和科学共同体"><a href="#范式和科学共同体" class="headerlink" title="范式和科学共同体"></a>范式和科学共同体</h2><p>库恩的历史主义科学哲学试图回答：一致性来自何处？科学是如何进步的？</p>
-<p>范式：信念、信仰、习惯、原则、原理…</p>
-<p>科学共同体：掌握、遵守和使用范式的群体。职业的、紧密的、有话语权的专家。</p>
-<h2 id="历史主义的科学动力学"><a href="#历史主义的科学动力学" class="headerlink" title="历史主义的科学动力学"></a>历史主义的科学动力学</h2><p>前科学 无范式 -&gt; 常规科学 范式 -&gt; 反思 -&gt; 危机 -&gt; 科学革命新的范式</p>
-<p>库恩列举几大科学革命：哥白尼日心说、氧化理论、相对论和量子力学</p>
+</li>
+</ul>
+</li>
+</ul>
+<ol start="3">
+<li>GRU(Gate Recurrent Unit)</li>
+</ol>
+<ul>
+<li>同样为了解决梯度问题</li>
+<li>比LSTM：运算量小</li>
+<li>使用了同一个门控状态控制记忆和忘记</li>
+</ul>
+<p>具体：<br><a href="https://zhuanlan.zhihu.com/p/32481747" target="_blank" rel="noopener">原文</a></p>
 
           
         
@@ -480,7 +484,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/14/自然辩证法#4/">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/19/FP Tree/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Hero">
@@ -499,7 +503,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/14/自然辩证法#4/" itemprop="url">自然辩证法#4</a></h1>
+                <a class="post-title-link" href="/2019/03/19/FP Tree/" itemprop="url">FP Tree算法</a></h1>
         
 
         <div class="post-meta">
@@ -511,8 +515,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-14T09:54:35+08:00">
-                2019-03-14
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-19T21:51:07+08:00">
+                2019-03-19
               </time>
             
 
@@ -573,695 +577,403 @@
       
         
           
-            <h1 id="历史观点"><a href="#历史观点" class="headerlink" title="历史观点"></a>历史观点</h1><p>科学：本质。应用于自然事物。<br>技术：应用。人造事物。</p>
-<h1 id="现代哲学的观点"><a href="#现代哲学的观点" class="headerlink" title="现代哲学的观点"></a>现代哲学的观点</h1><p>海德格尔</p>
-<ul>
-<li>物Physita：作为自身存在并持续存在的东西</li>
-<li>物mathemata：可学的，可描述的，可传授的东西。</li>
-</ul>
-<p>Mathemata是使事物成为对象的测量方案，即技术，所以海德格尔不谈科学。</p>
-<p>比较：</p>
-<ul>
-<li>阳明格竹</li>
-<li>赫尔蒙特的柳树生长实验</li>
-</ul>
-<h1 id="科学的真正进步取决于技术化程度"><a href="#科学的真正进步取决于技术化程度" class="headerlink" title="科学的真正进步取决于技术化程度"></a>科学的真正进步取决于技术化程度</h1><p>科学的历史使用测量技术取代形而上学的过程</p>
-<p>用几何量取代本性</p>
-<p>即，测量技术使物成为可知可控可用的对象</p>
-<p>可知可控可用是一回事。重视前者表现为科学，重视后者表现为技术。</p>
-<p>所以科学和技术是同一回事：用测量方案和数学模型将对象描述为可控的。两者本无区别，区别在有人想利用这体现哲学目的（宇宙图景）还是经济目的（生产力）。</p>
-<h1 id="认为科学和技术有本质区别的习惯从何而来"><a href="#认为科学和技术有本质区别的习惯从何而来" class="headerlink" title="认为科学和技术有本质区别的习惯从何而来"></a>认为科学和技术有本质区别的习惯从何而来</h1><p>西方，古希腊文化，中世纪神学，近代科学</p>
-<p>开普勒追求的元物理学 metaphysics</p>
-<ul>
-<li>古代和中世纪：经验几何学实用技术</li>
-<li>近代两百年的欧洲：元物理学，劳动生产率</li>
-<li>19世纪以后：现代科技一体化</li>
-</ul>
-<p>结论：</p>
+            <p><a href="https://www.cnblogs.com/pinard/p/6307064.html" target="_blank" rel="noopener">blog</a></p>
 <ol>
-<li>古代和中世纪，无科学和技术之分。在人类漫长历史中的一小段时间，西方一些地区，即在以牛顿力学为代表的经典科学体系出现之后，在欧洲的几个国家，学者们开始重视演绎性的理论和积累性的技术之间的某种分离状况，并一度将前者的地位放在后者之前。</li>
-<li>近代欧洲的文化目标——宇宙的先在秩序。即上帝将数学放进了宇宙，无论人类是否研究宇宙都是简单和谐的。研究只是使人类理智知道这个和谐。这导致对所谓基础理论，纯科学的偏爱。<br>强调科学和技术的区别，只是把近代欧洲的科学理念当成了一般的东西。科学不是超越于具体文化差异的。</li>
-<li>欧洲也并不迷信“纯科学”。</li>
-<li>现代科技观<br>近代欧洲的理想追求虽然与工业的目标并不矛盾，但是在西方社会的步伐进入工业化之后，仅仅因为那样的理想不被急需，纯科学的意义模糊了。<br>二战期间，科学服务于军事使得科学与技术的区别无关紧要。战争这种重大的社会事件无需借助哲学说明就轻易地改变了近代欧洲的科学理念。<br>科学和技术咋新的用途中成为了同一个东西，这是因为他们本来就是同一种东西。</li>
-<li>旧科技观的弊病<br>强调科学和技术的区别只是获得定义上的齐整，但不是一种有效的科学观。</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/14/自然辩证法#3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Hero">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hero's notebooks">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/14/自然辩证法#3/" itemprop="url">自然辩证法#3</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-14T09:54:35+08:00">
-                2019-03-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Learning</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>科学观——科学是一种公共知识</p>
-<h1 id="从另一个角度看近代科学为什么发生在欧洲"><a href="#从另一个角度看近代科学为什么发生在欧洲" class="headerlink" title="从另一个角度看近代科学为什么发生在欧洲"></a>从另一个角度看近代科学为什么发生在欧洲</h1><p>近代欧洲的社会变革和知识观</p>
-<p>古代和中世纪：知识就是权力（权力就是知识）</p>
-<p>资产阶级革命 新兴资产阶级和自由知识分子</p>
-<p>知识就是力量</p>
-<p>首先是对知识一词的含义的重建</p>
-<p>离开了经院哲学，知识的起点可以有：<br>经验主义，实验主义，数学精神，科学理性</p>
-<p>阿格里科拉和伽利略的共同点：效率，公共性，实证</p>
-<p>知识世俗化、知识公共化是大工业、垄断资本和现代金融、现代市场、现代城市需要科学并成就的</p>
-<h1 id="影响世界历史进程的书"><a href="#影响世界历史进程的书" class="headerlink" title="影响世界历史进程的书"></a>影响世界历史进程的书</h1><ul>
-<li><p>1532 马基雅维利 君主论<br><strong>文艺复兴后的第一个里程碑</strong><br>政治是一种独立的活动，自身具有区别于道德与宗教的原则和规律。批判 “手段（政治）为目的（为政以德）服务”。权术学。伟大的骗子教程，君主需兼具狮子的凶残和狐狸的狡诈。目的为手段服务，可以不择手段。全套术治理论。</p>
-<p>开启了一种新的学术规则——方法有限而非观点优先；以效率为合理性（说服力）的核心；若无这样的规则，任何观点都无法被证明为对的或错的；这与稍后的科学革命不谋而合，且科学革命发扬得更彻底</p>
+<li><p>FP Tree是Aprior算法的优化</p>
+<p>优化点在于：Aprior需要多次扫描数据以查询频繁项，FP Tree使用了树结构，提高了算法运行效率。</p>
 </li>
-<li>1543 哥白尼 天体运行论</li>
-<li>1628 哈维 心血运动论</li>
-<li>1687 牛顿 自然哲学的数学原理</li>
-<li><p>1689 洛克 政府论<br>上篇批判君权神授和世袭制</p>
-<p>无个性的基本单元：个人主义者的自然权利（生命、健康、自由、财产），人人平等，互相不得侵犯。</p>
-<p>自然状态：人应当自由实践其自我利益，人人具有自然法执行权。但按照牛顿力学，此为布朗运动，需如日星辰城之有序。故人们为了避免冲突，维护公正，需要形成政治共同体，建立斌遵循政治秩序，但需给予政治秩序以理性解释。</p>
-</li>
-<li>1762 卢梭 社会契约论<br>自然状态，自然人（粒子）<br>公民形成文明社会，以众人之力，保护每个个体。<br>为何需要保护？反原罪说。</li>
-<li>1832 克劳塞维兹 战争论<br>改革贵族文化中的旧军事体制</li>
-<li>1859 达尔文 物种起源<br>进攻目的论，神创论的最后堡垒</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/14/自然辩证法#2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Hero">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hero's notebooks">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/14/自然辩证法#2/" itemprop="url">自然辩证法#2</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-14T09:54:35+08:00">
-                2019-03-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Learning</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>现代自然观</p>
-<h1 id="现代自然观的来源"><a href="#现代自然观的来源" class="headerlink" title="现代自然观的来源"></a>现代自然观的来源</h1><ul>
-<li>起源于古希腊，兴于近代欧洲，完成于牛顿。</li>
-<li>粒子论 机械论 还原论</li>
-<li>时空观：时间、空间相互独立；空间均匀、平直、三维、各向同性；时间均匀、平直、一维、不可逆；时间、空间与物质各自独立。</li>
-<li>物质观：物质只具有几何属性（形状、大小、位置）和机械属性（质量、弹性）。</li>
-<li>从古希腊哲学到现代自然观<br>古希腊知识分子的民间性：<br>（非官方，正式由于其哲学本身上的纯粹性，才获得了很大的进步）<ul>
-<li>世界是物质的（麦乐斯“水是万物的本源”）</li>
-<li>物质是质料的（原子论者，亚里士多德etc）</li>
-<li>质料是形式的（毕达哥拉斯学派，希罗多德历史）</li>
-<li>形式是几何的（欧几里得，阿基米德，天球）</li>
-<li>运动是机械的（哥白尼，开普勒，伽利略，牛顿）<br>中世纪奔溃，资产阶级重新选择文化的时候，选择了古希腊。</li>
-</ul>
-</li>
-</ul>
-<h1 id="科学进步与自然观的更新"><a href="#科学进步与自然观的更新" class="headerlink" title="科学进步与自然观的更新"></a>科学进步与自然观的更新</h1><ul>
-<li>牛顿力学自然观本身就是一次科学大进步的产物</li>
-<li>现代科学对机械论自然观的几次有限突破，都伴随着科学的重大突破</li>
-<li>相对论自然观</li>
-<li>量子力学自然观</li>
-<li>复杂系统自然观</li>
-<li><strong>但语境还是机械论，自然观的反思和革命还将继续。</strong></li>
-</ul>
-<h1 id="人与自然关系的反思"><a href="#人与自然关系的反思" class="headerlink" title="人与自然关系的反思"></a>人与自然关系的反思</h1><ol>
-<li>悲观主义</li>
-<li>乐观主义</li>
-<li>现实主义</li>
-</ol>
-<p>三个流派的共同出发点：</p>
-<ol>
-<li>人与自然的关系恶化</li>
-<li>恶化的本质：现代人类对自然界的影响超过了自然界对人类活动的承载力。</li>
-</ol>
-<h2 id="悲观主义"><a href="#悲观主义" class="headerlink" title="悲观主义"></a>悲观主义</h2><p>代表：罗马俱乐部</p>
-<h2 id="乐观主义"><a href="#乐观主义" class="headerlink" title="乐观主义"></a>乐观主义</h2><p>《今后二百年——美国和世界的一幅远景》</p>
+<li><p>FP Tree数据结构</p>
 <ul>
-<li>在过去到未来的前后各二百年中，人类将从困境中摆脱出来，自然因素并不构成限制，科学技术的发展将会是自然环境和社会环境充满活力。</li>
-<li>自然资源供应无限，人类的资源短缺等问题可以通过技术进步来解决。</li>
-<li>当穷国富起来时，人口增长就会自动停止。</li>
-</ul>
-<p>各有缺点：</p>
-<ul>
-<li>悲观论者：线性外推，但忽略现有的社会生产方式、社会制度、社会意识形态都是可以改变的。</li>
-<li>乐观论者：以自然资源潜力无限和科学技术能力无限为前提，但忽略了自然资源在理论上的潜在存在和…</li>
-</ul>
-<h2 id="现实主义"><a href="#现实主义" class="headerlink" title="现实主义"></a>现实主义</h2><p>《纵观世界全局》（美国世界观察研究所）</p>
-<p>世界明天的好坏不是命运决定的，也不是科学技术的本性决定的，它取决于人类今后20年左右做出的决策是否明智。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/14/自然辩证法#1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Hero">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hero's notebooks">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/14/自然辩证法#1/" itemprop="url">自然辩证法#1</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-14T09:54:35+08:00">
-                2019-03-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Learning</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>次数不定随堂测验 | 80</p>
-<p>平时成绩(课堂汇报) | 20</p>
-<h1 id="西方哲学认识论"><a href="#西方哲学认识论" class="headerlink" title="西方哲学认识论"></a>西方哲学认识论</h1><ul>
-<li>内省型文化主客体关系</li>
-<li>主体凸现和客体廓清<br>主体凸现：反思，内省<br>客体廓清：形式，语言，理论（模型、线索、规范、logos）<br>语言和语言产品成为主客体中介<br>从古希腊到近代欧洲，逻辑学、几何学、力学成为主客体中介</li>
-</ul>
-<h1 id="经典科学与哲学"><a href="#经典科学与哲学" class="headerlink" title="经典科学与哲学"></a>经典科学与哲学</h1><p>哲学是关于反思的<br>人如何获知真理：经验论与唯理论<br>经验论：洛克、休谟、贝克莱<br>孔洞生成定律<br>唯理论：笛卡尔、莱布尼兹、斯宾诺莎<br>抽象思维，形式化概念体系<br>恐惧：对恶的期待</p>
-<h1 id="（空）"><a href="#（空）" class="headerlink" title="（空）"></a>（空）</h1><h1 id="现代科学哲学"><a href="#现代科学哲学" class="headerlink" title="现代科学哲学"></a>现代科学哲学</h1><h1 id="当代科学技术哲学与自然辩证法"><a href="#当代科学技术哲学与自然辩证法" class="headerlink" title="当代科学技术哲学与自然辩证法"></a>当代科学技术哲学与自然辩证法</h1><p>《反杜林论》和《自然辩证法手稿》</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/14/中国古代典籍文化#1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Hero">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hero's notebooks">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/14/中国古代典籍文化#1/" itemprop="url">中国古代典籍文化#1</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-14T09:54:35+08:00">
-                2019-03-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Learning</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><em>考核：第四五周布置论文题目，第八周交论文</em></p>
-<h1 id="古代典籍的载体和装帧"><a href="#古代典籍的载体和装帧" class="headerlink" title="古代典籍的载体和装帧"></a>古代典籍的载体和装帧</h1><h2 id="甲骨"><a href="#甲骨" class="headerlink" title="甲骨"></a>甲骨</h2><ul>
-<li>龟甲和兽骨的合称<ul>
-<li>甲：龟甲的腹板</li>
-<li>骨：牛的肩胛骨和胫骨，也有猪羊的肩胛骨</li>
+<li>项头表。格式为： | 项 | 该项出现的次数（降序排列） </li>
+<li>FP Tree。将原始数据集映射为一个FP Tree。</li>
+<li>节点链表。所有项头表里的1项频繁集都是一个节点链表的头，它依次指向FP树中该1项频繁集出现的位置。这样做主要是方便项头表和FP Tree之间的联系查找和更新，也好理解。</li>
 </ul>
 </li>
+<li><p>项头表建立</p>
+<ul>
+<li>第一次扫描数据：得到频繁一项集的计数，删除支持度小于阈值的项，并将剩余频繁集放入项头表，降序排列。</li>
+<li><p>第二次扫描数据：从<strong>原始数据</strong>中删除非频繁项集，并对<strong>每一条数据</strong>按支持度降序排列其中的非频繁项集。</p>
+</li>
+<li><p>e.g.<br><img src="https://images2015.cnblogs.com/blog/1042406/201701/1042406-20170119161846125-505903867.png" alt="e.g."></p>
+</li>
 </ul>
-<h2 id="金"><a href="#金" class="headerlink" title="金"></a>金</h2><ul>
-<li>铜，指青铜器（铜和锡的合金，呈青灰色）上的铭文。</li>
-<li>金文铸刻的器具以钟鼎居多，又称钟鼎文</li>
-<li>西周是钟鼎文最盛行的时代</li>
+</li>
+<li><p>FP Tree建立</p>
+<ul>
+<li>以null为根节点</li>
+<li><p>按照项头表的顺序，从第一条数据开始插入频繁项集，每条数据中排序靠前的为祖先节点，反之为子孙节点，每个节点均置1<br><img src="https://images2015.cnblogs.com/blog/1042406/201701/1042406-20170119163935296-1386696266.png" alt="e.g."> </p>
+</li>
+<li><p>接下来进行下一条数据的插入。当已存在频繁项时，在原有数字上加一即可（注意在插入时，是每一层每一层插入，不能跳过某层直接在已有节点上加一）</p>
+</li>
+<li>…</li>
+<li><img src="https://images2015.cnblogs.com/blog/1042406/201701/1042406-20170119165427593-1237891371.png" alt="最终"></li>
 </ul>
-<h2 id="石"><a href="#石" class="headerlink" title="石"></a>石</h2><h2 id="木牍"><a href="#木牍" class="headerlink" title="木牍"></a>木牍</h2>
+</li>
+<li><p>节点链表</p>
+<p>节点链表即项头表中每个频繁项集都有一个指针指向FP Tree的相应节点。</p>
+</li>
+<li><p>FP Tree挖掘</p>
+<p>得到了FP树和项头表以及节点链表，我们首先要从项头表的底部项依次向上挖掘。对于项头表对应于FP树的每一项，我们要找到它的条件模式基。所谓条件模式基是以我们要挖掘的节点作为叶子节点所对应的FP子树。得到这个FP子树，我们将子树中每个节点的的计数设置为叶子节点的计数，并删除计数低于支持度的节点。从这个条件模式基，我们就可以递归挖掘得到频繁项集了。</p>
+<ul>
+<li>先从最底下的F节点开始，我们先来寻找F节点的条件模式基，由于F在FP树中只有一个节点，因此候选就只有下图左所示的一条路径，对应{A:8,C:8,E:6,B:2, F:2}。我们接着将所有的祖先节点计数设置为叶子节点的计数，即FP子树变成{A:2,C:2,E:2,B:2, F:2}。一般我们的条件模式基可以不写叶子节点，因此最终的F的条件模式基如下图右所示。 <img src="https://images2015.cnblogs.com/blog/1042406/201701/1042406-20170119170723421-1812925376.png" alt="e.g."></li>
+<li>通过它，我们很容易得到F的频繁2项集为{A:2,F:2}, {C:2,F:2}, {E:2,F:2}, {B:2,F:2}。递归合并二项集，得到频繁三项集为{A:2,C:2,F:2}，{A:2,E:2,F:2},…还有一些频繁三项集，就不写了。当然一直递归下去，最大的频繁项集为频繁5项集，为{A:2,C:2,E:2,B:2,F:2}</li>
+<li>F挖掘完了，我们开始挖掘D节点。D节点比F节点复杂一些，因为它有两个叶子节点，因此首先得到的FP子树如下图左。我们接着将所有的祖先节点计数设置为叶子节点的计数，即变成{A:2, C:2,E:1 G:1,D:1, D:1}此时E节点和G节点由于在条件模式基里面的支持度低于阈值，被我们删除，最终在去除低支持度节点并不包括叶子节点后D的条件模式基为{A:2, C:2}。通过它，我们很容易得到D的频繁2项集为{A:2,D:2}, {C:2,D:2}。递归合并二项集，得到频繁三项集为{A:2,C:2,D:2}。D对应的最大的频繁项集为频繁3项集。 <img src="https://images2015.cnblogs.com/blog/1042406/201701/1042406-20170119171924093-1331841220.png" alt="e.g."></li>
+</ul>
+</li>
+<li><p>算法具体步骤</p>
+<ul>
+<li>扫描数据，得到所有频繁一项集的的计数。然后删除支持度低于阈值的项，将1项频繁集放入项头表，并按照支持度降序排列。</li>
+<li>扫描数据，将读到的原始数据剔除非频繁1项集，并按照支持度降序排列。</li>
+<li>读入排序后的数据集，插入FP树，插入时按照排序后的顺序，插入FP树中，排序靠前的节点是祖先节点，而靠后的是子孙节点。如果有共用的祖先，则对应的公用祖先节点计数加1。插入后，如果有新节点出现，则项头表对应的节点会通过节点链表链接上新节点。直到所有的数据都插入到FP树后，FP树的建立完成。</li>
+<li>从项头表的底部项依次向上找到项头表项对应的条件模式基。从条件模式基递归挖掘得到项头表项项的频繁项集。</li>
+<li>如果不限制频繁项集的项数，则返回步骤4所有的频繁项集，否则只返回满足项数要求的频繁项集。</li>
+</ul>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/18/Apriori 关联规则挖掘/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hero">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hero's notebooks">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/18/Apriori 关联规则挖掘/" itemprop="url">Apriori 关联规则挖掘</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-18T09:43:37+08:00">
+                2019-03-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ol>
+<li><p>问题引入</p>
+<ul>
+<li>经常被同时购买的商品可以摆近一点，刺激购买欲望</li>
+<li>通过附属产品优惠的方式，刺激主产品的销售</li>
+</ul>
+</li>
+<li><p>总体思想</p>
+<p>逐层搜索迭代，通过K-1项集迭代出K项集。<br>Aprior是用于压缩搜索空间。</p>
+</li>
+<li><p>概念</p>
+<ul>
+<li>支持度：<br>关联规则A-&gt;B的支持度support=P(AB)，同时发生的概率</li>
+<li>置信度：<br>confidence=P(A|B)</li>
+<li>k项集：<br>事件A中包含k个元素，成为k项集；若事件A满足最小支持度阈值，称其为频繁k项集</li>
+<li>由频繁项集产生强关联规则<ul>
+<li>K维数据项集LK是频繁项集的必要条件是它所有K-1维子项集也为频繁项集，记为LK-1　</li>
+<li>如果K维数据项集LK的任意一个K-1维子集Lk-1，不是频繁项集，则K维数据项集LK本身也不是最大数据项集。</li>
+<li>Lk是K维频繁项集，如果所有K-1维频繁项集合Lk-1中包含LK的K-1维子项集的个数小于K，则Lk不可能是K维最大频繁数据项集。</li>
+<li>同时满足最小支持度阀值和最小置信度阀值的规则称为强规则。</li>
+</ul>
+</li>
+<li>e.g.<br>顾客购买记录的数据库D，包含6个事务。项集I={网球拍,网球,运动鞋,羽毛球}。考虑关联规则：网球拍网球，事务1,2,3,4,6包含网球拍，事务1,2,6同时包含网球拍和网球，支持度，置信度。若给定最小支持度，最小置信度，关联规则网球拍网球是有趣的，认为购买网球拍和购买网球之间存在强关联。</li>
+</ul>
+</li>
+<li><p>算法步骤</p>
+<p>Apriori算法过程分为两个步骤：</p>
+<ul>
+<li>第一步通过迭代，检索出事务数据库中的所有频繁项集，即支持度不低于用户设定的阈值的项集；</li>
+<li>第二步利用频繁项集构造出满足用户最小信任度的规则。</li>
+</ul>
+<p>具体做法就是：</p>
+<p>首先找出频繁1-项集，记为L1；然后利用L1来产生候选项集C2，对C2中的项进行判定挖掘出L2，即频繁2-项集；不断如此循环下去直到无法发现更多的频繁k-项集为止。每挖掘一层Lk就需要扫描整个数据库一遍。算法利用了一个性质：</p>
+<p>Apriori 性质：任一频繁项集的所有非空子集也必须是频繁的。意思就是说，生成一个k-itemset的候选项时，如果这个候选项有子集不在(k-1)-itemset(已经确定是frequent的)中时，那么这个候选项就不用拿去和支持度判断了，直接删除。具体而言：</p>
+<ul>
+<li><p>连接步:<br>为找出Lk（所有的频繁k项集的集合），通过将Lk-1（所有的频繁k-1项集的集合）与自身连接产生候选k项集的集合。候选集合记作Ck。设l1和l2是Lk-1中的成员。记li[j]表示li中的第j项。假设Apriori算法对事务或项集中的项按字典次序排序，即对于（k-1）项集li，li[1]&lt;li[2]&lt;……….&lt;li[k-1]。将Lk-1与自身连接，如果(l1[1]=l2[1])&amp;&amp;( l1[2]=l2[2])&amp;&amp;……..&amp;&amp; (l1[k-2]=l2[k-2])&amp;&amp;(l1[k-1]&lt;l2[k-1])，(这里的作用是为了保证不产生重复的k项集)，那认为l1和l2是可连接。连接l1和l2 产生的结果是{l1[1],l1[2],……,l1[k-1],l2[k-1]}。</p>
+</li>
+<li><p>剪枝步:<br>CK是LK的超集，也就是说，CK的成员可能是也可能不是频繁的。通过扫描所有的事务（交易），确定CK中每个候选的计数，判断是否小于最小支持度计数，如果不是，则认为该候选是频繁的。为了压缩Ck,可以利用Apriori性质：任一频繁项集的所有非空子集也必须是频繁的，反之，如果某个候选的非空子集不是频繁的，那么该候选肯定不是频繁的，从而可以将其从CK中删除。</p>
+</li>
+</ul>
+</li>
+<li><p>e.g.</p>
+<p><a href="https://blog.csdn.net/u011067360/article/details/24810415" target="_blank" rel="noopener">例子</a></p>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/14/knn/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hero">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hero's notebooks">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/14/knn/" itemprop="url">KNN</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-14T15:03:48+08:00">
+                2019-03-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ol>
+<li><p>算法步骤</p>
+<ul>
+<li>给定已经分好类的训练集</li>
+<li>对给定的测试数据，计算其与训练集中每一个样本的距离</li>
+<li>取距离最小的前K个，按多数表决的方法决定属于哪一类</li>
+</ul>
+</li>
+<li><p>注意事项</p>
+<ul>
+<li>数据要fair</li>
+<li>可以通过对距离近的样本点加更大的权重优化</li>
+<li>计算量较大</li>
+</ul>
+</li>
+</ol>
+
           
         
       
@@ -1445,334 +1157,6 @@
 <ol>
 <li>PRC， precision recall curve，与上面的ROC一样，先看是否光滑，光滑的话说明过拟合不大。越往右上越好。</li>
 </ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/14/WNSP#2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Hero">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hero's notebooks">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/14/WNSP#2/" itemprop="url">WNSP#2</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-14T09:54:35+08:00">
-                2019-03-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Learning</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li>50GHz<ul>
-<li>丰富的频谱资源，即频带宽</li>
-<li>速度快</li>
-<li>波长短，更适合短距传输。穿透性差。</li>
-<li>高度方向性</li>
-<li>安全性</li>
-</ul>
-</li>
-<li>Li-Fi(Light Fidelity)<ul>
-<li>安全性和低穿透性：灯光具有可遮挡性</li>
-<li>频谱资源丰富</li>
-<li>无电磁辐射和电磁干扰</li>
-</ul>
-</li>
-<li>LP-WAN<ul>
-<li>NB-IoT</li>
-<li>数据安全及隐私：公网传输导致数据泄露</li>
-<li>通信安全：通信网络面临攻击</li>
-<li>设备安全</li>
-</ul>
-</li>
-</ul>
-<h1 id="密码学"><a href="#密码学" class="headerlink" title="密码学"></a>密码学</h1><ul>
-<li>唯密文、唯明文、选择性密文、选择性明文</li>
-<li>保密性 完整性 可用性 真实性 可追溯性 不可抵赖性 匿名性</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/14/python面向对象/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Hero">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hero's notebooks">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/14/python面向对象/" itemprop="url">python面向对象</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-14T09:54:35+08:00">
-                2019-03-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Learning</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="属性命名"><a href="#属性命名" class="headerlink" title="属性命名"></a>属性命名</h3><ul>
-<li>属性以双下划线开头，类内变量，实例无法访问。但可以通过某些方式访问，例如Student例中定义了__name变量，可以用_Student_name来实现访问，但不建议，因为不同的解释器的转化方式不一样。</li>
-<li>单下划线可以打开，但需要注意不能随意更改。</li>
-<li>双下划线结尾与开头，特殊变量，类内可以访问，实例不知。</li>
-<li><h3 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h3>开闭原则：定义一个类Animal及其多个之类Dog/Cat/…，当定义一个函数或操作时：</li>
-</ul>
-<ul>
-<li>对扩展开放：允许新增Animal的子类；</li>
-<li>对修改封闭：不需要修改依赖Animal类型的run_twice()等函数，仍然可以传入Dog/Cat等类。<br>事实上，不需要继承也可以实现多态————鸭子类型。</li>
-</ul>
-<h3 id="若干方法"><a href="#若干方法" class="headerlink" title="若干方法"></a>若干方法</h3><ul>
-<li>isinstance(object,class) 判断是否属于某个类</li>
-<li>dir() 列举出一个对象的属性和方法</li>
-<li>getattr()、setattr()、hasattr()可以获得、添加、查询是否需要某个属性<ul>
-<li>__slots__ 限制可以添加的属性，__slots__ = (‘name’, ‘age’) # 用tuple定义允许绑定的属性名称</li>
-</ul>
-</li>
-<li>装饰器</li>
-</ul>
 
           
         
@@ -2046,6 +1430,720 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/14/python面向对象/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hero">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hero's notebooks">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/14/python面向对象/" itemprop="url">python面向对象</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-14T09:54:35+08:00">
+                2019-03-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="属性命名"><a href="#属性命名" class="headerlink" title="属性命名"></a>属性命名</h3><ul>
+<li>属性以双下划线开头，类内变量，实例无法访问。但可以通过某些方式访问，例如Student例中定义了__name变量，可以用_Student_name来实现访问，但不建议，因为不同的解释器的转化方式不一样。</li>
+<li>单下划线可以打开，但需要注意不能随意更改。</li>
+<li>双下划线结尾与开头，特殊变量，类内可以访问，实例不知。</li>
+<li><h3 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h3>开闭原则：定义一个类Animal及其多个之类Dog/Cat/…，当定义一个函数或操作时：</li>
+</ul>
+<ul>
+<li>对扩展开放：允许新增Animal的子类；</li>
+<li>对修改封闭：不需要修改依赖Animal类型的run_twice()等函数，仍然可以传入Dog/Cat等类。<br>事实上，不需要继承也可以实现多态————鸭子类型。</li>
+</ul>
+<h3 id="若干方法"><a href="#若干方法" class="headerlink" title="若干方法"></a>若干方法</h3><ul>
+<li>isinstance(object,class) 判断是否属于某个类</li>
+<li>dir() 列举出一个对象的属性和方法</li>
+<li>getattr()、setattr()、hasattr()可以获得、添加、查询是否需要某个属性<ul>
+<li>__slots__ 限制可以添加的属性，__slots__ = (‘name’, ‘age’) # 用tuple定义允许绑定的属性名称</li>
+</ul>
+</li>
+<li>装饰器</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/14/Naive Bayes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hero">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hero's notebooks">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/14/Naive Bayes/" itemprop="url">Naive Bayes及其sklearn实现</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-14T09:54:35+08:00">
+                2019-03-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>P(B|A) = P(A|B)*P(B)/P(A)</p>
+<p>朴素：特征之间相互独立</p>
+<h1 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h1><ol>
+<li>x = {a1, a2, …, am}为待分类项，a是特征。</li>
+<li>类别集合C = {y1, …, yn}.</li>
+<li>计算P(y1|x), P(y2|x) …</li>
+<li>P(yk|x) = max{P(yi|x)}，则x属于yk类</li>
+</ol>
+<p><strong>总结：</strong>某类在待分类项出现的条件下的概率是所有类中最大的，这个分类项就属于这一类。</p>
+<p>e.g.判断一个黑人来自哪个洲，求取每个洲黑人的比率，非洲最高，选非洲。</p>
+<p>其中x = {a1, a2, …, am}，即P(C|a1,a2…) = P(C)*P(a1,a2,…|C)/P(a1,a2…)。posterior = prior * likelihood / evidence, 这里evidence是常数，不影响。</p>
+<p>—–&gt;求解P(C) * P(a1,a2,a3…|C)</p>
+<p>—–&gt;链式法则：P(C) * P(a2,a3…|C, a1) * P(a1|C)</p>
+<p>—&gt; …</p>
+<p>—&gt; P(C) * P(a1|C) * P(a2|C, a1) * P(a3|C, a1, a2)…<br>由于特征之间的相互独立性，a2发生于a1无关，转化为</p>
+<p>—&gt; P(C) * P(a1|C) * P(a2|C) …  * P(am|C)</p>
+<p>—–&gt;问题转化为求取条件概率：</p>
+<ol>
+<li>找到一个已知分类的待分类项集合，这个集合叫做训练样本集。</li>
+<li>统计得到在各类别下各个特征属性的条件概率估计。</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/14/kaggle相关/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hero">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hero's notebooks">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/14/kaggle相关/" itemprop="url">Kaggle相关</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-14T09:54:35+08:00">
+                2019-03-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="如何在-Kaggle-首战中进入前-10"><a href="#如何在-Kaggle-首战中进入前-10" class="headerlink" title="如何在 Kaggle 首战中进入前 10%"></a>如何在 Kaggle 首战中进入前 10%</h1><p><a href="https://dnc1994.com/2016/04/rank-10-percent-in-first-kaggle-competition/" target="_blank" rel="noopener">原文</a></p>
+<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><h3 id="Exploration-Data-Analysis-EDA"><a href="#Exploration-Data-Analysis-EDA" class="headerlink" title="Exploration Data Analysis(EDA)"></a>Exploration Data Analysis(EDA)</h3><h4 id="Visualization"><a href="#Visualization" class="headerlink" title="Visualization"></a>Visualization</h4><p>matplotlib + seaborn</p>
+<ul>
+<li>查看目标变量的分布。当分布不平衡时，根据评分标准和具体模型的使用不同，可能会严重影响性能。</li>
+<li>对 Numerical Variable，可以用 Box Plot 来直观地查看它的分布。</li>
+<li>对于坐标类数据，可以用 Scatter Plot 来查看它们的分布趋势和是否有离群点的存在。</li>
+<li>对于分类问题，将数据根据 Label 的不同着不同的颜色绘制出来，这对 Feature 的构造很有帮助。</li>
+<li>绘制变量之间两两的分布和相关度图表。</li>
+</ul>
+<p><a href="https://www.kaggle.com/benhamner/python-data-visualizations" target="_blank" rel="noopener">example_visualization</a></p>
+<h4 id="Statistical-Tests"><a href="#Statistical-Tests" class="headerlink" title="Statistical Tests"></a>Statistical Tests</h4><p>可视化为定性，这里专注于定量，例如对于新创造的特征，可以将其加入原模型当中，看结果的变化。</p>
+<p>在某些比赛中，由于数据分布比较奇葩或是噪声过强，Public LB(Leader board)的分数可能会跟 Local CV(Cross Validation)的结果相去甚远。可以根据一些统计测试的结果来粗略地建立一个阈值，用来衡量一次分数的提高究竟是实质的提高还是由于数据的随机性导致的。</p>
+<h3 id="Data-Preprossing"><a href="#Data-Preprossing" class="headerlink" title="Data Preprossing"></a>Data Preprossing</h3><p>处理策略主要依赖于EDA中得到的结论。</p>
+<ul>
+<li>有时数据会分散在几个不同的文件中，需要 Join 起来。</li>
+<li>处理 Missing Data。</li>
+<li>处理 Outlier。</li>
+<li>必要时转换某些 Categorical Variable 的表示方式。例如应用one-hot encoding(pd.get_dummies)将categorical variable转化为数字变量。</li>
+<li>有些 Float 变量可能是从未知的 Int 变量转换得到的，这个过程中发生精度损失会在数据中产生不必要的 Noise，即两个数值原本是相同的却在小数点后某一位开始有不同。这对 Model 可能会产生很负面的影响，需要设法去除或者减弱 Noise。</li>
+</ul>
+<h3 id="Feature-Engineering"><a href="#Feature-Engineering" class="headerlink" title="Feature Engineering"></a>Feature Engineering</h3><h4 id="Feature-Selection"><a href="#Feature-Selection" class="headerlink" title="Feature Selection"></a>Feature Selection</h4><p>总的来说，应该<strong>生成尽量多的 Feature，相信 Model 能够挑出最有用的 Feature</strong>。但有时先做一遍 Feature Selection 也能带来一些好处：</p>
+<ul>
+<li>Feature 越少，训练越快。</li>
+<li>有些 Feature 之间可能存在线性关系，影响 Model 的性能。</li>
+<li>通过挑选出最重要的 Feature，可以将它们之间进行各种运算和操作的结果作为新的 Feature，可能带来意外的提高。</li>
+<li>Feature Selection 最实用的方法也就是看 Random Forest 训练完以后得到的 Feature Importance 了。其他有一些更复杂的算法在理论上更加 Robust，但是缺乏实用高效的实现。从原理上来讲，增加 Random Forest 中树的数量可以在一定程度上加强其对于 Noisy Data 的 Robustness。</li>
+</ul>
+<p>看 Feature Importance 对于某些数据经过脱敏处理的比赛尤其重要。这可以免得你浪费大把时间在琢磨一个不重要的变量的意义上。(脱敏：数据脱敏(Data Masking),又称数据漂白、数据去隐私化或数据变形。百度百科对数据脱敏的定义为：指对某些敏感信息通过脱敏规则进行数据的变形，实现敏感隐私数据的可靠保护。在涉及客户安全数据或者一些商业性敏感数据的情况下，在不违反系统规则条件下，对真实数据进行改造并提供测试使用，如身份证号、手机号、卡号、客户号等个人信息都需要进行数据脱敏。)</p>
+<h4 id="Feature-Encoding"><a href="#Feature-Encoding" class="headerlink" title="Feature Encoding"></a>Feature Encoding</h4><p>假设有一个 Categorical Variable 一共有几万个取值可能，那么创建 Dummy Variables 的方法就不可行了。这时一个比较好的方法是根据 Feature Importance 或是这些取值本身在数据中的出现频率，为最重要（比如说前 95% 的 Importance）那些取值（有很大可能只有几个或是十几个）创建 Dummy Variables，而所有其他取值都归到一个“其他”类里面。</p>
+<h3 id="Model-Selection"><a href="#Model-Selection" class="headerlink" title="Model Selection"></a>Model Selection</h3><p>Base Model:</p>
+<ul>
+<li>SVM</li>
+<li>Linear Regression</li>
+<li>Logistic Regression</li>
+<li>Neural Networks</li>
+</ul>
+<p>Most Used Models:</p>
+<ul>
+<li>Gradient Boosting</li>
+<li>Random Forest</li>
+<li><p>Extra Randomized Trees</p>
+<p><strong>XGBoost</strong></p>
+</li>
+</ul>
+<h4 id="Model-Training"><a href="#Model-Training" class="headerlink" title="Model Training"></a>Model Training</h4><p>通过Grid Search来确定模型的最佳参数。<br>e.g.</p>
+<ul>
+<li>sklearn 的 RandomForestClassifier 来说，比较重要的就是随机森林中树的数量 n_estimators 以及在训练每棵树时最多选择的特征数量 max_features。</li>
+<li><p>Xgboost 的调参。通常认为对它性能影响较大的参数有：</p>
+<ul>
+<li>eta：每次迭代完成后更新权重时的步长。越小训练越慢。</li>
+<li>num_round：总共迭代的次数。</li>
+<li>subsample：训练每棵树时用来训练的数据占全部的比例。用于防止 Overfitting。</li>
+<li>colsample_bytree：训练每棵树时用来训练的特征的比例，类似 RandomForestClassifier 的 max_features。</li>
+<li>max_depth：每棵树的最大深度限制。与 Random Forest 不同，Gradient Boosting 如果不对深度加以限制，最终是会 Overfit 的。</li>
+<li>early_stopping_rounds：用于控制在 Out Of Sample 的验证集上连续多少个迭代的分数都没有提高后就提前终止训练。用于防止 Overfitting。</li>
+</ul>
+<p>一般的调参步骤是：</p>
+<ol>
+<li>将训练数据的一部分划出来作为验证集。</li>
+<li>先将 eta 设得比较高（比如 0.1），num_round 设为 300 ~ 500。</li>
+<li>用 Grid Search 对其他参数进行搜索。</li>
+<li>逐步将 eta 降低，找到最佳值。</li>
+<li>以验证集为 watchlist，用找到的最佳参数组合重新在训练集上训练。注意观察算法的输出，看每次迭代后在验证集上分数的变化情况，从而得到最佳的 early_stopping_rounds。</li>
+</ol>
+<p><em>所有具有随机性的 Model 一般都会有一个 seed 或是 random_state 参数用于控制随机种子。得到一个好的 Model 后，在记录参数时务必也记录下这个值，从而能够在之后重现 Model。</em></p>
+</li>
+</ul>
+<h4 id="Cross-Validation"><a href="#Cross-Validation" class="headerlink" title="Cross Validation"></a>Cross Validation</h4><p>一般5-fold。</p>
+<p>fold越多训练越慢。</p>
+<h4 id="Ensemble-Generation"><a href="#Ensemble-Generation" class="headerlink" title="Ensemble Generation"></a>Ensemble Generation</h4><p>常见的 Ensemble 方法有这么几种：</p>
+<ul>
+<li>Bagging：使用训练数据的不同随机子集来训练每个 Base Model，最后进行每个 Base Model 权重相同的 Vote。也即 Random Forest 的原理。</li>
+<li>Boosting：迭代地训练 Base Model，每次根据上一个迭代中预测错误的情况修改训练样本的权重。也即 Gradient Boosting 的原理。比 Bagging 效果好，但更容易 Overfit。</li>
+<li>Blending：用不相交的数据训练不同的 Base Model，将它们的输出取（加权）平均。实现简单，但对训练数据利用少了。</li>
+<li>Stacking：接下来会详细介绍。</li>
+</ul>
+<p>从理论上讲，Ensemble 要成功，有两个要素：</p>
+<ul>
+<li>Base Model 之间的相关性要尽可能的小。这就是为什么非 Tree-based Model 往往表现不是最好但还是要将它们包括在 Ensemble 里面的原因。Ensemble 的 Diversity 越大，最终 Model 的 Bias 就越低。</li>
+<li>Base Model 之间的性能表现不能差距太大。这其实是一个 Trade-off，在实际中很有可能表现相近的 Model 只有寥寥几个而且它们之间相关性还不低。但是实践告诉我们即使在这种情况下 Ensemble 还是能大幅提高成绩。</li>
+</ul>
+<h3 id="Pipeline"><a href="#Pipeline" class="headerlink" title="Pipeline"></a>Pipeline</h3><p>workflow比较复杂，因此一个高自动化的pipeline比较重要。</p>
+<p>这里是以一个例子：<a href="https://github.com/ChenglongChen/Kaggle_CrowdFlower" target="_blank" rel="noopener">example</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/14/LightGBM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hero">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hero's notebooks">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/14/LightGBM/" itemprop="url">LightGBM</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-14T09:54:35+08:00">
+                2019-03-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h1><ul>
+<li>可以接受categorical features：LightGBM 可以直接使用 categorical features（分类特征）作为 input（输入）. 它不需要被转换成 one-hot coding（独热编码）, 并且它比 one-hot coding（独热编码）更快（约快上 8 倍）。注意: 在你构造 Dataset 之前, 你应该将分类特征转换为 int 类型的值.</li>
+</ul>
+<h1 id="xgboost的优点"><a href="#xgboost的优点" class="headerlink" title="xgboost的优点"></a>xgboost的优点</h1><ul>
+<li>XGB利用了二阶梯度来对节点进行划分，相对其他GBM来说，精度更加高。</li>
+<li>利用局部近似算法对分裂节点的贪心算法优化，取适当的eps时，可以保持算法的性能且提高算法的运算速度。</li>
+<li>在损失函数中加入了L1/L2项，控制模型的复杂度，提高模型的鲁棒性。</li>
+<li>提供并行计算能力，主要是在树节点求不同的候选的分裂点的Gain Infomation（分裂后，损失函数的差值）</li>
+<li>Tree Shrinkage，column subsampling等不同的处理细节。</li>
+</ul>
+<h1 id="xgboost的缺点"><a href="#xgboost的缺点" class="headerlink" title="xgboost的缺点"></a>xgboost的缺点</h1><ul>
+<li>每次迭代需要多次遍历整个训练数据。若读入内存，则对训练数据的大小有限制；不读入内存的话，非常慢。</li>
+<li>预排序方法：预排序需要大量的空间站占用和时间占用：需要保存数据的特征值，也要保存特征排序的结果，即需要两倍数据的内存占用；遍历每个分割点需要计算每个分割点的增益。此外，对cache优化不友好。在预排序后，特征对梯度的访问是一种随机访问，并且不同的特征访问的顺序不一样，无法对cache进行优化。同时，在每一层长树的时候，需要随机访问一个行索引到叶子索引的数组，并且不同特征访问的顺序也不一样，也会造成较大的cache miss。</li>
+</ul>
+<h1 id="lightgbm的优化"><a href="#lightgbm的优化" class="headerlink" title="lightgbm的优化"></a>lightgbm的优化</h1><ul>
+<li>基于histogram的决策树算法</li>
+<li>带深度限制的leaf-wise的叶子生长策略</li>
+<li>直方图做差加速</li>
+<li>支持类别特征</li>
+<li>cache命中率优化</li>
+<li>基于直方图的稀疏特征优化</li>
+<li>多线程优化</li>
+</ul>
+<h2 id="Histogram算法"><a href="#Histogram算法" class="headerlink" title="Histogram算法"></a>Histogram算法</h2><p>先把连续的浮点特征值离散化成k个整数，同时构造一个宽度为k的直方图。在遍历数据的时候，根据离散化后的值作为索引在直方图中累积统计量，当遍历一次数据后，直方图累积了需要的统计量，然后根据直方图的离散值，遍历寻找最优的分割点。</p>
+<h2 id="带深度限制的leaf-wise的叶子生长策略"><a href="#带深度限制的leaf-wise的叶子生长策略" class="headerlink" title="带深度限制的leaf-wise的叶子生长策略"></a>带深度限制的leaf-wise的叶子生长策略</h2><p>Level-wise过一次数据可以同时分裂同一层的叶子，容易进行多线程优化，也好控制模型复杂度，不容易过拟合。但实际上Level-wise是一种低效的算法，因为它不加区分的对待同一层的叶子，带来了很多没必要的开销，因为实际上很多叶子的分裂增益较低，没必要进行搜索和分裂。</p>
+<p>Leaf-wise则是一种更为高效的策略，每次从当前所有叶子中，找到分裂增益最大的一个叶子，然后分裂，如此循环。因此同Level-wise相比，在分裂次数相同的情况下，Leaf-wise可以降低更多的误差，得到更好的精度。Leaf-wise的缺点是可能会长出比较深的决策树，产生过拟合。因此LightGBM在Leaf-wise之上增加了一个最大深度的限制，在保证高效率的同时防止过拟合。</p>
+<h2 id="多线程优化"><a href="#多线程优化" class="headerlink" title="多线程优化"></a>多线程优化</h2><h3 id="特征并行"><a href="#特征并行" class="headerlink" title="特征并行"></a>特征并行</h3><h3 id="数据并行"><a href="#数据并行" class="headerlink" title="数据并行"></a>数据并行</h3><p>减少了数据通信的成本</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -2094,7 +2192,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-count">26</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -2116,7 +2214,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

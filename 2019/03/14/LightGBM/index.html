@@ -96,18 +96,18 @@
 
 
 
-<meta name="description" content="特性 可以接受categorical features：LightGBM 可以直接使用 categorical features（分类特征）作为 input（输入）. 它不需要被转换成 one-hot coding（独热编码）, 并且它比 one-hot coding（独热编码）更快（约快上 8 倍）。注意: 在你构造 Dataset 之前, 你应该将分类特征转换为 int 类型的值.  原理">
+<meta name="description" content="特性 可以接受categorical features：LightGBM 可以直接使用 categorical features（分类特征）作为 input（输入）. 它不需要被转换成 one-hot coding（独热编码）, 并且它比 one-hot coding（独热编码）更快（约快上 8 倍）。注意: 在你构造 Dataset 之前, 你应该将分类特征转换为 int 类型的值.  xgbo">
 <meta name="keywords" content="ML,DOC">
 <meta property="og:type" content="article">
 <meta property="og:title" content="LightGBM">
 <meta property="og:url" content="https://chenzk1.github.io/2019/03/14/LightGBM/index.html">
 <meta property="og:site_name" content="Hero&#39;s notebooks">
-<meta property="og:description" content="特性 可以接受categorical features：LightGBM 可以直接使用 categorical features（分类特征）作为 input（输入）. 它不需要被转换成 one-hot coding（独热编码）, 并且它比 one-hot coding（独热编码）更快（约快上 8 倍）。注意: 在你构造 Dataset 之前, 你应该将分类特征转换为 int 类型的值.  原理">
+<meta property="og:description" content="特性 可以接受categorical features：LightGBM 可以直接使用 categorical features（分类特征）作为 input（输入）. 它不需要被转换成 one-hot coding（独热编码）, 并且它比 one-hot coding（独热编码）更快（约快上 8 倍）。注意: 在你构造 Dataset 之前, 你应该将分类特征转换为 int 类型的值.  xgbo">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-01-18T11:38:54.000Z">
+<meta property="og:updated_time" content="2019-07-01T02:13:20.103Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LightGBM">
-<meta name="twitter:description" content="特性 可以接受categorical features：LightGBM 可以直接使用 categorical features（分类特征）作为 input（输入）. 它不需要被转换成 one-hot coding（独热编码）, 并且它比 one-hot coding（独热编码）更快（约快上 8 倍）。注意: 在你构造 Dataset 之前, 你应该将分类特征转换为 int 类型的值.  原理">
+<meta name="twitter:description" content="特性 可以接受categorical features：LightGBM 可以直接使用 categorical features（分类特征）作为 input（输入）. 它不需要被转换成 one-hot coding（独热编码）, 并且它比 one-hot coding（独热编码）更快（约快上 8 倍）。注意: 在你构造 Dataset 之前, 你应该将分类特征转换为 int 类型的值.  xgbo">
 
 
 
@@ -399,7 +399,31 @@
         <h1 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h1><ul>
 <li>可以接受categorical features：LightGBM 可以直接使用 categorical features（分类特征）作为 input（输入）. 它不需要被转换成 one-hot coding（独热编码）, 并且它比 one-hot coding（独热编码）更快（约快上 8 倍）。注意: 在你构造 Dataset 之前, 你应该将分类特征转换为 int 类型的值.</li>
 </ul>
-<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1>
+<h1 id="xgboost的优点"><a href="#xgboost的优点" class="headerlink" title="xgboost的优点"></a>xgboost的优点</h1><ul>
+<li>XGB利用了二阶梯度来对节点进行划分，相对其他GBM来说，精度更加高。</li>
+<li>利用局部近似算法对分裂节点的贪心算法优化，取适当的eps时，可以保持算法的性能且提高算法的运算速度。</li>
+<li>在损失函数中加入了L1/L2项，控制模型的复杂度，提高模型的鲁棒性。</li>
+<li>提供并行计算能力，主要是在树节点求不同的候选的分裂点的Gain Infomation（分裂后，损失函数的差值）</li>
+<li>Tree Shrinkage，column subsampling等不同的处理细节。</li>
+</ul>
+<h1 id="xgboost的缺点"><a href="#xgboost的缺点" class="headerlink" title="xgboost的缺点"></a>xgboost的缺点</h1><ul>
+<li>每次迭代需要多次遍历整个训练数据。若读入内存，则对训练数据的大小有限制；不读入内存的话，非常慢。</li>
+<li>预排序方法：预排序需要大量的空间站占用和时间占用：需要保存数据的特征值，也要保存特征排序的结果，即需要两倍数据的内存占用；遍历每个分割点需要计算每个分割点的增益。此外，对cache优化不友好。在预排序后，特征对梯度的访问是一种随机访问，并且不同的特征访问的顺序不一样，无法对cache进行优化。同时，在每一层长树的时候，需要随机访问一个行索引到叶子索引的数组，并且不同特征访问的顺序也不一样，也会造成较大的cache miss。</li>
+</ul>
+<h1 id="lightgbm的优化"><a href="#lightgbm的优化" class="headerlink" title="lightgbm的优化"></a>lightgbm的优化</h1><ul>
+<li>基于histogram的决策树算法</li>
+<li>带深度限制的leaf-wise的叶子生长策略</li>
+<li>直方图做差加速</li>
+<li>支持类别特征</li>
+<li>cache命中率优化</li>
+<li>基于直方图的稀疏特征优化</li>
+<li>多线程优化</li>
+</ul>
+<h2 id="Histogram算法"><a href="#Histogram算法" class="headerlink" title="Histogram算法"></a>Histogram算法</h2><p>先把连续的浮点特征值离散化成k个整数，同时构造一个宽度为k的直方图。在遍历数据的时候，根据离散化后的值作为索引在直方图中累积统计量，当遍历一次数据后，直方图累积了需要的统计量，然后根据直方图的离散值，遍历寻找最优的分割点。</p>
+<h2 id="带深度限制的leaf-wise的叶子生长策略"><a href="#带深度限制的leaf-wise的叶子生长策略" class="headerlink" title="带深度限制的leaf-wise的叶子生长策略"></a>带深度限制的leaf-wise的叶子生长策略</h2><p>Level-wise过一次数据可以同时分裂同一层的叶子，容易进行多线程优化，也好控制模型复杂度，不容易过拟合。但实际上Level-wise是一种低效的算法，因为它不加区分的对待同一层的叶子，带来了很多没必要的开销，因为实际上很多叶子的分裂增益较低，没必要进行搜索和分裂。</p>
+<p>Leaf-wise则是一种更为高效的策略，每次从当前所有叶子中，找到分裂增益最大的一个叶子，然后分裂，如此循环。因此同Level-wise相比，在分裂次数相同的情况下，Leaf-wise可以降低更多的误差，得到更好的精度。Leaf-wise的缺点是可能会长出比较深的决策树，产生过拟合。因此LightGBM在Leaf-wise之上增加了一个最大深度的限制，在保证高效率的同时防止过拟合。</p>
+<h2 id="多线程优化"><a href="#多线程优化" class="headerlink" title="多线程优化"></a>多线程优化</h2><h3 id="特征并行"><a href="#特征并行" class="headerlink" title="特征并行"></a>特征并行</h3><h3 id="数据并行"><a href="#数据并行" class="headerlink" title="数据并行"></a>数据并行</h3><p>减少了数据通信的成本</p>
+
       
     </div>
     
@@ -441,8 +465,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/03/14/Naive Bayes/" rel="prev" title="Naive Bayes及其sklearn实现">
-                Naive Bayes及其sklearn实现 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/03/14/kaggle相关/" rel="prev" title="Kaggle相关">
+                Kaggle相关 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -518,7 +542,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-count">26</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -540,7 +564,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -582,7 +606,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#特性"><span class="nav-number">1.</span> <span class="nav-text">特性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原理"><span class="nav-number">2.</span> <span class="nav-text">原理</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#特性"><span class="nav-number">1.</span> <span class="nav-text">特性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#xgboost的优点"><span class="nav-number">2.</span> <span class="nav-text">xgboost的优点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#xgboost的缺点"><span class="nav-number">3.</span> <span class="nav-text">xgboost的缺点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#lightgbm的优化"><span class="nav-number">4.</span> <span class="nav-text">lightgbm的优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Histogram算法"><span class="nav-number">4.1.</span> <span class="nav-text">Histogram算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#带深度限制的leaf-wise的叶子生长策略"><span class="nav-number">4.2.</span> <span class="nav-text">带深度限制的leaf-wise的叶子生长策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多线程优化"><span class="nav-number">4.3.</span> <span class="nav-text">多线程优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#特征并行"><span class="nav-number">4.3.1.</span> <span class="nav-text">特征并行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据并行"><span class="nav-number">4.3.2.</span> <span class="nav-text">数据并行</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
