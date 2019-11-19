@@ -307,7 +307,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/04/04/LSTM/">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/11/19/链表-反转链表/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Hero">
@@ -326,7 +326,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/04/04/LSTM/" itemprop="url">RNN & LSTM & GRU</a></h1>
+                <a class="post-title-link" href="/2019/11/19/链表-反转链表/" itemprop="url">链表-反转链表</a></h1>
         
 
         <div class="post-meta">
@@ -338,8 +338,483 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-04T08:05:19+08:00">
-                2019-04-04
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-19T10:23:10+08:00">
+                2019-11-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="反转整个链表"><a href="#反转整个链表" class="headerlink" title="反转整个链表"></a>反转整个链表</h1><h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><ul>
+<li>递归往上走的时候，每进一轮迭代，当前节点与之前节点的链接未变化，且head.next节点总是在已反转的链表末端，因此可以用head.next.next = head。</li>
+<li>递归需要badcase</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def reverseList(self, head: ListNode) -&gt; ListNode:</span><br><span class="line">        if head.next==None:</span><br><span class="line">            return head</span><br><span class="line">        last = reverseList(head.next)</span><br><span class="line">        head.next.next = head</span><br><span class="line">        head.next = null</span><br><span class="line">        return last</span><br></pre></td></tr></table></figure>
+<h2 id="迭代"><a href="#迭代" class="headerlink" title="迭代"></a>迭代</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def reverseList(self, head: ListNode) -&gt; ListNode:</span><br><span class="line">        curr = head</span><br><span class="line">        prev = None</span><br><span class="line">        while curr != None:</span><br><span class="line">            temp = curr.next</span><br><span class="line">            prev = curr</span><br><span class="line">            curr.next = prev</span><br><span class="line">            curr = temp</span><br><span class="line">        return prev</span><br></pre></td></tr></table></figure>
+<h1 id="反转前n个链表"><a href="#反转前n个链表" class="headerlink" title="反转前n个链表"></a>反转前n个链表</h1><h2 id="递归-1"><a href="#递归-1" class="headerlink" title="递归"></a>递归</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def reverseN(self, head: ListNode, n: int) -&gt; ListNode:</span><br><span class="line">        if n==1:</span><br><span class="line">            successor = head.next</span><br><span class="line">            return head</span><br><span class="line"></span><br><span class="line">        last = self.reverseN(head.next, n-1)</span><br><span class="line">        head.next.next = head</span><br><span class="line">        head.next = successor</span><br><span class="line">        </span><br><span class="line">        return last</span><br></pre></td></tr></table></figure>
+<h1 id="反转一部分"><a href="#反转一部分" class="headerlink" title="反转一部分"></a>反转一部分</h1><h2 id="递归-使用前有函数"><a href="#递归-使用前有函数" class="headerlink" title="递归 使用前有函数"></a>递归 使用前有函数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def reverseBetween(self, head: ListNode, m: int, n: int) -&gt; ListNode:</span><br><span class="line">        if m==1:</span><br><span class="line">            return self.reverseN(head, n)</span><br><span class="line">        head.next = self.reverseBetween(head.next, m-1, n-1)</span><br><span class="line">        return head</span><br></pre></td></tr></table></figure>
+<h2 id="迭代-1"><a href="#迭代-1" class="headerlink" title="迭代"></a>迭代</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def reverseBetween(self, head: ListNode, m: int, n: int) -&gt; ListNode:</span><br><span class="line">        dummy = ListNode(-1)</span><br><span class="line">        dummy.next = head</span><br><span class="line">        prev = dummy</span><br><span class="line">        for _ in range(m-1):</span><br><span class="line">            prev = prev.next</span><br><span class="line">        curr = prev.next</span><br><span class="line">        node = None</span><br><span class="line">        for _ in range(n-m+1):</span><br><span class="line">            temp = curr.next</span><br><span class="line">            curr.next = node</span><br><span class="line">            node = curr</span><br><span class="line">            curr = temp</span><br><span class="line"></span><br><span class="line">        prev.next.next = curr</span><br><span class="line">        prev.next = node</span><br><span class="line">        return dummy.next</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class Solution:</span><br><span class="line">    def reverseBetween(self, head: ListNode, m: int, n: int) -&gt; ListNode:</span><br><span class="line">        dummy = ListNode(-1)</span><br><span class="line">        dummy.next = head</span><br><span class="line">        prev = dummy</span><br><span class="line">        for _ in range(m-1):</span><br><span class="line">            prev = prev.next</span><br><span class="line">        start = prev.next</span><br><span class="line">        tail = start.next</span><br><span class="line">        for _ in range(n-m):</span><br><span class="line">            start.next = tail.next</span><br><span class="line">            tail.next = start</span><br><span class="line">            prev.next = tail</span><br><span class="line">            tail = start.next</span><br><span class="line">        return dummy.next</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/11/19/卷积神经网络(手写字的识别)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hero">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hero's notebooks">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/19/卷积神经网络(手写字的识别)/" itemprop="url">CNN-手写字的识别</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-19T10:23:10+08:00">
+                2019-11-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">数据集：MNIST手写数字集</span><br><span class="line">训练集：<span class="number">42</span>,<span class="number">000</span>个<span class="number">0</span><span class="number">-9</span>手写数字的图像</span><br><span class="line">测试集：有<span class="number">28</span>,<span class="number">000</span>个无label样本</span><br><span class="line">每个图像的大小是<span class="number">28</span>×<span class="number">28</span>=<span class="number">784</span>个像素</span><br><span class="line">目标：使用卷积神经网络识别图像是什么数字</span><br></pre></td></tr></table></figure>
+<h3 id="导入相关包"><a href="#导入相关包" class="headerlink" title="导入相关包"></a>导入相关包</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Python的内置垃圾收集。用来删除一些变量，并收集必要的空间来保存RAM。</span></span><br><span class="line"><span class="keyword">import</span> gc </span><br><span class="line"><span class="comment"># 用来生成随机数。</span></span><br><span class="line"><span class="keyword">import</span> random <span class="keyword">as</span> rd </span><br><span class="line"><span class="comment">#用来检查运行时间。</span></span><br><span class="line"><span class="keyword">import</span> time </span><br><span class="line"><span class="comment"># 在数据增强部分，我们使用圆周率旋转图像。</span></span><br><span class="line"><span class="keyword">from</span> math <span class="keyword">import</span> pi </span><br><span class="line"><span class="comment"># 用Keras来构建我们的CNN模型。它使用TensorFlow作为后端。</span></span><br><span class="line"><span class="keyword">import</span> keras </span><br><span class="line"><span class="comment"># 绘制手写的数字图像。</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt </span><br><span class="line"><span class="comment"># 矩阵操作。</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np </span><br><span class="line"><span class="comment"># 操作数据，比如加载和输出</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="comment"># 用TensorFlow作为数据增强部分</span></span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="comment"># 用来建立学习速率衰减的模型</span></span><br><span class="line"><span class="keyword">from</span> keras.callbacks <span class="keyword">import</span> ReduceLROnPlateau, EarlyStopping</span><br><span class="line"><span class="comment"># 构建CNN所需要的一些基本构件。 </span></span><br><span class="line"><span class="keyword">from</span> keras.layers <span class="keyword">import</span> (BatchNormalization, Conv2D, Dense, Dropout, Flatten,</span><br><span class="line">                          MaxPool2D, ReLU)</span><br><span class="line"><span class="comment"># 图像显示。</span></span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"><span class="comment"># 将数据分解为训练和验证两部分。</span></span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line">%matplotlib inline</span><br></pre></td></tr></table></figure>
+<pre><code>Using TensorFlow backend.
+</code></pre><h3 id="数据处理"><a href="#数据处理" class="headerlink" title="数据处理"></a>数据处理</h3><p><strong>导入数据</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">"Loading..."</span>)</span><br><span class="line">path = <span class="string">"E:/机器学习/Tensorflow学习/data/"</span></span><br><span class="line">data_train = pd.read_csv(path + <span class="string">"train.csv"</span>,engine=<span class="string">"python"</span>)</span><br><span class="line">data_test = pd.read_csv(path + <span class="string">"test.csv"</span>,engine=<span class="string">"python"</span>)</span><br><span class="line">print(<span class="string">"Done!"</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>Loading...
+Done!
+</code></pre><p><strong>查看数据集的大小</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">"Training data: &#123;&#125; rows, &#123;&#125; columns."</span>.format(data_train.shape[<span class="number">0</span>], data_train.shape[<span class="number">1</span>]))</span><br><span class="line">print(<span class="string">"Test data: &#123;&#125; rows, &#123;&#125; columns."</span>.format(data_test.shape[<span class="number">0</span>], data_test.shape[<span class="number">1</span>]))</span><br></pre></td></tr></table></figure>
+<pre><code>Training data: 42000 rows, 785 columns.
+Test data: 28000 rows, 784 columns.
+</code></pre><p>训练集有42000行，785列，其中包括784个像素和一个标签，标注了这张图片是什么数字。</p>
+<p>测试数据有28000行，没有标签。</p>
+<p><strong>数据集拆分成x（图像数据）和y（标签）</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x_train = data_train.values[:, <span class="number">1</span>:]</span><br><span class="line">y_train = data_train.values[:, <span class="number">0</span>]</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">convert_2d</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="string">"""x: 2d numpy array. m*n data image.</span></span><br><span class="line"><span class="string">       return a 3d image data. m * height * width * channel."""</span></span><br><span class="line">    <span class="keyword">if</span> len(x.shape) == <span class="number">1</span>:</span><br><span class="line">        m = <span class="number">1</span></span><br><span class="line">        height = width = int(np.sqrt(x.shape[<span class="number">0</span>]))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        m = x.shape[<span class="number">0</span>]</span><br><span class="line">        height = width = int(np.sqrt(x.shape[<span class="number">1</span>]))</span><br><span class="line"></span><br><span class="line">    x_2d = np.reshape(x, (m, height, width, <span class="number">1</span>))</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> x_2d</span><br></pre></td></tr></table></figure>
+<p><strong>查看图像</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x_display = convert_2d(data_train.values[<span class="number">0</span>, <span class="number">1</span>:])</span><br><span class="line">plt.imshow(x_display.squeeze())</span><br></pre></td></tr></table></figure>
+<pre><code>&lt;matplotlib.image.AxesImage at 0x22b013e7780&gt;
+</code></pre><p><img src="output_14_1.png" alt="png"></p>
+<h3 id="数据增强"><a href="#数据增强" class="headerlink" title="数据增强"></a>数据增强</h3><p>在这里，我们直接研究数据增强。<br>当您没有足够的数据或想要扩展数据以提高性能时，数据增强是一种非常有用的技术。<br>在这场比赛中，数据增强基本上是指在不损害图像可识别性的前提下，对图像进行切割、旋转和缩放。<br>这里我使用了缩放、平移、白噪声和旋转。<br>随着数据的增加，您可以预期1-2%的准确性提高。</p>
+<p><strong>放大</strong></p>
+<p>使用crop_image函数来裁剪围绕中心的图像的一部分，调整其大小并将其保存为增强数据。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">crop_image</span><span class="params">(x, y, min_scale)</span>:</span></span><br><span class="line">    <span class="string">"""x: 2d(m*n) numpy array. 1-dimension image data;</span></span><br><span class="line"><span class="string">       y: 1d numpy array. The ground truth label;</span></span><br><span class="line"><span class="string">       min_scale: float. The minimum scale for cropping.</span></span><br><span class="line"><span class="string">       return zoomed images.</span></span><br><span class="line"><span class="string">    # 该函数对图像进行裁剪，放大裁剪后的部分，并将其作为增强数据"""</span></span><br><span class="line">    <span class="comment"># 将数据转换为二维图像。图像应该是一个m*h*w*c数字数组。</span></span><br><span class="line">    images = convert_2d(x)</span><br><span class="line">    <span class="comment"># m是图像的个数。由于这是从0到255的灰度图像，所以它只有一个通道。</span></span><br><span class="line">    m, height, width, channel = images.shape</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 原始图像的tf张量</span></span><br><span class="line">    img_tensor = tf.placeholder(tf.int32, [<span class="number">1</span>, height, width, channel])</span><br><span class="line">    <span class="comment"># tf tensor for 4 coordinates for corners of the cropped image</span></span><br><span class="line">    box_tensor = tf.placeholder(tf.float32, [<span class="number">1</span>, <span class="number">4</span>])</span><br><span class="line">    box_idx = [<span class="number">0</span>]</span><br><span class="line">    crop_size = np.array([height, width])</span><br><span class="line">    <span class="comment"># 裁剪并调整图像张量</span></span><br><span class="line">    cropped_img_tensor = tf.image.crop_and_resize(img_tensor, box_tensor, box_idx, crop_size)</span><br><span class="line">    <span class="comment"># numpy array for the cropped image</span></span><br><span class="line">    cropped_img = np.zeros((m, height, width, <span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(m):</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># randomly select a scale between [min_scale, min(min_scale + 0.05, 1)]</span></span><br><span class="line">            rand_scale = np.random.randint(min_scale * <span class="number">100</span>, np.minimum(min_scale * <span class="number">100</span> + <span class="number">5</span>, <span class="number">100</span>)) / <span class="number">100</span></span><br><span class="line">            <span class="comment"># calculate the 4 coordinates</span></span><br><span class="line">            x1 = y1 = <span class="number">0.5</span> - <span class="number">0.5</span> * rand_scale</span><br><span class="line">            x2 = y2 = <span class="number">0.5</span> + <span class="number">0.5</span> * rand_scale</span><br><span class="line">            <span class="comment"># lay down the cropping area</span></span><br><span class="line">            box = np.reshape(np.array([y1, x1, y2, x2]), (<span class="number">1</span>, <span class="number">4</span>))</span><br><span class="line">            <span class="comment"># save the cropped image</span></span><br><span class="line">            cropped_img[i:i + <span class="number">1</span>, :, :, :] = sess.run(cropped_img_tensor, feed_dict=&#123;img_tensor: images[i:i + <span class="number">1</span>], box_tensor: box&#125;)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># flat the 2d image</span></span><br><span class="line">    cropped_img = np.reshape(cropped_img, (m, <span class="number">-1</span>))</span><br><span class="line">    cropped_img = np.concatenate((y.reshape((<span class="number">-1</span>, <span class="number">1</span>)), cropped_img), axis=<span class="number">1</span>).astype(int)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> cropped_img</span><br></pre></td></tr></table></figure>
+<p><strong>平移</strong> </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">translate</span><span class="params">(x, y, dist)</span>:</span></span><br><span class="line">    <span class="string">"""x: 2d(m*n) numpy array. 1-dimension image data;</span></span><br><span class="line"><span class="string">       y: 1d numpy array. The ground truth label;</span></span><br><span class="line"><span class="string">       dist: float. Percentage of height/width to shift.</span></span><br><span class="line"><span class="string">       return translated images.</span></span><br><span class="line"><span class="string">       这个函数将图像移动到4个不同的方向。</span></span><br><span class="line"><span class="string">       裁剪图像的一部分，移动，用0填充左边的部分"""</span></span><br><span class="line">    <span class="comment"># 将一维图像数据转换为m*h*w*c数组</span></span><br><span class="line">    images = convert_2d(x)</span><br><span class="line">    m, height, width, channel = images.shape</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># set 4 groups of anchors. The first 4 int in a certain group lay down the area we crop.</span></span><br><span class="line">    <span class="comment"># The last 4 sets the area to be moved to. E.g.,</span></span><br><span class="line">    <span class="comment"># new_img[new_top:new_bottom, new_left:new_right] = img[top:bottom, left:right]</span></span><br><span class="line">    anchors = []</span><br><span class="line">    anchors.append((<span class="number">0</span>, height, int(dist * width), width, <span class="number">0</span>, height, <span class="number">0</span>, width - int(dist * width)))</span><br><span class="line">    anchors.append((<span class="number">0</span>, height, <span class="number">0</span>, width - int(dist * width), <span class="number">0</span>, height, int(dist * width), width))</span><br><span class="line">    anchors.append((int(dist * height), height, <span class="number">0</span>, width, <span class="number">0</span>, height - int(dist * height), <span class="number">0</span>, width))</span><br><span class="line">    anchors.append((<span class="number">0</span>, height - int(dist * height), <span class="number">0</span>, width, int(dist * height), height, <span class="number">0</span>, width))</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># new_images: d*m*h*w*c array. The first dimension is the 4 directions.</span></span><br><span class="line">    new_images = np.zeros((<span class="number">4</span>, m, height, width, channel))</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">4</span>):</span><br><span class="line">        <span class="comment"># shift the image</span></span><br><span class="line">        top, bottom, left, right, new_top, new_bottom, new_left, new_right = anchors[i]</span><br><span class="line">        new_images[i, :, new_top:new_bottom, new_left:new_right, :] = images[:, top:bottom, left:right, :]</span><br><span class="line">    </span><br><span class="line">    new_images = np.reshape(new_images, (<span class="number">4</span> * m, <span class="number">-1</span>))</span><br><span class="line">    y = np.tile(y, (<span class="number">4</span>, <span class="number">1</span>)).reshape((<span class="number">-1</span>, <span class="number">1</span>))</span><br><span class="line">    new_images = np.concatenate((y, new_images), axis=<span class="number">1</span>).astype(int)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> new_images</span><br></pre></td></tr></table></figure>
+<p><strong>添加白噪声</strong></p>
+<p>现在我们给图像添加一些白噪声。我们随机选取一些像素，用均匀分布的噪声代替它们。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_noise</span><span class="params">(x, y, noise_lvl)</span>:</span></span><br><span class="line">    <span class="string">"""x: 2d(m*n) numpy array. 1-dimension image data;</span></span><br><span class="line"><span class="string">       y: 1d numpy array. The ground truth label;</span></span><br><span class="line"><span class="string">       noise_lvl: float. Percentage of pixels to add noise in.</span></span><br><span class="line"><span class="string">       return images with white noise.</span></span><br><span class="line"><span class="string">       This function randomly picks some pixels and replace them with noise."""</span></span><br><span class="line">    m, n = x.shape</span><br><span class="line">    <span class="comment"># calculate the # of pixels to add noise in</span></span><br><span class="line">    noise_num = int(noise_lvl * n)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(m):</span><br><span class="line">        <span class="comment"># generate n random numbers, sort it and choose the first noise_num indices</span></span><br><span class="line">        <span class="comment"># which equals to generate random numbers w/o replacement</span></span><br><span class="line">        noise_idx = np.random.randint(<span class="number">0</span>, n, n).argsort()[:noise_num]</span><br><span class="line">        <span class="comment"># replace the chosen pixels with noise from 0 to 255</span></span><br><span class="line">        x[i, noise_idx] = np.random.randint(<span class="number">0</span>, <span class="number">255</span>, noise_num)</span><br><span class="line"></span><br><span class="line">    noisy_data = np.concatenate((y.reshape((<span class="number">-1</span>, <span class="number">1</span>)), x), axis=<span class="number">1</span>).astype(<span class="string">"int"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> noisy_data</span><br></pre></td></tr></table></figure>
+<p><strong>旋转</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rotate_image</span><span class="params">(x, y, max_angle)</span>:</span></span><br><span class="line">    <span class="string">"""x: 2d(m*n) numpy array. 1-dimension image data;</span></span><br><span class="line"><span class="string">       y: 1d numpy array. The ground truth label;</span></span><br><span class="line"><span class="string">       max_angle: int. The maximum degree for rotation.</span></span><br><span class="line"><span class="string">       return rotated images.</span></span><br><span class="line"><span class="string">       This function rotates the image for some random degrees(0.5 to 1 * max_angle degree)."""</span></span><br><span class="line">    images = convert_2d(x)</span><br><span class="line">    m, height, width, channel = images.shape</span><br><span class="line">    </span><br><span class="line">    img_tensor = tf.placeholder(tf.float32, [m, height, width, channel])</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># half of the images are rotated clockwise. The other half counter-clockwise</span></span><br><span class="line">    <span class="comment"># positive angle: [max/2, max]</span></span><br><span class="line">    <span class="comment"># negative angle: [360-max/2, 360-max]</span></span><br><span class="line">    rand_angle_pos = np.random.randint(max_angle / <span class="number">2</span>, max_angle, int(m / <span class="number">2</span>))</span><br><span class="line">    rand_angle_neg = np.random.randint(-max_angle, -max_angle / <span class="number">2</span>, m - int(m / <span class="number">2</span>)) + <span class="number">360</span></span><br><span class="line">    rand_angle = np.transpose(np.hstack((rand_angle_pos, rand_angle_neg)))</span><br><span class="line">    np.random.shuffle(rand_angle)</span><br><span class="line">    <span class="comment"># convert the degree to radian</span></span><br><span class="line">    rand_angle = rand_angle / <span class="number">180</span> * pi</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># rotate the images</span></span><br><span class="line">    rotated_img_tensor = tf.contrib.image.rotate(img_tensor, rand_angle)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">        rotated_imgs = sess.run(rotated_img_tensor, feed_dict=&#123;img_tensor: images&#125;)</span><br><span class="line">    </span><br><span class="line">    rotated_imgs = np.reshape(rotated_imgs, (m, <span class="number">-1</span>))</span><br><span class="line">    rotated_imgs = np.concatenate((y.reshape((<span class="number">-1</span>, <span class="number">1</span>)), rotated_imgs), axis=<span class="number">1</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> rotated_imgs</span><br></pre></td></tr></table></figure>
+<p><strong>合并</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">start = time.clock()</span><br><span class="line">print(<span class="string">"Augment the data..."</span>)</span><br><span class="line">cropped_imgs = crop_image(x_train, y_train, <span class="number">0.9</span>)</span><br><span class="line">translated_imgs = translate(x_train, y_train, <span class="number">0.1</span>)</span><br><span class="line">noisy_imgs = add_noise(x_train, y_train, <span class="number">0.1</span>)</span><br><span class="line">rotated_imgs = rotate_image(x_train, y_train, <span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">data_train = np.vstack((data_train, cropped_imgs, translated_imgs, noisy_imgs, rotated_imgs))</span><br><span class="line">np.random.shuffle(data_train)</span><br><span class="line">print(<span class="string">"Done!"</span>)</span><br><span class="line">time_used = int(time.clock() - start)</span><br><span class="line">print(<span class="string">"Time used: &#123;&#125;s."</span>.format(time_used))</span><br></pre></td></tr></table></figure>
+<pre><code>G:\Anaconda\lib\site-packages\ipykernel_launcher.py:1: DeprecationWarning: time.clock has been deprecated in Python 3.3 and will be removed from Python 3.8: use time.perf_counter or time.process_time instead
+  &quot;&quot;&quot;Entry point for launching an IPython kernel.
+
+
+Augment the data...
+
+WARNING: The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+If you depend on functionality not listed there, please file an issue.
+
+Done!
+Time used: 26s.
+
+
+G:\Anaconda\lib\site-packages\ipykernel_launcher.py:11: DeprecationWarning: time.clock has been deprecated in Python 3.3 and will be removed from Python 3.8: use time.perf_counter or time.process_time instead
+  # This is added back by InteractiveShellApp.init_path()
+</code></pre><h3 id="数据准备"><a href="#数据准备" class="headerlink" title="数据准备"></a>数据准备</h3><p><strong>检查数据</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x_train = data_train[:, <span class="number">1</span>:]</span><br><span class="line">y_train = data_train[:, <span class="number">0</span>]</span><br><span class="line">x_test = data_test.values</span><br><span class="line">print(<span class="string">"Augmented training data: &#123;&#125; rows, &#123;&#125; columns."</span>.format(data_train.shape[<span class="number">0</span>], data_train.shape[<span class="number">1</span>]))</span><br></pre></td></tr></table></figure>
+<pre><code>Augmented training data: 336000 rows, 785 columns.
+</code></pre><p>使用数据增强之后的训练数据总共有33万6千行，是原来的8倍。</p>
+<p><strong>向量转化为一个矩阵</strong></p>
+<p>因为CNN接受的是输入是二维的图像，我们需要将向量转化为一个矩阵<br>格式：$m(图像数量)×h(图像高度)×w(图像宽度)×c(图像通道数量)$</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x_train = convert_2d(x_train)</span><br><span class="line">x_test = convert_2d(x_test)</span><br></pre></td></tr></table></figure>
+<p><strong>将类别型数据转换成哑变量</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">num_classes = <span class="number">10</span></span><br><span class="line">y_train = keras.utils.to_categorical(y_train, num_classes)</span><br></pre></td></tr></table></figure>
+<p>为了加快CNN优化速度，缩小像素值的范围。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x_train = x_train / <span class="number">255</span></span><br><span class="line">x_test = x_test / <span class="number">255</span></span><br></pre></td></tr></table></figure>
+<p><strong>划分训练集，验证集</strong></p>
+<p>为了验证模型的好坏，用sklearn提供的一个函数来将数据按照9:1进行分割，90%为训练集，10%为验证集</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># generate a random seed for train-test-split</span></span><br><span class="line">seed = np.random.randint(<span class="number">1</span>, <span class="number">100</span>)</span><br><span class="line">x_train, x_dev, y_train, y_dev = train_test_split(x_train, y_train, test_size=<span class="number">0.1</span>, random_state=seed)</span><br></pre></td></tr></table></figure>
+<p><strong>清理内存</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">del</span> data_train</span><br><span class="line"><span class="keyword">del</span> data_test</span><br><span class="line">gc.collect()</span><br></pre></td></tr></table></figure>
+<pre><code>69
+</code></pre><h3 id="搭建CNN模型"><a href="#搭建CNN模型" class="headerlink" title="搭建CNN模型"></a>搭建CNN模型</h3><p>一个普通的CNN通常包括三种类型的层，卷积层，池化层和全连接层。<br>我还在模型中添加了标准化层和dropout层。</p>
+<ul>
+<li><p>这里使用了5×5的卷积核，而不是3×3的。5×5的卷积核感受野更大，效果更好。</p>
+</li>
+<li><p>这里的批量归一化放在了ReLU激活函数之后，当然也可以放在激活函数之前。</p>
+</li>
+<li><p>Dropout使用了0.2的drop概率，意味着在Dropout层的输入中20%的像素点会被重置为0。</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 每个卷积层的信道数。 </span></span><br><span class="line">filters = (<span class="number">32</span>, <span class="number">32</span>, <span class="number">64</span>, <span class="number">64</span>)</span><br><span class="line"><span class="comment"># 每个conv层使用一个5x5内核</span></span><br><span class="line">kernel = (<span class="number">5</span>, <span class="number">5</span>)</span><br><span class="line"><span class="comment"># 在Dropout层的输入中20%的像素点会被重置为0。</span></span><br><span class="line">drop_prob = <span class="number">0.2</span></span><br><span class="line"></span><br><span class="line">model = keras.models.Sequential()</span><br><span class="line"></span><br><span class="line">model.add(Conv2D(filters[<span class="number">0</span>], kernel, padding=<span class="string">"same"</span>, input_shape=(<span class="number">28</span>, <span class="number">28</span>, <span class="number">1</span>),</span><br><span class="line">                 kernel_initializer=keras.initializers.he_normal()))</span><br><span class="line">model.add(BatchNormalization())</span><br><span class="line">model.add(ReLU())</span><br><span class="line">model.add(Conv2D(filters[<span class="number">0</span>], kernel, padding=<span class="string">"same"</span>,</span><br><span class="line">                 kernel_initializer=keras.initializers.he_normal()))</span><br><span class="line">model.add(BatchNormalization())</span><br><span class="line">model.add(ReLU())</span><br><span class="line">model.add(MaxPool2D())</span><br><span class="line">model.add(Dropout(drop_prob))</span><br><span class="line"></span><br><span class="line">model.add(Conv2D(filters[<span class="number">1</span>], kernel, padding=<span class="string">"same"</span>,</span><br><span class="line">                 kernel_initializer=keras.initializers.he_normal()))</span><br><span class="line">model.add(BatchNormalization())</span><br><span class="line">model.add(ReLU())</span><br><span class="line">model.add(MaxPool2D())</span><br><span class="line">model.add(Dropout(drop_prob))</span><br><span class="line"></span><br><span class="line">model.add(Conv2D(filters[<span class="number">2</span>], kernel, padding=<span class="string">"same"</span>,</span><br><span class="line">                 kernel_initializer=keras.initializers.he_normal()))</span><br><span class="line">model.add(BatchNormalization())</span><br><span class="line">model.add(ReLU())</span><br><span class="line">model.add(MaxPool2D())</span><br><span class="line">model.add(Dropout(drop_prob))</span><br><span class="line"></span><br><span class="line">model.add(Conv2D(filters[<span class="number">3</span>], kernel, padding=<span class="string">"same"</span>,</span><br><span class="line">                 kernel_initializer=keras.initializers.he_normal()))</span><br><span class="line">model.add(BatchNormalization())</span><br><span class="line">model.add(ReLU())</span><br><span class="line">model.add(MaxPool2D())</span><br><span class="line">model.add(Dropout(drop_prob))</span><br><span class="line"></span><br><span class="line"><span class="comment"># several fully-connected layers after the conv layers</span></span><br><span class="line">model.add(Flatten())</span><br><span class="line">model.add(Dropout(drop_prob))</span><br><span class="line">model.add(Dense(<span class="number">128</span>, activation=<span class="string">"relu"</span>))</span><br><span class="line">model.add(Dropout(drop_prob))</span><br><span class="line">model.add(Dense(num_classes, activation=<span class="string">"softmax"</span>))</span><br><span class="line"><span class="comment"># use the Adam optimizer to accelerate convergence</span></span><br><span class="line">model.compile(keras.optimizers.Adam(), <span class="string">"categorical_crossentropy"</span>, metrics=[<span class="string">"accuracy"</span>])</span><br></pre></td></tr></table></figure>
+<pre><code>WARNING:tensorflow:From G:\Anaconda\lib\site-packages\tensorflow\python\framework\op_def_library.py:263: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+WARNING:tensorflow:From G:\Anaconda\lib\site-packages\keras\backend\tensorflow_backend.py:3445: calling dropout (from tensorflow.python.ops.nn_ops) with keep_prob is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use `rate` instead of `keep_prob`. Rate should be set to `rate = 1 - keep_prob`.
+</code></pre><p><strong>查看模型架构</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model.summary()</span><br></pre></td></tr></table></figure>
+<pre><code>_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+conv2d_1 (Conv2D)            (None, 28, 28, 32)        832       
+_________________________________________________________________
+batch_normalization_1 (Batch (None, 28, 28, 32)        128       
+_________________________________________________________________
+re_lu_1 (ReLU)               (None, 28, 28, 32)        0         
+_________________________________________________________________
+conv2d_2 (Conv2D)            (None, 28, 28, 32)        25632     
+_________________________________________________________________
+batch_normalization_2 (Batch (None, 28, 28, 32)        128       
+_________________________________________________________________
+re_lu_2 (ReLU)               (None, 28, 28, 32)        0         
+_________________________________________________________________
+max_pooling2d_1 (MaxPooling2 (None, 14, 14, 32)        0         
+_________________________________________________________________
+dropout_1 (Dropout)          (None, 14, 14, 32)        0         
+_________________________________________________________________
+conv2d_3 (Conv2D)            (None, 14, 14, 32)        25632     
+_________________________________________________________________
+batch_normalization_3 (Batch (None, 14, 14, 32)        128       
+_________________________________________________________________
+re_lu_3 (ReLU)               (None, 14, 14, 32)        0         
+_________________________________________________________________
+max_pooling2d_2 (MaxPooling2 (None, 7, 7, 32)          0         
+_________________________________________________________________
+dropout_2 (Dropout)          (None, 7, 7, 32)          0         
+_________________________________________________________________
+conv2d_4 (Conv2D)            (None, 7, 7, 64)          51264     
+_________________________________________________________________
+batch_normalization_4 (Batch (None, 7, 7, 64)          256       
+_________________________________________________________________
+re_lu_4 (ReLU)               (None, 7, 7, 64)          0         
+_________________________________________________________________
+max_pooling2d_3 (MaxPooling2 (None, 3, 3, 64)          0         
+_________________________________________________________________
+dropout_3 (Dropout)          (None, 3, 3, 64)          0         
+_________________________________________________________________
+conv2d_5 (Conv2D)            (None, 3, 3, 64)          102464    
+_________________________________________________________________
+batch_normalization_5 (Batch (None, 3, 3, 64)          256       
+_________________________________________________________________
+re_lu_5 (ReLU)               (None, 3, 3, 64)          0         
+_________________________________________________________________
+max_pooling2d_4 (MaxPooling2 (None, 1, 1, 64)          0         
+_________________________________________________________________
+dropout_4 (Dropout)          (None, 1, 1, 64)          0         
+_________________________________________________________________
+flatten_1 (Flatten)          (None, 64)                0         
+_________________________________________________________________
+dropout_5 (Dropout)          (None, 64)                0         
+_________________________________________________________________
+dense_1 (Dense)              (None, 128)               8320      
+_________________________________________________________________
+dropout_6 (Dropout)          (None, 128)               0         
+_________________________________________________________________
+dense_2 (Dense)              (None, 10)                1290      
+=================================================================
+Total params: 216,330
+Trainable params: 215,882
+Non-trainable params: 448
+_________________________________________________________________
+</code></pre><p>The list above is the structure of my CNN model. It goes:</p>
+<ul>
+<li>(Conv-ReLU-BatchNormalization-MaxPooling-Dropout) x 4;</li>
+<li><p>3 fully-connected(dense) layers with 1 dropout layer. Dense(64)-Dense(128)-Dropout-Dense(with softmax activation).</p>
+</li>
+<li><p>In CNN people often use 3x3 or 5x5 kernel. I found that with a 5x5 kernel, the model’s accuracy improved about 0.125%, which is quite a lot when you pass 99% threshold.</p>
+</li>
+<li>Convolutional layers and max pooling layers can extract some high-level traits from the pixels. With the <a href="https://en.wikipedia.org/wiki/Rectifier_(neural_networks" target="_blank" rel="noopener">ReLU</a>) unit the and max pooling, we also add non-linearity into the network;</li>
+<li>Batch normalization helps the network converge faster since it keeps the input of every layer at the same scale;</li>
+<li><a href="https://en.wikipedia.org/wiki/Convolutional_neural_network#Dropout" target="_blank" rel="noopener">Dropout</a> layers help us prevent overfitting by randomly drop some of the input units. With dropout our model won’t overfit to some specific extreme data or some noisy pixels;</li>
+<li>The <a href="https://en.wikipedia.org/wiki/Stochastic_gradient_descent#Adam" target="_blank" rel="noopener">Adam optimizer</a> also accelerates the optimization. Usually when the dataset is too large, we use mini-batch gradient descent or stochastic gradient descent to save some training time. The randomness in MBGD or SGD means that the steps towards the optimum are zig-zag rather than straight forward. Adam, or Adaptive Moment Estimation, uses exponential moving average on the gradients and the secend moment of gradients to make the steps straight and in turn accelerate the optimization.</li>
+</ul>
+<h3 id="训练CNN"><a href="#训练CNN" class="headerlink" title="训练CNN"></a>训练CNN</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># number of epochs we run</span></span><br><span class="line">iters = <span class="number">100</span></span><br><span class="line"><span class="comment"># batch size. Number of images we train before we take one step in MBGD.</span></span><br><span class="line">batch_size = <span class="number">1024</span></span><br></pre></td></tr></table></figure>
+<p>当我们接近最佳状态时，我们需要降低学习速度以防止过度学习。高学习率会使我们远离最佳状态。因此，当验证数据的准确性不再提高时，我将这个学习率衰减设置为降低它。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># monitor: :要监视的数量。当它不再显著改善时，我们就降低了学习速度</span></span><br><span class="line"><span class="comment"># factor: 新学习率=旧学习率 * factor</span></span><br><span class="line"><span class="comment"># patience:在降低学习速度之前，我们要等待的时间</span></span><br><span class="line"><span class="comment"># verbose: 是否显示信息</span></span><br><span class="line"><span class="comment"># min_lr: 最小的学习率</span></span><br><span class="line"></span><br><span class="line">lr_decay = ReduceLROnPlateau(monitor=<span class="string">"val_acc"</span>, factor=<span class="number">0.5</span>, patience=<span class="number">3</span>, verbose=<span class="number">1</span>, min_lr=<span class="number">1e-5</span>)</span><br><span class="line"><span class="comment"># 如果模型在验证数据上没有得到任何改善，可以设置早期停止，以防止过度拟合，并节省一些时间。当监控量没有提高时，提前停止训练。</span></span><br><span class="line">early_stopping = EarlyStopping(monitor=<span class="string">"val_acc"</span>, patience=<span class="number">7</span>, verbose=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p><strong>训练模型</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">"Training model..."</span>)</span><br><span class="line">fit_params = &#123;</span><br><span class="line">    <span class="string">"batch_size"</span>: batch_size,</span><br><span class="line">    <span class="string">"epochs"</span>: iters,</span><br><span class="line">    <span class="string">"verbose"</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="string">"callbacks"</span>: [lr_decay, early_stopping],</span><br><span class="line">    <span class="string">"validation_data"</span>: (x_dev, y_dev)     <span class="comment"># data for monitoring the model accuracy</span></span><br><span class="line">&#125;</span><br><span class="line">model.fit(x_train, y_train, **fit_params)</span><br><span class="line">print(<span class="string">"Done!"</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>Training model...
+WARNING:tensorflow:From G:\Anaconda\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+Train on 302400 samples, validate on 33600 samples
+Epoch 1/100
+  3072/302400 [..............................] - ETA: 32:43 - loss: 2.6548 - acc: 0.1156
+</code></pre><h3 id="模型评估"><a href="#模型评估" class="headerlink" title="模型评估"></a>模型评估</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model.evaluate(x_dev, y_dev)</span><br></pre></td></tr></table></figure>
+<pre><code>33600/33600 [==============================] - 3s 75us/step
+
+
+
+
+
+[0.0018058670724439621, 0.9994047619047619]
+</code></pre><p>evaluate这个方法会输出两个值，第一个是当期的损失函数值，第二个是模型的准确率。我们可以看到，模型的准确率在验证集上达到了99.84%！</p>
+<h3 id="输出预测"><a href="#输出预测" class="headerlink" title="输出预测"></a>输出预测</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">y_pred = model.predict(x_test, batch_size=batch_size)</span><br><span class="line">y_pred = np.argmax(y_pred, axis=<span class="number">1</span>).reshape((<span class="number">-1</span>, <span class="number">1</span>))</span><br><span class="line">idx = np.reshape(np.arange(<span class="number">1</span>, len(y_pred) + <span class="number">1</span>), (len(y_pred), <span class="number">-1</span>))</span><br><span class="line">y_pred = np.hstack((idx, y_pred))</span><br><span class="line">y_pred = pd.DataFrame(y_pred, columns=[<span class="string">'ImageId'</span>, <span class="string">'Label'</span>])</span><br><span class="line">y_pred.to_csv(<span class="string">'y_pred.csv'</span>, index=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/11/19/基向量与坐标变换/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hero">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hero's notebooks">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/19/基向量与坐标变换/" itemprop="url">基向量与坐标变换</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-19T10:23:10+08:00">
+                2019-11-19
               </time>
             
 
@@ -401,41 +876,28 @@
         
           
             <ol>
-<li>RNN</li>
-</ol>
-<p><img src="https://pic1.zhimg.com/v2-206db7ba9d32a80ff56b6cc988a62440_r.jpg" alt="示意图"></p>
+<li><p>基与维数</p>
 <ul>
-<li>动机：RNN之前，语言模型主要是N-gram，N可以变动，其作用是某位置的词取决于前N个词，所以该方法对任意序列的文本处理存在问题。</li>
-<li>RNN：<em>理论上</em>可以看到往前看/往后看任意的长度。</li>
-<li>最简单的RNN，即t时刻隐藏层的值既取决于t时刻的输入，也取决于t-1时刻的隐藏层的值。</li>
-<li>双向循环网络，应用了下文的信息；深度循环网络，使用了多层隐藏层，更复杂了。</li>
+<li>F：一个数集</li>
+<li>V：F上的非空子集，相当于一个向量空间。{α1，α2…αm}是V中的一个有序向量组。</li>
 </ul>
-<p>一个教程：<a href="https://zybuluo.com/hanbingtao/note/541458" target="_blank" rel="noopener">RNN</a></p>
-<ol start="2">
-<li>LSTM(Long Short Term)</li>
-</ol>
+<p>基：{α1，α2…αm}线性无关且V中的向量都可以用{α1，α2…αm}，{α1，α2…αm}为V的一组基。V = L(α1，α2…αm)</p>
+<p>维数：基中向量的个数。</p>
+</li>
+<li><p>坐标：向量关于基的坐标<br>$$<br>\alpha=x_{1} \alpha 1+x_{2} \alpha 2+\cdots, x_{m} \alpha m=\left(\alpha_{1}, \alpha_{2}, \cdots, \alpha_{m}\right)\left(\begin{array}{c}{x_{1}} \ {x_{2}} \ {\vdots} \ {x_{m}}\end{array}\right)<br>$$<br>(X1…xm)是向量α在基下的坐标</p>
+</li>
+<li><p>基变换与坐标变换</p>
 <ul>
-<li>动机：由RNN的机理可知，如果每层向下一个时刻传输的权重w大于1，则容易产生梯度爆炸问题，小于1，则会产生梯度消失<br>一个对比图<br><img src="https://pic4.zhimg.com/v2-e4f9851cad426dfe4ab1c76209546827_r.jpg" alt="RNN&amp;LSTM"><br>RNN只有一个传递状态ht，而LSTM有两个传递状态：cell state, hidden state。<br>其中cell state是上一序列的隐藏层输出加上一些东西（有点类似于RNN中的ht）；而ht变化会比较大。</li>
-<li>过程：<ul>
-<li>计算四个状态：<br><img src="https://pic4.zhimg.com/80/v2-15c5eb554f843ec492579c6d87e1497b_hd.jpg" alt="z&amp;zi"><br><img src="https://pic1.zhimg.com/80/v2-d044fd0087e1df5d2a1089b441db9970_hd.jpg" alt="zo&amp;zf"><br>z是输入，用了tanh，取值范围为-1，相当于归一化；zi&amp;zo&amp;zf为门控，用了sigmoid，输出为0~1，与某值相乘后是对该值的选择，其中i是information，f是forget，o是output；</li>
-<li>四个状态在LSTM中的应用：<br><img src="https://pic2.zhimg.com/80/v2-556c74f0e025a47fea05dc0f76ea775d_hd.jpg" alt="LSTM结构"><ul>
-<li>忘记：zf点乘ct，即通过zf忘记不重要的</li>
-<li>选择记忆：对于输入信息z，点乘zi，进行有选择的记忆</li>
-<li>输出：对上一阶段的c通过tanh进行放缩，再通过zo控制输出</li>
-</ul>
+<li><p>基变换</p>
+<p>(β1… βm) = A(α1… αm) </p>
+<p>A为基α到基β的过渡矩阵</p>
+</li>
+<li><p>坐标变换</p>
+<p>同一向量关于一个基的坐标x到关于另一个基的坐标y的变换</p>
 </li>
 </ul>
 </li>
-</ul>
-<ol start="3">
-<li>GRU(Gate Recurrent Unit)</li>
 </ol>
-<ul>
-<li>同样为了解决梯度问题</li>
-<li>比LSTM：运算量小</li>
-<li>使用了同一个门控状态控制记忆和忘记</li>
-</ul>
-<p>具体：<br><a href="https://zhuanlan.zhihu.com/p/32481747" target="_blank" rel="noopener">原文</a></p>
 
           
         
@@ -484,7 +946,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/19/FP Tree/">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/11/19/HMM（隐马尔可夫）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Hero">
@@ -503,7 +965,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/19/FP Tree/" itemprop="url">FP Tree算法</a></h1>
+                <a class="post-title-link" href="/2019/11/19/HMM（隐马尔可夫）/" itemprop="url">隐马尔科夫</a></h1>
         
 
         <div class="post-meta">
@@ -515,8 +977,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-19T21:51:07+08:00">
-                2019-03-19
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-19T10:23:10+08:00">
+                2019-11-19
               </time>
             
 
@@ -577,59 +1039,216 @@
       
         
           
-            <p><a href="https://www.cnblogs.com/pinard/p/6307064.html" target="_blank" rel="noopener">blog</a></p>
+            <h2 id="最大熵模型"><a href="#最大熵模型" class="headerlink" title="最大熵模型"></a>最大熵模型</h2><ul>
+<li><p>出发点：保留所有不确定性，将风险降到最小。</p>
+</li>
+<li><p>条件熵：$ H(Y|X) = -\sum\limits_{i=1}^{n}p(x_i,y_i)logp(y_i|x_i) = \sum\limits_{j=1}^{n}p(x_j)H(Y|x_j) $</p>
+</li>
+<li><p>最大熵模型：假设分类模型为一个条件概率分布P(Y|X)，X为特征，Y为输出，给定(X,Y)，用最大熵模型选择一个最好的分类模型。</p>
+<p><a href="https://www.cnblogs.com/pinard/p/6093948.html" target="_blank" rel="noopener">Doc</a></p>
+</li>
+</ul>
+<h2 id="隐马尔可夫"><a href="#隐马尔可夫" class="headerlink" title="隐马尔可夫"></a>隐马尔可夫</h2><ul>
+<li>要解决的问题：1）基于序列；2）问题中有两类数据，一类是可以观测到的（观测序列），另一类是不能观测的（状态序列）。</li>
+</ul>
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><ul>
+<li><p>假设Q={q1,q2…qN}是<strong>所有可能</strong>的隐藏状态的集合，V={v1,v2…vM}是<strong>所有可能</strong>的观测状态的集合。</p>
+</li>
+<li><p>对于一个长度为T的序列，I={i1,i2…iT}为状态序列，O={o1,o2…oT}为观察序列。其中i∈q, o∈v</p>
+</li>
+<li><p>假设：</p>
+<ul>
+<li><p>齐次马尔科夫链假设。即任意时刻的隐藏状态只依赖于它前一个隐藏状态。如果在时刻tt的隐藏状态是it=qi,在时刻t+1t+1的隐藏状态是it+1=qj, 则从时刻t到时刻t+1的HMM状态转移概率aij可以表示为：</p>
+<p>$ a_{ij} = P(i_{t+1} = q_j | i_t= q_i) $</p>
+<p>aij的状态转移矩阵A=「aij」NxN</p>
+</li>
+<li><p>观察独立性假设。任意时刻的观察状态只依赖于当前时刻的隐藏状态。如果在时刻t的隐藏状态是it=qj, 而对应的观察状态为ot=vk, 则该时刻观察状态vk在隐藏状态qj下生成的概率为bj(k),满足：</p>
+<p>$ b_j(k) = P(o_t = v_k | i_t= q_j) $</p>
+<p>这样bj(k)可以组成观测状态生成的概率矩阵B:</p>
+<p>$ B = \Big [b_j(k) \Big ]_{N \times M} $</p>
+</li>
+<li><p>此外，需要t=1时的隐藏状态概率分布II：</p>
+<p>$ B = \Big [b_j(k) \Big ]_{N \times M} $</p>
+</li>
+</ul>
+</li>
+<li><p>一个HMM模型，可以由隐藏状态初始概率分布II，A、B状态转移矩阵和状态概率矩阵决定：</p>
+<p>λ=(A,B,II)</p>
+</li>
+</ul>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ol>
+<li>评估观察序列概率。即给定模型λ=(A,B,II)和观测序列O={o1,o2,…oT}，计算在模型λ下观测序列O出现的概率P(O|λ)。这个问题的求解需要用到前向后向算法。</li>
+<li>模型参数学习问题。即给定观测序列O={o1,o2,…oT}，估计模型λ=(A,B,II)的参数，使该模型下观测序列的条件概率P(O|λ)最大。这个问题的求解需要用到基于EM算法的鲍姆-韦尔奇算法， 我们在这个系列的第三篇会详细讲解。这个问题是HMM模型三个问题中最复杂的。</li>
+<li>预测问题，也称为解码问题。即给定模型λ=(A,B,II)和观测序列O={o1,o2,…oT}，求给定观测序列条件下，最可能出现的对应的状态序列，这个问题的求解需要用到基于动态规划的维特比算法，我们在这个系列的第四篇会详细讲解。这个问题是HMM模型三个问题中复杂度居中的算法。</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/11/19/K-S、GINI/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hero">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hero's notebooks">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/19/K-S、GINI/" itemprop="url">KS-GINI</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-19T10:23:10+08:00">
+                2019-11-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>##<strong>都是用来衡量模型区分度的</strong></p>
+<h4 id="K-S"><a href="#K-S" class="headerlink" title="K-S"></a>K-S</h4><ul>
+<li><p>KS(Kolmogorov-Smirnov)：KS用于模型风险区分能力进行评估，<br>指标衡量的是好坏样本累计分部之间的差值。<br>好坏样本累计差异越大，KS指标越大，那么模型的风险区分能力越强。</p>
+</li>
+<li><p>KS的计算步骤如下： </p>
 <ol>
-<li><p>FP Tree是Aprior算法的优化</p>
-<p>优化点在于：Aprior需要多次扫描数据以查询频繁项，FP Tree使用了树结构，提高了算法运行效率。</p>
+<li><p>计算每个评分区间的好坏账户数。 </p>
 </li>
-<li><p>FP Tree数据结构</p>
-<ul>
-<li>项头表。格式为： | 项 | 该项出现的次数（降序排列） </li>
-<li>FP Tree。将原始数据集映射为一个FP Tree。</li>
-<li>节点链表。所有项头表里的1项频繁集都是一个节点链表的头，它依次指向FP树中该1项频繁集出现的位置。这样做主要是方便项头表和FP Tree之间的联系查找和更新，也好理解。</li>
-</ul>
+<li><p>计算每个评分区间的累计好账户数占总好账户数比率(good%)和累计坏账户数占总坏账户数比率(bad%)。 </p>
 </li>
-<li><p>项头表建立</p>
-<ul>
-<li>第一次扫描数据：得到频繁一项集的计数，删除支持度小于阈值的项，并将剩余频繁集放入项头表，降序排列。</li>
-<li><p>第二次扫描数据：从<strong>原始数据</strong>中删除非频繁项集，并对<strong>每一条数据</strong>按支持度降序排列其中的非频繁项集。</p>
-</li>
-<li><p>e.g.<br><img src="https://images2015.cnblogs.com/blog/1042406/201701/1042406-20170119161846125-505903867.png" alt="e.g."></p>
-</li>
-</ul>
-</li>
-<li><p>FP Tree建立</p>
-<ul>
-<li>以null为根节点</li>
-<li><p>按照项头表的顺序，从第一条数据开始插入频繁项集，每条数据中排序靠前的为祖先节点，反之为子孙节点，每个节点均置1<br><img src="https://images2015.cnblogs.com/blog/1042406/201701/1042406-20170119163935296-1386696266.png" alt="e.g."> </p>
-</li>
-<li><p>接下来进行下一条数据的插入。当已存在频繁项时，在原有数字上加一即可（注意在插入时，是每一层每一层插入，不能跳过某层直接在已有节点上加一）</p>
-</li>
-<li>…</li>
-<li><img src="https://images2015.cnblogs.com/blog/1042406/201701/1042406-20170119165427593-1237891371.png" alt="最终"></li>
-</ul>
-</li>
-<li><p>节点链表</p>
-<p>节点链表即项头表中每个频繁项集都有一个指针指向FP Tree的相应节点。</p>
-</li>
-<li><p>FP Tree挖掘</p>
-<p>得到了FP树和项头表以及节点链表，我们首先要从项头表的底部项依次向上挖掘。对于项头表对应于FP树的每一项，我们要找到它的条件模式基。所谓条件模式基是以我们要挖掘的节点作为叶子节点所对应的FP子树。得到这个FP子树，我们将子树中每个节点的的计数设置为叶子节点的计数，并删除计数低于支持度的节点。从这个条件模式基，我们就可以递归挖掘得到频繁项集了。</p>
-<ul>
-<li>先从最底下的F节点开始，我们先来寻找F节点的条件模式基，由于F在FP树中只有一个节点，因此候选就只有下图左所示的一条路径，对应{A:8,C:8,E:6,B:2, F:2}。我们接着将所有的祖先节点计数设置为叶子节点的计数，即FP子树变成{A:2,C:2,E:2,B:2, F:2}。一般我们的条件模式基可以不写叶子节点，因此最终的F的条件模式基如下图右所示。 <img src="https://images2015.cnblogs.com/blog/1042406/201701/1042406-20170119170723421-1812925376.png" alt="e.g."></li>
-<li>通过它，我们很容易得到F的频繁2项集为{A:2,F:2}, {C:2,F:2}, {E:2,F:2}, {B:2,F:2}。递归合并二项集，得到频繁三项集为{A:2,C:2,F:2}，{A:2,E:2,F:2},…还有一些频繁三项集，就不写了。当然一直递归下去，最大的频繁项集为频繁5项集，为{A:2,C:2,E:2,B:2,F:2}</li>
-<li>F挖掘完了，我们开始挖掘D节点。D节点比F节点复杂一些，因为它有两个叶子节点，因此首先得到的FP子树如下图左。我们接着将所有的祖先节点计数设置为叶子节点的计数，即变成{A:2, C:2,E:1 G:1,D:1, D:1}此时E节点和G节点由于在条件模式基里面的支持度低于阈值，被我们删除，最终在去除低支持度节点并不包括叶子节点后D的条件模式基为{A:2, C:2}。通过它，我们很容易得到D的频繁2项集为{A:2,D:2}, {C:2,D:2}。递归合并二项集，得到频繁三项集为{A:2,C:2,D:2}。D对应的最大的频繁项集为频繁3项集。 <img src="https://images2015.cnblogs.com/blog/1042406/201701/1042406-20170119171924093-1331841220.png" alt="e.g."></li>
-</ul>
-</li>
-<li><p>算法具体步骤</p>
-<ul>
-<li>扫描数据，得到所有频繁一项集的的计数。然后删除支持度低于阈值的项，将1项频繁集放入项头表，并按照支持度降序排列。</li>
-<li>扫描数据，将读到的原始数据剔除非频繁1项集，并按照支持度降序排列。</li>
-<li>读入排序后的数据集，插入FP树，插入时按照排序后的顺序，插入FP树中，排序靠前的节点是祖先节点，而靠后的是子孙节点。如果有共用的祖先，则对应的公用祖先节点计数加1。插入后，如果有新节点出现，则项头表对应的节点会通过节点链表链接上新节点。直到所有的数据都插入到FP树后，FP树的建立完成。</li>
-<li>从项头表的底部项依次向上找到项头表项对应的条件模式基。从条件模式基递归挖掘得到项头表项项的频繁项集。</li>
-<li>如果不限制频繁项集的项数，则返回步骤4所有的频繁项集，否则只返回满足项数要求的频繁项集。</li>
-</ul>
+<li><p>计算每个评分区间累计坏账户占比与累计好账户占比差的绝对值（累计good%-累计bad%），然后对这些绝对值取最大值即得此评分卡的K-S值。</p>
 </li>
 </ol>
+</li>
+</ul>
+<pre><code><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ks</span><span class="params">(df, y_true, y_pre, num=<span class="number">10</span>, good=<span class="number">0</span>, bad=<span class="number">1</span>)</span>:</span></span><br><span class="line">  <span class="string">'''</span></span><br><span class="line"><span class="string">  df为包含真实label和预测的概率值的DataFrame</span></span><br><span class="line"><span class="string">  y_true</span></span><br><span class="line"><span class="string">  '''</span></span><br><span class="line">    <span class="comment"># 1.将数据从小到大平均分成num组</span></span><br><span class="line">    df_ks = df.sort_values(y_pre).reset_index(drop=<span class="literal">True</span>)</span><br><span class="line">    df_ks[<span class="string">'rank'</span>] = np.floor((df_ks.index / len(df_ks) * num) + <span class="number">1</span>)</span><br><span class="line">    df_ks[<span class="string">'set_1'</span>] = <span class="number">1</span></span><br><span class="line">    <span class="comment"># 2.统计结果</span></span><br><span class="line">    result_ks = pd.DataFrame()</span><br><span class="line">    result_ks[<span class="string">'group_sum'</span>] = df_ks.groupby(<span class="string">'rank'</span>)[<span class="string">'set_1'</span>].sum()</span><br><span class="line">    result_ks[<span class="string">'group_min'</span>] = df_ks.groupby(<span class="string">'rank'</span>)[y_pre].min()</span><br><span class="line">    result_ks[<span class="string">'group_max'</span>] = df_ks.groupby(<span class="string">'rank'</span>)[y_pre].max()</span><br><span class="line">    result_ks[<span class="string">'group_mean'</span>] = df_ks.groupby(<span class="string">'rank'</span>)[y_pre].mean()</span><br><span class="line">    <span class="comment"># 3.最后一行添加total汇总数据</span></span><br><span class="line">    result_ks.loc[<span class="string">'total'</span>, <span class="string">'group_sum'</span>] = df_ks[<span class="string">'set_1'</span>].sum()</span><br><span class="line">    result_ks.loc[<span class="string">'total'</span>, <span class="string">'group_min'</span>] = df_ks[y_pre].min()</span><br><span class="line">    result_ks.loc[<span class="string">'total'</span>, <span class="string">'group_max'</span>] = df_ks[y_pre].max()</span><br><span class="line">    result_ks.loc[<span class="string">'total'</span>, <span class="string">'group_mean'</span>] = df_ks[y_pre].mean()</span><br><span class="line">    <span class="comment"># 4.好用户统计</span></span><br><span class="line">    result_ks[<span class="string">'good_sum'</span>] = df_ks[df_ks[y_true] == good].groupby(<span class="string">'rank'</span>)[<span class="string">'set_1'</span>].sum()</span><br><span class="line">    result_ks.good_sum.replace(np.nan, <span class="number">0</span>, inplace=<span class="literal">True</span>)</span><br><span class="line">    result_ks.loc[<span class="string">'total'</span>, <span class="string">'good_sum'</span>] = result_ks[<span class="string">'good_sum'</span>].sum()</span><br><span class="line">    result_ks[<span class="string">'good_percent'</span>] = result_ks[<span class="string">'good_sum'</span>] / result_ks.loc[<span class="string">'total'</span>, <span class="string">'good_sum'</span>]</span><br><span class="line">    result_ks[<span class="string">'good_percent_cum'</span>] = result_ks[<span class="string">'good_sum'</span>].cumsum() / result_ks.loc[<span class="string">'total'</span>, <span class="string">'good_sum'</span>]</span><br><span class="line">    <span class="comment"># 5.坏用户统计</span></span><br><span class="line">    result_ks[<span class="string">'bad_sum'</span>] = df_ks[df_ks[y_true] == bad].groupby(<span class="string">'rank'</span>)[<span class="string">'set_1'</span>].sum()</span><br><span class="line">    result_ks.bad_sum.replace(np.nan, <span class="number">0</span>, inplace=<span class="literal">True</span>)</span><br><span class="line">    result_ks.loc[<span class="string">'total'</span>, <span class="string">'bad_sum'</span>] = result_ks[<span class="string">'bad_sum'</span>].sum()</span><br><span class="line">    result_ks[<span class="string">'bad_percent'</span>] = result_ks[<span class="string">'bad_sum'</span>] / result_ks.loc[<span class="string">'total'</span>, <span class="string">'bad_sum'</span>]</span><br><span class="line">    result_ks[<span class="string">'bad_percent_cum'</span>] = result_ks[<span class="string">'bad_sum'</span>].cumsum() / result_ks.loc[<span class="string">'total'</span>, <span class="string">'bad_sum'</span>]</span><br><span class="line">    <span class="comment"># 6.计算ks值</span></span><br><span class="line">    result_ks[<span class="string">'diff'</span>] = result_ks[<span class="string">'bad_percent_cum'</span>] - result_ks[<span class="string">'good_percent_cum'</span>]</span><br><span class="line">    <span class="comment"># 7.更新最后一行total的数据</span></span><br><span class="line">    result_ks.loc[<span class="string">'total'</span>, <span class="string">'bad_percent_cum'</span>] = np.nan</span><br><span class="line">    result_ks.loc[<span class="string">'total'</span>, <span class="string">'good_percent_cum'</span>] = np.nan</span><br><span class="line">    result_ks.loc[<span class="string">'total'</span>, <span class="string">'diff'</span>] = result_ks[<span class="string">'diff'</span>].max()</span><br><span class="line">result_ks = result_ks.reset_index()</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> result_ks</span><br></pre></td></tr></table></figure>
+</code></pre><h4 id="GINI"><a href="#GINI" class="headerlink" title="GINI"></a>GINI</h4><ul>
+<li>GINI统计值衡量坏账户数在好账户数上的的累积分布与随机分布曲线之间的面积，好账户与坏账户分布之间的差异越大，GINI指标越高，表明模型的风险区分能力越强。</li>
+<li>GINI系数的计算步骤如下： <ol>
+<li>计算每个评分区间的好坏账户数。 </li>
+<li>计算每个评分区间的累计好账户数占总好账户数比率（累计good%）和累计坏账户数占总坏账户数比率(累计bad%)。 </li>
+<li>按照累计好账户占比和累计坏账户占比得出下图所示曲线ADC。 </li>
+<li>计算出图中阴影部分面积，阴影面积占直角三角形ABC面积的百分比，即为GINI系数。</li>
+</ol>
+</li>
+</ul>
+<p><img src="https://img-blog.csdn.net/20171012171836445?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxMzQyMTYyOQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="img"></p>
 
           
         
@@ -678,7 +1297,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/18/Apriori 关联规则挖掘/">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/11/19/DS-绪论/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Hero">
@@ -697,7 +1316,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/18/Apriori 关联规则挖掘/" itemprop="url">Apriori 关联规则挖掘</a></h1>
+                <a class="post-title-link" href="/2019/11/19/DS-绪论/" itemprop="url">DS绪论</a></h1>
         
 
         <div class="post-meta">
@@ -709,8 +1328,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-18T09:43:37+08:00">
-                2019-03-18
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-19T10:23:10+08:00">
+                2019-11-19
               </time>
             
 
@@ -771,51 +1390,11 @@
       
         
           
-            <ol>
-<li><p>问题引入</p>
-<ul>
-<li>经常被同时购买的商品可以摆近一点，刺激购买欲望</li>
-<li>通过附属产品优惠的方式，刺激主产品的销售</li>
-</ul>
-</li>
-<li><p>总体思想</p>
-<p>逐层搜索迭代，通过K-1项集迭代出K项集。<br>Aprior是用于压缩搜索空间。</p>
-</li>
-<li><p>概念</p>
-<ul>
-<li>支持度：<br>关联规则A-&gt;B的支持度support=P(AB)，同时发生的概率</li>
-<li>置信度：<br>confidence=P(A|B)</li>
-<li>k项集：<br>事件A中包含k个元素，成为k项集；若事件A满足最小支持度阈值，称其为频繁k项集</li>
-<li>由频繁项集产生强关联规则<ul>
-<li>K维数据项集LK是频繁项集的必要条件是它所有K-1维子项集也为频繁项集，记为LK-1　</li>
-<li>如果K维数据项集LK的任意一个K-1维子集Lk-1，不是频繁项集，则K维数据项集LK本身也不是最大数据项集。</li>
-<li>Lk是K维频繁项集，如果所有K-1维频繁项集合Lk-1中包含LK的K-1维子项集的个数小于K，则Lk不可能是K维最大频繁数据项集。</li>
-<li>同时满足最小支持度阀值和最小置信度阀值的规则称为强规则。</li>
-</ul>
-</li>
-<li>e.g.<br>顾客购买记录的数据库D，包含6个事务。项集I={网球拍,网球,运动鞋,羽毛球}。考虑关联规则：网球拍网球，事务1,2,3,4,6包含网球拍，事务1,2,6同时包含网球拍和网球，支持度，置信度。若给定最小支持度，最小置信度，关联规则网球拍网球是有趣的，认为购买网球拍和购买网球之间存在强关联。</li>
-</ul>
-</li>
-<li><p>算法步骤</p>
-<p>Apriori算法过程分为两个步骤：</p>
-<ul>
-<li>第一步通过迭代，检索出事务数据库中的所有频繁项集，即支持度不低于用户设定的阈值的项集；</li>
-<li>第二步利用频繁项集构造出满足用户最小信任度的规则。</li>
-</ul>
-<p>具体做法就是：</p>
-<p>首先找出频繁1-项集，记为L1；然后利用L1来产生候选项集C2，对C2中的项进行判定挖掘出L2，即频繁2-项集；不断如此循环下去直到无法发现更多的频繁k-项集为止。每挖掘一层Lk就需要扫描整个数据库一遍。算法利用了一个性质：</p>
-<p>Apriori 性质：任一频繁项集的所有非空子集也必须是频繁的。意思就是说，生成一个k-itemset的候选项时，如果这个候选项有子集不在(k-1)-itemset(已经确定是frequent的)中时，那么这个候选项就不用拿去和支持度判断了，直接删除。具体而言：</p>
-<ul>
-<li><p>连接步:<br>为找出Lk（所有的频繁k项集的集合），通过将Lk-1（所有的频繁k-1项集的集合）与自身连接产生候选k项集的集合。候选集合记作Ck。设l1和l2是Lk-1中的成员。记li[j]表示li中的第j项。假设Apriori算法对事务或项集中的项按字典次序排序，即对于（k-1）项集li，li[1]&lt;li[2]&lt;……….&lt;li[k-1]。将Lk-1与自身连接，如果(l1[1]=l2[1])&amp;&amp;( l1[2]=l2[2])&amp;&amp;……..&amp;&amp; (l1[k-2]=l2[k-2])&amp;&amp;(l1[k-1]&lt;l2[k-1])，(这里的作用是为了保证不产生重复的k项集)，那认为l1和l2是可连接。连接l1和l2 产生的结果是{l1[1],l1[2],……,l1[k-1],l2[k-1]}。</p>
-</li>
-<li><p>剪枝步:<br>CK是LK的超集，也就是说，CK的成员可能是也可能不是频繁的。通过扫描所有的事务（交易），确定CK中每个候选的计数，判断是否小于最小支持度计数，如果不是，则认为该候选是频繁的。为了压缩Ck,可以利用Apriori性质：任一频繁项集的所有非空子集也必须是频繁的，反之，如果某个候选的非空子集不是频繁的，那么该候选肯定不是频繁的，从而可以将其从CK中删除。</p>
+            <ul>
+<li><p>时间复杂度：<br>bigO bigΩ bigθ</p>
+<p>分别为上、下、中</p>
 </li>
 </ul>
-</li>
-<li><p>e.g.</p>
-<p><a href="https://blog.csdn.net/u011067360/article/details/24810415" target="_blank" rel="noopener">例子</a></p>
-</li>
-</ol>
 
           
         
@@ -864,7 +1443,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/14/knn/">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/11/19/7月24日/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Hero">
@@ -883,7 +1462,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/14/knn/" itemprop="url">KNN</a></h1>
+                <a class="post-title-link" href="/2019/11/19/7月24日/" itemprop="url">Untitled</a></h1>
         
 
         <div class="post-meta">
@@ -895,8 +1474,348 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-14T15:03:48+08:00">
-                2019-03-14
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-19T10:23:10+08:00">
+                2019-11-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="与滴滴金融的会议"><a href="#与滴滴金融的会议" class="headerlink" title="与滴滴金融的会议"></a>与滴滴金融的会议</h2><h3 id="乘客行为分在分析身份特征／平台贡献度／行为健康度／平台忠诚度这几个维度时，有没有涉及到POI特征数据？讨论POI数据缺失的可能替换方案。"><a href="#乘客行为分在分析身份特征／平台贡献度／行为健康度／平台忠诚度这几个维度时，有没有涉及到POI特征数据？讨论POI数据缺失的可能替换方案。" class="headerlink" title="乘客行为分在分析身份特征／平台贡献度／行为健康度／平台忠诚度这几个维度时，有没有涉及到POI特征数据？讨论POI数据缺失的可能替换方案。"></a>乘客行为分在分析身份特征／平台贡献度／行为健康度／平台忠诚度这几个维度时，有没有涉及到POI特征数据？讨论POI数据缺失的可能替换方案。</h3><p>当前有几类方案。</p>
+<h3 id="金融视角，产品形态是车辆抵押贷款，需要聚焦在平台内有车乘客和橘子司机，我们需要重点围绕稳定性、收入、反欺诈、行为类四大类进行分析，具体情况开会介绍。"><a href="#金融视角，产品形态是车辆抵押贷款，需要聚焦在平台内有车乘客和橘子司机，我们需要重点围绕稳定性、收入、反欺诈、行为类四大类进行分析，具体情况开会介绍。" class="headerlink" title="金融视角，产品形态是车辆抵押贷款，需要聚焦在平台内有车乘客和橘子司机，我们需要重点围绕稳定性、收入、反欺诈、行为类四大类进行分析，具体情况开会介绍。"></a>金融视角，产品形态是车辆抵押贷款，需要聚焦在平台内有车乘客和橘子司机，我们需要重点围绕稳定性、收入、反欺诈、行为类四大类进行分析，具体情况开会介绍。</h3><ul>
+<li><p>通过出行平台数据判断乘客稳定性时，乘客行为分需要加入哪些特征。</p>
+<p>稳定性：</p>
+</li>
+</ul>
+<p><img src="https://pic1.zhimg.com/80/v2-fea6a1111cb1274ca3368fad8d2e7a88_hd.jpg" alt="img"></p>
+<ul>
+<li>收入（消费水平）：平台价值维度。</li>
+</ul>
+<p><img src="https://pic4.zhimg.com/80/v2-88541a4212c7678e589df5badace3a07_hd.jpg" alt="img"></p>
+<ul>
+<li><p>反欺诈&amp;行为：</p>
+<p>| 维度     | 子维度             | 因子                                         | 行为好坏                            | 备注 |<br>| ——– | —————— | ——————————————– | ———————————– | —- |<br>| 履约能力 | 历史借贷及履约表现 | 1.最近7天逾期支付率                          | 好：连续n单按时支付（3，5，10，20） |      |<br>|          |                    | 2.最近30天逾期支付率                         | 坏：7天内支付率                     |      |<br>|          |                    | 3.30天以上逾期支付率                         |                                     |      |<br>|          | 行为规范           | 1.平台作弊行为及表现（刷单，历史封禁）；     |                                     |      |<br>|          | 身份属性           | 1.实名认证？2.是否有司机账号                 |                                     |      |<br>|          | 发单习惯           | 平台发单行为（活跃度，发单习惯，收入稳定性） |                                     |      |<br>|          |                    |                                              |                                     |      |<br>|          |                    |                                              |                                     |      |<br>|          |                    |                                              |                                     |      |</p>
+</li>
+</ul>
+<h3 id="乘客行为分在滴滴金融车抵贷产品形态下，数据风控层面的应用，从特征提取，数据建模，到输出决策。"><a href="#乘客行为分在滴滴金融车抵贷产品形态下，数据风控层面的应用，从特征提取，数据建模，到输出决策。" class="headerlink" title="乘客行为分在滴滴金融车抵贷产品形态下，数据风控层面的应用，从特征提取，数据建模，到输出决策。"></a>乘客行为分在滴滴金融车抵贷产品形态下，数据风控层面的应用，从特征提取，数据建模，到输出决策。</h3><h3 id="会议记录"><a href="#会议记录" class="headerlink" title="会议记录"></a>会议记录</h3><h4 id="进度"><a href="#进度" class="headerlink" title="进度"></a>进度</h4><h5 id="金融"><a href="#金融" class="headerlink" title="金融"></a>金融</h5><pre><code>- 以大数据风控作为下半年发展方向。
+- 识别乘客的信用风险、需求，数据不是金融的，判断一个人是否有还贷意向。一部分是乘客，一部分是司机，并不是活跃用户，那如何判断他们还贷的概率需要数据。
+</code></pre><ul>
+<li>信用分的场景与典押有点类似，探讨可以协同的地方。</li>
+</ul>
+<h4 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h4><ul>
+<li><p>不活跃的用户如何区分：80-20定律，大部分用户数据量很少；解决方法：提高数据丰度</p>
+</li>
+<li><p>如何区分是否虚假/恶意投诉：投诉率、进线率太高，人工进行审核</p>
+</li>
+</ul>
+<h4 id="交叉验证"><a href="#交叉验证" class="headerlink" title="交叉验证"></a>交叉验证</h4><ul>
+<li>平台有车乘客规模，乘客是否有房、是否有车的标签</li>
+</ul>
+<h4 id="介绍四方面的特征"><a href="#介绍四方面的特征" class="headerlink" title="介绍四方面的特征"></a>介绍四方面的特征</h4><ol>
+<li><p>稳定性</p>
+<p>异地高频生活、POI特征、统计类数据</p>
+</li>
+<li><p>反欺诈</p>
+<p>是否高危职业客户</p>
+</li>
+<li><p>收入</p>
+<p>车辆持有满3个月，固定收入预估区间，名下车产信息是否一致…</p>
+</li>
+<li><p>行为</p>
+<p>近期生活轨迹重大变故、喜好预测…</p>
+</li>
+</ol>
+<h4 id="介绍行为分"><a href="#介绍行为分" class="headerlink" title="介绍行为分"></a>介绍行为分</h4><p>初始化、权重计算、影响因子、增量更新</p>
+<p>行为健康度介绍</p>
+<p>用于免押的应用场景</p>
+<h4 id="芝麻分"><a href="#芝麻分" class="headerlink" title="芝麻分"></a>芝麻分</h4><h2 id="待办"><a href="#待办" class="headerlink" title="待办"></a>待办</h2><p>排序之前的问题</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/11/19/7月23日/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hero">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hero's notebooks">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/19/7月23日/" itemprop="url">Untitled</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-19T10:23:10+08:00">
+                2019-11-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>##吴文栋邮件</p>
+<h3 id="先问能不能？再问如何？“滴滴如何树立自己在出行方面的权威形象？”滴滴虽然是一家平台，但只提供撮合交易的价值，是司机／乘客之外的第三方，但不一定能满足权威性要求。"><a href="#先问能不能？再问如何？“滴滴如何树立自己在出行方面的权威形象？”滴滴虽然是一家平台，但只提供撮合交易的价值，是司机／乘客之外的第三方，但不一定能满足权威性要求。" class="headerlink" title="先问能不能？再问如何？“滴滴如何树立自己在出行方面的权威形象？”滴滴虽然是一家平台，但只提供撮合交易的价值，是司机／乘客之外的第三方，但不一定能满足权威性要求。"></a>先问能不能？再问如何？“滴滴如何树立自己在出行方面的权威形象？”滴滴虽然是一家平台，但只提供撮合交易的价值，是司机／乘客之外的第三方，但不一定能满足权威性要求。</h3><ul>
+<li>提供了平台，就得对平台进行管控，矛盾不可避免，而出现司乘之间无法自行调和的矛盾，则只能靠平台进行决断，因此这个权威性必须树立。要做的应该是尽量减少矛盾的出现，但矛盾一旦出现，要有足够的权威给予适当的调节手段。</li>
+<li>减少矛盾：淘宝也是第三方平台，参考淘宝，是否可以有乘客自主选单的功能，设置距离优先、服务优先、车辆类型优先等，然后再按此派单，并在出现距离较远等情况时提醒用户是否确定发单，来减少取消订单的情况。</li>
+<li>管控：司乘之间的协商，检测到绕路、高度收费时提醒司乘，并在客户端提示乘客做选择。</li>
+<li>坏账能不能接入政府或其他的信用评分，以此增大乘客毁约的成本。</li>
+</ul>
+<h3 id="民不究官不治，与上同理，第三方平台，只有司乘出现自身无法调和的矛盾时才发挥作用。"><a href="#民不究官不治，与上同理，第三方平台，只有司乘出现自身无法调和的矛盾时才发挥作用。" class="headerlink" title="民不究官不治，与上同理，第三方平台，只有司乘出现自身无法调和的矛盾时才发挥作用。"></a>民不究官不治，与上同理，第三方平台，只有司乘出现自身无法调和的矛盾时才发挥作用。</h3><h2 id="网约车"><a href="#网约车" class="headerlink" title="网约车"></a>网约车</h2><h3 id="乘客信用分需要透传的底层数据必须要实锤，可用卷宗数据-也存在非实锤的问题-所有使用客服的数据的业务都存在这个问题，相信这个问题终会解决-卷宗？"><a href="#乘客信用分需要透传的底层数据必须要实锤，可用卷宗数据-也存在非实锤的问题-所有使用客服的数据的业务都存在这个问题，相信这个问题终会解决-卷宗？" class="headerlink" title="乘客信用分需要透传的底层数据必须要实锤，可用卷宗数据(也存在非实锤的问题, 所有使用客服的数据的业务都存在这个问题，相信这个问题终会解决);卷宗？"></a>乘客信用分需要透传的底层数据必须要实锤，可用卷宗数据(也存在非实锤的问题, 所有使用客服的数据的业务都存在这个问题，相信这个问题终会解决);卷宗？</h3><ul>
+<li>乘客信用很重要，是我们的抓手之一，但是好像跟我们的业务关系不太大，希望定制化分数; 信用是历史的表现行为的累计，用历史的行为来判责判罚当次发生的问题，持谨慎态度”</li>
+<li>那如何解决呢？对判责仅提供参考，主要还是用来例如降低押金或免押金，或恶意乘客识别（说明历史上有多次恶意或不好的行为）</li>
+<li>理想中是有很多作用，具体实施要考虑到业务（足够的依据）、用户的…等</li>
+<li>目前定位是分层管控，但是管控却没有足够的依据。判责的标准不好改变，是否可以考虑多次不好的行为后实施惩罚或者账号的某些动作限制？例如信用分太低限制在发单几分钟之后取消订单？ </li>
+</ul>
+<h3 id="一期信用分的目的是对乘客去尾，尾部乘客可以分成两部分，其中一部分是高频小问题的乘客。"><a href="#一期信用分的目的是对乘客去尾，尾部乘客可以分成两部分，其中一部分是高频小问题的乘客。" class="headerlink" title="一期信用分的目的是对乘客去尾，尾部乘客可以分成两部分，其中一部分是高频小问题的乘客。"></a>一期信用分的目的是对乘客去尾，尾部乘客可以分成两部分，其中一部分是高频小问题的乘客。</h3><ul>
+<li>因为客服不会对服务类投诉判责(比如抽烟、醉酒、超载等)所以无实锤证据，由于我们的实锤机制，我们无法对这类行为做扣分处理，这就会导致高频小问题的乘客不会被我们管控。不做管控，但间接提醒，例如既然同类问题高频出现，那认为此人确实有此类问题的置信度比较高，因此可以考虑发送短信提醒（如果在提醒中加上，如若再犯会影响平台对你之后行为的判责以及打车发单的优先级，这样之后再应用行为分做管控的时候合理吗？或者不做判责）</li>
+</ul>
+<h3 id="方案细节"><a href="#方案细节" class="headerlink" title="方案细节"></a>方案细节</h3><h4 id="特征"><a href="#特征" class="headerlink" title="特征"></a>特征</h4><ul>
+<li>分5个等级评价，但是大部分人是默认好评，直接混入好评差评率作为特征会引入噪声吧，是否可以考虑标记默认好评数，再排除默认好评求取差评率好评率。</li>
+<li>很多行为，例如抽烟、吃东西、喝酒等，并不是每位司机都会在平台上报备，这样的话直接拿这些行为用作特征，这个合理吗？因为这虽然是现实数据，但其实并不是实际中的真实分布（有人抽烟，但平台记录为无），所以此类行为加入到模型中怎样应用呢？</li>
+<li>以投诉或差评为label，如果是恶意投诉或恶意差评呢？怎样去躁？或者提示模型的鲁棒性？这个用起来应该更长久一点。</li>
+<li>性骚扰、盗窃、抢劫，这些极端恶劣性行为不一定有石锤，考虑直接客服介入？</li>
+</ul>
+<h4 id="Label"><a href="#Label" class="headerlink" title="Label"></a>Label</h4><ul>
+<li>一次坏行为，一月坏行为率，行为*权重。这是用于评分卡模型的。有没有其他模型呢？更多的模型就能考虑更多要素。</li>
+<li>所有新用户有一个基本分，后续增量变化，以此生成信用分，但是这个现实吗？早期数据够不够？</li>
+</ul>
+<h4 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h4><ul>
+<li>信用分增量更新的具体考量。高分速率放缓、加减分权重…</li>
+<li>相当于异常检测，所以直接做统计检验来产生概率是否可以作为一个模型</li>
+</ul>
+<h2 id="信用分调研2019"><a href="#信用分调研2019" class="headerlink" title="信用分调研2019"></a>信用分调研2019</h2><h3 id="项目推进节奏"><a href="#项目推进节奏" class="headerlink" title="项目推进节奏"></a>项目推进节奏</h3><ul>
+<li><p>乘客行为分 推动 乘客露出 比较难，水下则会容易得多。出现这种情况的原因主要在于，乘客行为分本质需要乘客完成隐私授权，作为对等交换，应当通过提供权益的方式达成这一目的。之前推动乘客侧的露出，主要是希望达成管控目标，这和乘客的期待有本质的冲突。</p>
+<p>就是说向乘客露出了行为分那就得给乘客提供相应权益（乘客付出了隐私；乘客对信用分没有需求，所以用其他手段刺激需求），免押？打折/优惠券？满级奖励？接入芝麻分/信用评级？</p>
+</li>
+</ul>
+<h3 id="评估指标"><a href="#评估指标" class="headerlink" title="评估指标"></a>评估指标</h3><h2 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h2><ul>
+<li><p><strong>评分卡模型</strong></p>
+<p><em>F: 未来一段时间内是否出现恶劣行为 是很好的建模目标么？如何评估一个建模目标的好坏？</em></p>
+<p>A: </p>
+<ul>
+<li>评分卡模型本质是一个二分类，因此离线指标为分类模型可用的指标：AUC/Recall/Precision/F1/Accuracy…</li>
+<li>模型生成的分数在线上评估时有两个维度，区分度评估：K-S, GINI（还有其他的吗？树模型里面选择特征以及分裂点的指标例如信息增益、信息增益比等本质也是衡量区分度的，应该改改可以用吧）；稳定度评估：中位数</li>
+<li>业务当中，为评价此指标的引入创造的价值还应该有业务指标的评价：坏账率、注册完单率、CPO、司机&amp;乘客NPS、GMV…（多个维度）<strong>业务上的评价应该是根本性的评价</strong></li>
+</ul>
+</li>
+<li><p>信用分是历史行为的积累，但是用历史的行为来判责当次发生的问题显得依据不够，因此在内部推行的时候也遇到了不少困难，是否可以考虑对判责仅提供参考，但可以应用于例如降低押金、免押金、或恶意乘客识别（说明历史上有多次恶意行为）</p>
+<p><em>F: “仅提供参考”是高价值／高优先级 的目标么？如果不是，哪些是高价值／高优先级 的目标。</em></p>
+<p>A: 既然是只提供参考，那就不是高价值 / 高优先级的目标，高价值 / 高优先级的目标：履约能力（免押金、免预付，减少坏账）；减少取消率；提高司机NPS。BTW: 既然是在判责的时候用历史行为显得依据不够，那能不能把信用分应用于一个单子生命后期的更早期呢，例如预防坏账、预防取消、增强司机的体验…。</p>
+</li>
+<li><p>目前信用分对内部的定位是分层管控，但是管控却没有足够的依据，那是否可以考虑多次恶意行为后实施惩罚或者账号的某些动作限制，例如信用分太低则适当限制在发单之后取消订单等操作。 </p>
+<p><em>F: 信用分的定位</em></p>
+<p>A: </p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/07/03/RF、GBDT、XGBoost/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hero">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hero's notebooks">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/03/RF、GBDT、XGBoost/" itemprop="url">RF & GBDT & XGBoost面试题目</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-03T08:52:13+08:00">
+                2019-07-03
               </time>
             
 
@@ -957,22 +1876,149 @@
       
         
           
-            <ol>
-<li><p>算法步骤</p>
+            <h1 id="RF与GBDT之间的区别"><a href="#RF与GBDT之间的区别" class="headerlink" title="RF与GBDT之间的区别"></a>RF与GBDT之间的区别</h1><h2 id="相同点"><a href="#相同点" class="headerlink" title="相同点"></a>相同点</h2><ul>
+<li>都是由多棵树组成</li>
+<li>最终的结果都是由多棵树一起决定</li>
+</ul>
+<h2 id="不同点"><a href="#不同点" class="headerlink" title="不同点"></a>不同点</h2><ul>
+<li>组成随机森林的树可以分类树也可以是回归树，而GBDT只由回归树组成</li>
+<li>组成随机森林的树可以并行生成，而GBDT是串行生成</li>
+<li>随机森林的结果是多数表决表决的，而GBDT则是多棵树累加之和</li>
+<li>随机森林对异常值不敏感，而GBDT对异常值比较敏感</li>
+<li>随机森林是通过减少模型的方差来提高性能，而GBDT是减少模型的偏差来提高性能的</li>
+<li>随机森林不需要进行数据预处理，即特征归一化。而GBDT则需要进行特征归一化</li>
+</ul>
+<h3 id="分类树和回归树的区别"><a href="#分类树和回归树的区别" class="headerlink" title="分类树和回归树的区别"></a>分类树和回归树的区别</h3><ul>
+<li>回归树和分类树的区别在于样本输出，如果样本输出是离散值，那么这是一颗分类树。如果果样本输出是连续值，那么那么这是一颗回归树。</li>
+<li>分类树使用信息增益或增益比率来划分节点；每个节点样本的类别情况投票决定测试样本的类别。</li>
+<li>回归树使用最小化均方差划分节点；每个节点样本的均值作为测试样本的回归预测值</li>
+</ul>
+<h1 id="Xgboost和GBDT的区别"><a href="#Xgboost和GBDT的区别" class="headerlink" title="Xgboost和GBDT的区别"></a>Xgboost和GBDT的区别</h1><ul>
+<li>传统GBDT以CART作为基分类器，xgboost还支持线性分类器，这个时候xgboost相当于带L1和L2正则化项的逻辑斯蒂回归（分类问题）或者线性回归（回归问题）。</li>
+<li>节点分裂的方式不同，gbdt是用的gini系数，xgboost是经过优化推导后的。</li>
+<li>Xgboost在代价函数里加入了正则项，用于控制模型的复杂度，降低了过拟合的可能性。正则项里包含了树的叶子节点个数、每个叶子节点上输出的score的L2模的平方和。</li>
+<li>shrinkage（缩减），相当于学习速率（XGBoost中的eta）。XGBoost在进行完一次迭代时，会将叶子节点的权值乘上该系数，主要是为了削弱每棵树的影响，让后面有更大的学习空间。（GBDT也有学习速率）</li>
+<li>列采样</li>
+<li><p>传统GBDT在优化时只用到一阶导数信息，xgboost则对代价函数进行了二阶泰勒展开，同时用到了一阶和二阶导数。</p>
 <ul>
-<li>给定已经分好类的训练集</li>
-<li>对给定的测试数据，计算其与训练集中每一个样本的距离</li>
-<li>取距离最小的前K个，按多数表决的方法决定属于哪一类</li>
+<li>为什么xgboost要用泰勒展开，优势在哪里？xgboost使用了一阶和二阶偏导, 二阶导数有利于梯度下降的更快更准. 使用泰勒展开取得函数做自变量的二阶导数形式, 可以在不选定损失函数具体形式的情况下, 仅仅依靠输入数据的值就可以进行叶子分裂优化计算, 本质上也就把损失函数的选取和模型算法优化/参数选择分开了. 这种去耦合增加了xgboost的适用性, 使得它按需选取损失函数, 可以用于分类, 也可以用于回归。</li>
 </ul>
 </li>
-<li><p>注意事项</p>
-<ul>
-<li>数据要fair</li>
-<li>可以通过对距离近的样本点加更大的权重优化</li>
-<li>计算量较大</li>
+<li><p>Xgboost工具支持并行。boosting不是一种串行的结构吗?怎么并行的？注意xgboost的并行<strong>不是tree粒度的并行</strong>，xgboost也是一次迭代完才能进行下一次迭代的（第t次迭代的代价函数里包含了前面t-1次迭代的预测值）。<strong>xgboost的并行是在特征粒度上的</strong>。我们知道，决策树的学习最耗时的一个步骤就是对特征的值进行排序（因为要确定最佳分割点），xgboost在训练之前，<strong>预先对数据进行了排序</strong>，然后保存为block结构，后面的迭代中重复地使用这个结构，大大减小计算量。这个block结构也使得并行成为了可能，在进行节点的分裂时，需要计算每个特征的增益，最终选增益最大的那个特征去做分裂，那么各个特征的增益计算就可以开多线程进行</p>
+</li>
+</ul>
+<h2 id="N问GBDT"><a href="#N问GBDT" class="headerlink" title="N问GBDT"></a>N问GBDT</h2><ul>
+<li>GBDT的核心就在于，每一棵树学的是之前所有树结论和的残差，这个残差就是一个加预测值后能得真实值的累加量</li>
+<li>怎样设置单棵树的停止生长条件？<ul>
+<li>A. 节点分裂时的最小样本数</li>
+<li>B. 最大深度</li>
+<li>C. 最多叶子节点数</li>
+<li>D. loss满足约束条件</li>
 </ul>
 </li>
-</ol>
+<li>如何评估特征的权重大小？<ul>
+<li>A. 通过计算每个特征在训练集下的信息增益，最后计算每个特征信息增益与所有特征信息增益之和的比例为权重值。</li>
+<li>B. 借鉴投票机制。用相同的gbdt参数对w每个特征训练出一个模型，然后在该模型下计算每个特征正确分类的个数，最后计算每个特征正确分类的个数与所有正确分类个数之和的比例为权重值。</li>
+</ul>
+</li>
+<li>当增加样本数量时，训练时长是线性增加吗？<ul>
+<li>不是。因为生成单棵决策树时，损失函数极小值与样本数量N不是线性相关</li>
+</ul>
+</li>
+<li>当增加树的棵数时，训练时长是线性增加吗？<ul>
+<li>不是。因为每棵树的生成的时间复杂度不一样。</li>
+</ul>
+</li>
+<li>当增加一个棵树叶子节点数目时，训练时长是线性增加吗？<ul>
+<li>不是。叶子节点数和每棵树的生成的时间复杂度不成正比。</li>
+</ul>
+</li>
+<li>每个节点上都保存什么信息？<ul>
+<li>中间节点保存某个特征的分割值，叶结点保存预测是某个类别的概率。</li>
+</ul>
+</li>
+<li>如何防止过拟合？<ul>
+<li>a. 增加样本（data bias or small data的缘故），移除噪声。</li>
+<li>b. 减少特征，保留重要的特征（可以用PCA等对特征进行降维）。</li>
+<li>c. 对样本进行采样（类似bagging）。就是建树的时候，不是把所有的样本都作为输入，而是选择一个子集。</li>
+<li>d. 对特征进行采样。类似样本采样一样, 每次建树的时候，只对部分的特征进行切分。</li>
+</ul>
+</li>
+<li>gbdt在训练和预测的时候都用到了步长，这两个步长一样么？都有什么用，如果不一样，为什么？怎么设步长的大小？（太小？太大？）在预测时，设太大对排序结果有什么影响？跟shrinking里面的步长一样么这两个步长一样么？<ul>
+<li>训练跟预测时，两个步长是一样的，也就是预测时的步长为训练时的步长，从训练的过程可以得知（更新当前迭代模型的时候）。</li>
+<li>都有什么用，如果不一样，为什么？答：它的作用就是使得每次更新模型的时候，使得loss能够平稳地沿着负梯度的方向下降，不至于发生震荡。</li>
+<li>那么怎么设步长的大小?<ul>
+<li>有两种方法，一种就是按策略来决定步长，另一种就是在训练模型的同时，学习步长。</li>
+<li>策略：a.每个树步长恒定且相等，一般设较小的值；b.开始的时候给步长设一个较小值，随着迭代次数动态改变，或者说衰减。</li>
+<li>学习：因为在训练第k棵树的时候，前k-1棵树时已知的，而且求梯度的时候是利用前k-1棵树来获得。所以这个时候，就可以把步长当作一个变量来学习。</li>
+</ul>
+</li>
+<li>（太小？太大？）在预测时，对排序结果有什么影响？<ul>
+<li>如果步长过大，在训练的时候容易发生震荡，使得模型学不好，或者完全没有学好，从而导致模型精度不好。</li>
+<li>而步长过小，导致训练时间过长，即迭代次数较大，从而生成较多的树，使得模型变得复杂，容易造成过拟合以及增加计算量。</li>
+</ul>
+</li>
+<li>跟shrinking里面的步长一样么？<ul>
+<li>这里的步长跟shrinking里面的步长是一致的。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>boosting的本意是是什么？跟bagging，random forest，adaboost，gradient boosting有什么区别？<ul>
+<li>Bagging<ul>
+<li>放回抽样，多数表决（分类）或简单平均（回归）</li>
+<li>可以看成是一种圆桌会议，或是投票选举的形式。通过训练多个模型，将这些训练好的模型进行加权组合来获得最终的输出结果(分类/回归)，一般这类方法的效果，都会好于单个模型的效果。在实践中，在特征一定的情况下，大家总是使用Bagging的思想去提升效果。例如kaggle上的问题解决，因为大家获得的数据都是一样的，特别是有些数据已经过预处理。</li>
+<li>基本的思路：训练时，使用replacement的sampling方法，sampling一部分训练数据k次并训练k个模型；预测时，使用k个模型，如果为分类，则让k个模型均进行分类并选择出现次数最多的类（每个类出现的次数占比可以视为置信度）；如为回归，则为各分类器返回的结果的平均值。在该处，Bagging算法可以认为每个分类器的权重都一样由于每次迭代的采样是独立的，所以bagging可以并行。</li>
+</ul>
+</li>
+<li>Random forest<ul>
+<li>随机森林在bagging的基础上做了修改。<ul>
+<li>A. 从样本集散用Boostrap采样选出n个样本，预建立CART</li>
+<li>B. 在树的每个节点上，从所有属性中随机选择k个属性/特征，选择出一个最佳属性/特征作为节点</li>
+<li>C. 重复上述两步m次，i.e.build m棵cart</li>
+<li>D. 这m棵cart形成random forest。</li>
+</ul>
+</li>
+<li>随机森林可以既处理属性是离散的量，比如ID3算法，也可以处理属性为连续值得量，比如C4.5算法。这里的random就是指：<ul>
+<li>A. boostrap中的随机选择样本</li>
+<li>B. random subspace的算法中从属性/特征即中随机选择k个属性/特征，每棵树节点分裂时，从这随机的k个属性/特征，选择最优的。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Boosting:<ul>
+<li>一般Boosting算法都是一个迭代的过程，每一次新的训练都是为了改进上一次的结果。</li>
+<li>boosting的采样或者更改样本的权重依赖于上一次迭代的结果，在迭代层面上是不能并行的。</li>
+<li>boosting在选择hyperspace的时候给样本加了一个权值，使得loss function尽量考虑那些分错类的样本（如分错类的样本weight大）。怎么做的呢？<ul>
+<li>boosting重采样的不是样本，而是样本的分布，对于分类正确的样本权值低，分类错误的样本权值高(通常是边界附近的样本)，最后的分类器是很多弱分类器的线性叠加(加权组合)。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Adaboosting<ul>
+<li>对一份数据，建立M个模型(比如分类)，而一般这种模型比较简单，称为弱分类器(weak learner)。每次分类都将上一次分错的数据权重提高一点，对分对的数据权重降低一点，再进行分类。这样最终得到的分类器在测试数据与训练数据上都可以得到比较好的效果。</li>
+<li>每次迭代的样本是一样的，即没有采样过程，不同的是不同的样本权重不一样。(当然也可以对样本/特征进行采样，这个不是adaboosting的原意)。</li>
+<li>另外，每个分类器的步长由在训练该分类器时的误差来生成。</li>
+</ul>
+</li>
+<li>Gradient boosting<ul>
+<li>每一次的计算是为了减少上一次的残差(residual)，而为了消除残差，我们可以在残差减少的梯度 (Gradient)方向上建立一个新的模型。所以说在Gradient Boost中，每个新模型是为了使之前模型的残差往梯度方向减少，与传统Boost对正确，错误的样本进行加权有着很大的区别。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>gbdt中哪些部分可以并行？<ul>
+<li>A. 计算每个样本的负梯度</li>
+<li>B. 分裂挑选最佳特征及其分割点时，对特征计算相应的误差及均值时</li>
+<li>C. 更新每个样本的负梯度时</li>
+<li>D. 最后预测过程中，每个样本将之前的所有树的结果累加的时候</li>
+</ul>
+</li>
+<li>树生长成畸形树，会带来哪些危害，如何预防？<ul>
+<li>在生成树的过程中，加入树不平衡的约束条件。这种约束条件可以是用户自定义的。例如对样本集中分到某个节点，而另一个节点的样本很少的情况进行惩罚。</li>
+</ul>
+</li>
+</ul>
 
           
         
@@ -1021,7 +2067,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/14/ROC  AUC/">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/07/02/树的遍历/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Hero">
@@ -1040,7 +2086,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/03/14/ROC  AUC/" itemprop="url">ROC AUC, Accuracy, Recall, F1</a></h1>
+                <a class="post-title-link" href="/2019/07/02/树的遍历/" itemprop="url">ROC AUC, Accuracy, Recall, F1</a></h1>
         
 
         <div class="post-meta">
@@ -1052,8 +2098,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-14T09:54:35+08:00">
-                2019-03-14
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-02T22:03:38+08:00">
+                2019-07-02
               </time>
             
 
@@ -1114,1002 +2160,13 @@
       
         
           
-            <p>类不平衡（class imbalance）现象：即负样本比正样本多很多（或者相反）</p>
-<ol>
-<li>ACCURACY/RECALL/F1</li>
-</ol>
-<ul>
-<li><p>Accuracy：TP/(TP+TN) 即预测对的数据个数与总数据个数的比</p>
-<p>  <strong><em>A和R的问题在于如果样本不平衡，则参考意义很小</em></strong></p>
-</li>
-<li><p>准确率（Precision）：P=TP/(TP+FP)。通俗地讲，就是预测正确的正例数据占预测为正例数据的比例。</p>
-<p>  <strong>针对判别结果 查准率</strong></p>
-</li>
-<li><p>召回率（Recall）：R=TP/(TP+FN)。通俗地讲，就是预测为正例的数据占实际为正例数据的比例。</p>
-<p>  <strong>针对样本 查全率</strong></p>
-</li>
-<li>F1 = 2*P*R/(P+R)：既有P又有R</li>
-<li><p>PRC， precision recall curve，与下面的ROC一样，先看是否光滑，光滑的话说明过拟合不大。越往右上越好。</p>
-<p>  <strong><em>A和R的问题在于如果样本不平衡，则参考意义很小</em></strong></p>
-</li>
+            <ul>
+<li>树的遍历，分深度优先：前序，中序，后序；广度优先：层次遍历。</li>
+<li>前序：根、左、右</li>
+<li>中序：左、根、右</li>
+<li>后序：左、右、根</li>
 </ul>
-<ol start="2">
-<li>ROC AUC（receiver operating characteristic curve）</li>
-</ol>
-<p>TPR=TP/(TP+FN)=TP/actual positives 也就是Recall<br>FPR=FP/(FP+TN)=FP/actual negatives<br>ROC是由点（TPR,FPR）组成的曲线，AUC就是ROC的面积。AUC越大越好。</p>
-<ul>
-<li><p>画法：ROC曲线其实是多个混淆矩阵的结果组合，如果在上述模型中我们没有定好阈值，而是将模型预测结果从高到低排序，将每个概率值依次作为阈值，那么就有多个混淆矩阵。对于每个混淆矩阵，我们计算两个指标TPR（True positive rate）和FPR（False positive rate），TPR=TP/(TP+FN)=Recall，TPR就是召回率。FPR=FP/(FP+TN)，FPR即为实际为好人的人中，预测为坏人的人占比。我们以FPR为x轴，TPR为y轴画图，就得到了ROC曲线。</p>
-<p><strong><em>也就是说，ROC曲线的阈值不是多次运行模型得到的，是同一个模型中通过对所得结果按照概率的排序得到了一个threshold</em></strong></p>
-</li>
-<li>原理：<ul>
-<li>在画图描点过程中，每取一个样本，会以此样本被预测为1的概率作为阈值，概率排序在此之上的样本认为是1，之下的样本会被认为是0（解释了ROC为何与样本预测值的排序有关）。</li>
-<li>AUC的值代表了：取真实label为1和为0的两个样本，其中真样本被预测为1的概率大于假样本被预测为1的概率这一事件的概率。假设有M个真样本，N个假样本，M个真样本的预测概率升序排序，其值从大到小分别为rank_1…rank_m,例如6个真4个假，假设真样本概率最高的排序为10，则比它低的假样本有10-6=4个，下一个排序为8，则比它低的假样本有8-(6-1)=3个，此概率为：（rank_1 - m + rank_2 - (m-1) + rank_m - 1）/ M*N</li>
-<li>AUC=0.5时，任意一个样本被判断为真和判断为假的概率相等</li>
-<li>e.g 当threshold取为0.5时：<br><a href="https://cdn-images-1.medium.com/max/1600/1*Uu-t4pOotRQFoyrfqEvIEg.png" target="_blank" rel="noopener">!ex0</a><br>此时AUC=1：<br><a href="https://cdn-images-1.medium.com/max/800/1*HmVIhSKznoW8tFsCLeQjRw.png" target="_blank" rel="noopener">!ex00</a><br>AUC=0.7:<br><a href="https://cdn-images-1.medium.com/max/1600/1*yF8hvKR9eNfqqej2JnVKzg.png" target="_blank" rel="noopener">!</a><br><a href="https://cdn-images-1.medium.com/max/800/1*-tPXUvvNIZDbqXP0qqYNuQ.png" target="_blank" rel="noopener">!</a><br>AUC=0.5:<br><a href="https://cdn-images-1.medium.com/max/1600/1*iLW_BrJZRI0UZSflfMrmZQ.png" target="_blank" rel="noopener">!</a><br><a href="https://cdn-images-1.medium.com/max/800/1*k_MPO2Q9bLNH9k4Wlk6v_g.png" target="_blank" rel="noopener">!</a><br>AUC=0:<br><a href="https://cdn-images-1.medium.com/max/1600/1*aUZ7H-Lw74KSucoLlj1pgw.png" target="_blank" rel="noopener">!</a><br><a href="https://cdn-images-1.medium.com/max/800/1*H7JGQbaa06BUab6tvGNZKg.png" target="_blank" rel="noopener">!</a></li>
-</ul>
-</li>
-<li>一般来说，如果ROC是光滑的，那么基本可以判断没有太大的overfitting。</li>
-<li><p>越往左上越好。</p>
-<p>  所以使用ROC的话，它会先对预测到的结果进行排序，然后再根据排序的结果画图，所以他的曲线形状不会因为数据不平衡而发生大的改变。<br>  <strong>但是当数据极度不平衡时，ROC仍然有问题，下面的PRC表现更好。</strong></p>
-</li>
-</ul>
-<p><a href="https://towardsdatascience.com/understanding-auc-roc-curve-68b2303cc9c5" target="_blank" rel="noopener">参考1</a><br><a href="https://www.zhihu.com/question/39840928" target="_blank" rel="noopener">参考2</a></p>
-<ol>
-<li>PRC， precision recall curve，与上面的ROC一样，先看是否光滑，光滑的话说明过拟合不大。越往右上越好。</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/14/Presentation of WNSP and IS/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Hero">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hero's notebooks">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/14/Presentation of WNSP and IS/" itemprop="url">Presentation of WNSP and IS</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-14T09:54:35+08:00">
-                2019-03-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Learning</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h1><ul>
-<li>Behavioral biomertics is the study of individual patterns(hand-writing, typing, mouse movements).</li>
-<li>最早：二战中的电报员keying pattern</li>
-<li>password hardening(secondary authentication)、password-less logins<ul>
-<li>Banks use typing information as an additional layer of security.</li>
-<li>Google is developing methods to authenticate users on mobile devices without passwords.</li>
-</ul>
-</li>
-<li>human chosen passwords are far from safe -&gt; additional authentication -&gt; explicit methods are usually disruptive to the user -&gt; use behavioral biometrics</li>
-</ul>
-<h1 id="goal-design-a-adversarial-algorithms"><a href="#goal-design-a-adversarial-algorithms" class="headerlink" title="goal: design a adversarial algorithms"></a>goal: design a adversarial algorithms</h1><ul>
-<li>前提：the attacker has access to the user’s password, but needs to overcome a keystroke dynamics based authentication layer</li>
-</ul>
-<h1 id="related-work"><a href="#related-work" class="headerlink" title="related work"></a>related work</h1><h2 id="behavioral-biometrics"><a href="#behavioral-biometrics" class="headerlink" title="behavioral biometrics"></a>behavioral biometrics</h2><blockquote>
-<p>hand-writing, typing, mouse movements, touchscreen swipes, gait analysis</p>
-</blockquote>
-<h1 id="Experiments"><a href="#Experiments" class="headerlink" title="Experiments"></a>Experiments</h1><h2 id="Experimental-Setup"><a href="#Experimental-Setup" class="headerlink" title="Experimental Setup"></a>Experimental Setup</h2><h3 id="Protocols"><a href="#Protocols" class="headerlink" title="Protocols"></a>Protocols</h3><p><em>for collecting new data, and selecting new samples for training and testing</em></p>
-<ol>
-<li><p>collectign MTurk dataset</p>
-<ul>
-<li>pre-processing: drop any malformed samples(due to a combination of reasons that include: different behavior of browsers, differences in internet speed, or other noise as the subjects took the study simultaneously)</li>
-<li>describe the protocol for selecting samples for training and testing, and creating adversarial samples across all datasets.</li>
-<li></li>
-</ul>
-<p>生物行为学有两种分类器：一类分类器和两类分类器。前者只用正确样本，后者还会用到假样本。一般用一类分类器：1. because it is very impractical to expect negative samples for an arbitrary password.2. both the two class classifiers, and one class classifiers appear to give similar EER scores</p>
-</li>
-<li><p>Genuine User Samples真实样本<br>use the first half of the samples for training, the second half of the samples for testing</p>
-</li>
-<li>imposter training samples虚假训练样本<br>随机选择，与真实样本同数量</li>
-<li>imposter testing samples虚假测试样本<br>DSN: first four samples of every user besides the genuine user<br>MYurk and touchscreen swipes dataset: randomly sampled the same number of impostor samples as the genuine user’s test samples</li>
-<li>adversary对抗样本<br>The <strong>Targeted K-means++ adversary</strong> used all the samples from the data set excluding the ones from the target user and the ones used for training and testing the user’s classifier. For <strong>the Indiscriminate K-means++ </strong>adversary, we conducted a new MTurk study, as described before, a few months after the original study. We used all the samples from this new study. In Algorithm 2, we set the parameter “SAMPLE-SIZE” to 20000.</li>
-</ol>
-<h3 id="Detection-Algorithms-检测算法"><a href="#Detection-Algorithms-检测算法" class="headerlink" title="Detection Algorithms 检测算法"></a>Detection Algorithms 检测算法</h3><h4 id="One-class-classifiers"><a href="#One-class-classifiers" class="headerlink" title="One class classifiers"></a>One class classifiers</h4><ul>
-<li>Manhattan distance<br>$$ \sum_{i=1}^m\frac{\left|{x_i-y_i}\right|}m $$</li>
-<li>Gaussian高斯<br>training samples are modeled as a Gaussian distribution based on their mean and standard deviation</li>
-<li><p>Gaussian mixture高斯混合模型</p>
-<blockquote>
-<p><a href="https://blog.csdn.net/jinping_shi/article/details/59613054" target="_blank" rel="noopener">https://blog.csdn.net/jinping_shi/article/details/59613054</a> </p>
-</blockquote>
-<blockquote>
-<p>高斯混合模型（Gaussian Mixed Model）指的是多个高斯分布函数的线性组合，理论上GMM可以拟合出任意类型的分布，通常用于解决同一集合下的数据包含多个不同的分布的情况（或者是同一类分布但参数不一样，或者是不同类型的分布，比如正态分布和伯努利分布）。<br>$$ \sum_{k=1}^Kπ_kN\left(x|μ_k,\sum_k\right) $$<br>$$ \sum_{k=1}^Kπ_k=1 $$<br>$$ 0 ≤ Kπ_k ≤ 1 $$<br>即$π_k$相当于每个分量的权重<br>GMM常用于聚类。如果要从 GMM 的分布中随机地取一个点的话，实际上可以分为两步：首先随机地在这 K 个 Component 之中选一个，每个 Component 被选中的概率实际上就是它的系数πkπk \pi_k ，选中 Component 之后，再单独地考虑从这个 Component 的分布中选取一个点就可以了──这里已经回到了普通的 Gaussian 分布，转化为已知的问题。将GMM用于聚类时，假设数据服从混合高斯分布（Mixture Gaussian Distribution），那么只要根据数据推出 GMM 的概率分布来就可以了；然后 GMM 的 K 个 Component 实际上对应KKK个 cluster 。根据数据来推算概率密度通常被称作 density estimation 。</p>
-</blockquote>
-</li>
-<li>one class SVM<br>used the Support Vector Machine(SVM) implementation in sklearn, with radial basis function (RBF) kernel, and kernel parameter 0.9.</li>
-<li>Autoencoder and Contractive Autoencoder自动编码和收缩性自动编码<br>With the advent of deep learning, researchers have started using variants of neural networks in the domain of cybersecurity. One of the key structures used in the past are autoencoders and contractive autoencoders<br>随着深度学习的到来，研究人员开始在网络安全领域使用神经网络的变体。过去使用的关键结构之一是自动编码器和压缩自动编码器</li>
-</ul>
-<h4 id="Two-class-classifiers"><a href="#Two-class-classifiers" class="headerlink" title="Two class classifiers"></a>Two class classifiers</h4><ul>
-<li>Random Forest<br>used a model similar to the one described by Antal et al [4]. Random Forests with 100 trees was their best-performing classifier on the touchscreen swipes dataset. We used the Random Forest implementation in sklearn<br>我们使用了一个类似于Antal et al[4]所描述的模型。随机森林与100棵树是他们在触摸屏滑动数据集上表现最好的分类器。我们在sklearn中使用了Random Forest实现</li>
-<li>Nearest Neighbor<br>Here we classify a test sample based on the majority label among a fixed number of its nearest neighbors in the training set. The neighbours are determined using Euclidean distance. We used the implementation in [32]<br>在测试样本中用最近邻</li>
-<li>Fully Connected Neural Net全连接NN<br>We experimented with multiple variants of multi layer perceptron by using different hyper parameters. The network that performed the best had two hidden layers with 15 neurons each computing scores for genuine and impostor classes. There was no significant improvement in the performance of the network by increasing the number of layers or neurons per layer in the architecture of the neural network.<br>我们使用不同的超参数对多层感知器的多个变体进行了实验。表现最好的网络有两个隐藏层，每个层有15个神经元，计算真实和冒名顶替类的分数。在神经网络体系结构中，每层增加层数或神经元数量，网络性能没有显著改善。</li>
-</ul>
-<h4 id="Monaco’s-Normalization-Technique-标准化"><a href="#Monaco’s-Normalization-Technique-标准化" class="headerlink" title="Monaco’s Normalization Technique 标准化"></a>Monaco’s Normalization Technique 标准化</h4><p>The <strong>key insight of this technique</strong> was that a user’s classifier could normalize future input samples based only on the genuine user’s data given to it at the start. Essentially, this acts like a filtering step - and features that are too far from the mean of the genuine user’s fitting data get filtered out.<br>后续样本基于刚开始给定的真实输入样本来做标准化<br>这个标准化很重要，没这个就无法得出结果we do not even mention our results without this<br>normalization.</p>
-<h2 id="Results"><a href="#Results" class="headerlink" title="Results"></a>Results</h2><h3 id="Equal-error-rate"><a href="#Equal-error-rate" class="headerlink" title="Equal error rate"></a>Equal error rate</h3><table>
-<thead>
-<tr>
-<th>Name of Classifier</th>
-<th>DSN EER</th>
-<th>MTurk EER</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Manhattan</td>
-<td>0.091</td>
-<td>0.097</td>
-</tr>
-<tr>
-<td>SVM</td>
-<td>0.087</td>
-<td>0.097</td>
-</tr>
-<tr>
-<td>Gaussian</td>
-<td>0.121</td>
-<td>0.109</td>
-</tr>
-<tr>
-<td>Gaussian Mixture</td>
-<td>0.137</td>
-<td>0.135</td>
-</tr>
-<tr>
-<td>…</td>
-<td>…</td>
-<td>…</td>
-</tr>
-</tbody>
-</table>
-<hr>
-<p>(具体见表2)</p>
-<p>注：没有标准化的EER都在0.15左右</p>
-<h3 id="Keystroke-Results"><a href="#Keystroke-Results" class="headerlink" title="Keystroke Results"></a>Keystroke Results</h3><p>In this section we discuss the results of testing our adversaries on the DSN and MTurk datasets, which are summarized in Tables III, IV. We conducted the tests independently on each of the five passwords in the MTurk dataset, but for a more compact presentation, we average the results of all passwords. A few interesting highlights based on these results are given below<br>在本节中,我们讨论的结果,测试DSN和MTurk数据集,总结在表III、IV。我们进行独立测试在MTurk数据集中的密码。为了更紧凑的表示,我们把所有的结果平均之后显示出来。</p>
-<h4 id="MasterKey-VS-K-means"><a href="#MasterKey-VS-K-means" class="headerlink" title="MasterKey VS K-means++"></a>MasterKey VS K-means++</h4><p>K-means++ performs better than MasterKey.<br>Figure 2 展示了最好的一类分类器和二类分类器下，Target K-means++和Indiscriminate K-means++以及MasterKey的性能对比<br>Targeted K-means++ seems to essentially <strong>be able<br>to compromise the security of all the users</strong> in the limit.</p>
-<p>Table3展示了K-means++强于asterKey</p>
-<p>本文中用到的样本量更大，选择train sample和test sample的protocol也不一样，但是EER与原文差不多。如图5所示。</p>
-<p>As can be seen by Table V, and Figure 4, the results on this dataset show the same trends as seen in the keystroke dynamics datasets before. The first try which hits the mean of the impostor samples is not very successful here. This is particularly bad for an adversary like MasterKey which stays around the mean of the distribution, and is reflected in the results in Table V. But the K-means++ adversary is quickly able to explore the sample space to find more challenging queries and in 10 tries itself, breaks into a sizeable proportion of the  classifiers as in the keystrokes dataset. And in the limit, essentially all the user’s classifiers are compromised.由表V和图4可以看出，该数据集上的结果显示了与之前击键动力学数据集相同的趋势。第一次尝试就击中了冒名顶替样本的均值，但并不是很成功。这是特别糟糕的敌人像万能钥匙保持周围分布的均值,并反映在结果表诉。但k - means + +对手很快就能够探索样本空间中找到更有挑战性的查询和10次尝试本身,闯进了一相当大的比例的数据集分类器的按键。在极限情况下，基本上所有用户的分类器都被破坏了。</p>
-<h1 id="Conclusion-and-future-work"><a href="#Conclusion-and-future-work" class="headerlink" title="Conclusion and future work"></a>Conclusion and future work</h1><p>Behavioral biometrics is a promising field of research, but it is not a reliable solution for authentication in its current state. <strong>行为生物识别技术是一个很有前途的研究领域，但在目前的状态下，它并不是一个可靠的认证解决方案。</strong>We proposed two adversarial agents that require a different amount of effort from the adversary. <strong>Both attack methods performed clearly better than the previously studied attack methods</strong> in the literature and show that current state of the art classifiers add little protection against such adversaries. In the case of Indiscriminate K-means++, more than its success rate, it is worrying for the keystroke dynamics systems that such an adversary could conduct its attack without any additional cost incurred to collect samples. Past research has focused much more on improving the classifiers against naive adversaries, but this work shows that a lot more research from the adversarialperspective is required before such authentication systems can be adopted in sensitive contexts.<br>The design of our K-means++ adversaries utilizes a <strong>common intuition about human behavior, which is that a person’s behavioral data belongs to a “cluster”, rather than being absolutely unique</strong>. Thus it is natural to expect such techniques to generalize to other types of behavioral data. The results on the touchscreen touchscreen swipes dataset also supports this claim.<br>我们提出了两种敌对代理人，它们需要不同于对手的努力。这两种攻击方法的性能明显优于文献中先前研究的攻击方法，表明当前的艺术分类器对这类敌人的保护很少。在不加区别的K-means++的情况下，对于击键动力学系统来说，这样的对手可以进行攻击而不需要额外的成本来收集样本，这比其成功率更令人担忧。过去的研究更多地关注于改进针对天真的对手的分类器，但这项工作表明，在这种身份验证系统可以在敏感的上下文中采用之前，需要从adversarialperspective的角度进行更多的研究。我们的k -means++敌人的设计利用了一种关于人类行为的共同直觉，即一个人的行为数据属于一个“集群”，而不是绝对独一无二的。因此，很自然地期望这些技术可以推广到其他类型的行为数据。触屏触摸屏上的结果也支持这一说法。<br>Of course, from a practical perspective, it is much harder to simulate an attack on a touchscreen based system, as opposed to a keystroke dynamics system, because of the diversity of the touchscreen features like pressure, finger size and so on. Unlike keystrokes - we can’t just write an easily automated script to carry out such an attack. This implies that a swipes based classifier is more secure for now. But given enough motivation, it is possible that methods could be devised to bypass such limitations. For instance, such attacks could be carried out by feeding false information to the android sensors, or in an extreme example, by building a robotic arm.<br>当然，从实际角度来看，由于触摸屏的压力、手指大小等特性的多样性，模拟攻击基于触摸屏的系统要比模拟击键动力学系统困难得多。与击键不同的是，我们不能仅仅编写一个易于自动化的脚本来执行这样的攻击。这意味着基于滑动的分类器现在更安全。但只要有足够的动力，就有可能设计出绕过这些限制的方法。例如，这种攻击可以通过向android传感器提供虚假信息来实施，或者在一个极端的例子中，通过制造机械手臂来实施。<br>Previous research has relied exclusively on the average Equal Error Rate scores across all subjects to measure the robustness of classifiers. To develop more robust behavioral biometric classifiers, it would be useful to <strong>benchmark against the adversarial agents proposed in this paper instead.</strong> For instance, one class classifiers have been the dominant method researched in the keystroke dynamics literature as they perform as well as the two class classifiers in terms of EER, while the two class classifiers are not practical because one can not expect impostor samples for arbitrary passwords. Yet, against both the adversarial algorithms, the two class classifiers performed clearly better than the one class classifiers. This suggests that a future direction of research would be to bridge the gap between the idealized and practical versions of such two class classifiers as explained in section IV A.<br>以往的研究完全依赖于所有科目的平均等错误率分数来衡量分类器的鲁棒性。为了开发出更健壮的行为生物特征分类器，我们将对本文提出的抗辩剂进行基准测试。例如，在击键力学文献中，一类分类器是主要的研究方法，因为它们的性能和EER的两个类分类器一样好，而这两个类分类器是不实用的，因为人们不能指望冒名顶替者样本来处理任意的密码。然而，与两种对抗性算法相比，这两个类分类器的性能明显优于一个类分类器。这表明，今后的研究方向将是弥补第四节a所解释的这两类分类器的理想化版本和实际版本之间的差距。<br>From the adversarial perspective, one possibility for future work would be to extend these methods to free text based classifiers. Free text classifiers utilize a continuous stream of input text, as opposed to fixed text passwords, in order to classify keystroke patterns. This leads to differences in the features and algorithms that are utilized for these classifiers. But conceptually, the Indiscriminate K-means++ adversary should be well suited to generate adversarial samples against free text classifiers as well.从敌对的角度来看，未来工作的一种可能是将这些方法扩展到基于自由文本的分类器。自由文本分类器使用连续的输入文本流(与固定文本密码相反)来分类击键模式。这导致了这些分类器所使用的特性和算法的差异。但从概念上讲，不加区分的K-means++对手也应该非常适合针对自由文本分类器生成对抗性样本。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/14/python面向对象/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Hero">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hero's notebooks">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/14/python面向对象/" itemprop="url">python面向对象</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-14T09:54:35+08:00">
-                2019-03-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Learning</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="属性命名"><a href="#属性命名" class="headerlink" title="属性命名"></a>属性命名</h3><ul>
-<li>属性以双下划线开头，类内变量，实例无法访问。但可以通过某些方式访问，例如Student例中定义了__name变量，可以用_Student_name来实现访问，但不建议，因为不同的解释器的转化方式不一样。</li>
-<li>单下划线可以打开，但需要注意不能随意更改。</li>
-<li>双下划线结尾与开头，特殊变量，类内可以访问，实例不知。</li>
-<li><h3 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h3>开闭原则：定义一个类Animal及其多个之类Dog/Cat/…，当定义一个函数或操作时：</li>
-</ul>
-<ul>
-<li>对扩展开放：允许新增Animal的子类；</li>
-<li>对修改封闭：不需要修改依赖Animal类型的run_twice()等函数，仍然可以传入Dog/Cat等类。<br>事实上，不需要继承也可以实现多态————鸭子类型。</li>
-</ul>
-<h3 id="若干方法"><a href="#若干方法" class="headerlink" title="若干方法"></a>若干方法</h3><ul>
-<li>isinstance(object,class) 判断是否属于某个类</li>
-<li>dir() 列举出一个对象的属性和方法</li>
-<li>getattr()、setattr()、hasattr()可以获得、添加、查询是否需要某个属性<ul>
-<li>__slots__ 限制可以添加的属性，__slots__ = (‘name’, ‘age’) # 用tuple定义允许绑定的属性名称</li>
-</ul>
-</li>
-<li>装饰器</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/14/Naive Bayes/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Hero">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hero's notebooks">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/14/Naive Bayes/" itemprop="url">Naive Bayes及其sklearn实现</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-14T09:54:35+08:00">
-                2019-03-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Learning</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>P(B|A) = P(A|B)*P(B)/P(A)</p>
-<p>朴素：特征之间相互独立</p>
-<h1 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h1><ol>
-<li>x = {a1, a2, …, am}为待分类项，a是特征。</li>
-<li>类别集合C = {y1, …, yn}.</li>
-<li>计算P(y1|x), P(y2|x) …</li>
-<li>P(yk|x) = max{P(yi|x)}，则x属于yk类</li>
-</ol>
-<p><strong>总结：</strong>某类在待分类项出现的条件下的概率是所有类中最大的，这个分类项就属于这一类。</p>
-<p>e.g.判断一个黑人来自哪个洲，求取每个洲黑人的比率，非洲最高，选非洲。</p>
-<p>其中x = {a1, a2, …, am}，即P(C|a1,a2…) = P(C)*P(a1,a2,…|C)/P(a1,a2…)。posterior = prior * likelihood / evidence, 这里evidence是常数，不影响。</p>
-<p>—–&gt;求解P(C) * P(a1,a2,a3…|C)</p>
-<p>—–&gt;链式法则：P(C) * P(a2,a3…|C, a1) * P(a1|C)</p>
-<p>—&gt; …</p>
-<p>—&gt; P(C) * P(a1|C) * P(a2|C, a1) * P(a3|C, a1, a2)…<br>由于特征之间的相互独立性，a2发生于a1无关，转化为</p>
-<p>—&gt; P(C) * P(a1|C) * P(a2|C) …  * P(am|C)</p>
-<p>—–&gt;问题转化为求取条件概率：</p>
-<ol>
-<li>找到一个已知分类的待分类项集合，这个集合叫做训练样本集。</li>
-<li>统计得到在各类别下各个特征属性的条件概率估计。</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/14/kaggle相关/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Hero">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hero's notebooks">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/14/kaggle相关/" itemprop="url">Kaggle相关</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-14T09:54:35+08:00">
-                2019-03-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Learning</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="如何在-Kaggle-首战中进入前-10"><a href="#如何在-Kaggle-首战中进入前-10" class="headerlink" title="如何在 Kaggle 首战中进入前 10%"></a>如何在 Kaggle 首战中进入前 10%</h1><p><a href="https://dnc1994.com/2016/04/rank-10-percent-in-first-kaggle-competition/" target="_blank" rel="noopener">原文</a></p>
-<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><h3 id="Exploration-Data-Analysis-EDA"><a href="#Exploration-Data-Analysis-EDA" class="headerlink" title="Exploration Data Analysis(EDA)"></a>Exploration Data Analysis(EDA)</h3><h4 id="Visualization"><a href="#Visualization" class="headerlink" title="Visualization"></a>Visualization</h4><p>matplotlib + seaborn</p>
-<ul>
-<li>查看目标变量的分布。当分布不平衡时，根据评分标准和具体模型的使用不同，可能会严重影响性能。</li>
-<li>对 Numerical Variable，可以用 Box Plot 来直观地查看它的分布。</li>
-<li>对于坐标类数据，可以用 Scatter Plot 来查看它们的分布趋势和是否有离群点的存在。</li>
-<li>对于分类问题，将数据根据 Label 的不同着不同的颜色绘制出来，这对 Feature 的构造很有帮助。</li>
-<li>绘制变量之间两两的分布和相关度图表。</li>
-</ul>
-<p><a href="https://www.kaggle.com/benhamner/python-data-visualizations" target="_blank" rel="noopener">example_visualization</a></p>
-<h4 id="Statistical-Tests"><a href="#Statistical-Tests" class="headerlink" title="Statistical Tests"></a>Statistical Tests</h4><p>可视化为定性，这里专注于定量，例如对于新创造的特征，可以将其加入原模型当中，看结果的变化。</p>
-<p>在某些比赛中，由于数据分布比较奇葩或是噪声过强，Public LB(Leader board)的分数可能会跟 Local CV(Cross Validation)的结果相去甚远。可以根据一些统计测试的结果来粗略地建立一个阈值，用来衡量一次分数的提高究竟是实质的提高还是由于数据的随机性导致的。</p>
-<h3 id="Data-Preprossing"><a href="#Data-Preprossing" class="headerlink" title="Data Preprossing"></a>Data Preprossing</h3><p>处理策略主要依赖于EDA中得到的结论。</p>
-<ul>
-<li>有时数据会分散在几个不同的文件中，需要 Join 起来。</li>
-<li>处理 Missing Data。</li>
-<li>处理 Outlier。</li>
-<li>必要时转换某些 Categorical Variable 的表示方式。例如应用one-hot encoding(pd.get_dummies)将categorical variable转化为数字变量。</li>
-<li>有些 Float 变量可能是从未知的 Int 变量转换得到的，这个过程中发生精度损失会在数据中产生不必要的 Noise，即两个数值原本是相同的却在小数点后某一位开始有不同。这对 Model 可能会产生很负面的影响，需要设法去除或者减弱 Noise。</li>
-</ul>
-<h3 id="Feature-Engineering"><a href="#Feature-Engineering" class="headerlink" title="Feature Engineering"></a>Feature Engineering</h3><h4 id="Feature-Selection"><a href="#Feature-Selection" class="headerlink" title="Feature Selection"></a>Feature Selection</h4><p>总的来说，应该<strong>生成尽量多的 Feature，相信 Model 能够挑出最有用的 Feature</strong>。但有时先做一遍 Feature Selection 也能带来一些好处：</p>
-<ul>
-<li>Feature 越少，训练越快。</li>
-<li>有些 Feature 之间可能存在线性关系，影响 Model 的性能。</li>
-<li>通过挑选出最重要的 Feature，可以将它们之间进行各种运算和操作的结果作为新的 Feature，可能带来意外的提高。</li>
-<li>Feature Selection 最实用的方法也就是看 Random Forest 训练完以后得到的 Feature Importance 了。其他有一些更复杂的算法在理论上更加 Robust，但是缺乏实用高效的实现。从原理上来讲，增加 Random Forest 中树的数量可以在一定程度上加强其对于 Noisy Data 的 Robustness。</li>
-</ul>
-<p>看 Feature Importance 对于某些数据经过脱敏处理的比赛尤其重要。这可以免得你浪费大把时间在琢磨一个不重要的变量的意义上。(脱敏：数据脱敏(Data Masking),又称数据漂白、数据去隐私化或数据变形。百度百科对数据脱敏的定义为：指对某些敏感信息通过脱敏规则进行数据的变形，实现敏感隐私数据的可靠保护。在涉及客户安全数据或者一些商业性敏感数据的情况下，在不违反系统规则条件下，对真实数据进行改造并提供测试使用，如身份证号、手机号、卡号、客户号等个人信息都需要进行数据脱敏。)</p>
-<h4 id="Feature-Encoding"><a href="#Feature-Encoding" class="headerlink" title="Feature Encoding"></a>Feature Encoding</h4><p>假设有一个 Categorical Variable 一共有几万个取值可能，那么创建 Dummy Variables 的方法就不可行了。这时一个比较好的方法是根据 Feature Importance 或是这些取值本身在数据中的出现频率，为最重要（比如说前 95% 的 Importance）那些取值（有很大可能只有几个或是十几个）创建 Dummy Variables，而所有其他取值都归到一个“其他”类里面。</p>
-<h3 id="Model-Selection"><a href="#Model-Selection" class="headerlink" title="Model Selection"></a>Model Selection</h3><p>Base Model:</p>
-<ul>
-<li>SVM</li>
-<li>Linear Regression</li>
-<li>Logistic Regression</li>
-<li>Neural Networks</li>
-</ul>
-<p>Most Used Models:</p>
-<ul>
-<li>Gradient Boosting</li>
-<li>Random Forest</li>
-<li><p>Extra Randomized Trees</p>
-<p><strong>XGBoost</strong></p>
-</li>
-</ul>
-<h4 id="Model-Training"><a href="#Model-Training" class="headerlink" title="Model Training"></a>Model Training</h4><p>通过Grid Search来确定模型的最佳参数。<br>e.g.</p>
-<ul>
-<li>sklearn 的 RandomForestClassifier 来说，比较重要的就是随机森林中树的数量 n_estimators 以及在训练每棵树时最多选择的特征数量 max_features。</li>
-<li><p>Xgboost 的调参。通常认为对它性能影响较大的参数有：</p>
-<ul>
-<li>eta：每次迭代完成后更新权重时的步长。越小训练越慢。</li>
-<li>num_round：总共迭代的次数。</li>
-<li>subsample：训练每棵树时用来训练的数据占全部的比例。用于防止 Overfitting。</li>
-<li>colsample_bytree：训练每棵树时用来训练的特征的比例，类似 RandomForestClassifier 的 max_features。</li>
-<li>max_depth：每棵树的最大深度限制。与 Random Forest 不同，Gradient Boosting 如果不对深度加以限制，最终是会 Overfit 的。</li>
-<li>early_stopping_rounds：用于控制在 Out Of Sample 的验证集上连续多少个迭代的分数都没有提高后就提前终止训练。用于防止 Overfitting。</li>
-</ul>
-<p>一般的调参步骤是：</p>
-<ol>
-<li>将训练数据的一部分划出来作为验证集。</li>
-<li>先将 eta 设得比较高（比如 0.1），num_round 设为 300 ~ 500。</li>
-<li>用 Grid Search 对其他参数进行搜索。</li>
-<li>逐步将 eta 降低，找到最佳值。</li>
-<li>以验证集为 watchlist，用找到的最佳参数组合重新在训练集上训练。注意观察算法的输出，看每次迭代后在验证集上分数的变化情况，从而得到最佳的 early_stopping_rounds。</li>
-</ol>
-<p><em>所有具有随机性的 Model 一般都会有一个 seed 或是 random_state 参数用于控制随机种子。得到一个好的 Model 后，在记录参数时务必也记录下这个值，从而能够在之后重现 Model。</em></p>
-</li>
-</ul>
-<h4 id="Cross-Validation"><a href="#Cross-Validation" class="headerlink" title="Cross Validation"></a>Cross Validation</h4><p>一般5-fold。</p>
-<p>fold越多训练越慢。</p>
-<h4 id="Ensemble-Generation"><a href="#Ensemble-Generation" class="headerlink" title="Ensemble Generation"></a>Ensemble Generation</h4><p>常见的 Ensemble 方法有这么几种：</p>
-<ul>
-<li>Bagging：使用训练数据的不同随机子集来训练每个 Base Model，最后进行每个 Base Model 权重相同的 Vote。也即 Random Forest 的原理。</li>
-<li>Boosting：迭代地训练 Base Model，每次根据上一个迭代中预测错误的情况修改训练样本的权重。也即 Gradient Boosting 的原理。比 Bagging 效果好，但更容易 Overfit。</li>
-<li>Blending：用不相交的数据训练不同的 Base Model，将它们的输出取（加权）平均。实现简单，但对训练数据利用少了。</li>
-<li>Stacking：接下来会详细介绍。</li>
-</ul>
-<p>从理论上讲，Ensemble 要成功，有两个要素：</p>
-<ul>
-<li>Base Model 之间的相关性要尽可能的小。这就是为什么非 Tree-based Model 往往表现不是最好但还是要将它们包括在 Ensemble 里面的原因。Ensemble 的 Diversity 越大，最终 Model 的 Bias 就越低。</li>
-<li>Base Model 之间的性能表现不能差距太大。这其实是一个 Trade-off，在实际中很有可能表现相近的 Model 只有寥寥几个而且它们之间相关性还不低。但是实践告诉我们即使在这种情况下 Ensemble 还是能大幅提高成绩。</li>
-</ul>
-<h3 id="Pipeline"><a href="#Pipeline" class="headerlink" title="Pipeline"></a>Pipeline</h3><p>workflow比较复杂，因此一个高自动化的pipeline比较重要。</p>
-<p>这里是以一个例子：<a href="https://github.com/ChenglongChen/Kaggle_CrowdFlower" target="_blank" rel="noopener">example</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/14/LightGBM/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Hero">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hero's notebooks">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/14/LightGBM/" itemprop="url">LightGBM</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-14T09:54:35+08:00">
-                2019-03-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Learning</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h1><ul>
-<li>可以接受categorical features：LightGBM 可以直接使用 categorical features（分类特征）作为 input（输入）. 它不需要被转换成 one-hot coding（独热编码）, 并且它比 one-hot coding（独热编码）更快（约快上 8 倍）。注意: 在你构造 Dataset 之前, 你应该将分类特征转换为 int 类型的值.</li>
-</ul>
-<h1 id="xgboost的优点"><a href="#xgboost的优点" class="headerlink" title="xgboost的优点"></a>xgboost的优点</h1><ul>
-<li>XGB利用了二阶梯度来对节点进行划分，相对其他GBM来说，精度更加高。</li>
-<li>利用局部近似算法对分裂节点的贪心算法优化，取适当的eps时，可以保持算法的性能且提高算法的运算速度。</li>
-<li>在损失函数中加入了L1/L2项，控制模型的复杂度，提高模型的鲁棒性。</li>
-<li>提供并行计算能力，主要是在树节点求不同的候选的分裂点的Gain Infomation（分裂后，损失函数的差值）</li>
-<li>Tree Shrinkage，column subsampling等不同的处理细节。</li>
-</ul>
-<h1 id="xgboost的缺点"><a href="#xgboost的缺点" class="headerlink" title="xgboost的缺点"></a>xgboost的缺点</h1><ul>
-<li>每次迭代需要多次遍历整个训练数据。若读入内存，则对训练数据的大小有限制；不读入内存的话，非常慢。</li>
-<li>预排序方法：预排序需要大量的空间站占用和时间占用：需要保存数据的特征值，也要保存特征排序的结果，即需要两倍数据的内存占用；遍历每个分割点需要计算每个分割点的增益。此外，对cache优化不友好。在预排序后，特征对梯度的访问是一种随机访问，并且不同的特征访问的顺序不一样，无法对cache进行优化。同时，在每一层长树的时候，需要随机访问一个行索引到叶子索引的数组，并且不同特征访问的顺序也不一样，也会造成较大的cache miss。</li>
-</ul>
-<h1 id="lightgbm的优化"><a href="#lightgbm的优化" class="headerlink" title="lightgbm的优化"></a>lightgbm的优化</h1><ul>
-<li>基于histogram的决策树算法</li>
-<li>带深度限制的leaf-wise的叶子生长策略</li>
-<li>直方图做差加速</li>
-<li>支持类别特征</li>
-<li>cache命中率优化</li>
-<li>基于直方图的稀疏特征优化</li>
-<li>多线程优化</li>
-</ul>
-<h2 id="Histogram算法"><a href="#Histogram算法" class="headerlink" title="Histogram算法"></a>Histogram算法</h2><p>先把连续的浮点特征值离散化成k个整数，同时构造一个宽度为k的直方图。在遍历数据的时候，根据离散化后的值作为索引在直方图中累积统计量，当遍历一次数据后，直方图累积了需要的统计量，然后根据直方图的离散值，遍历寻找最优的分割点。</p>
-<h2 id="带深度限制的leaf-wise的叶子生长策略"><a href="#带深度限制的leaf-wise的叶子生长策略" class="headerlink" title="带深度限制的leaf-wise的叶子生长策略"></a>带深度限制的leaf-wise的叶子生长策略</h2><p>Level-wise过一次数据可以同时分裂同一层的叶子，容易进行多线程优化，也好控制模型复杂度，不容易过拟合。但实际上Level-wise是一种低效的算法，因为它不加区分的对待同一层的叶子，带来了很多没必要的开销，因为实际上很多叶子的分裂增益较低，没必要进行搜索和分裂。</p>
-<p>Leaf-wise则是一种更为高效的策略，每次从当前所有叶子中，找到分裂增益最大的一个叶子，然后分裂，如此循环。因此同Level-wise相比，在分裂次数相同的情况下，Leaf-wise可以降低更多的误差，得到更好的精度。Leaf-wise的缺点是可能会长出比较深的决策树，产生过拟合。因此LightGBM在Leaf-wise之上增加了一个最大深度的限制，在保证高效率的同时防止过拟合。</p>
-<h2 id="多线程优化"><a href="#多线程优化" class="headerlink" title="多线程优化"></a>多线程优化</h2><h3 id="特征并行"><a href="#特征并行" class="headerlink" title="特征并行"></a>特征并行</h3><h3 id="数据并行"><a href="#数据并行" class="headerlink" title="数据并行"></a>数据并行</h3><p>减少了数据通信的成本</p>
-
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="string">"""节点类"""</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, elem=<span class="number">-1</span>, lchild=None, rchild=None)</span>:</span></span><br><span class="line">        self.elem = elem</span><br><span class="line">        self.lchild = lchild</span><br><span class="line">        self.rchild = rchild</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Tree</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="string">"""树类"""</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.root = Node()</span><br><span class="line">        self.myQueue = []</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(self, elem)</span>:</span></span><br><span class="line">        <span class="string">"""为树添加节点"""</span></span><br><span class="line">        node = Node(elem)</span><br><span class="line">        <span class="keyword">if</span> self.root.elem == <span class="number">-1</span>:  <span class="comment"># 如果树是空的，则对根节点赋值</span></span><br><span class="line">            self.root = node</span><br><span class="line">            self.myQueue.append(self.root)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            treeNode = self.myQueue[<span class="number">0</span>]  <span class="comment"># 此结点的子树还没有齐。</span></span><br><span class="line">            <span class="keyword">if</span> treeNode.lchild == <span class="literal">None</span>:</span><br><span class="line">                treeNode.lchild = node</span><br><span class="line">                self.myQueue.append(treeNode.lchild)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                treeNode.rchild = node</span><br><span class="line">                self.myQueue.append(treeNode.rchild)</span><br><span class="line">                self.myQueue.pop(<span class="number">0</span>)  <span class="comment"># 如果该结点已经有了右子树，将此结点丢弃，从下一个节点插入。</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">front_digui</span><span class="params">(self, root)</span>:</span></span><br><span class="line">        <span class="string">"""利用递归实现树的先序遍历"""</span></span><br><span class="line">        <span class="keyword">if</span> root == <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">print</span> root.elem,</span><br><span class="line">        self.front_digui(root.lchild)</span><br><span class="line">        self.front_digui(root.rchild)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">middle_digui</span><span class="params">(self, root)</span>:</span></span><br><span class="line">        <span class="string">"""利用递归实现树的中序遍历"""</span></span><br><span class="line">        <span class="keyword">if</span> root == <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        self.middle_digui(root.lchild)</span><br><span class="line">        <span class="keyword">print</span> root.elem,</span><br><span class="line">        self.middle_digui(root.rchild)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">later_digui</span><span class="params">(self, root)</span>:</span></span><br><span class="line">        <span class="string">"""利用递归实现树的后序遍历"""</span></span><br><span class="line">        <span class="keyword">if</span> root == <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        self.later_digui(root.lchild)</span><br><span class="line">        self.later_digui(root.rchild)</span><br><span class="line">        <span class="keyword">print</span> root.elem,</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">front_stack</span><span class="params">(self, root)</span>:</span></span><br><span class="line">        <span class="string">"""利用堆栈实现树的先序遍历"""</span></span><br><span class="line">        <span class="keyword">if</span> root == <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        myStack = []</span><br><span class="line">        node = root</span><br><span class="line">        <span class="keyword">while</span> node <span class="keyword">or</span> myStack:</span><br><span class="line">            <span class="keyword">while</span> node:                     <span class="comment">#从根节点开始，一直找它的左子树</span></span><br><span class="line">                <span class="keyword">print</span> node.elem,</span><br><span class="line">                myStack.append(node)</span><br><span class="line">                node = node.lchild</span><br><span class="line">            node = myStack.pop()            <span class="comment">#while结束表示当前节点node为空，即前一个节点没有左子树了</span></span><br><span class="line">            node = node.rchild                  <span class="comment">#开始查看它的右子树</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">middle_stack</span><span class="params">(self, root)</span>:</span></span><br><span class="line">        <span class="string">"""利用堆栈实现树的中序遍历"""</span></span><br><span class="line">        <span class="keyword">if</span> root == <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        myStack = []</span><br><span class="line">        node = root</span><br><span class="line">        <span class="keyword">while</span> node <span class="keyword">or</span> myStack:</span><br><span class="line">            <span class="keyword">while</span> node:                     <span class="comment">#从根节点开始，一直找它的左子树</span></span><br><span class="line">                myStack.append(node)</span><br><span class="line">                node = node.lchild</span><br><span class="line">            node = myStack.pop()            <span class="comment">#while结束表示当前节点node为空，即前一个节点没有左子树了</span></span><br><span class="line">            <span class="keyword">print</span> node.elem,</span><br><span class="line">            node = node.rchild                  <span class="comment">#开始查看它的右子树</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">later_stack</span><span class="params">(self, root)</span>:</span></span><br><span class="line">        <span class="string">"""利用堆栈实现树的后序遍历"""</span></span><br><span class="line">        <span class="keyword">if</span> root == <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        myStack1 = []</span><br><span class="line">        myStack2 = []</span><br><span class="line">        node = root</span><br><span class="line">        myStack1.append(node)</span><br><span class="line">        <span class="keyword">while</span> myStack1:                   <span class="comment">#这个while循环的功能是找出后序遍历的逆序，存在myStack2里面</span></span><br><span class="line">            node = myStack1.pop()</span><br><span class="line">            <span class="keyword">if</span> node.lchild:</span><br><span class="line">                myStack1.append(node.lchild)</span><br><span class="line">            <span class="keyword">if</span> node.rchild:</span><br><span class="line">                myStack1.append(node.rchild)</span><br><span class="line">            myStack2.append(node)</span><br><span class="line">        <span class="keyword">while</span> myStack2:                         <span class="comment">#将myStack2中的元素出栈，即为后序遍历次序</span></span><br><span class="line">            <span class="keyword">print</span> myStack2.pop().elem,</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">level_queue</span><span class="params">(self, root)</span>:</span></span><br><span class="line">        <span class="string">"""利用队列实现树的层次遍历"""</span></span><br><span class="line">        <span class="keyword">if</span> root == <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        myQueue = []</span><br><span class="line">        node = root</span><br><span class="line">        myQueue.append(node)</span><br><span class="line">        <span class="keyword">while</span> myQueue:</span><br><span class="line">            node = myQueue.pop(<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">print</span> node.elem,</span><br><span class="line">            <span class="keyword">if</span> node.lchild != <span class="literal">None</span>:</span><br><span class="line">                myQueue.append(node.lchild)</span><br><span class="line">            <span class="keyword">if</span> node.rchild != <span class="literal">None</span>:</span><br><span class="line">                myQueue.append(node.rchild)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="string">"""主函数"""</span></span><br><span class="line">    elems = range(<span class="number">10</span>)           <span class="comment">#生成十个数据作为树节点</span></span><br><span class="line">    tree = Tree()          <span class="comment">#新建一个树对象</span></span><br><span class="line">    <span class="keyword">for</span> elem <span class="keyword">in</span> elems:                  </span><br><span class="line">        tree.add(elem)           <span class="comment">#逐个添加树的节点</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'队列实现层次遍历:'</span></span><br><span class="line">    tree.level_queue(tree.root)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'\n\n递归实现先序遍历:'</span></span><br><span class="line">    tree.front_digui(tree.root)</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'\n递归实现中序遍历:'</span> </span><br><span class="line">    tree.middle_digui(tree.root)</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'\n递归实现后序遍历:'</span></span><br><span class="line">    tree.later_digui(tree.root)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'\n\n堆栈实现先序遍历:'</span></span><br><span class="line">    tree.front_stack(tree.root)</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'\n堆栈实现中序遍历:'</span></span><br><span class="line">    tree.middle_stack(tree.root)</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'\n堆栈实现后序遍历:'</span></span><br><span class="line">    tree.later_stack(tree.root)</span><br></pre></td></tr></table></figure>
           
         
       
@@ -2148,7 +2205,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2192,7 +2249,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-count">45</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -2214,7 +2271,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">26</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

@@ -106,7 +106,7 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="https://pic4.zhimg.com/80/v2-812104c0291d20935e910919a9fa5c27_hd.png">
 <meta property="og:image" content="https://img-blog.csdn.net/20150109184544578?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvQW5kcm9pZGx1c2hhbmdkZXJlbg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
-<meta property="og:updated_time" content="2019-06-29T10:44:30.755Z">
+<meta property="og:updated_time" content="2019-07-03T00:51:55.380Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Decisiong Tree:ID3 C4.5 CART">
 <meta name="twitter:description" content="决策树问题：如何挑选用于分裂节点的特征–&amp;gt;ID3 C4.5 …(一个标准：使分裂出来的节点尽可能纯，即一个分支尽可能属于同类)  ID3信息增益  信息增益 = 信息熵 - 条件熵  信息增益：针对每个 属性 信息熵：整个样本空间的不确定度。其中Pk一定是label取值的概率。 条件熵：给定某个属性，求其信息熵 –&amp;gt; 问题：某属性所包括的类别越多，信息增益越大。极限：每个类别仅有1个">
@@ -472,7 +472,40 @@
 <li>构建随机森林</li>
 </ul>
 </li>
+<li><p>剪枝</p>
+</li>
 </ol>
+<ul>
+<li>前剪枝：<ul>
+<li>在生成树的时候，控制终止条件：最小样本数；样本集的最小基尼系数；树的深度</li>
+<li>由于预剪枝不必生成整棵决策树，且算法相对简单，效率很高，适合解决大规模问题。但是尽管这一方法看起来很直接，但是怎样精确地估计何时停止树的增长是相当困难的。</li>
+<li>预剪枝有一个缺点， 即视野效果问题 。 也就是说在相同的标准下，也许当前的扩展会造成过度拟合训练数据，但是更进一步的扩展能够满足要求，也有可能准确地拟合训练数据。这将使得算法过早地停止决策树的构造。</li>
+</ul>
+</li>
+<li>后剪枝<ul>
+<li>在已生成过拟合决策树上进行剪枝，可以得到简化版的剪枝决策树。</li>
+</ul>
+</li>
+</ul>
+<p>1）REP-错误率降低剪枝</p>
+<p>对于决策树T的每棵非叶子树S, 用叶子替代这棵子树. 如果S被叶子替代后形成的新树关于D的误差等于或小于S关于D所产生的误差, 则用叶子替代子树S。</p>
+<p><strong>优点：</strong></p>
+<ul>
+<li>REP 是当前最简单的事后剪枝方法之一。</li>
+<li>它的计算复杂性是线性的。</li>
+<li>和原始决策树相比，修剪后的决策树对未来新事例的预测偏差较小。</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>但在数据量较少的情况下很少应用. REP方法趋于过拟合( overfitting) , 这是因为训练数据集中存在的特性在剪枝过程中都被忽略了, 当剪枝数据集比训练数据集小得多时 , 这个问题特别值得注意.</li>
+</ul>
+<p>2）PEP-悲观剪枝</p>
+<ul>
+<li><p>CCP-代价复杂度剪枝</p>
+</li>
+<li><p>MEP-最小错误剪枝</p>
+</li>
+</ul>
 
       
     </div>
@@ -505,8 +538,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/14/D S competition_Coursera#1/" rel="next" title="DS Competition_Coursera#1">
-                <i class="fa fa-chevron-left"></i> DS Competition_Coursera#1
+              <a href="/2019/03/14/DBSCAN/" rel="next" title="DBSCAN以及sklearn实现DBSCAN">
+                <i class="fa fa-chevron-left"></i> DBSCAN以及sklearn实现DBSCAN
               </a>
             
           </div>
@@ -583,7 +616,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-count">45</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -605,7 +638,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">26</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

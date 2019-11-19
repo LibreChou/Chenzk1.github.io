@@ -307,7 +307,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/07/02/树的遍历/">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/11/19/稀疏编码/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Hero">
@@ -326,7 +326,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/07/02/树的遍历/" itemprop="url">ROC AUC, Accuracy, Recall, F1</a></h1>
+                <a class="post-title-link" href="/2019/11/19/稀疏编码/" itemprop="url">稀疏编码</a></h1>
         
 
         <div class="post-meta">
@@ -338,348 +338,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-02T22:03:38+08:00">
-                2019-07-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Learning</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li>树的遍历，分深度优先：前序，中序，后序；广度优先：层次遍历。</li>
-<li>前序：根、左、右</li>
-<li>中序：左、根、右</li>
-<li>后序：左、右、根</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="string">"""节点类"""</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, elem=<span class="number">-1</span>, lchild=None, rchild=None)</span>:</span></span><br><span class="line">        self.elem = elem</span><br><span class="line">        self.lchild = lchild</span><br><span class="line">        self.rchild = rchild</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Tree</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="string">"""树类"""</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.root = Node()</span><br><span class="line">        self.myQueue = []</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(self, elem)</span>:</span></span><br><span class="line">        <span class="string">"""为树添加节点"""</span></span><br><span class="line">        node = Node(elem)</span><br><span class="line">        <span class="keyword">if</span> self.root.elem == <span class="number">-1</span>:  <span class="comment"># 如果树是空的，则对根节点赋值</span></span><br><span class="line">            self.root = node</span><br><span class="line">            self.myQueue.append(self.root)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            treeNode = self.myQueue[<span class="number">0</span>]  <span class="comment"># 此结点的子树还没有齐。</span></span><br><span class="line">            <span class="keyword">if</span> treeNode.lchild == <span class="literal">None</span>:</span><br><span class="line">                treeNode.lchild = node</span><br><span class="line">                self.myQueue.append(treeNode.lchild)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                treeNode.rchild = node</span><br><span class="line">                self.myQueue.append(treeNode.rchild)</span><br><span class="line">                self.myQueue.pop(<span class="number">0</span>)  <span class="comment"># 如果该结点已经有了右子树，将此结点丢弃，从下一个节点插入。</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">front_digui</span><span class="params">(self, root)</span>:</span></span><br><span class="line">        <span class="string">"""利用递归实现树的先序遍历"""</span></span><br><span class="line">        <span class="keyword">if</span> root == <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">print</span> root.elem,</span><br><span class="line">        self.front_digui(root.lchild)</span><br><span class="line">        self.front_digui(root.rchild)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">middle_digui</span><span class="params">(self, root)</span>:</span></span><br><span class="line">        <span class="string">"""利用递归实现树的中序遍历"""</span></span><br><span class="line">        <span class="keyword">if</span> root == <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        self.middle_digui(root.lchild)</span><br><span class="line">        <span class="keyword">print</span> root.elem,</span><br><span class="line">        self.middle_digui(root.rchild)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">later_digui</span><span class="params">(self, root)</span>:</span></span><br><span class="line">        <span class="string">"""利用递归实现树的后序遍历"""</span></span><br><span class="line">        <span class="keyword">if</span> root == <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        self.later_digui(root.lchild)</span><br><span class="line">        self.later_digui(root.rchild)</span><br><span class="line">        <span class="keyword">print</span> root.elem,</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">front_stack</span><span class="params">(self, root)</span>:</span></span><br><span class="line">        <span class="string">"""利用堆栈实现树的先序遍历"""</span></span><br><span class="line">        <span class="keyword">if</span> root == <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        myStack = []</span><br><span class="line">        node = root</span><br><span class="line">        <span class="keyword">while</span> node <span class="keyword">or</span> myStack:</span><br><span class="line">            <span class="keyword">while</span> node:                     <span class="comment">#从根节点开始，一直找它的左子树</span></span><br><span class="line">                <span class="keyword">print</span> node.elem,</span><br><span class="line">                myStack.append(node)</span><br><span class="line">                node = node.lchild</span><br><span class="line">            node = myStack.pop()            <span class="comment">#while结束表示当前节点node为空，即前一个节点没有左子树了</span></span><br><span class="line">            node = node.rchild                  <span class="comment">#开始查看它的右子树</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">middle_stack</span><span class="params">(self, root)</span>:</span></span><br><span class="line">        <span class="string">"""利用堆栈实现树的中序遍历"""</span></span><br><span class="line">        <span class="keyword">if</span> root == <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        myStack = []</span><br><span class="line">        node = root</span><br><span class="line">        <span class="keyword">while</span> node <span class="keyword">or</span> myStack:</span><br><span class="line">            <span class="keyword">while</span> node:                     <span class="comment">#从根节点开始，一直找它的左子树</span></span><br><span class="line">                myStack.append(node)</span><br><span class="line">                node = node.lchild</span><br><span class="line">            node = myStack.pop()            <span class="comment">#while结束表示当前节点node为空，即前一个节点没有左子树了</span></span><br><span class="line">            <span class="keyword">print</span> node.elem,</span><br><span class="line">            node = node.rchild                  <span class="comment">#开始查看它的右子树</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">later_stack</span><span class="params">(self, root)</span>:</span></span><br><span class="line">        <span class="string">"""利用堆栈实现树的后序遍历"""</span></span><br><span class="line">        <span class="keyword">if</span> root == <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        myStack1 = []</span><br><span class="line">        myStack2 = []</span><br><span class="line">        node = root</span><br><span class="line">        myStack1.append(node)</span><br><span class="line">        <span class="keyword">while</span> myStack1:                   <span class="comment">#这个while循环的功能是找出后序遍历的逆序，存在myStack2里面</span></span><br><span class="line">            node = myStack1.pop()</span><br><span class="line">            <span class="keyword">if</span> node.lchild:</span><br><span class="line">                myStack1.append(node.lchild)</span><br><span class="line">            <span class="keyword">if</span> node.rchild:</span><br><span class="line">                myStack1.append(node.rchild)</span><br><span class="line">            myStack2.append(node)</span><br><span class="line">        <span class="keyword">while</span> myStack2:                         <span class="comment">#将myStack2中的元素出栈，即为后序遍历次序</span></span><br><span class="line">            <span class="keyword">print</span> myStack2.pop().elem,</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">level_queue</span><span class="params">(self, root)</span>:</span></span><br><span class="line">        <span class="string">"""利用队列实现树的层次遍历"""</span></span><br><span class="line">        <span class="keyword">if</span> root == <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        myQueue = []</span><br><span class="line">        node = root</span><br><span class="line">        myQueue.append(node)</span><br><span class="line">        <span class="keyword">while</span> myQueue:</span><br><span class="line">            node = myQueue.pop(<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">print</span> node.elem,</span><br><span class="line">            <span class="keyword">if</span> node.lchild != <span class="literal">None</span>:</span><br><span class="line">                myQueue.append(node.lchild)</span><br><span class="line">            <span class="keyword">if</span> node.rchild != <span class="literal">None</span>:</span><br><span class="line">                myQueue.append(node.rchild)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="string">"""主函数"""</span></span><br><span class="line">    elems = range(<span class="number">10</span>)           <span class="comment">#生成十个数据作为树节点</span></span><br><span class="line">    tree = Tree()          <span class="comment">#新建一个树对象</span></span><br><span class="line">    <span class="keyword">for</span> elem <span class="keyword">in</span> elems:                  </span><br><span class="line">        tree.add(elem)           <span class="comment">#逐个添加树的节点</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'队列实现层次遍历:'</span></span><br><span class="line">    tree.level_queue(tree.root)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'\n\n递归实现先序遍历:'</span></span><br><span class="line">    tree.front_digui(tree.root)</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'\n递归实现中序遍历:'</span> </span><br><span class="line">    tree.middle_digui(tree.root)</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'\n递归实现后序遍历:'</span></span><br><span class="line">    tree.later_digui(tree.root)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'\n\n堆栈实现先序遍历:'</span></span><br><span class="line">    tree.front_stack(tree.root)</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'\n堆栈实现中序遍历:'</span></span><br><span class="line">    tree.middle_stack(tree.root)</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'\n堆栈实现后序遍历:'</span></span><br><span class="line">    tree.later_stack(tree.root)</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/07/02/面试/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Hero">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hero's notebooks">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/02/面试/" itemprop="url">十大排序算法python实现</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-02T20:52:25+08:00">
-                2019-07-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Learning</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="语言"><a href="#语言" class="headerlink" title="语言"></a>语言</h1><h2 id="python"><a href="#python" class="headerlink" title="python"></a>python</h2><ul>
-<li>python数据类型：Numbers（数字）、String（字符串）、List（列表）、Tuple（元组）、Dictionary（字典）</li>
-<li>元组和数组的差别：<ul>
-<li>元组()不能修改，数组[]可以修改</li>
-<li>字典{}，集合set()是无序的</li>
-</ul>
-</li>
-</ul>
-<h1 id="DS"><a href="#DS" class="headerlink" title="DS"></a>DS</h1><ul>
-<li>二叉树的遍历</li>
-<li><p>很大的一个文件寻找频率TOP-k的词</p>
-</li>
-<li><p>一个非递减序列，寻找某个数最后出现的位置</p>
-</li>
-<li><p>归并排序</p>
-  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">merge_sort</span><span class="params">(num)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> len(num) &lt;= <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> num</span><br><span class="line">    mid = num // <span class="number">2</span></span><br><span class="line">    left = merge_sort(num[:mid]) <span class="comment"># 从下往上的递归中，每次递归得到的left和right是排好序的，需要对两者合并后做排序</span></span><br><span class="line">    right = merge_sort(num[mid:])</span><br><span class="line">    <span class="keyword">return</span> merge_result(left, right)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">merge_result</span><span class="params">(left, right)</span>:</span></span><br><span class="line">    i,j = <span class="number">0</span>,<span class="number">0</span></span><br><span class="line">    result = []</span><br><span class="line">    <span class="keyword">while</span> i &lt; len(left) <span class="keyword">and</span> j &lt; len(right):</span><br><span class="line">        <span class="keyword">if</span> left[i] &lt;= right[j]:</span><br><span class="line">            result.append(left[i])</span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            result.append(right[j])</span><br><span class="line">            j += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> result+left[i:]+right[j:]</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>快排</p>
-  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quick_sort1</span><span class="params">(num,left,right)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> left &gt;= right:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    low = left</span><br><span class="line">    high = right</span><br><span class="line">    pivot = num[left]</span><br><span class="line">    <span class="keyword">while</span> left &lt; right:</span><br><span class="line">        <span class="keyword">while</span> left &lt; right <span class="keyword">and</span> num[right] &gt; pivot:</span><br><span class="line">            right -= <span class="number">1</span></span><br><span class="line">        num[left] = num[right]</span><br><span class="line">        <span class="keyword">while</span> left &lt; right <span class="keyword">and</span> num[left] &lt;= pivot:</span><br><span class="line">            left += <span class="number">1</span></span><br><span class="line">        num[right] = num[left]</span><br><span class="line">    num[right] = pivot</span><br><span class="line">    quick_sort1(num, low, left<span class="number">-1</span>)</span><br><span class="line">    quick_sort1(num, right+<span class="number">1</span>, high)</span><br></pre></td></tr></table></figure>
-  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quick_sort2</span><span class="params">(num,left,right)</span>:</span></span><br><span class="line">    <span class="keyword">while</span> left &lt; right:</span><br><span class="line">        p = partition(num, left, right)</span><br><span class="line">        quick_sort2(num, left, p<span class="number">-1</span>)</span><br><span class="line">        quick_sort2(num, p+<span class="number">1</span>, right)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">partition</span><span class="params">(num, left, right)</span>:</span></span><br><span class="line">    pivot = num[right] <span class="comment"># 先挪左指针，用右边界作为pivot</span></span><br><span class="line">    i = left</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(left,right):</span><br><span class="line">        <span class="keyword">if</span> num[j] &lt;= pivot:</span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">            num[i], num[j] = num[j], num[i]</span><br><span class="line">    num[i+<span class="number">1</span>], num[right] = num[right], num[i+<span class="number">1</span>] <span class="comment"># 把基准数移过来</span></span><br><span class="line">    <span class="keyword">return</span> i+<span class="number">1</span></span><br></pre></td></tr></table></figure>
-  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quick_sort3</span><span class="params">(num)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> len(num) &lt;= <span class="number">1</span>:</span><br><span class="line">    <span class="keyword">return</span> num</span><br><span class="line">    pivot = num[<span class="number">0</span>]</span><br><span class="line">    left = [num[i] <span class="keyword">for</span> i <span class="keyword">in</span> range(len(num)) <span class="keyword">if</span> num[i] &lt; pivot]</span><br><span class="line">    right = [num[i] <span class="keyword">for</span> i <span class="keyword">in</span> range(len(num)) <span class="keyword">if</span> num[i] &gt; pivot]</span><br><span class="line">    <span class="keyword">return</span> quick_sort3(left) + pivot + quick_sort3(right)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>O(N)复杂度在一个数组中寻找两数和为指定数的下标</p>
-</li>
-</ul>
-<h1 id="逻辑"><a href="#逻辑" class="headerlink" title="逻辑"></a>逻辑</h1><ul>
-<li>一个筛子产生0~9的随机数，要求概率相等</li>
-<li>理发师数量估计</li>
-</ul>
-<h1 id="操作系统-计网"><a href="#操作系统-计网" class="headerlink" title="操作系统 + 计网"></a>操作系统 + 计网</h1><ul>
-<li><p>进程和线程</p>
-<p>进程和线程的主要差别在于它们是不同的操作系统资源管理方式。进程有独立的地址空间，一个进程崩溃后，在保护模式下不会对其它进程产生影响，而线程只是一个进程中的不同执行路径。线程有自己的堆栈和局部变量，但线程之间没有单独的地址空间，一个线程死掉就等于整个进程死掉，所以多进程的程序要比多线程的程序健壮，但在进程切换时，耗费资源较大，效率要差一些。但对于一些要求同时进行并且又要共享某些变量的并发操作，只能用线程，不能用进程。<br>1) 简而言之,一个程序至少有一个进程,一个进程至少有一个线程。<br>2) 线程的划分尺度小于进程，使得多线程程序的并发性高。<br>3) 进程在执行过程中拥有独立的内存单元，而多个线程共享内存，从而极大地提高了程序的运行效率。<br>4) 线程在执行过程中与进程还是有区别的。每个独立的线程有一个程序运行的入口、顺序执行序列和程序的出口。但是线程不能够独立执行，必须依存在应用程序中，由应用程序提供多个线程执行控制。<br>5) 从逻辑角度来看，多线程的意义在于一个应用程序中，有多个执行部分可以同时执行。但操作系统并没有将多个线程看做多个独立的应用，来实现进程的调度和管理以及资源分配。这就是进程和线程的重要区别。</p>
-</li>
-<li>同步和异步<ul>
-<li>消息的通知机制</li>
-<li>涉及到IO通知机制；所谓同步，就是发起调用后，被调用者处理消息，必须等处理完才直接返回结果，没处理完之前是不返回的，调用者主动等待结果；所谓异步，就是发起调用后，被调用者直接返回，但是并没有返回结果，等处理完消息后，通过状态、通知或者回调函数来通知调用者，调用者被动接收结果。</li>
-</ul>
-</li>
-<li>阻塞和非阻塞<ul>
-<li>程序等待调用结果时的状态</li>
-<li>涉及到CPU线程调度；所谓阻塞，就是调用结果返回之前，该执行线程会被挂起，不释放CPU执行权，线程不能做其它事情，只能等待，只有等到调用结果返回了，才能接着往下执行；所谓非阻塞，就是在没有获取调用结果时，不是一直等待，线程可以往下执行，如果是同步的，通过轮询的方式检查有没有调用结果返回，如果是异步的，会通知回调。</li>
-</ul>
-</li>
-<li>TCP和UDP<ul>
-<li>基于连接（TCP）与无连接（UDP）； </li>
-<li>对系统资源的要求（TCP较多，UDP少）； </li>
-<li>UDP程序结构较简单； </li>
-<li>流模式与数据报模式 ；</li>
-<li>TCP保证数据正确性，UDP可能丢包，TCP保证数据顺序，UDP不保证。</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/07/02/线性模型和非线性模型/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Hero">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hero's notebooks">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/02/线性模型和非线性模型/" itemprop="url">线性模型和非线性模型</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-02T15:56:00+08:00">
-                2019-07-02
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-19T10:23:10+08:00">
+                2019-11-19
               </time>
             
 
@@ -741,14 +401,40 @@
         
           
             <ol>
-<li>判断非线性模型和线性模型：决策边界是否是直线 或 一个变量是否被一个参数所影响<br>（决策空间中，坐标是参数w，而原来的输入x，是该空间中的坐标点）</li>
+<li><p>稀疏表示</p>
+<ul>
+<li><p>稀疏：p的维度较大，且尽可能使α中的系数多为0（只有少数的non-zero elements）</p>
+</li>
+<li><p>作用：</p>
+<p>1）拥有更强大表达能力(Representation Power）（去掉冗余的信息）</p>
+<p>2）拥有识别和约束能力（Discriminative, or Regularization Power）（加速运算，减小存储（可以通过一些表达方式来表达稀疏矩阵））</p>
+</li>
+<li><p>用途：</p>
+<p>1）信号处理领域：自然界中的信号低频居多，高频基本都是噪声。因此在做基矩阵时，表达系数只在少数低频基上较大，高频基的系数基本都接近于0.所以在一些问题，例如逆问题中，从一些损坏或者噪声中提取某个信号，相当于解不定方程，不加约束的话会有很多可行解。于是在解决这类问题的时候，会加上约束，即稀疏性约束</p>
+<p>2）推荐系统：用户行为，例如用户评价是一个低秩矩阵</p>
+<p>3）深度学习：l1正则抗拟合</p>
+</li>
+<li><p>表示：如下图，原来的特征为x，编码后为α。相当于某向量在基下的坐标。</p>
+</li>
+</ul>
+<p><img src="https://img-blog.csdn.net/20151223214504471" alt></p>
+</li>
 </ol>
 <ul>
-<li>Logistic Regression是线性模型，本身是wx+b，每个变量都由一个参数决定，决策边界为wx+b &lt; c，决策面是wx+b=y,这是线性的，然后再把结果做了一个映射，映射到0~1，相当于分类的置信度。</li>
-<li>神经网络则是典型的非线性网络，因为一个变量由多个参数决定，且参数之间有交互。</li>
-<li>SVM，有线性和非线性版本。线性SVM，其模型本身就是在寻求一个超平面，只是策略是找到间隔最大的那个超平面。而非线性SVM，虽说在特征空间上仍是分类超平面，但是先采用了<strong>核技巧</strong>从输入空间向特征空间进行了非线性映射。</li>
-<li>MLP，其嵌套函数的特点就反映了，它的非线性更像 LR ，即从每层来看，输入并没有进行 SVM 那样的非线性特征变换，但在输出时进行了非线性映射，那么多层重叠，也就实现了特征的非线性交叉。</li>
+<li><p>实现：</p>
+<p>使得表示前后误差尽可能小：<br>$$<br>J(D, α)=|D α-x|<em>{2}<br>$$<br>加入限制条件——稀疏：<br>$$<br>J(D, α)=|D α-x|</em>{2}+\lambda|α|_{1}<br>$$</p>
+</li>
+<li><p>理解：</p>
+<p>1）有点像l1正则化</p>
+<p>2）降维是原向量空间的子集，稀疏是原向量空间子集的集合</p>
+</li>
 </ul>
+<ol start="2">
+<li><p>非NN中特征稀疏的解决</p>
+<p>1）推荐系统FM模型解决</p>
+<p>2）</p>
+</li>
+</ol>
 
           
         
@@ -797,7 +483,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/07/02/排序算法python/">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/11/19/梯度下降及其优化算法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Hero">
@@ -816,7 +502,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/07/02/排序算法python/" itemprop="url">十大排序算法python实现</a></h1>
+                <a class="post-title-link" href="/2019/11/19/梯度下降及其优化算法/" itemprop="url">梯度下降及其优化算法</a></h1>
         
 
         <div class="post-meta">
@@ -828,8 +514,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-02T08:54:51+08:00">
-                2019-07-02
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-19T10:23:10+08:00">
+                2019-11-19
               </time>
             
 
@@ -890,66 +576,231 @@
       
         
           
-            <ul>
-<li>下文中的稳定是指：若a=b，而排序后的ab顺序与原来的ab顺序一样</li>
-<li>交换排序：冒泡、快排；<br>选择排序：选择、堆；<br>插入排序：插入、希尔；<br>归并排序、基数排序</li>
-<li>总结：</li>
-<li>排序算法 | 时间复杂度（平均） | 时间（最短） | 时间（最长） | 空间复杂度 | 是否稳定<br>— | — | — | — | — | —<br>冒泡 | O(N2) | O(N) | O(N2) | O(1) | 是<br>选择 | O(N2) | O(N2) | O(N2) | 0(1) | 否<br>插入 | O(N2) | O(N) | O(N2) | O(1) | 是<br>希尔 | O(n·log(n)2) | O(n3/2) | O(N2) | O(1) | 否<br>快速 | </li>
-</ul>
-<ol>
-<li>冒泡排序</li>
-</ol>
+            <h1 id="GD及其变体"><a href="#GD及其变体" class="headerlink" title="GD及其变体"></a>GD及其变体</h1><h2 id="Batch-GD-Vanilla-GD"><a href="#Batch-GD-Vanilla-GD" class="headerlink" title="Batch GD / Vanilla GD"></a>Batch GD / Vanilla GD</h2><p><img src="https://www.zhihu.com/equation?tex=%5Ctheta_%7Bi%2B1%7D%3D+%5Ctheta_t+-+%5Ceta+g_t" alt></p>
+<p>ALL SAMPLES</p>
+<h2 id="SGD"><a href="#SGD" class="headerlink" title="SGD"></a>SGD</h2><p>求梯度的时候，要经过所有样本，计算量会很大，随机梯度下降是<strong>每次迭代随机选取</strong>一个样本计算梯度。</p>
+<p>每次用到的梯度方差大，收敛过程不稳定</p>
+<p>问题是可能到不了局部最优。</p>
+<h2 id="mini-batch-gd"><a href="#mini-batch-gd" class="headerlink" title="mini-batch gd"></a>mini-batch gd</h2><p>降低了更新参数的方差，收敛过程更稳定</p>
+<h1 id="优化算法"><a href="#优化算法" class="headerlink" title="优化算法"></a>优化算法</h1><h2 id="Momentum"><a href="#Momentum" class="headerlink" title="Momentum"></a>Momentum</h2><h3 id="指数加权平均"><a href="#指数加权平均" class="headerlink" title="指数加权平均"></a>指数加权平均</h3><p>$$<br>v_{t}=\beta v_{t-1}+(1-\beta) \theta_{t}<br>$$<br>$$<br>\begin{array}{l}{v_{0}=0} \ {v_{1}=\beta v_{0}+(1-\beta) \theta_{1}} \ {v_{2}=\beta v_{1}+(1-\beta) \theta_{2}=\beta\left(\beta v_{0}+\theta_{1}\right)+(1-\beta) \theta_{2}} \ {\vdots} \ {v_{t}=\beta v_{t-1}+(1-\beta) \theta_{t}=\sum_{i=1}^{t} \beta^{t-i}(1-\beta) \theta_{t}}\end{array}<br>$$</p>
 <ul>
-<li>迭代n-1次，两个相邻元素两两相比，每次迭代将最大的元素放在该迭代序列的顶端。</li>
-<li>优化后，对于最优的情况，即已经正序排列的，算法复杂度为O(N)<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bubble_sort</span><span class="params">(num)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(num)<span class="number">-1</span>):</span><br><span class="line">        flag = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(len(num)-i<span class="number">-1</span>):</span><br><span class="line">            <span class="keyword">if</span> num[j] &gt; num[j+<span class="number">1</span>]:</span><br><span class="line">                num[j], num[j+<span class="number">1</span>] = num[j+<span class="number">1</span>], num[j]</span><br><span class="line">                flag = <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> flag == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> num</span><br><span class="line">    <span class="keyword">return</span> num</span><br></pre></td></tr></table></figure>
+<li>使用之前的观测值以及当前观测值的平均来作为所需要的值，以达到平滑的目的。距离当前时刻越近的观测值对求得移动平均值的影响越大。</li>
+<li>指数的意思是：按照公式归纳，之前观测值的权值为设定常数的次方。</li>
+</ul>
+<h3 id="动量梯度下降"><a href="#动量梯度下降" class="headerlink" title="动量梯度下降"></a>动量梯度下降</h3><p>$$<br>\begin{aligned} v_{t} &amp;=\beta v_{t-1}+(1-\beta) \nabla J(\theta)<em>{t} \ \theta &amp;=\theta-\alpha v</em>{t} \end{aligned}<br>$$<br>也即：<br>$$<br>\begin{aligned} v_{t} &amp;=\gamma v_{t-1}+\eta \nabla J(\theta)<em>{t} \ \theta &amp;=\theta-v</em>{t} \end{aligned}<br>$$</p>
+<ul>
+<li>动量梯度下降即对梯度进行指数加权平均，以达到平滑的作用，利用到了历史梯度值。</li>
+<li>平滑：例如对于有些参数梯度正负不断震荡，导致loss也在这些参数对应的方向上不断震荡，那加入历史值则会在一定程度上抵消震荡；而如果某些参数的变化是一致的，平均后不会产生太大影响，只是使得具体值变化变小了而已。</li>
+</ul>
+<h2 id="Nesterov-Accelerated-Gradient-NAG"><a href="#Nesterov-Accelerated-Gradient-NAG" class="headerlink" title="Nesterov Accelerated Gradient,NAG"></a>Nesterov Accelerated Gradient,NAG</h2><ul>
+<li>之前的方法是利用梯度方向来进行参数更新，Nesterov对梯度加入了预测功能：即预测参数未来的近似位置，并利用此位置处的参数梯度来进行更新当前参数</li>
+</ul>
+<p>$$<br>\begin{aligned} v_{t} &amp;=\gamma v_{t-1}+\eta \nabla J\left(\theta-\gamma v_{t-1}\right) \ \theta &amp;=\theta-v_{t} \end{aligned}<br>$$<br><img src="https://img2018.cnblogs.com/blog/439761/201903/439761-20190313101736137-755682989.jpg" alt></p>
+<ul>
+<li>动量下降为蓝色，短蓝为当前梯度，常蓝为动量；NAG为，先在之前的动量项（棕色）前进一步，并计算此时的梯度，然后用这个梯度与之前的动量项指数平均。</li>
+<li>相当于先判断下一阶段可能要去的地方，然后使用那个地方的梯度，相当于提前预测，做个修正，少走冤枉路。</li>
+</ul>
+<h2 id="Adagrad-Adaptive-Gradient"><a href="#Adagrad-Adaptive-Gradient" class="headerlink" title="Adagrad(Adaptive Gradient)"></a>Adagrad(Adaptive Gradient)</h2><ul>
+<li>之前的参数更新时，不同的参数使用相同的步长，为了对不同的参数使用不同的步长，引入Adagrad，当梯度大时，步长小，梯度小时，步长大。</li>
+<li>AdaGrad对每个变量更新时，利用该变量历史积累的梯度来修正其学习速率。这样，已经下降的很多的变量则会有小的学习率，而下降较少的变量则仍然保持较大的学习率。<br>$$<br>\theta_{(t+1, i)}=\theta_{(t, i)}-\frac{\eta}{\sqrt{\sum_{\tau=1}^{t} \nabla J\left(\theta_{i}\right)<em>{\tau}+\epsilon}} \cdot \nabla J\left(\theta</em>{i}\right)_{t+1}<br>$$</li>
+<li>缺点：<ul>
+<li>仍然需要设初始学习率；</li>
+<li>学习率不断衰减，到后期会很小，导致训练过早停止。</li>
+</ul>
 </li>
 </ul>
-<ol start="2">
-<li>选择排序</li>
-</ol>
+<h2 id="RMSprop"><a href="#RMSprop" class="headerlink" title="RMSprop"></a>RMSprop</h2><p>解决Adagrad学习率衰减的问题</p>
 <ul>
-<li>迭代n-1次，每次选择出最小的放到前面</li>
-<li>不稳定，因为选择出最小的之后会跟原有数交换顺序，因此会破坏原来的顺序，例如5 3 5 2，第一次之后为2 3 5 5，此时5跟5的顺序变了</li>
+<li>学习率衰减：引入动量（指数加权平均），引入超参γ，在累积梯度的<strong>平方</strong>项近似衰减：</li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">select_sort</span><span class="params">(num)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(num)<span class="number">-1</span>):</span><br><span class="line">        min_index = i   </span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i,len(num)<span class="number">-1</span>):</span><br><span class="line">            <span class="keyword">if</span> num[j+<span class="number">1</span>] &lt; num[min_index]:</span><br><span class="line">                min_index = j+<span class="number">1</span></span><br><span class="line">        num[i], num[min_index] = num[min_index], num[i]</span><br><span class="line">    <span class="keyword">return</span> num</span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>插入排序</li>
+<p>$$<br>\begin{array}{l}{s_{(t, i)}=\gamma s_{(t-1, i)}+(1-\gamma) \nabla J\left(\theta_{i}\right)<em>{t} \odot \nabla J\left(\theta</em>{i}\right)<em>{t}} \ {\theta</em>{(t, i)}=\theta_{(t-1, i)}-\frac{\eta}{\sqrt{s_{(t, i)}+\epsilon}} \odot \nabla J\left(\theta_{i}\right)_{t}}\end{array}<br>$$</p>
+<h2 id="Adam"><a href="#Adam" class="headerlink" title="Adam"></a>Adam</h2><p><strong>RMSprop+Momentum</strong></p>
+<p>即梯度的指数平均和梯度平方的指数平均的结合：<br>$$<br>\begin{aligned} m_{t} &amp;=\beta_{1} m_{t-1}+\left(1-\beta_{1}\right) g_{t} \ v_{t} &amp;=\beta_{2} v_{t-1}+\left(1-\beta_{2}\right) g_{t}^{2} \end{aligned}<br>$$<br>mt和vt的初始值为0，训练初期可能较小，因此需要对其放大：<br>$$<br>\begin{aligned} \hat{m}<em>{t} &amp;=\frac{m</em>{t}}{1-\beta_{1}^{t}} \ \hat{v}<em>{t} &amp;=\frac{v</em>{t}}{1-\beta_{2}^{t}} \end{aligned}<br>$$<br>即：<br>$$<br>\theta_{t+1}=\theta_{t}-\frac{\eta}{\sqrt{\hat{v}<em>{t}}+\epsilon} \hat{m}</em>{t}<br>$$<br>作者建议β1设置为0.9,β2设置为0.999，取ϵ=10−8。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<li>从Vanilla GD到动量项，解决了梯度震荡的问题；<strong>Momentum</strong></li>
+<li>加入历史梯度累计作为修正项，解决了每个参数的步长一样的问题；<strong>Adagrad</strong></li>
+<li>一阶梯度累计项变二阶梯度累计项的指数加权平均，解决了Adagrad训练后期学习率小的问题；<strong>RMSprop</strong></li>
+<li><strong>Momentum+RMSprop=Adam</strong></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/11/19/推荐系统FM、FFM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hero">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hero's notebooks">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/19/推荐系统FM、FFM/" itemprop="url">推荐系统FM/FMM</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-19T10:23:10+08:00">
+                2019-11-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>CTR预估时，除了单特征，还要对特征进行组合。组合方法：FM系列和Tree系列。</p>
+<ol>
+<li><p>FM：为了解决特征稀疏</p>
+<p>one-hot编码后，特征空间非常稀疏，进而造成一些问题。</p>
+</li>
+<li><p>线性模型：<br>$$<br>y=\omega_{0}+\sum_{i=1}^{n} \omega_{i} x_{i}<br>$$</p>
+</li>
+<li><p>FM：加入线性组合，只加入两个特征的组合：</p>
+</li>
 </ol>
+<p>$$<br>y=\omega_{0}+\sum_{i=1}^{n} \omega_{i} x_{i}+\sum_{i=1}^{n-1} \sum_{j=i+1}^{n} \omega_{i j} x_{i} x_{j}<br>$$</p>
+<pre><code>- 问题：特征稀疏，xi, xj都不为0的情况比较少，所以wij无法训练得出
+</code></pre><ul>
+<li><p>解法：</p>
 <ul>
-<li>跟打牌类似</li>
-<li>最快情况是O(N)，如果大部分数据已经排好序了，while pre_index &gt;= 0 and cur_num &lt; num[pre_index]这句的迭代次数会大大减少，会比较快</li>
+<li>共n个特征，对每个特征分量xi引入辅助向量Vi，Vi的长度为k<br>$$<br>\mathbf{V}=\left(\begin{array}{cccc}{v_{11}} &amp; {v_{12}} &amp; {\cdots} &amp; {v_{1 k}} \ {v_{21}} &amp; {v_{22}} &amp; {\cdots} &amp; {v_{2 k}} \ {\vdots} &amp; {\vdots} &amp; {} &amp; {\vdots} \ {v_{n 1}} &amp; {v_{n 2}} &amp; {\cdots} &amp; {v_{n k}}\end{array}\right)<em>{n \times k}=\left(\begin{array}{c}{\mathbf{v}</em>{1}} \ {\mathbf{v}<em>{2}} \ {\vdots} \ {\mathbf{v}</em>{n}}\end{array}\right)<br>$$<br>有：<br>$$<br>\hat{\mathbf{W}}=\mathbf{V} \mathbf{V}^{T}=\left(\begin{array}{c}{\mathbf{v}<em>{1}} \ {\mathbf{v}</em>{2}} \ {\vdots} \ {\mathbf{v}<em>{n}}\end{array}\right)\left(\begin{array}{cccc}{\mathbf{v}</em>{1}} \ {\mathbf{v}<em>{1}^{T}} &amp; {\mathbf{v}</em>{2}^{T}} &amp; {\cdots} &amp; {\left.\mathbf{v}<em>{n}^{T}\right)} \ {\mathbf{v}</em>{n}} &amp; {} &amp; {} &amp; {}\end{array}\right.<br>$$<br>从求解w变为求解v：<br>$$<br>\begin{aligned} &amp; \sum_{i=1}^{n-1} \sum_{j=i+1}^{n}\left\langle\mathbf{v}<em>{i}, \mathbf{v}</em>{j}\right\rangle x_{i} x_{j} \=&amp; \frac{1}{2} \sum_{i=1}^{n} \sum_{j=i+1}^{n}\left\langle\mathbf{v}<em>{i}, \mathbf{v}</em>{j}\right\rangle x_{i} x_{j}-\frac{1}{2} \sum_{i=1}^{n}\left\langle\mathbf{v}<em>{i}, \mathbf{v}</em>{i}\right\rangle x_{i} x_{i} \=&amp; \frac{1}{2}\left(\sum_{i=1}^{n} \sum_{j=1}^{n}\left\langle\mathbf{v}<em>{i}, \mathbf{v}</em>{j, f}, x_{i} x_{j}-\sum_{i=1}^{n} \sum_{f=1}^{k} v_{i, f} v_{i, f} x_{i} x_{i}\right)\right.\=&amp; \frac{1}{2} \sum_{f=1}^{k}\left(\left(\sum_{i=1}^{n} v_{i, f} x_{i}\right)^{2}-\sum_{i=1}^{n} v_{i, f}^{2} x_{i}^{2}\right) \=&amp; \frac{1}{2} \sum_{f=1}^{k}\left(\left(\sum_{i=1}^{n} v_{i, f} x_{i}\right)^{2}-\sum_{i=1}^{n} v_{i, f}^{2} x_{i}^{2}\right) \end{aligned}<br>$$<br>即：从求ab变为求解<br>$$<br>\left((a+b+c)^{2}-a^{2}-b^{2}-c^{2}\right.<br>$$</li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">insert_sort</span><span class="params">(num)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(num)<span class="number">-1</span>):</span><br><span class="line">        pre_index = i <span class="comment"># 前一个数</span></span><br><span class="line">        cur_num = num[i+<span class="number">1</span>] <span class="comment"># 当前待插入数 </span></span><br><span class="line">        <span class="keyword">while</span> pre_index &gt;= <span class="number">0</span> <span class="keyword">and</span> cur_num &lt; num[pre_index]:</span><br><span class="line">            num[pre_index+<span class="number">1</span>] = num[pre_index] <span class="comment"># 往后挪一位</span></span><br><span class="line">            pre_index -= <span class="number">1</span>   </span><br><span class="line">        num[pre_index+<span class="number">1</span>] = cur_num</span><br><span class="line">    <span class="keyword">return</span> num</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 <ol start="4">
-<li>希尔排序</li>
-</ol>
+<li><p>FFM</p>
 <ul>
-<li>对插入排序的优化，使用了递减的增量序列</li>
-<li>如上所述插入排序中：如果大部分数据已经排好序了，while pre_index &gt;= 0 and cur_num &lt; num[pre_index]这句的迭代次数会大大减少，会比较快 –&gt; 所以希尔排序就是针对这个做了优化，即先减少需要排序的数量，再逐步对其排序</li>
-<li>希尔排序是不稳定的算法，它满足稳定算法的定义。对于相同的两个数，可能由于分在不同的组中而导致它们的顺序发生变化。</li>
-<li>希尔排序的性能根据其选取的序列而变化</li>
-<li>使用动态增量序列的代码如下：</li>
+<li><p>加入field的概念：FM中，v针对特征是经过one-hot后处理后的，有些特征是从同一个类别特征one-hot得来的</p>
+</li>
+<li><p>隐向量不仅与特征有关，也与field有关</p>
+</li>
+<li><p>n个特征属于f个field，FM相当于把所有特征归属于一个field时的FFM。</p>
+</li>
+<li><p>FFM有nfk个参数，FM有nk个</p>
+</li>
+<li><p>$$<br>y(\mathbf{x})=w_{0}+\sum_{i=1}^{n} w_{i} x_{i}+\sum_{i=1}^{n} \sum_{j=i+1}^{n}\left\langle\mathbf{v}_{i ,f_j}, \mathbf{v}<em>{j ,f</em>{i}}\right\rangle x_{i} x_{j}<br>$$</p>
+</li>
+<li><p>一种实现：将问题定义为分类问题，使用加入正则项的logloss（1，-1的logloss）<br>$$<br>\min <em>{\mathbf{w}} \sum</em>{i=1}^{L} \log \left(1+\exp \left{-y_{i} \phi\left(\mathbf{w}, \mathbf{x}_{i}\right)\right}\right)+\frac{\lambda}{2}|\mathbf{w}|^{2}<br>$$<br>利用SGD进行训练。</p>
+</li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">shell_sort</span><span class="params">(num)</span>:</span></span><br><span class="line">    gap = <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> gap &lt; len(num) // <span class="number">3</span>: <span class="comment">#gap &lt; (3a,3a+1,3a+2)//3: (a-1)*3+1=3a-2</span></span><br><span class="line">        gap = gap*<span class="number">3</span> + <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> gap &gt; <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(gap,len(num)):</span><br><span class="line">            cur_num = num[gap]</span><br><span class="line">            pre_index = i-gap</span><br><span class="line">            <span class="keyword">while</span> pre_index &gt;= <span class="number">0</span> <span class="keyword">and</span> cur_num &lt; num[pre_index]:</span><br><span class="line">                num[pre_index+gap] = num[pre_index] </span><br><span class="line">                pre_index -= gap</span><br><span class="line">            num[pre_index+gap] = cur_num</span><br><span class="line">        gap //= <span class="number">3</span></span><br></pre></td></tr></table></figure>
-<ol start="5">
-<li>归并排序</li>
+</li>
 </ol>
-<ul>
-<li>递归</li>
-<li>终止条件：剩一个元素时，返回该元素；再上一层对返回的两个元素比较排序</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">merge_sort</span><span class="params">(num)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">merge</span><span class="params">(left,right)</span>:</span> <span class="comment"># left和right本身是已经排序好的</span></span><br><span class="line">        result = []</span><br><span class="line">        i=j=<span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> i &lt; len(left) <span class="keyword">and</span> j &lt; len(right):</span><br><span class="line">            <span class="keyword">if</span> left[i] &lt;= right[j]:</span><br><span class="line">                result.append(left)</span><br><span class="line">                i+=<span class="number">1</span>            </span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                result.append(right)</span><br><span class="line">                j+=<span class="number">1</span></span><br><span class="line">        result = result + left[i:] + right[j:]</span><br><span class="line">        <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> len(num) &lt;= <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> num</span><br><span class="line">    mid = len(num) // <span class="number">2</span></span><br><span class="line">    left = merge_sort(num[:mid])</span><br><span class="line">    right = merge_sort(num[mid:])</span><br><span class="line">    <span class="keyword">return</span> merge(left,right)</span><br></pre></td></tr></table></figure>
-<ol start="6">
-<li>快速排序</li>
-</ol>
-<ul>
-<li>冒泡+二分+递归分治</li>
-<li>核心：每次迭代使选取的基准值插入到序列中，该序列中基准值左边的值小于基准值，右边的值大于基准值，然后再对两边分别迭代</li>
-<li>基准数选择以及指针移动顺序：最终两个指针相遇时，要把基准数和相遇的位置交换，此时该位置左边的数小于基准数，右边大于基准数；若选择最左边的数为基准数，肯定要跟比它小的数交换，因此只有右指针先动才能找到比它小的（例如算法2里右指针相遇时找到的一定是上一轮左指针的交换结果，一定是小于基准数的）</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 二分之后不断地递归，每次递归求出基准值的具体位置</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quick_sort1</span><span class="params">(num)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> len(num) &lt;= <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> num</span><br><span class="line">    pivot = num[<span class="number">0</span>]</span><br><span class="line">    left = [num[i] <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,len(num)) <span class="keyword">if</span> num[i] &lt;= pivot]</span><br><span class="line">    right = [num[i] <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,len(num)) <span class="keyword">if</span> num[i] &gt; pivot]</span><br><span class="line">    <span class="keyword">return</span> quick_sort1(left) + pivot + quick_sort2(right)</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quick_sort2</span><span class="params">(num,left,right)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> left &gt;= right: <span class="comment"># 两指针相遇，则终止</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    low = left</span><br><span class="line">    high = right</span><br><span class="line">    pivot = num[left]</span><br><span class="line">    <span class="keyword">while</span> left &lt; right:</span><br><span class="line">        <span class="keyword">while</span> left &lt; right <span class="keyword">and</span> num[right] &gt; pivot: <span class="comment"># 右指针向左移动直到找到小于pivot的</span></span><br><span class="line">            right -= <span class="number">1</span></span><br><span class="line">        num[left] = num[right] <span class="comment"># 右边有小于基准值的，调整到左边</span></span><br><span class="line">        <span class="keyword">while</span> left &lt; right <span class="keyword">and</span> num[left] &lt;= pivot: <span class="comment"># 右指针向左移动直到找到小于pivot的</span></span><br><span class="line">            left += <span class="number">1</span></span><br><span class="line">        num[right] = num[left] <span class="comment"># 左边有小于基准值的，调整到右边</span></span><br><span class="line">    num[right] = pivot </span><br><span class="line">    quick_sort2(num, low, left<span class="number">-1</span>)</span><br><span class="line">    quick_sort2(num, right+<span class="number">1</span>, high)</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quick_sort3</span><span class="params">(num,left,right)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> left &lt; right:</span><br><span class="line">        p = partition(num, left, right)</span><br><span class="line">        quick_sort3(num, left, p<span class="number">-1</span>)</span><br><span class="line">        quick_sort3(num, p+<span class="number">1</span>, right)</span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">partition</span><span class="params">(num, left, right)</span>:</span></span><br><span class="line">    pivot = num[right] <span class="comment"># 这里是从左边开始移动指针的，因此是right</span></span><br><span class="line">    i = left - <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(left, right):</span><br><span class="line">        <span class="keyword">if</span> num[j] &lt;= pivot:</span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">            num[i], num[j] = num[j], num[i]</span><br><span class="line">    num[i+<span class="number">1</span>], num[right] = num[right], num[i+<span class="number">1</span>] <span class="comment"># 把基准数移过来</span></span><br><span class="line">    <span class="keyword">return</span> i+<span class="number">1</span></span><br></pre></td></tr></table></figure>
+
           
         
       
@@ -997,7 +848,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/06/19/logstic regression, softmax regression/">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/11/19/推荐系统实验方法与评测/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Hero">
@@ -1016,7 +867,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/06/19/logstic regression, softmax regression/" itemprop="url">logistic regression, softmax regression</a></h1>
+                <a class="post-title-link" href="/2019/11/19/推荐系统实验方法与评测/" itemprop="url">推荐系统实验方法与评测</a></h1>
         
 
         <div class="post-meta">
@@ -1028,8 +879,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-19T15:59:42+08:00">
-                2019-06-19
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-19T10:23:10+08:00">
+                2019-11-19
               </time>
             
 
@@ -1090,7 +941,81 @@
       
         
           
-            <p><a href="https://blog.csdn.net/google19890102/article/details/41594889" target="_blank" rel="noopener">post</a></p>
+            <h1 id="实验方法"><a href="#实验方法" class="headerlink" title="实验方法"></a>实验方法</h1><h2 id="离线"><a href="#离线" class="headerlink" title="离线"></a>离线</h2><p>训练集、测试集</p>
+<table>
+<thead>
+<tr>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>不需要对实际系统的控制</td>
+<td>无法计算商业上关心的指标</td>
+</tr>
+<tr>
+<td>无需用户参与实验</td>
+<td>离线与在线的差距</td>
+</tr>
+<tr>
+<td>速度快，可以测试大量算法</td>
+</tr>
+</tbody>
+</table>
+<h2 id="用户调查"><a href="#用户调查" class="headerlink" title="用户调查"></a>用户调查</h2><table>
+<thead>
+<tr>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>可以获得体现主观感受的指标</td>
+<td>招募测试用户代价大</td>
+</tr>
+<tr>
+<td>相对在线实验风险低</td>
+<td>难以组织大量用户</td>
+</tr>
+</tbody>
+</table>
+<h2 id="在线"><a href="#在线" class="headerlink" title="在线"></a>在线</h2><p>ABtest</p>
+<h1 id="评测指标"><a href="#评测指标" class="headerlink" title="评测指标"></a>评测指标</h1><ul>
+<li><p>用户满意度</p>
+<p>用户调查 / 在线实验</p>
+</li>
+<li><p>准确度</p>
+<ul>
+<li><p>评分预测: rmse, mae</p>
+</li>
+<li><p>Top N: recall, precision<br>$$<br>\begin{array}{l}{\quad \text { Recall }=\frac{\sum_{u v}|R(u) \cap T(u)|}{\sum_{u=U}|T(u)|}} \ {\text { Precision }=\frac{\sum_{u v}|R(u) \cap T(u)|}{\sum_{u=v}|R(u)|}}\end{array}<br>$$</p>
+</li>
+</ul>
+</li>
+<li><p>覆盖率：需体现推荐系统挖掘长尾的能力</p>
+<ul>
+<li><p>信息熵 H = - sigma p(i)logp(i)</p>
+</li>
+<li><p>基尼系数<br>$$<br>G=\frac{1}{n-1} \sum_{j=1}^{n}(2 j-n-1) p\left(i_{j}\right)<br>$$<br>这里ij是按照物品流行度p()从小到大排序的物品列表中第j个物品</p>
+<p><img src="/Users/didi/Library/Application Support/typora-user-images/image-20190924155235973.png" alt="image-20190924155235973"></p>
+</li>
+</ul>
+</li>
+<li><p>多样性：用户兴趣是广泛的</p>
+</li>
+<li>新颖性：给用户推荐其之前没有听过或看过的物品</li>
+<li>精细度：推荐结果和用户的历史兴趣不相似，但却让用户觉得满意，那么就可以说推荐结果的惊喜度很高，而推荐的新颖性仅仅取决于用户是否听说过这个 推荐结果。</li>
+<li>信任度<ul>
+<li>提高推荐系统透明度</li>
+<li>考虑用户社交网络信息，利用好友信息给用户作推荐，并用好友进行推荐解释</li>
+</ul>
+</li>
+<li>实时性：物品的时效性、用户兴趣的时效性</li>
+<li>健壮性（鲁棒性）：反作弊</li>
+<li>商业目标</li>
+</ul>
 
           
         
@@ -1139,7 +1064,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/05/27/信息熵、交叉熵、条件熵、互信息/">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/11/19/实习总结/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Hero">
@@ -1158,7 +1083,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/27/信息熵、交叉熵、条件熵、互信息/" itemprop="url">信息熵、交叉熵、条件熵、相对熵(K-L散度)、互信息</a></h1>
+                <a class="post-title-link" href="/2019/11/19/实习总结/" itemprop="url">滴滴实习总结</a></h1>
         
 
         <div class="post-meta">
@@ -1170,8 +1095,476 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-27T08:17:35+08:00">
-                2019-05-27
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-19T10:23:10+08:00">
+                2019-11-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="信用分"><a href="#信用分" class="headerlink" title="信用分"></a>信用分</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>平台上每天对乘客有10+w差评投诉，专快<strong>坏账</strong>每月3千万，<strong>司机nps -17%</strong>，<strong>乘客诈骗</strong>引起pr事件，专车乘客封禁但依然能活跃在其他业务线等，乘客管控一片空白，业务迫切希望有一个抓手来解决这些问题。在这个背景下，乘客行为分应运而生。</p>
+<p>乘客行为分的本质是<strong>按照乘客在平台上的行为对其进行分层</strong>。乘客行为分是构建良好司机／乘客生态的一部分，<strong>能为平台提供更多GMV／运力，为司机提供更好体验（NPS）</strong>，为乘客提供更好体验（NPS）。</p>
+<ul>
+<li>平台资损：补券、有责取消（取消费用、取消次数、取消率）</li>
+<li>平台体验：司机投诉（司机nps）、乘客投诉（虚假投诉）</li>
+</ul>
+<p>定位：<strong>乘客行为分是连接B端和C端的工具。其中，C端是乘客，公司内的B端主要包括客服部门 （乘客管控方向）／乘客补贴部门（补贴方向）和乘客运营部门（拉新方向）。</strong></p>
+<p>价值：<strong>乘客行为分的核心价值在于为B端提供用户分层服务，为C端提供用户权益（差异化服务）。</strong></p>
+<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><ul>
+<li>准入（乘客运营）：<ul>
+<li>乘客行为分替代芝麻分作为海棠湾（出行单车事业部）和黑马（电单车）的准入条件，分别提高<strong>31%</strong>、<strong>30%</strong>的转化率</li>
+</ul>
+</li>
+<li>免押（乘客运营）：<ul>
+<li>粤港车减低未播率 提高乘客体验</li>
+</ul>
+</li>
+<li>降资损（乘客管控）：<ul>
+<li>恶意补券</li>
+<li>低信用乘客不给预付</li>
+</ul>
+</li>
+<li>乘客管控与乘客教育：<ul>
+<li>海棠湾和黑马 行为分露出，坏行为下降，好行为上升</li>
+<li>深圳地区乘客教育与乘客管控</li>
+</ul>
+</li>
+<li><strong>司机体验优化（低信用乘客豁免）</strong></li>
+<li>分单倾斜</li>
+<li>用作其他业务的参考依据：为滴滴金融等借贷业务提供决策的依据</li>
+</ul>
+<h2 id="评估"><a href="#评估" class="headerlink" title="评估"></a>评估</h2><p><img src="C:\Users\Chenzk\Documents\Learning\滴滴\cmd\image\image2019-8-2_11-47-48.png" alt="image2019-8-2_11-47-48"></p>
+<p>收益评估：正向收益与负向收益</p>
+<h2 id="方案"><a href="#方案" class="headerlink" title="方案"></a>方案</h2><p>履约表现、行为健康度、净贡献值、身份特征</p>
+<h3 id="履约表现"><a href="#履约表现" class="headerlink" title="履约表现"></a>履约表现</h3><ul>
+<li>标签：表现期内是否违约（网约车业务逾期30天（平台对坏账的定义）以上，滴水贷违约）</li>
+<li>特征：履约能力（固定资产、流动资产、平台流水（发单次数、gmv、完单次数））和信用历史（个人借贷还款、逾期（逾期支付次数、逾期支付金额、滴水贷还款总金额、当前逾期未还本金、逾期次数、历史最大逾期天数）等情况的统计信息）</li>
+<li>baseline：网约车规则、粤港车规则</li>
+<li>样本<ul>
+<li>观察期内有行为的乘客，没有行为发生给默认分</li>
+<li>抽样：全量粤港车（1万）+全量滴水贷（45万）+随机抽样网约车（ 200万）</li>
+</ul>
+</li>
+<li>分箱<ul>
+<li>等频、等距、卡方</li>
+</ul>
+</li>
+<li>模型：见卡方分布及卡方检验、评分卡</li>
+<li>评估：（大盘抽样或整个大盘，例如ks、gini等可以直接用整个大盘数据）（如果不合常理问题一般是woc值的分布规律不正常）<ul>
+<li>准召（固定一个调整另一个，注重于精确率，粤港车注重于召回率（因为未付订单较少，则降资损更重要，所以查全））、f1、ks（0.42）、auc（0.82）</li>
+<li>分布：平滑 正态 有无异常值，如突出的毛刺（对应了分箱或者数据中的异常值，例如企业支付、代叫号，如果企业支付是按乘客算的，那就算看起来是异常数据也要加入）</li>
+<li>分数与GMV、坏账、未播率、逾期单数、渗透率、滴水贷逾期金额、滴水贷逾期次数的分布</li>
+<li>应用于业务时的影响面、未播率、资损delta</li>
+</ul>
+</li>
+<li>思考：<ul>
+<li>label选择的方案：逾期31天和逾期29天在特征方面差别很小，如何设计？考虑去除灰色部分，即训练时只选取逾期25天以内的作为label=0，35天以上作为label=1，但测试的时候全部加入，特征和测试的label不变，依然为30天，即只是为了提高模型的表现</li>
+</ul>
+</li>
+</ul>
+<h3 id="行为健康度"><a href="#行为健康度" class="headerlink" title="行为健康度"></a>行为健康度</h3><ul>
+<li><p>Label：根据乘客在历史X个月的行为表现预测在未来X个月的行为表现。好：label=0，坏：label=1.（其中历史x选取6，未来x选取1）</p>
+<p>其中坏行为是有责投诉(费用类有责投诉和服务类有责投诉)、有责取消和迟到。</p>
+<p><strong>label选取方式：</strong></p>
+<ol>
+<li>人群范围：历史六个月发单&gt;=10单 &amp; 未来一个月发单&gt;=5单</li>
+<li>label1：未来一个月的坏行为发生率&gt;=0.4，其中坏行为发生率=（有责投诉数+有责取消数+迟到）/ 发单数。</li>
+<li>label0：未来一个月的坏行为发生次数&lt;=1</li>
+</ol>
+</li>
+<li><p>数据选取：</p>
+<ol>
+<li>label1：选取满足条件的全部数据量。</li>
+<li>label0：从满足条件的数据中随机选取14w。正：负=1：1。</li>
+<li>数据划分：训练集：测试集=8:2</li>
+</ol>
+</li>
+<li><p>特征：[快专出豪顺]完单数、投诉数、费用有责投诉、服务类有责投诉（不包括取消和费用投诉）、有责取消次数、无责取消次数、应答后取消次数、对司机好评、差评、迟到…</p>
+</li>
+<li><p>评估：</p>
+<ul>
+<li>虚假投诉乘客管控：高投诉高补偿（发单&gt;=10 &amp; 投诉工单&gt;=5 &amp;（投诉率&gt;=0.3 or 投诉数&gt;= 15） &amp; (补偿率&gt;= 0.3 or 补偿订单数&gt;= 10) &amp; 用户价值&lt;0 ）乘客分布集中在低分段</li>
+</ul>
+</li>
+<li><p>应用：</p>
+<ul>
+<li>区域乘客教育：取消、迟到、投诉、费用投诉、费用有责投诉的分布、与分数的分布、率的分布。最终使用规则+分数的方式做乘客教育。其中规则和分数的阈值选取：考虑影响面（8万左右）。取消次数大于等于3次，分数小于等于620分，对应人数80934，作为教育的对象；迟到次数大于等于3次，分数小于等于569，影响人数19239，作为教育的对象。<strong>高取消/高迟到乘客次月的重犯次数依旧很高，说明教育必要性</strong></li>
+<li>乘客管控：石锤虚假投诉封禁</li>
+</ul>
+</li>
+</ul>
+<h3 id="分数更新"><a href="#分数更新" class="headerlink" title="分数更新"></a>分数更新</h3><ol>
+<li>更新方式<ol>
+<li>全量更新：选取固定时间周期，滑动窗口，重新训练模型。<ol>
+<li>优势：模型是用最新的数据产生的模型，产生的分数在固定维度内具有区分度。</li>
+<li>劣势：每次生成新的分数，分数变动不稳定。</li>
+</ol>
+</li>
+<li>增量更新：在初始分数的基础上，根据增量的数据做分数的增量变动。<ol>
+<li>优势：分数变动波动性小。</li>
+<li>劣势：增量分数的累积会使区分度变差。</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>更新周期<ol>
+<li>参考选取label的周期。label选取是未来一个月，更新周期是一个月更新一次。</li>
+<li>更新周期太频繁，分数变动太快，不够稳定。更新周期太长，分数不够准确体现乘客当前的行为。</li>
+</ol>
+</li>
+</ol>
+<p>为了使模型向后兼容&amp;&amp;打通流程，在更新时选取增量更新的方式，初试分数的计算和增量更新时的分数需要具有可解释性。</p>
+<h2 id="问题与挑战"><a href="#问题与挑战" class="headerlink" title="问题与挑战"></a>问题与挑战</h2><h3 id="多个业务场景"><a href="#多个业务场景" class="headerlink" title="多个业务场景"></a>多个业务场景</h3><p>分多维度、维度下分子维度，不同维度与子维度都会生成相应的分数，对不同维度设置不同阈值，从而建立个性化的门槛，就可以赋能于不同的业务场景（<strong>用户权益／乘客管控／司机体验</strong>）。</p>
+<h3 id="可解释性"><a href="#可解释性" class="headerlink" title="可解释性"></a>可解释性</h3><p>乘客行为分在最终理想态下需要透传。这意味着，需要考虑行为分（加分和扣分）的可解释性。对用户透传分数时有以下几种不同的力度和方案。</p>
+<ol>
+<li>直接透传当前的总分（类似芝麻分）。这种形式可控性强，但用户对于自己的分数怎么计算的会有疑惑，透传的话会有大量的用户进线。</li>
+<li>透传每种行为项的分数。<ul>
+<li>这种形式可解释性强，用户对于分数的构成很清晰，但是会造成用户恶意刷分的情况。同时不在计算范围的行为，用户可能不会care，从而缺乏管控的能力。</li>
+<li>这种形式可控性很差。如果后期每项行为的分值发生变化，分数的稳定性会受到用户的质疑。</li>
+</ul>
+</li>
+</ol>
+<ol>
+<li>两种形式的折衷（类似内测的橙信值）。对于坏行为给用户完全透传出来，使用户意识到哪些形式要明令禁止的；对于好行为给出加分的总和。</li>
+<li>两种形式的折衷（类似内测的橙信值）。对于坏行为给用户完全透传出来，使用户意识到哪些形式要明令禁止的；对于好行为给出加分的总和。</li>
+</ol>
+<p>增强行为分可解释性，意味着牺牲策略空间，并且增加了刷分的风险。所以在一些维度（例如乘客身份特征：如实名认证等）上需要尽可能提供高可解释性，而在另一些维度（例如行为健康度：如被司机投诉等）上则需要尽可能保持高度灵活。</p>
+<p><strong><em>xgboost更具解释性？存疑 每个叶子都有权重</em></strong></p>
+<h3 id="数据稀疏"><a href="#数据稀疏" class="headerlink" title="数据稀疏"></a>数据稀疏</h3><ul>
+<li>采样方式，解决有些特征难以用到的问题</li>
+</ul>
+<p>调研了推荐系统中的数据稀疏解决方式，见wiki</p>
+<p>两篇论文：</p>
+<p><a href="http://link.zhihu.com/?target=https%3A//github.com/wzhe06/Reco-papers/blob/master/Embedding/%5BAirbnb%20Embedding%5D%20Real-time%20Personalization%20using%20Embeddings%20for%20Search%20Ranking%20at%20Airbnb%20%28Airbnb%202018%29.pdf" target="_blank" rel="noopener">Real-time Personalization using Embeddings for Search Ranking at Airbnb (Airbnb 2018)</a></p>
+<p><a href="http://link.zhihu.com/?target=https%3A//github.com/wzhe06/Reco-papers/blob/master/Embedding/%5BAlibaba%20Embedding%5D%20Billion-scale%20Commodity%20Embedding%20for%20E-commerce%20Recommendation%20in%20Alibaba%20%28Alibaba%202018%29.pdf" target="_blank" rel="noopener">[Alibaba Embedding] Billion-scale Commodity Embedding for E-commerce Recommendation in Alibaba (Alibaba 2018)</a></p>
+<h2 id="体会"><a href="#体会" class="headerlink" title="体会"></a>体会</h2><ul>
+<li><p>数据：自己取；大规模；</p>
+</li>
+<li><p>建模目标、label：自定义</p>
+</li>
+<li><p>问题：采样方法、数据稀疏</p>
+</li>
+<li><p>Q：在一个具体项目中，前期通过简单的规则作为baseline的必要性在哪？</p>
+<p>A：1）前期实现时，模型缺乏对照，规则是最简单的可以提供此对照的实现；</p>
+<p>2）公司中不仅有算法/策略部门，还有产品、运营、开发部门，为什么产品、运营、开发给一份规则不能解决问题？算法相对规则可以带来多少delta收益？这也是方案评估的时候会被考虑的几个标准，换言之，baseline作为对照也是对算法/策略部门存在必要性的一个说明。</p>
+<p>Q：机器学习模型中，有些标签本身就是离散的，例如男/女，有房/无房等，而有些标签是连续特征离散化的，例如青年/中年，再例如判责中有有责/无责，也有判不清，这些标签是人为从某些连续标签经过离散化得到的。在拟合连续标签离散化得到的标签的时候，就存在一个灰色样本的问题：人为设定的界线附近的标签区分度不高（例如长得很像狗的猫和长得很像猫的狗就很难给出区分的定义），导致在训练集中打label的时候很难打；就算打好了label，预测时灰色样本的置信度也会比较低，这该如何解决？</p>
+<p>A：1）二分类问题模型输出是一个概率值，再通过设置阈值的方式可以规避掉这些灰色样本的存在，但这种方法是回避了问题，并没有真正判清样本；2）有些分类模型是通过设置阈值来分类的，也有些是通过排序来分类，应用排序的方式可以避免概率值接近这种衡量方式上的判不清；3）有些连续标签的离散化相当于模糊集合的应用，因此在模型中恰当地引入模糊集合理论也可以实现对问题的解决。</p>
+<p>A2：工业界中的数据是自己产生的，label有时是真实数据，有时是要自己打的，信用分三个子维度的问题，是通过已有数据打label，这个打的过程本身就存在打不清楚的问题；如果在训练集中剔除灰色样本，则—-→训练集测试集分布不一致，用不存在预测存在，出现很多问题。</p>
+<p>泓州提到，分布要一致这玩意是理论，我们现在在实践，实践以实际业务需求以及效果为衡量王道，其他不care，能否满足业务需求，能否达到更好的效果才是所关心的，所以分布一致这条原则可以舍去。</p>
+<p>感想：没那么多条条框框，思维要开阔，限制不应该是理论前提的不满足，而是业务、效果。？业务、效果也别限制了吧，怎么爽怎么来。</p>
+<p><img src="C:\Users\Chenzk\Documents\Learning\滴滴\cmd\image\微信图片_20191115101713.png" alt="微信图片_20191115101713"></p>
+</li>
+<li><p>业务方：模型的本质是用历史行为来判责当次发生的问题，说服力不强。</p>
+<p>业务方要求定制化分数?</p>
+<p>可解释性？</p>
+<p>Q：为什么要有可解释性，对这个分数负责不就好了，用户真的有申诉信用分的必要吗？</p>
+<p>A：权益激励/限制权益等不需要，类似于芝麻分信用分不够不能免费骑车也不会有人申诉。但是一些更大的处置动作，例如准出、处罚等需要有可解释性。不care前85%的好人好在哪里，关注的是尾部分布的15%有问题的乘客问题在哪里，以及问题会导致什么 ——&gt; 管控</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/11/19/贪心算法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hero">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hero's notebooks">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/19/贪心算法/" itemprop="url">贪心算法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-19T10:23:10+08:00">
+                2019-11-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="贪心算法"><a href="#贪心算法" class="headerlink" title="贪心算法"></a>贪心算法</h4><p>顾名思义，贪心算法总是作出在当前看来最好的选择。也就是说贪心算法并不从整体最优考虑，它所作出的选择只是在某种意义上的局部最优选择。在一些情况下，即使贪心算法不能得到整体最优解，其最终结果却是最优解的很好近似。</p>
+<ul>
+<li><p>贪心选择性质。所谓贪心选择性质是指所求问题的整体最优解可以通过一系列局部最优的选择，即贪心选择来达到。这是贪心算法可行的第一个基本要素，也是贪心算法与动态规划算法的主要区别。</p>
+<p>动态规划算法通常以自底向上的方式解各子问题，而贪心算法则通常以自顶向下的方式进行，以迭代的方式作出相继的贪心选择，每作一次贪心选择就将所求问题简化为规模更小的子问题。</p>
+<p>对于一个具体问题，要确定它是否具有贪心选择性质，必须证明每一步所作的贪心选择最终导致问题的整体最优解。</p>
+</li>
+<li><p>当一个问题的最优解包含其子问题的最优解时，称此问题具有最优子结构性质。问题的最优子结构性质是该问题可用动态规划算法或贪心算法求解的关键特征。</p>
+</li>
+</ul>
+<h4 id="活动时间安排"><a href="#活动时间安排" class="headerlink" title="活动时间安排"></a>活动时间安排</h4><p>设有N个活动时间集合，每个活动都要使用同一个资源，比如说会议场，而且同一时间内只能有一个活动使用，每个活动都有一个使用活动的开始si和结束时间fi，即他的使用区间为（si,fi）,现在要求你分配活动占用时间表，即哪些活动占用该会议室，哪些不占用，使得他们不冲突，要求是尽可能多的使参加的活动最大化，即所占时间区间最大化。</p>
+<p><img src="https://img-my.csdn.net/uploads/201303/29/1364554174_8902.jpg" alt="img"></p>
+<ul>
+<li>重点：<strong>结束时间按顺序排列</strong>。时间从前往后推移，若以当时时间为开始时间的活动的开始时间≥前一个活动的结束时间，选择此活动即可 –&gt; 原因是<strong>结束时间按顺序排列</strong>。</li>
+</ul>
+<figure class="highlight plain"><figcaption><span>main(int argc, char* argv[])</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">int main(int argc,char* argv[])</span><br><span class="line">&#123;</span><br><span class="line">	int s[11] =&#123;1,3,0,5,3,5,6,8,8,2,12&#125;;</span><br><span class="line">	int f[11] =&#123;4,5,6,7,8,9,10,11,12,13,14&#125;;</span><br><span class="line"> </span><br><span class="line">	bool mark[11] = &#123;0&#125;;</span><br><span class="line"> </span><br><span class="line">	GreedyChoose(11,s,f,mark);</span><br><span class="line">	for(int i=0;i&lt;11;i++)</span><br><span class="line">		if(mark[i])</span><br><span class="line">			cout&lt;&lt;i&lt;&lt;&quot; &quot;;</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">void GreedyChoose(int len,int *s,int *f,bool *flag)</span><br><span class="line">&#123;</span><br><span class="line">	flag[0] = true;</span><br><span class="line">	int j = 0;</span><br><span class="line">	for(int i=1;i&lt;len;++i)</span><br><span class="line">		if(s[i] &gt;= f[j])</span><br><span class="line">		&#123;</span><br><span class="line">			flag[i] = true;</span><br><span class="line">			j = i;</span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="线段覆盖"><a href="#线段覆盖" class="headerlink" title="线段覆盖"></a>线段覆盖</h4><p>在一维空间中告诉你N条线段的起始坐标与终止坐标，要求求出这些线段一共覆盖了多大的长度。</p>
+<p><img src="https://img-my.csdn.net/uploads/201303/30/1364630415_9404.jpg" alt="img"></p>
+<p>重点：<strong>将线段按起始坐标排序</strong>。</p>
+<figure class="highlight plain"><figcaption><span>main(int argc, char* argv[])</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	int s[10] = &#123;2,3,4,5,6,7,8,9,10,11&#125;;</span><br><span class="line">	int f[10] = &#123;3,5,7,6,9,8,12,10,13,15&#125;;</span><br><span class="line">	int TotalLength = (3-2);                 </span><br><span class="line"> </span><br><span class="line">	for(int i=1,int j=0; i&lt;10 ; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		if(s[i] &gt;= f[j])</span><br><span class="line">		&#123;</span><br><span class="line">			TotalLength += (f[i]-s[i]);</span><br><span class="line">			j = i;</span><br><span class="line">		&#125;</span><br><span class="line">		else</span><br><span class="line">		&#123;</span><br><span class="line">			if(f[i] &lt;= f[j])</span><br><span class="line">				continue;</span><br><span class="line">			else</span><br><span class="line">			&#123;</span><br><span class="line">				TotalLength += f[i] - f[j];</span><br><span class="line">				j = i;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"> </span><br><span class="line">	cout&lt;&lt;TotalLength&lt;&lt;endl;</span><br><span class="line">	system(&quot;pause&quot;);</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="找零钱问题"><a href="#找零钱问题" class="headerlink" title="找零钱问题"></a>找零钱问题</h4><p>贪心：每次选择可选的最大面值的钱。</p>
+<p>本质上还是<strong>排序</strong>。</p>
+<h4 id="Leetcode"><a href="#Leetcode" class="headerlink" title="Leetcode:"></a>Leetcode:</h4><p>给定一个数组，它的第 <em>i</em> 个元素是一支给定股票第 <em>i</em> 天的价格。</p>
+<p>设计一个算法来计算你所能获取的最大利润。你可以尽可能地完成更多的交易（多次买卖一支股票）。</p>
+<p><strong>注意：</strong>你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。</p>
+<p><a href="https://leetcode-cn.com/explore/interview/card/top-interview-questions-easy/1/array/22/" target="_blank" rel="noopener">https://leetcode-cn.com/explore/interview/card/top-interview-questions-easy/1/array/22/</a></p>
+<p>使用贪心算法的一个假设：同一天可以卖出又可以买入</p>
+<figure class="highlight plain"><figcaption><span>Solution</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">def maxProfit(self, prices: List[int]) -&gt; int:</span><br><span class="line">    ans = 0</span><br><span class="line">    for i in range(len(prices)-1):</span><br><span class="line">        if prices[i+1]&gt;prices[i]:</span><br><span class="line">            ans += prices[i+1]-prices[i]</span><br><span class="line">    return ans</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/11/19/评分卡/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hero">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hero's notebooks">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/19/评分卡/" itemprop="url">评分卡</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-19T10:23:10+08:00">
+                2019-11-19
               </time>
             
 
@@ -1233,90 +1626,53 @@
         
           
             <ul>
-<li>设随机变量X，有n个事件$x_i$ –&gt; $x_n$，概率分布为p(x)</li>
+<li><p>模型流程</p>
+<ul>
+<li><p>分箱：等频、等距、卡方（掌握卡方分箱的原理和操作方式：卡方值最小的相邻区间合并（卡方越小说明俩区间区别越小，卡方衡量都是区间中label的分布））</p>
+</li>
+<li><p>根据分箱求得woe=ln(# good占比/ # bad占比)</p>
+</li>
+<li><p>LR模型获得W</p>
+</li>
+<li><p>score = A - B*ln(odds) </p>
+<ul>
+<li>直观理解：对一条数据来说，其属于好样本的概率与属于坏样本的概率的比值越大，其分数越大。只不过用了LR来间接表示这个概率，且未直接用到特征值，用到的是对label有可解释性的woe值。</li>
+<li>A, B: 设置比率为θ0（也就是odds）的特定点分值为P0，比率为2θ0的点的分值为P0+PDO。带入上面公式可得到：</li>
 </ul>
+<p>$$<br>\left{\begin{array}{ll}{P_{0}} &amp; {=A-B \ln \left(\theta_{0}\right)} \ {P_{0}+P D O} &amp; {=A-\operatorname{Bln}\left(2 \theta_{0}\right)}\end{array}\right.<br>$$</p>
+<p>即：<br>$$<br>\left{\begin{array}{l}{B=\frac{P D O}{l n 2}} \ {A=P_{0}+B \ln \left(\theta_{0}\right)}\end{array}\right.<br>$$</p>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>（可以设置P0=600，PDO=20, θ0=1/30）
+</code></pre><ul>
+<li><p>实际应用时</p>
+<ul>
+<li>LR模型中：</li>
+</ul>
+<p>$$<br>p=\frac{1}{1+e^{-\theta^{T} x}}<br>$$</p>
+<p>$$<br>\begin{array}{c}{\ln \left(\frac{p}{1-p}\right)=\theta^{T} x} \ {\ln \left(\frac{p}{1-p}\right)=\ln (\text {odds})} \ {\ln (\text {odds})=\theta^{T} x=w_{0}+w_{1} x_{1}+\cdots+w_{n} x_{n}}\end{array}<br>$$</p>
+<p>$$<br>\begin{aligned} \text {score}<em>{\mathbb{Z}} &amp;=A+B <em>\left(\theta^{T} x\right)=A+B </em>\left(w</em>{0}+w_{1} x_{1}+\cdots+w_{n} x_{n}\right) \ &amp;=\left(A+B <em> w_{0}\right)+B </em> w_{1} x_{1}+\cdots+B * w_{n} x_{n} \end{aligned}<br>$$</p>
+</li>
+</ul>
+<pre><code>先通过lr模型对(woe, label)训练得到权重矩阵，并获得初始分A+B*w0；每个变量的分箱对应的分数为，权重\*每个分箱对应的woe
+
+- 新加入的用户，根据之前得到的分箱dict得到其特征的分箱区间对其特征进行分箱，在根据上一步得到的每个分箱的分数来获得每个特征的分数，并逐个相加，得到总分数
+</code></pre><ul>
+<li><p>特征选择与分箱调参</p>
+<ul>
+<li><p><strong>并不是维度越多越好。</strong>一个评分卡中，一般不超过15个维度。</p>
 <ol>
-<li><p>信息</p>
-<ul>
-<li>某随机变量X取值为xi的信息为 $I(X=xi)=\log_2\frac{1}{p(x_i)}=-\log_2p(x_i)$<br>：某事件xi的信息代表这个事件能提供的信息，一个发生概率越小的事件能够提供的信息量越大。</li>
-</ul>
-</li>
-<li><p>信息熵</p>
-<ul>
-<li>信息代表一个事件的不确定性，信息熵是整个随机变量X不确定性的度量：<strong>信息的期望</strong>。<br>$H(X)=\sum_0^np(x_i)*I(x_i)=-\sum_0^np(x_i)\log_2(p(x_i))$</li>
-<li>信息熵只与变量X的分布有关，与其取值无关。例如二分类中，两取值的概率均为0.5时，其熵最大，也最难预测某时刻哪一类别会发生。</li>
-<li>如何通俗的解释交叉熵与相对熵? - CyberRep的回答 - 知乎<br><a href="https://www.zhihu.com/question/41252833/answer/195901726" target="_blank" rel="noopener">https://www.zhihu.com/question/41252833/answer/195901726</a></li>
-<li>对于一个系统而言，若获知其真实分布，则我们能够找到一个最优策略，以最小的代价来消除系统的不确定性，而这个最小的代价（猜题次数、编码长度等）就是信息熵。</li>
-</ul>
-</li>
-<li><p>条件熵</p>
-<ul>
-<li>定义为：给定条件X下，Y的分布（Y|X）的熵对X的数学期望：$H(Y|X)=\sum_xp(x)H(Y|X=x)$</li>
-<li>在ML中，即选定某个特征X(X有n类)后，label(Y)的条件概率熵求期望：<strong>给定X特征的条件下Y的信息熵</strong>。</li>
-<li>条件熵越小，代表在这个特征下，label的信息熵越小，也就是说要解决问题的代价越小。</li>
-</ul>
-</li>
-<li><p>信息增益 — ID3</p>
-<ul>
-<li>$IG(Y|X)=H(Y)-H(Y|X)$</li>
-<li>在决策树中作为选择特征的指标，IG越大，这个特征的选择性越好，也可以理解为：待分类的集合的熵和选定某个特征的条件熵之差越大，这个特征对整个集合的影响越大。</li>
-<li>对于条件熵来说，条件熵越小，分类后的纯度越高，但是问题是：X的取值越多，每个取值下Y的纯度越高，H(Y|X)越小，但此时并不有利于Y的区分。信息增益也是如此。–&gt; 信息增益率。</li>
-</ul>
-</li>
-<li><p>信息增益率/信息增益比 — C4.5</p>
-<ul>
-<li>偏好取值少的特征。C4.5：先选择高于平均水平信息增益的特征，再在其中选择最高信息增益率的特征。</li>
-<li>见<a href="https://chenzk1.github.io/2019/03/14/Decision%20Tree/">Decision Tree</a></li>
-</ul>
-</li>
-<li><p>基尼系数 — CART</p>
-<ul>
-<li><p>表示数据的不纯度。既有分类也有回归，既要确定特征，也要确定特征的分叉值。</p>
-</li>
-<li><p>见<a href="https://chenzk1.github.io/2019/03/14/Decision%20Tree/">Decision Tree</a></p>
-</li>
-</ul>
-</li>
-<li><p>交叉熵</p>
-<ul>
-<li>前面提到：信息熵是最优策略下，消除系统不确定性的最小代价。这里的前提是：<strong>我们得到了系统的真实分布</strong>。</li>
-<li>实际中，一般难以获知系统真实分布，所以要以假设分布去近似。<strong>交叉熵：用来衡量在给定的真实分布下，使用非真实分布所指定的策略消除系统的不确定性所需要付出的努力的大小</strong>。$CEH(p,q)=\sum_{k=1}^np_k\log_2\frac{1}{q_k}$，注意这里log中是q，是基于非真实分布q的信息量对真实分布的期望。</li>
-<li>当假设分布$q_k$与真实分布$p_k$相同时，交叉熵最低，等于信息熵，所以得到的策略为最优策略。<blockquote>
-<p>在机器学习中的分类算法中，我们总是最小化交叉熵，因为交叉熵越低，就证明由算法所产生的策略最接近最优策略，也间接证明我们算法所算出的非真实分布越接近真实分布。</p>
-</blockquote>
-</li>
-</ul>
-<blockquote>
-<p>例如：在逻辑斯蒂回归或者神经网络中都有用到交叉熵作为评价指标，其中p即为真实分布的概率，而q为预测的分布，以此衡量两不同<strong>分布</strong>的相似性。 </p>
-<ul>
-<li>如何衡量不同<strong>策略</strong>的差异：相对熵</li>
-</ul>
-</blockquote>
-</li>
-<li><p>相对熵/K-L散度</p>
-<ul>
-<li>用来衡量两个取值为正的函数或概率分布之间的差异。两者相同相对熵为0</li>
-<li>使用非真实分布q的交叉熵，与使用真实分布p的的信息熵的差值：相对熵，又称K-L散度。</li>
-<li>$KL(p,q)=CEH(p,q)-H(p)=\sum_{i=1}^np(x_i)\log\frac{p(x_i)}{q(x_i)}$</li>
-</ul>
-</li>
-<li><p>联合熵</p>
-<ul>
-<li>H(X,Y) 随机变量X,Y联合表示的信息熵</li>
-</ul>
-</li>
-<li><p>互信息</p>
-<ul>
-<li>H（X；Y）俩变量交集，也记作I(X;Y)</li>
-<li>H（X；Y) = H(X,Y)-H(Y|X)-H(X|Y)</li>
-<li>I(X;Y)=KL(P(X,Y), P(X)P(Y))</li>
-</ul>
-</li>
+<li>可根据Logistic Regression模型系数来确定每个变量的权重，保留权重高的变量。通过协方差计算的相关性大于0.7的变量一般只保留IV值最高的那一个。</li>
+<li>IV可以衡量特征的预测能力：</li>
 </ol>
-<ul>
-<li>互信息越小，两变量独立性越强，P(X,Y)与P(X)P(Y)差异越小，P(X,Y)与P(X)P(Y)的相对熵越小  </li>
-<li>相对熵(p,q) = 信息熵(p) - 交叉熵(p,q)</li>
-<li>信息增益(Y|X) = 信息熵(Y) - 条件熵(Y|X)</li>
+<p>$$<br>I V=\sum_{i=1}^{N}\left(g o o d_{占比} -bad_{占比} \right) * W O E_{i}<br>$$</p>
+</li>
+</ul>
+<p>| IV        | 预测能力   |<br>| ——— | ———- |<br>| &lt;0.03     | 无预测能力 |<br>| 0.03~0.09 | 低         |<br>| 0.1~0.29  | 中         |<br>| 0.3~0.49  | 高         |<br>| &gt;=0.5     | 极高       |</p>
+<p>预测能力低则需重新调整分箱。</p>
+</li>
 </ul>
 
           
@@ -1366,7 +1722,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/05/26/CTR/">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/11/19/评分卡优化/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Hero">
@@ -1385,7 +1741,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2019/05/26/CTR/" itemprop="url">CTR_LR/Poly2/FM/FFM</a></h1>
+                <a class="post-title-link" href="/2019/11/19/评分卡优化/" itemprop="url">评分卡优化</a></h1>
         
 
         <div class="post-meta">
@@ -1397,8 +1753,364 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-26T20:57:46+08:00">
-                2019-05-26
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-19T10:23:10+08:00">
+                2019-11-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>A-Bln(odds)：应有weight&gt;0</li>
+</ul>
+<h1 id="优化1"><a href="#优化1" class="headerlink" title="优化1"></a>优化1</h1><ul>
+<li>加入更多的网约车数据</li>
+<li>等宽</li>
+<li>删特征 –&gt; weight&lt;0的特征减少了 –&gt;平滑 </li>
+<li>异常值处理：做异常值截断</li>
+<li>长尾分布取对数</li>
+</ul>
+<ul>
+<li>只用ygc数据，且进行上采样，precision不超过5% –&gt; 无效果</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/11/19/卡方分布及卡方检验/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hero">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hero's notebooks">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/19/卡方分布及卡方检验/" itemprop="url">卡方分布及卡方检验</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-19T10:23:10+08:00">
+                2019-11-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://blog.csdn.net/cuitzjd/article/details/80755310" target="_blank" rel="noopener">Doc1</a><br><a href="https://cosx.org/2010/11/hypotheses-testing/" target="_blank" rel="noopener">Doc2</a></p>
+<h3 id="统计检验"><a href="#统计检验" class="headerlink" title="统计检验"></a>统计检验</h3><ul>
+<li>出发点：小概率事件发生则假设不成立。可以检验一个样本与总体的差异，也可以检验一个样本集与另一个样本集的差异。</li>
+<li>e.g. 观察到某个班级男女生身高的均值有差距，要证明这一点，先假设其”没有差距“，然后做相关的检验，如果检验出来有差距这个事件的概率小于某个值，则说明假设不成立。即一个具有足够小概率的事件发生了，这不是偶然。</li>
+<li>第一类错误：原假设为真，检验的结果劝你放弃原假设。其概率为α。显著性水平。</li>
+<li>第二类错误：原假设为假，检验的结果劝你接受原假设。概率为1-α。</li>
+<li>显著性检验，即只限定第一类错误。当经过检验发现p&gt;α，则说明检验、总体这两样本之间不存在显著性差异，因此接受原假设；否则，说明一个很小概率的事件发生了，不接受原假设。</li>
+<li>不同的检验方式有不同的前提。</li>
+</ul>
+<h3 id="T"><a href="#T" class="headerlink" title="T"></a>T</h3><ul>
+<li><p><strong>用于样本量较小，总体标准差σ未知的正态分布。</strong></p>
+</li>
+<li><p>单总体检验：一个样本的平均数与已知的总体平均数的差异是否显著。</p>
+</li>
+<li><p>双总体样本检验：一个样本与另一个样本的差异。</p>
+</li>
+</ul>
+<h3 id="F"><a href="#F" class="headerlink" title="F"></a>F</h3><ul>
+<li>两个样本的总体方差是否相等。</li>
+</ul>
+<h3 id="卡方"><a href="#卡方" class="headerlink" title="卡方"></a>卡方</h3><h4 id="卡方检验"><a href="#卡方检验" class="headerlink" title="卡方检验"></a>卡方检验</h4><p><img src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&amp;quality=100&amp;size=b4000_4000&amp;sec=1512961717&amp;di=6133a04e10dc72b22bfb76fca025156d&amp;src=http://pic.baike.soso.com/p/20130619/20130619123748-1653885327.jpg" alt></p>
+<ul>
+<li><p>原假设为两者分布无差异、不相关等。</p>
+</li>
+<li><p>卡方值越大，实际（假设）与理论（根据原假设求得的概率值/统计量）差异越大，即假设的错误程度越大，超过阈值，则推翻假设。</p>
+<p>若求得的卡方值落在阈值之上，说明小概率事件(e.g. 5%)发生了，则推翻原假设，说明两者差异的程度确实够大，即两者有差异；否则有95%的置信程度说明两者无差异。</p>
+</li>
+<li><p>参数有：自由度、置信水平。</p>
+<p>例如，看喝牛奶与感冒有没有关系。给定置信度β，确定卡方值阈值x。</p>
+<p>原假设：无关。</p>
+<p>卡方值：先在原假设的基础上求出理论分布，然后看理论分布与实际分布的差异性（卡方值）。</p>
+<p>查表，看有没有超过阈值，若超过，说明小概率（显著性水平：1-β）事件发生，推翻原假设，两者有关。</p>
+</li>
+</ul>
+<h4 id="卡方分布"><a href="#卡方分布" class="headerlink" title="卡方分布"></a>卡方分布</h4><p>n个相互独立且均服从标准正态分布的随机变量，其平方和服从卡方分布。</p>
+<p><img src="https://img-blog.csdn.net/20180109180130184?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc25vd2Ryb3B0dWxpcA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt></p>
+<h4 id="卡方分箱"><a href="#卡方分箱" class="headerlink" title="卡方分箱"></a>卡方分箱</h4><ul>
+<li><p>算法步骤：</p>
+<ul>
+<li><p>初始化：排序，每个实例属于一个一个区间</p>
+</li>
+<li><p>合并区间：</p>
+<ul>
+<li><p>计算每一对相邻区间的卡方值</p>
+</li>
+<li><p>将卡方值最小的一对区间合并</p>
+<p>$$  \mathrm{X}^{2}=\sum_{i=1}^{2} \sum_{j=1}^{2} \frac{\left(A_{i j}-E_{i j}\right)^{2}}{E_{i j}}  $$</p>
+<p>其中，Ai,j为第i区间第j类的实例的数量，Ei,j为期望频率（整体分布，整体分布计算的时候还是用的这俩区间的数值）=Ni*(Cj/N)，Cj为j类在整体分布中的比例，Ni为i区间样本数</p>
+<p>例如label有0和1，有两个区间，即[[3,4], [5,7]]</p>
+<p>A11=3,A12=4… E11=7*8/19</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>原理：假设这俩区间没差异，其卡方值代表了该假设（由实际分布得出的统计量）与理论（整体样本[特征]分布）的差异程度，越小则说明俩越接近，假设越成立。</p>
+<p>评分卡模型中，第i区间第j类的实例：类是指区间中有多少类特征，实例指其对应的label</p>
+</li>
+<li><p>阈值：显著性水平+自由度（比类别数量少1）确定。</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/11/19/两种logloss/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hero">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hero's notebooks">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/19/两种logloss/" itemprop="url">LR-logloss</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-19T10:23:10+08:00">
+                2019-11-19
               </time>
             
 
@@ -1460,537 +2172,13 @@
         
           
             <ol>
-<li>LR</li>
+<li>LR中，若0，1分类：<br>$$<br>\begin{array}{l}{\mathbb{P}(y=1 | z)=\sigma(z)=\frac{1}{1+e^{-z}}} \ {\mathbb{P}(y=0 | z)=1-\sigma(z)=\frac{1}{1+e^{z}}}\end{array}<br>$$<br>即：<br>$$<br>\mathbb{P}(y | z)=\sigma(z)^{y}(1-\sigma(z))^{1-y}<br>$$<br>极大似然：<br>$$<br>L(z)=\log \left(\prod_{i}^{m} \mathbb{P}\left(y_{i} | z_{i}\right)\right)=-\sum_{i}^{m} \log \left(\mathbb{P}\left(y_{i} | z_{i}\right)\right)=\sum_{i}^{m}-y_{i} z_{i}+\log \left(1+e^{z_{i}}\right)<br>$$<br>损失函数：<br>$$<br>l(z)=-\log \left(\prod_{i}^{m} \mathbb{P}\left(y_{i} | z_{i}\right)\right)=-\sum_{i}^{m} \log \left(\mathbb{P}\left(y_{i} | z_{i}\right)\right)=\sum_{i}^{m}-y_{i} z_{i}+\log \left(1+e^{z_{i}}\right)<br>$$</li>
 </ol>
-<ul>
-<li>问题：特征之间无相关性</li>
-</ul>
 <ol start="2">
-<li>Ploy2</li>
+<li><p>1，-1分类：<br>$$<br>\begin{aligned} \mathbb{P}(y | z) &amp;=\sigma(y z) \ &amp;=\frac{1}{1+e^{-y z}} \end{aligned}<br>$$<br>分开表示跟0，1分类是一样的</p>
+<p>损失函数：<br>$$<br>L(z)=-\log \left(\prod_{j}^{m} \mathbb{P}\left(y_{j} | z_{j}\right)\right)=-\sum_{j}^{m} \log \left(\mathbb{P}\left(y_{j} | z_{j}\right)\right)=\sum_{j}^{m} \log \left(1+e^{-y_{j} z_{j}}\right)<br>$$</p>
+</li>
 </ol>
-<ul>
-<li>暴力加入两两特征组合（权重*两特征点积）</li>
-<li>问题：大部分特征是稀疏的，得到的特征值都是0，所以梯度更新时，因为大部分feature为0所以梯度并不会更新</li>
-</ul>
-<ol start="3">
-<li>FM(Factorization Machine、因子机)</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/04/11/Tips in DS Competition/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Hero">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hero's notebooks">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/11/Tips in DS Competition/" itemprop="url">Tips in DS Competition</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-11T20:30:34+08:00">
-                2019-04-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Learning</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="处理缺失数据"><a href="#处理缺失数据" class="headerlink" title="处理缺失数据"></a>处理缺失数据</h2><ul>
-<li>删除</li>
-<li>imputation: mean mode …</li>
-<li>imputation + missing_flag</li>
-<li>…</li>
-</ul>
-<h2 id="Categorial-Columns"><a href="#Categorial-Columns" class="headerlink" title="Categorial Columns"></a>Categorial Columns</h2><ul>
-<li>对于种类不是很多的：onehot encoder<ul>
-<li>sklearn.preprocessing.OneHotEncoder: 如果使用线性模型，存在一个问题就是生成的n列是线性相关的，因此要满足线性无关就要删除其中一列。该类提供了drop_first参数</li>
-</ul>
-</li>
-<li>不用label encoder的原因：label encoder引入了大小顺序</li>
-</ul>
-<h2 id="XGBOOST"><a href="#XGBOOST" class="headerlink" title="XGBOOST"></a>XGBOOST</h2>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/04/06/SVD&PCA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Hero">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hero's notebooks">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/06/SVD&PCA/" itemprop="url">SVD&PCA</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-06T11:07:20+08:00">
-                2019-04-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Learning</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="特征值分解-Eigen-Value-Decomposition"><a href="#特征值分解-Eigen-Value-Decomposition" class="headerlink" title="特征值分解(Eigen Value Decomposition)"></a>特征值分解(Eigen Value Decomposition)</h3><p>Ax = λx</p>
-<p>-&gt; A = WΣW^(-1)</p>
-<p>其中Σ为对角阵，对角的值是A的特征值；W的列向量为对应的特征向量</p>
-<p>对W标准化后，即Wi^(T).wi = 1</p>
-<p>所以W^(T).W = I –&gt; W^(T) = W^(-1)</p>
-<p><strong>W经标准化后为酉矩阵</strong></p>
-<p>-&gt; A = WΣW^(T)</p>
-<p><strong>!!A必须是方阵</strong></p>
-<h3 id="SVD-Singular-Value-Decomposition"><a href="#SVD-Singular-Value-Decomposition" class="headerlink" title="SVD(Singular Value Decomposition)"></a>SVD(Singular Value Decomposition)</h3><ul>
-<li>可以对<strong>非方阵</strong>分解</li>
-<li>A = UΣV^(T), A: m x n, U: m x m, V: n x n, Σ: m x n; <strong>U和V都为酉矩阵</strong>，Σ主对角线上元素为奇异值</li>
-<li>UVΣ的求解：<ul>
-<li>U: AA^(T) = UΣ1U^(T)</li>
-<li>V: A^(T)A = VΣ2V^(T)</li>
-<li>Σ: A = UΣV^(T) =&gt; AV = UΣ =&gt; U^(T)AV = Σ =&gt; σi = Avi/ui</li>
-</ul>
-</li>
-<li>性质：可以用几个最大的奇异值及其左右奇异向量近似原矩阵</li>
-<li>应用：降维，数据压缩，去噪声；也可用于NLP，如LSA…</li>
-</ul>
-<h3 id="PCA"><a href="#PCA" class="headerlink" title="PCA"></a>PCA</h3><h4 id="基"><a href="#基" class="headerlink" title="基"></a>基</h4><p>由线性不相关的向量组成，有时会取正交。</p>
-<h4 id="坐标变换-amp-矩阵相乘"><a href="#坐标变换-amp-矩阵相乘" class="headerlink" title="坐标变换&amp;矩阵相乘"></a>坐标变换&amp;矩阵相乘</h4><p>AB = C，B矩阵的每一个列向量变换到以A矩阵的行向量为基表示的空间中，最终得到的向量的维度（C的行数）取决于基的个数 –&gt; 可用于降、升维</p>
-<h4 id="降维"><a href="#降维" class="headerlink" title="降维"></a>降维</h4><ul>
-<li>降维的目标：维数变低&amp;尽量保留更多的信息。</li>
-<li>对于二维降到一维，要保留更多的信息，则原始向量在基向量上的投影应相隔距离尽量远 –&gt; 大方差</li>
-<li><p>对于高维数据，如3维到2维，若只遵循大方差的原则，则两个基向量会相隔很近 –&gt; 信息不够分散 –&gt; 基向量之间的相关系数应尽量小</p>
-</li>
-<li><p>方差：单个随机变量之间的离散程度；协方差：多个随机变量之间的相似性</p>
-</li>
-</ul>
-<p><strong>综上 –&gt; 协方差矩阵</strong></p>
-<h4 id="协方差矩阵"><a href="#协方差矩阵" class="headerlink" title="协方差矩阵"></a>协方差矩阵</h4><p>协方差矩阵对角线上是原矩阵的方差，其他位置的元素是原矩阵两两向量之间的协方差 –&gt; 协方差矩阵是实对称矩阵 –&gt; 可逆</p>
-<ul>
-<li>原始问题即协方差矩阵的对角化</li>
-</ul>
-<h4 id="协方差矩阵对角化"><a href="#协方差矩阵对角化" class="headerlink" title="协方差矩阵对角化"></a>协方差矩阵对角化</h4><ul>
-<li>原向量X，对应的协方差矩阵为C，P为基向量组成的变换矩阵；X经变换后为Y，Y=PX，Y的协方差矩阵为D，则：设X Y的期望为0，<br>D = YY^(T) / m = PX X^(T)P^(T) / m = PCP^(T)</li>
-<li>PCA即寻找矩阵P使得 PCP^(T)是一个对角矩阵，且对角线上的值从大到小排列，取前k个值，以及对应P中的k个向量，即可将原n维矩阵降维至k维 –&gt; D对角线上的值即特征值，P为特征向量组成的矩阵</li>
-</ul>
-<h4 id="PCA-1"><a href="#PCA-1" class="headerlink" title="PCA"></a>PCA</h4><ul>
-<li>总结：寻找实现协方差矩阵对角化的矩阵P，并应用P对原有数据进行变换</li>
-<li>算法步骤<br>设有m条n维数据：</li>
-</ul>
-<ol>
-<li>将原始数据按列组成n行m列矩阵X</li>
-<li>将X的每一行（代表一个属性字段）进行零均值化，即减去这一行的均值</li>
-<li>求出协方差矩阵C = XX^(T) / m</li>
-<li>求出协方差矩阵的特征值及对应的特征向量</li>
-<li>将特征向量按对应特征值大小从上到下按行排列成矩阵，取前k行组成矩阵P</li>
-<li>Y=PX即为降维到k维后的数据</li>
-</ol>
-<ul>
-<li>优点：降低数据特征维度，减少数据存储量；加快运行速度</li>
-<li>注意事项：<strong>量纲敏感性</strong>，最好进行量纲统一化；适用于大样本，小样本的话建议因子分析法</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/04/05/Topic Model__TF-IDF_LSA_pLSA_NMF/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Hero">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hero's notebooks">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/04/05/Topic Model__TF-IDF_LSA_pLSA_NMF/" itemprop="url">Topic Model__TF-IDF/LSA/pLSA/NMF</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-05T13:40:47+08:00">
-                2019-04-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Learning</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Topic-Model"><a href="#Topic-Model" class="headerlink" title="Topic Model"></a>Topic Model</h1><p><em><strong>主题模型即在大量文档中发现潜在主题的统计模型</strong></em></p>
-<p>主题模型是一种<strong>生成式有向图</strong>模型，即文档以一定概率选择主题，而主题是单词的概率分布。</p>
-<p>文档 –&gt; 主题 –&gt; 单词</p>
-<h2 id="TF-IDF"><a href="#TF-IDF" class="headerlink" title="TF-IDF"></a>TF-IDF</h2><ul>
-<li>TF: term frequency —— (# occurrences of term t in document) / (# of words in documents)</li>
-<li>IDF: inverse document frequency —— log(# of documents / # documents with term t in it)</li>
-<li><p>TF * IDF</p>
-</li>
-<li><p>一字词对于一个文件集或一个语料库中的其中一份文件的重要程度。一个词term的重要性与其在整个文件中出现的频率成正比；与它在语料库中的频率成反比。</p>
-</li>
-<li>可以用来提取关键词</li>
-<li>有不足：比如某次在每个文件中都出现，这个词可能是is are之类的无用词，也可能是可以代表该文件库的关键词—-&gt;结合停用词处理？；没有考虑语义关联</li>
-</ul>
-<h2 id="LSA-LSI-Latent-Semantic-Analysis-Indexing"><a href="#LSA-LSI-Latent-Semantic-Analysis-Indexing" class="headerlink" title="LSA/LSI(Latent Semantic Analysis/Indexing)"></a>LSA/LSI(Latent Semantic Analysis/Indexing)</h2><p>潜在语义分析/检索</p>
-<ul>
-<li>假设有m个输入文档，每个文档有n个词项，则可以组成一个term-document的稀疏矩阵A∈Rm*n，它的行对应词项、列对应文档；Aij对应第i个文档的第j个词项，可以通过TF-IDF、词项在文档中出现的次数等方式确定矩阵每个元素的权重作为计算输入。经过SVD分解后将奇异值从大到小排列，取前k个最大的奇异值作为对原矩阵A的近似表示，Σ中的每个奇异值代表了潜在语义的重要度。</li>
-<li>通过一次SVD分解就可以得到主题模型，同时解决语义的问题，但是计算得到的矩阵U、V中经常存在负数；可以通过计算词项（U的行）、文档（V的行or VT的列）之间的余弦相似度得到词项与词项、文档与文档之间的相似度；还可以对U、V中的词项和文档直接进行聚类，提取语义级别的近义词集合，便于搜索且减少数据存储量。</li>
-<li>LSA适用于较小规模数据，可用于文档分类/聚类、同义词/多义词检索、跨语言搜索；SVD的计算很耗时，且潜在语义的数量k的选择对结果的影响非常大；LSA的原理简单但得到的不是概率模型，缺乏统计基础，矩阵中的负值难以解释，无法对应成现实中的概念。</li>
-</ul>
-<h2 id="pLSA-Potential-Latent-Semantic-Analysis-Indexing"><a href="#pLSA-Potential-Latent-Semantic-Analysis-Indexing" class="headerlink" title="pLSA(Potential Latent Semantic Analysis/Indexing)"></a>pLSA(Potential Latent Semantic Analysis/Indexing)</h2><p>引入了隐含变量，并使用了EM算法求解</p>
-<h2 id="NMF-Non-negative-Matrix-Factorization"><a href="#NMF-Non-negative-Matrix-Factorization" class="headerlink" title="NMF(Non-negative Matrix Factorization)"></a>NMF(Non-negative Matrix Factorization)</h2><ul>
-<li>V ≈ WH，其中V∈Rn<em>m为文档-单词矩阵，W∈Rn</em>r体现文档和主题的概率相关度，H∈Rr*m体现单词和主题的概率相关度。<br><img src="https://img-blog.csdn.net/20180713123152376?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpdXk5ODAz/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="V=WH"></li>
-<li>目的：V与WH的误差最小化，度量方式可选择欧几里得距离、KL散度…</li>
-<li>NMF的目标函数中共包含了n<em>r+r</em>m个参数，可以使用梯度下降法、拟牛顿法、坐标轴下降法等进行求解。</li>
-</ul>
 
           
         
@@ -2030,7 +2218,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2074,7 +2262,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-count">45</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -2096,7 +2284,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">26</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

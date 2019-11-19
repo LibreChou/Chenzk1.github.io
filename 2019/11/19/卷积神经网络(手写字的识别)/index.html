@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="ML,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Hero's notebooks" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2">
+
+
+
+
+
+
+<meta name="description" content="介绍12345数据集：MNIST手写数字集训练集：42,000个0-9手写数字的图像测试集：有28,000个无label样本每个图像的大小是28×28=784个像素目标：使用卷积神经网络识别图像是什么数字 导入相关包12345678910111213141516171819202122232425262728# Python的内置垃圾收集。用来删除一些变量，并收集必要的空间来保存RAM。impor">
+<meta name="keywords" content="ML">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CNN-手写字的识别">
+<meta property="og:url" content="https://chenzk1.github.io/2019/11/19/卷积神经网络(手写字的识别)/index.html">
+<meta property="og:site_name" content="Hero&#39;s notebooks">
+<meta property="og:description" content="介绍12345数据集：MNIST手写数字集训练集：42,000个0-9手写数字的图像测试集：有28,000个无label样本每个图像的大小是28×28=784个像素目标：使用卷积神经网络识别图像是什么数字 导入相关包12345678910111213141516171819202122232425262728# Python的内置垃圾收集。用来删除一些变量，并收集必要的空间来保存RAM。impor">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://chenzk1.github.io/2019/11/19/卷积神经网络(手写字的识别)/output_14_1.png">
+<meta property="og:updated_time" content="2019-11-19T02:26:23.400Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CNN-手写字的识别">
+<meta name="twitter:description" content="介绍12345数据集：MNIST手写数字集训练集：42,000个0-9手写数字的图像测试集：有28,000个无label样本每个图像的大小是28×28=784个像素目标：使用卷积神经网络识别图像是什么数字 导入相关包12345678910111213141516171819202122232425262728# Python的内置垃圾收集。用来删除一些变量，并收集必要的空间来保存RAM。impor">
+<meta name="twitter:image" content="https://chenzk1.github.io/2019/11/19/卷积神经网络(手写字的识别)/output_14_1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://chenzk1.github.io/2019/11/19/卷积神经网络(手写字的识别)/">
+
+
+
+
+
+  <title>CNN-手写字的识别 | Hero's notebooks</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hero's notebooks</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Sometimes naive.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/11/19/卷积神经网络(手写字的识别)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hero">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hero's notebooks">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CNN-手写字的识别</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-19T10:23:10+08:00">
+                2019-11-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">数据集：MNIST手写数字集</span><br><span class="line">训练集：<span class="number">42</span>,<span class="number">000</span>个<span class="number">0</span><span class="number">-9</span>手写数字的图像</span><br><span class="line">测试集：有<span class="number">28</span>,<span class="number">000</span>个无label样本</span><br><span class="line">每个图像的大小是<span class="number">28</span>×<span class="number">28</span>=<span class="number">784</span>个像素</span><br><span class="line">目标：使用卷积神经网络识别图像是什么数字</span><br></pre></td></tr></table></figure>
+<h3 id="导入相关包"><a href="#导入相关包" class="headerlink" title="导入相关包"></a>导入相关包</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Python的内置垃圾收集。用来删除一些变量，并收集必要的空间来保存RAM。</span></span><br><span class="line"><span class="keyword">import</span> gc </span><br><span class="line"><span class="comment"># 用来生成随机数。</span></span><br><span class="line"><span class="keyword">import</span> random <span class="keyword">as</span> rd </span><br><span class="line"><span class="comment">#用来检查运行时间。</span></span><br><span class="line"><span class="keyword">import</span> time </span><br><span class="line"><span class="comment"># 在数据增强部分，我们使用圆周率旋转图像。</span></span><br><span class="line"><span class="keyword">from</span> math <span class="keyword">import</span> pi </span><br><span class="line"><span class="comment"># 用Keras来构建我们的CNN模型。它使用TensorFlow作为后端。</span></span><br><span class="line"><span class="keyword">import</span> keras </span><br><span class="line"><span class="comment"># 绘制手写的数字图像。</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt </span><br><span class="line"><span class="comment"># 矩阵操作。</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np </span><br><span class="line"><span class="comment"># 操作数据，比如加载和输出</span></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="comment"># 用TensorFlow作为数据增强部分</span></span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="comment"># 用来建立学习速率衰减的模型</span></span><br><span class="line"><span class="keyword">from</span> keras.callbacks <span class="keyword">import</span> ReduceLROnPlateau, EarlyStopping</span><br><span class="line"><span class="comment"># 构建CNN所需要的一些基本构件。 </span></span><br><span class="line"><span class="keyword">from</span> keras.layers <span class="keyword">import</span> (BatchNormalization, Conv2D, Dense, Dropout, Flatten,</span><br><span class="line">                          MaxPool2D, ReLU)</span><br><span class="line"><span class="comment"># 图像显示。</span></span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"><span class="comment"># 将数据分解为训练和验证两部分。</span></span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line">%matplotlib inline</span><br></pre></td></tr></table></figure>
+<pre><code>Using TensorFlow backend.
+</code></pre><h3 id="数据处理"><a href="#数据处理" class="headerlink" title="数据处理"></a>数据处理</h3><p><strong>导入数据</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">"Loading..."</span>)</span><br><span class="line">path = <span class="string">"E:/机器学习/Tensorflow学习/data/"</span></span><br><span class="line">data_train = pd.read_csv(path + <span class="string">"train.csv"</span>,engine=<span class="string">"python"</span>)</span><br><span class="line">data_test = pd.read_csv(path + <span class="string">"test.csv"</span>,engine=<span class="string">"python"</span>)</span><br><span class="line">print(<span class="string">"Done!"</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>Loading...
+Done!
+</code></pre><p><strong>查看数据集的大小</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">"Training data: &#123;&#125; rows, &#123;&#125; columns."</span>.format(data_train.shape[<span class="number">0</span>], data_train.shape[<span class="number">1</span>]))</span><br><span class="line">print(<span class="string">"Test data: &#123;&#125; rows, &#123;&#125; columns."</span>.format(data_test.shape[<span class="number">0</span>], data_test.shape[<span class="number">1</span>]))</span><br></pre></td></tr></table></figure>
+<pre><code>Training data: 42000 rows, 785 columns.
+Test data: 28000 rows, 784 columns.
+</code></pre><p>训练集有42000行，785列，其中包括784个像素和一个标签，标注了这张图片是什么数字。</p>
+<p>测试数据有28000行，没有标签。</p>
+<p><strong>数据集拆分成x（图像数据）和y（标签）</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x_train = data_train.values[:, <span class="number">1</span>:]</span><br><span class="line">y_train = data_train.values[:, <span class="number">0</span>]</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">convert_2d</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="string">"""x: 2d numpy array. m*n data image.</span></span><br><span class="line"><span class="string">       return a 3d image data. m * height * width * channel."""</span></span><br><span class="line">    <span class="keyword">if</span> len(x.shape) == <span class="number">1</span>:</span><br><span class="line">        m = <span class="number">1</span></span><br><span class="line">        height = width = int(np.sqrt(x.shape[<span class="number">0</span>]))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        m = x.shape[<span class="number">0</span>]</span><br><span class="line">        height = width = int(np.sqrt(x.shape[<span class="number">1</span>]))</span><br><span class="line"></span><br><span class="line">    x_2d = np.reshape(x, (m, height, width, <span class="number">1</span>))</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> x_2d</span><br></pre></td></tr></table></figure>
+<p><strong>查看图像</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x_display = convert_2d(data_train.values[<span class="number">0</span>, <span class="number">1</span>:])</span><br><span class="line">plt.imshow(x_display.squeeze())</span><br></pre></td></tr></table></figure>
+<pre><code>&lt;matplotlib.image.AxesImage at 0x22b013e7780&gt;
+</code></pre><p><img src="output_14_1.png" alt="png"></p>
+<h3 id="数据增强"><a href="#数据增强" class="headerlink" title="数据增强"></a>数据增强</h3><p>在这里，我们直接研究数据增强。<br>当您没有足够的数据或想要扩展数据以提高性能时，数据增强是一种非常有用的技术。<br>在这场比赛中，数据增强基本上是指在不损害图像可识别性的前提下，对图像进行切割、旋转和缩放。<br>这里我使用了缩放、平移、白噪声和旋转。<br>随着数据的增加，您可以预期1-2%的准确性提高。</p>
+<p><strong>放大</strong></p>
+<p>使用crop_image函数来裁剪围绕中心的图像的一部分，调整其大小并将其保存为增强数据。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">crop_image</span><span class="params">(x, y, min_scale)</span>:</span></span><br><span class="line">    <span class="string">"""x: 2d(m*n) numpy array. 1-dimension image data;</span></span><br><span class="line"><span class="string">       y: 1d numpy array. The ground truth label;</span></span><br><span class="line"><span class="string">       min_scale: float. The minimum scale for cropping.</span></span><br><span class="line"><span class="string">       return zoomed images.</span></span><br><span class="line"><span class="string">    # 该函数对图像进行裁剪，放大裁剪后的部分，并将其作为增强数据"""</span></span><br><span class="line">    <span class="comment"># 将数据转换为二维图像。图像应该是一个m*h*w*c数字数组。</span></span><br><span class="line">    images = convert_2d(x)</span><br><span class="line">    <span class="comment"># m是图像的个数。由于这是从0到255的灰度图像，所以它只有一个通道。</span></span><br><span class="line">    m, height, width, channel = images.shape</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 原始图像的tf张量</span></span><br><span class="line">    img_tensor = tf.placeholder(tf.int32, [<span class="number">1</span>, height, width, channel])</span><br><span class="line">    <span class="comment"># tf tensor for 4 coordinates for corners of the cropped image</span></span><br><span class="line">    box_tensor = tf.placeholder(tf.float32, [<span class="number">1</span>, <span class="number">4</span>])</span><br><span class="line">    box_idx = [<span class="number">0</span>]</span><br><span class="line">    crop_size = np.array([height, width])</span><br><span class="line">    <span class="comment"># 裁剪并调整图像张量</span></span><br><span class="line">    cropped_img_tensor = tf.image.crop_and_resize(img_tensor, box_tensor, box_idx, crop_size)</span><br><span class="line">    <span class="comment"># numpy array for the cropped image</span></span><br><span class="line">    cropped_img = np.zeros((m, height, width, <span class="number">1</span>))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(m):</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># randomly select a scale between [min_scale, min(min_scale + 0.05, 1)]</span></span><br><span class="line">            rand_scale = np.random.randint(min_scale * <span class="number">100</span>, np.minimum(min_scale * <span class="number">100</span> + <span class="number">5</span>, <span class="number">100</span>)) / <span class="number">100</span></span><br><span class="line">            <span class="comment"># calculate the 4 coordinates</span></span><br><span class="line">            x1 = y1 = <span class="number">0.5</span> - <span class="number">0.5</span> * rand_scale</span><br><span class="line">            x2 = y2 = <span class="number">0.5</span> + <span class="number">0.5</span> * rand_scale</span><br><span class="line">            <span class="comment"># lay down the cropping area</span></span><br><span class="line">            box = np.reshape(np.array([y1, x1, y2, x2]), (<span class="number">1</span>, <span class="number">4</span>))</span><br><span class="line">            <span class="comment"># save the cropped image</span></span><br><span class="line">            cropped_img[i:i + <span class="number">1</span>, :, :, :] = sess.run(cropped_img_tensor, feed_dict=&#123;img_tensor: images[i:i + <span class="number">1</span>], box_tensor: box&#125;)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># flat the 2d image</span></span><br><span class="line">    cropped_img = np.reshape(cropped_img, (m, <span class="number">-1</span>))</span><br><span class="line">    cropped_img = np.concatenate((y.reshape((<span class="number">-1</span>, <span class="number">1</span>)), cropped_img), axis=<span class="number">1</span>).astype(int)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> cropped_img</span><br></pre></td></tr></table></figure>
+<p><strong>平移</strong> </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">translate</span><span class="params">(x, y, dist)</span>:</span></span><br><span class="line">    <span class="string">"""x: 2d(m*n) numpy array. 1-dimension image data;</span></span><br><span class="line"><span class="string">       y: 1d numpy array. The ground truth label;</span></span><br><span class="line"><span class="string">       dist: float. Percentage of height/width to shift.</span></span><br><span class="line"><span class="string">       return translated images.</span></span><br><span class="line"><span class="string">       这个函数将图像移动到4个不同的方向。</span></span><br><span class="line"><span class="string">       裁剪图像的一部分，移动，用0填充左边的部分"""</span></span><br><span class="line">    <span class="comment"># 将一维图像数据转换为m*h*w*c数组</span></span><br><span class="line">    images = convert_2d(x)</span><br><span class="line">    m, height, width, channel = images.shape</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># set 4 groups of anchors. The first 4 int in a certain group lay down the area we crop.</span></span><br><span class="line">    <span class="comment"># The last 4 sets the area to be moved to. E.g.,</span></span><br><span class="line">    <span class="comment"># new_img[new_top:new_bottom, new_left:new_right] = img[top:bottom, left:right]</span></span><br><span class="line">    anchors = []</span><br><span class="line">    anchors.append((<span class="number">0</span>, height, int(dist * width), width, <span class="number">0</span>, height, <span class="number">0</span>, width - int(dist * width)))</span><br><span class="line">    anchors.append((<span class="number">0</span>, height, <span class="number">0</span>, width - int(dist * width), <span class="number">0</span>, height, int(dist * width), width))</span><br><span class="line">    anchors.append((int(dist * height), height, <span class="number">0</span>, width, <span class="number">0</span>, height - int(dist * height), <span class="number">0</span>, width))</span><br><span class="line">    anchors.append((<span class="number">0</span>, height - int(dist * height), <span class="number">0</span>, width, int(dist * height), height, <span class="number">0</span>, width))</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># new_images: d*m*h*w*c array. The first dimension is the 4 directions.</span></span><br><span class="line">    new_images = np.zeros((<span class="number">4</span>, m, height, width, channel))</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">4</span>):</span><br><span class="line">        <span class="comment"># shift the image</span></span><br><span class="line">        top, bottom, left, right, new_top, new_bottom, new_left, new_right = anchors[i]</span><br><span class="line">        new_images[i, :, new_top:new_bottom, new_left:new_right, :] = images[:, top:bottom, left:right, :]</span><br><span class="line">    </span><br><span class="line">    new_images = np.reshape(new_images, (<span class="number">4</span> * m, <span class="number">-1</span>))</span><br><span class="line">    y = np.tile(y, (<span class="number">4</span>, <span class="number">1</span>)).reshape((<span class="number">-1</span>, <span class="number">1</span>))</span><br><span class="line">    new_images = np.concatenate((y, new_images), axis=<span class="number">1</span>).astype(int)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> new_images</span><br></pre></td></tr></table></figure>
+<p><strong>添加白噪声</strong></p>
+<p>现在我们给图像添加一些白噪声。我们随机选取一些像素，用均匀分布的噪声代替它们。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_noise</span><span class="params">(x, y, noise_lvl)</span>:</span></span><br><span class="line">    <span class="string">"""x: 2d(m*n) numpy array. 1-dimension image data;</span></span><br><span class="line"><span class="string">       y: 1d numpy array. The ground truth label;</span></span><br><span class="line"><span class="string">       noise_lvl: float. Percentage of pixels to add noise in.</span></span><br><span class="line"><span class="string">       return images with white noise.</span></span><br><span class="line"><span class="string">       This function randomly picks some pixels and replace them with noise."""</span></span><br><span class="line">    m, n = x.shape</span><br><span class="line">    <span class="comment"># calculate the # of pixels to add noise in</span></span><br><span class="line">    noise_num = int(noise_lvl * n)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(m):</span><br><span class="line">        <span class="comment"># generate n random numbers, sort it and choose the first noise_num indices</span></span><br><span class="line">        <span class="comment"># which equals to generate random numbers w/o replacement</span></span><br><span class="line">        noise_idx = np.random.randint(<span class="number">0</span>, n, n).argsort()[:noise_num]</span><br><span class="line">        <span class="comment"># replace the chosen pixels with noise from 0 to 255</span></span><br><span class="line">        x[i, noise_idx] = np.random.randint(<span class="number">0</span>, <span class="number">255</span>, noise_num)</span><br><span class="line"></span><br><span class="line">    noisy_data = np.concatenate((y.reshape((<span class="number">-1</span>, <span class="number">1</span>)), x), axis=<span class="number">1</span>).astype(<span class="string">"int"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> noisy_data</span><br></pre></td></tr></table></figure>
+<p><strong>旋转</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rotate_image</span><span class="params">(x, y, max_angle)</span>:</span></span><br><span class="line">    <span class="string">"""x: 2d(m*n) numpy array. 1-dimension image data;</span></span><br><span class="line"><span class="string">       y: 1d numpy array. The ground truth label;</span></span><br><span class="line"><span class="string">       max_angle: int. The maximum degree for rotation.</span></span><br><span class="line"><span class="string">       return rotated images.</span></span><br><span class="line"><span class="string">       This function rotates the image for some random degrees(0.5 to 1 * max_angle degree)."""</span></span><br><span class="line">    images = convert_2d(x)</span><br><span class="line">    m, height, width, channel = images.shape</span><br><span class="line">    </span><br><span class="line">    img_tensor = tf.placeholder(tf.float32, [m, height, width, channel])</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># half of the images are rotated clockwise. The other half counter-clockwise</span></span><br><span class="line">    <span class="comment"># positive angle: [max/2, max]</span></span><br><span class="line">    <span class="comment"># negative angle: [360-max/2, 360-max]</span></span><br><span class="line">    rand_angle_pos = np.random.randint(max_angle / <span class="number">2</span>, max_angle, int(m / <span class="number">2</span>))</span><br><span class="line">    rand_angle_neg = np.random.randint(-max_angle, -max_angle / <span class="number">2</span>, m - int(m / <span class="number">2</span>)) + <span class="number">360</span></span><br><span class="line">    rand_angle = np.transpose(np.hstack((rand_angle_pos, rand_angle_neg)))</span><br><span class="line">    np.random.shuffle(rand_angle)</span><br><span class="line">    <span class="comment"># convert the degree to radian</span></span><br><span class="line">    rand_angle = rand_angle / <span class="number">180</span> * pi</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># rotate the images</span></span><br><span class="line">    rotated_img_tensor = tf.contrib.image.rotate(img_tensor, rand_angle)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">        rotated_imgs = sess.run(rotated_img_tensor, feed_dict=&#123;img_tensor: images&#125;)</span><br><span class="line">    </span><br><span class="line">    rotated_imgs = np.reshape(rotated_imgs, (m, <span class="number">-1</span>))</span><br><span class="line">    rotated_imgs = np.concatenate((y.reshape((<span class="number">-1</span>, <span class="number">1</span>)), rotated_imgs), axis=<span class="number">1</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> rotated_imgs</span><br></pre></td></tr></table></figure>
+<p><strong>合并</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">start = time.clock()</span><br><span class="line">print(<span class="string">"Augment the data..."</span>)</span><br><span class="line">cropped_imgs = crop_image(x_train, y_train, <span class="number">0.9</span>)</span><br><span class="line">translated_imgs = translate(x_train, y_train, <span class="number">0.1</span>)</span><br><span class="line">noisy_imgs = add_noise(x_train, y_train, <span class="number">0.1</span>)</span><br><span class="line">rotated_imgs = rotate_image(x_train, y_train, <span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">data_train = np.vstack((data_train, cropped_imgs, translated_imgs, noisy_imgs, rotated_imgs))</span><br><span class="line">np.random.shuffle(data_train)</span><br><span class="line">print(<span class="string">"Done!"</span>)</span><br><span class="line">time_used = int(time.clock() - start)</span><br><span class="line">print(<span class="string">"Time used: &#123;&#125;s."</span>.format(time_used))</span><br></pre></td></tr></table></figure>
+<pre><code>G:\Anaconda\lib\site-packages\ipykernel_launcher.py:1: DeprecationWarning: time.clock has been deprecated in Python 3.3 and will be removed from Python 3.8: use time.perf_counter or time.process_time instead
+  &quot;&quot;&quot;Entry point for launching an IPython kernel.
+
+
+Augment the data...
+
+WARNING: The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+If you depend on functionality not listed there, please file an issue.
+
+Done!
+Time used: 26s.
+
+
+G:\Anaconda\lib\site-packages\ipykernel_launcher.py:11: DeprecationWarning: time.clock has been deprecated in Python 3.3 and will be removed from Python 3.8: use time.perf_counter or time.process_time instead
+  # This is added back by InteractiveShellApp.init_path()
+</code></pre><h3 id="数据准备"><a href="#数据准备" class="headerlink" title="数据准备"></a>数据准备</h3><p><strong>检查数据</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x_train = data_train[:, <span class="number">1</span>:]</span><br><span class="line">y_train = data_train[:, <span class="number">0</span>]</span><br><span class="line">x_test = data_test.values</span><br><span class="line">print(<span class="string">"Augmented training data: &#123;&#125; rows, &#123;&#125; columns."</span>.format(data_train.shape[<span class="number">0</span>], data_train.shape[<span class="number">1</span>]))</span><br></pre></td></tr></table></figure>
+<pre><code>Augmented training data: 336000 rows, 785 columns.
+</code></pre><p>使用数据增强之后的训练数据总共有33万6千行，是原来的8倍。</p>
+<p><strong>向量转化为一个矩阵</strong></p>
+<p>因为CNN接受的是输入是二维的图像，我们需要将向量转化为一个矩阵<br>格式：$m(图像数量)×h(图像高度)×w(图像宽度)×c(图像通道数量)$</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x_train = convert_2d(x_train)</span><br><span class="line">x_test = convert_2d(x_test)</span><br></pre></td></tr></table></figure>
+<p><strong>将类别型数据转换成哑变量</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">num_classes = <span class="number">10</span></span><br><span class="line">y_train = keras.utils.to_categorical(y_train, num_classes)</span><br></pre></td></tr></table></figure>
+<p>为了加快CNN优化速度，缩小像素值的范围。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x_train = x_train / <span class="number">255</span></span><br><span class="line">x_test = x_test / <span class="number">255</span></span><br></pre></td></tr></table></figure>
+<p><strong>划分训练集，验证集</strong></p>
+<p>为了验证模型的好坏，用sklearn提供的一个函数来将数据按照9:1进行分割，90%为训练集，10%为验证集</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># generate a random seed for train-test-split</span></span><br><span class="line">seed = np.random.randint(<span class="number">1</span>, <span class="number">100</span>)</span><br><span class="line">x_train, x_dev, y_train, y_dev = train_test_split(x_train, y_train, test_size=<span class="number">0.1</span>, random_state=seed)</span><br></pre></td></tr></table></figure>
+<p><strong>清理内存</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">del</span> data_train</span><br><span class="line"><span class="keyword">del</span> data_test</span><br><span class="line">gc.collect()</span><br></pre></td></tr></table></figure>
+<pre><code>69
+</code></pre><h3 id="搭建CNN模型"><a href="#搭建CNN模型" class="headerlink" title="搭建CNN模型"></a>搭建CNN模型</h3><p>一个普通的CNN通常包括三种类型的层，卷积层，池化层和全连接层。<br>我还在模型中添加了标准化层和dropout层。</p>
+<ul>
+<li><p>这里使用了5×5的卷积核，而不是3×3的。5×5的卷积核感受野更大，效果更好。</p>
+</li>
+<li><p>这里的批量归一化放在了ReLU激活函数之后，当然也可以放在激活函数之前。</p>
+</li>
+<li><p>Dropout使用了0.2的drop概率，意味着在Dropout层的输入中20%的像素点会被重置为0。</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 每个卷积层的信道数。 </span></span><br><span class="line">filters = (<span class="number">32</span>, <span class="number">32</span>, <span class="number">64</span>, <span class="number">64</span>)</span><br><span class="line"><span class="comment"># 每个conv层使用一个5x5内核</span></span><br><span class="line">kernel = (<span class="number">5</span>, <span class="number">5</span>)</span><br><span class="line"><span class="comment"># 在Dropout层的输入中20%的像素点会被重置为0。</span></span><br><span class="line">drop_prob = <span class="number">0.2</span></span><br><span class="line"></span><br><span class="line">model = keras.models.Sequential()</span><br><span class="line"></span><br><span class="line">model.add(Conv2D(filters[<span class="number">0</span>], kernel, padding=<span class="string">"same"</span>, input_shape=(<span class="number">28</span>, <span class="number">28</span>, <span class="number">1</span>),</span><br><span class="line">                 kernel_initializer=keras.initializers.he_normal()))</span><br><span class="line">model.add(BatchNormalization())</span><br><span class="line">model.add(ReLU())</span><br><span class="line">model.add(Conv2D(filters[<span class="number">0</span>], kernel, padding=<span class="string">"same"</span>,</span><br><span class="line">                 kernel_initializer=keras.initializers.he_normal()))</span><br><span class="line">model.add(BatchNormalization())</span><br><span class="line">model.add(ReLU())</span><br><span class="line">model.add(MaxPool2D())</span><br><span class="line">model.add(Dropout(drop_prob))</span><br><span class="line"></span><br><span class="line">model.add(Conv2D(filters[<span class="number">1</span>], kernel, padding=<span class="string">"same"</span>,</span><br><span class="line">                 kernel_initializer=keras.initializers.he_normal()))</span><br><span class="line">model.add(BatchNormalization())</span><br><span class="line">model.add(ReLU())</span><br><span class="line">model.add(MaxPool2D())</span><br><span class="line">model.add(Dropout(drop_prob))</span><br><span class="line"></span><br><span class="line">model.add(Conv2D(filters[<span class="number">2</span>], kernel, padding=<span class="string">"same"</span>,</span><br><span class="line">                 kernel_initializer=keras.initializers.he_normal()))</span><br><span class="line">model.add(BatchNormalization())</span><br><span class="line">model.add(ReLU())</span><br><span class="line">model.add(MaxPool2D())</span><br><span class="line">model.add(Dropout(drop_prob))</span><br><span class="line"></span><br><span class="line">model.add(Conv2D(filters[<span class="number">3</span>], kernel, padding=<span class="string">"same"</span>,</span><br><span class="line">                 kernel_initializer=keras.initializers.he_normal()))</span><br><span class="line">model.add(BatchNormalization())</span><br><span class="line">model.add(ReLU())</span><br><span class="line">model.add(MaxPool2D())</span><br><span class="line">model.add(Dropout(drop_prob))</span><br><span class="line"></span><br><span class="line"><span class="comment"># several fully-connected layers after the conv layers</span></span><br><span class="line">model.add(Flatten())</span><br><span class="line">model.add(Dropout(drop_prob))</span><br><span class="line">model.add(Dense(<span class="number">128</span>, activation=<span class="string">"relu"</span>))</span><br><span class="line">model.add(Dropout(drop_prob))</span><br><span class="line">model.add(Dense(num_classes, activation=<span class="string">"softmax"</span>))</span><br><span class="line"><span class="comment"># use the Adam optimizer to accelerate convergence</span></span><br><span class="line">model.compile(keras.optimizers.Adam(), <span class="string">"categorical_crossentropy"</span>, metrics=[<span class="string">"accuracy"</span>])</span><br></pre></td></tr></table></figure>
+<pre><code>WARNING:tensorflow:From G:\Anaconda\lib\site-packages\tensorflow\python\framework\op_def_library.py:263: colocate_with (from tensorflow.python.framework.ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Colocations handled automatically by placer.
+WARNING:tensorflow:From G:\Anaconda\lib\site-packages\keras\backend\tensorflow_backend.py:3445: calling dropout (from tensorflow.python.ops.nn_ops) with keep_prob is deprecated and will be removed in a future version.
+Instructions for updating:
+Please use `rate` instead of `keep_prob`. Rate should be set to `rate = 1 - keep_prob`.
+</code></pre><p><strong>查看模型架构</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model.summary()</span><br></pre></td></tr></table></figure>
+<pre><code>_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+conv2d_1 (Conv2D)            (None, 28, 28, 32)        832       
+_________________________________________________________________
+batch_normalization_1 (Batch (None, 28, 28, 32)        128       
+_________________________________________________________________
+re_lu_1 (ReLU)               (None, 28, 28, 32)        0         
+_________________________________________________________________
+conv2d_2 (Conv2D)            (None, 28, 28, 32)        25632     
+_________________________________________________________________
+batch_normalization_2 (Batch (None, 28, 28, 32)        128       
+_________________________________________________________________
+re_lu_2 (ReLU)               (None, 28, 28, 32)        0         
+_________________________________________________________________
+max_pooling2d_1 (MaxPooling2 (None, 14, 14, 32)        0         
+_________________________________________________________________
+dropout_1 (Dropout)          (None, 14, 14, 32)        0         
+_________________________________________________________________
+conv2d_3 (Conv2D)            (None, 14, 14, 32)        25632     
+_________________________________________________________________
+batch_normalization_3 (Batch (None, 14, 14, 32)        128       
+_________________________________________________________________
+re_lu_3 (ReLU)               (None, 14, 14, 32)        0         
+_________________________________________________________________
+max_pooling2d_2 (MaxPooling2 (None, 7, 7, 32)          0         
+_________________________________________________________________
+dropout_2 (Dropout)          (None, 7, 7, 32)          0         
+_________________________________________________________________
+conv2d_4 (Conv2D)            (None, 7, 7, 64)          51264     
+_________________________________________________________________
+batch_normalization_4 (Batch (None, 7, 7, 64)          256       
+_________________________________________________________________
+re_lu_4 (ReLU)               (None, 7, 7, 64)          0         
+_________________________________________________________________
+max_pooling2d_3 (MaxPooling2 (None, 3, 3, 64)          0         
+_________________________________________________________________
+dropout_3 (Dropout)          (None, 3, 3, 64)          0         
+_________________________________________________________________
+conv2d_5 (Conv2D)            (None, 3, 3, 64)          102464    
+_________________________________________________________________
+batch_normalization_5 (Batch (None, 3, 3, 64)          256       
+_________________________________________________________________
+re_lu_5 (ReLU)               (None, 3, 3, 64)          0         
+_________________________________________________________________
+max_pooling2d_4 (MaxPooling2 (None, 1, 1, 64)          0         
+_________________________________________________________________
+dropout_4 (Dropout)          (None, 1, 1, 64)          0         
+_________________________________________________________________
+flatten_1 (Flatten)          (None, 64)                0         
+_________________________________________________________________
+dropout_5 (Dropout)          (None, 64)                0         
+_________________________________________________________________
+dense_1 (Dense)              (None, 128)               8320      
+_________________________________________________________________
+dropout_6 (Dropout)          (None, 128)               0         
+_________________________________________________________________
+dense_2 (Dense)              (None, 10)                1290      
+=================================================================
+Total params: 216,330
+Trainable params: 215,882
+Non-trainable params: 448
+_________________________________________________________________
+</code></pre><p>The list above is the structure of my CNN model. It goes:</p>
+<ul>
+<li>(Conv-ReLU-BatchNormalization-MaxPooling-Dropout) x 4;</li>
+<li><p>3 fully-connected(dense) layers with 1 dropout layer. Dense(64)-Dense(128)-Dropout-Dense(with softmax activation).</p>
+</li>
+<li><p>In CNN people often use 3x3 or 5x5 kernel. I found that with a 5x5 kernel, the model’s accuracy improved about 0.125%, which is quite a lot when you pass 99% threshold.</p>
+</li>
+<li>Convolutional layers and max pooling layers can extract some high-level traits from the pixels. With the <a href="https://en.wikipedia.org/wiki/Rectifier_(neural_networks" target="_blank" rel="noopener">ReLU</a>) unit the and max pooling, we also add non-linearity into the network;</li>
+<li>Batch normalization helps the network converge faster since it keeps the input of every layer at the same scale;</li>
+<li><a href="https://en.wikipedia.org/wiki/Convolutional_neural_network#Dropout" target="_blank" rel="noopener">Dropout</a> layers help us prevent overfitting by randomly drop some of the input units. With dropout our model won’t overfit to some specific extreme data or some noisy pixels;</li>
+<li>The <a href="https://en.wikipedia.org/wiki/Stochastic_gradient_descent#Adam" target="_blank" rel="noopener">Adam optimizer</a> also accelerates the optimization. Usually when the dataset is too large, we use mini-batch gradient descent or stochastic gradient descent to save some training time. The randomness in MBGD or SGD means that the steps towards the optimum are zig-zag rather than straight forward. Adam, or Adaptive Moment Estimation, uses exponential moving average on the gradients and the secend moment of gradients to make the steps straight and in turn accelerate the optimization.</li>
+</ul>
+<h3 id="训练CNN"><a href="#训练CNN" class="headerlink" title="训练CNN"></a>训练CNN</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># number of epochs we run</span></span><br><span class="line">iters = <span class="number">100</span></span><br><span class="line"><span class="comment"># batch size. Number of images we train before we take one step in MBGD.</span></span><br><span class="line">batch_size = <span class="number">1024</span></span><br></pre></td></tr></table></figure>
+<p>当我们接近最佳状态时，我们需要降低学习速度以防止过度学习。高学习率会使我们远离最佳状态。因此，当验证数据的准确性不再提高时，我将这个学习率衰减设置为降低它。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># monitor: :要监视的数量。当它不再显著改善时，我们就降低了学习速度</span></span><br><span class="line"><span class="comment"># factor: 新学习率=旧学习率 * factor</span></span><br><span class="line"><span class="comment"># patience:在降低学习速度之前，我们要等待的时间</span></span><br><span class="line"><span class="comment"># verbose: 是否显示信息</span></span><br><span class="line"><span class="comment"># min_lr: 最小的学习率</span></span><br><span class="line"></span><br><span class="line">lr_decay = ReduceLROnPlateau(monitor=<span class="string">"val_acc"</span>, factor=<span class="number">0.5</span>, patience=<span class="number">3</span>, verbose=<span class="number">1</span>, min_lr=<span class="number">1e-5</span>)</span><br><span class="line"><span class="comment"># 如果模型在验证数据上没有得到任何改善，可以设置早期停止，以防止过度拟合，并节省一些时间。当监控量没有提高时，提前停止训练。</span></span><br><span class="line">early_stopping = EarlyStopping(monitor=<span class="string">"val_acc"</span>, patience=<span class="number">7</span>, verbose=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p><strong>训练模型</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="string">"Training model..."</span>)</span><br><span class="line">fit_params = &#123;</span><br><span class="line">    <span class="string">"batch_size"</span>: batch_size,</span><br><span class="line">    <span class="string">"epochs"</span>: iters,</span><br><span class="line">    <span class="string">"verbose"</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="string">"callbacks"</span>: [lr_decay, early_stopping],</span><br><span class="line">    <span class="string">"validation_data"</span>: (x_dev, y_dev)     <span class="comment"># data for monitoring the model accuracy</span></span><br><span class="line">&#125;</span><br><span class="line">model.fit(x_train, y_train, **fit_params)</span><br><span class="line">print(<span class="string">"Done!"</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>Training model...
+WARNING:tensorflow:From G:\Anaconda\lib\site-packages\tensorflow\python\ops\math_ops.py:3066: to_int32 (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.cast instead.
+Train on 302400 samples, validate on 33600 samples
+Epoch 1/100
+  3072/302400 [..............................] - ETA: 32:43 - loss: 2.6548 - acc: 0.1156
+</code></pre><h3 id="模型评估"><a href="#模型评估" class="headerlink" title="模型评估"></a>模型评估</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model.evaluate(x_dev, y_dev)</span><br></pre></td></tr></table></figure>
+<pre><code>33600/33600 [==============================] - 3s 75us/step
+
+
+
+
+
+[0.0018058670724439621, 0.9994047619047619]
+</code></pre><p>evaluate这个方法会输出两个值，第一个是当期的损失函数值，第二个是模型的准确率。我们可以看到，模型的准确率在验证集上达到了99.84%！</p>
+<h3 id="输出预测"><a href="#输出预测" class="headerlink" title="输出预测"></a>输出预测</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">y_pred = model.predict(x_test, batch_size=batch_size)</span><br><span class="line">y_pred = np.argmax(y_pred, axis=<span class="number">1</span>).reshape((<span class="number">-1</span>, <span class="number">1</span>))</span><br><span class="line">idx = np.reshape(np.arange(<span class="number">1</span>, len(y_pred) + <span class="number">1</span>), (len(y_pred), <span class="number">-1</span>))</span><br><span class="line">y_pred = np.hstack((idx, y_pred))</span><br><span class="line">y_pred = pd.DataFrame(y_pred, columns=[<span class="string">'ImageId'</span>, <span class="string">'Label'</span>])</span><br><span class="line">y_pred.to_csv(<span class="string">'y_pred.csv'</span>, index=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ML/" rel="tag"># ML</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/19/基向量与坐标变换/" rel="next" title="基向量与坐标变换">
+                <i class="fa fa-chevron-left"></i> 基向量与坐标变换
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/19/链表-反转链表/" rel="prev" title="链表-反转链表">
+                链表-反转链表 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="Hero">
+          <p class="site-author-name" itemprop="name">Hero</p>
+           
+              <p class="site-description motion-element" itemprop="description">hero's notebooks</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">45</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#导入相关包"><span class="nav-number">2.</span> <span class="nav-text">导入相关包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据处理"><span class="nav-number">3.</span> <span class="nav-text">数据处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据增强"><span class="nav-number">4.</span> <span class="nav-text">数据增强</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据准备"><span class="nav-number">5.</span> <span class="nav-text">数据准备</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#搭建CNN模型"><span class="nav-number">6.</span> <span class="nav-text">搭建CNN模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#训练CNN"><span class="nav-number">7.</span> <span class="nav-text">训练CNN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型评估"><span class="nav-number">8.</span> <span class="nav-text">模型评估</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#输出预测"><span class="nav-number">9.</span> <span class="nav-text">输出预测</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Hero</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
