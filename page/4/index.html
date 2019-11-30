@@ -307,6 +307,349 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/04/05/Topic Model__TF-IDF_LSA_pLSA_NMF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hero">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hero's notebooks">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/05/Topic Model__TF-IDF_LSA_pLSA_NMF/" itemprop="url">Topic Model__TF-IDF/LSA/pLSA/NMF</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-05T13:40:47+08:00">
+                2019-04-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Topic-Model"><a href="#Topic-Model" class="headerlink" title="Topic Model"></a>Topic Model</h1><p><em><strong>主题模型即在大量文档中发现潜在主题的统计模型</strong></em></p>
+<p>主题模型是一种<strong>生成式有向图</strong>模型，即文档以一定概率选择主题，而主题是单词的概率分布。</p>
+<p>文档 –&gt; 主题 –&gt; 单词</p>
+<h2 id="TF-IDF"><a href="#TF-IDF" class="headerlink" title="TF-IDF"></a>TF-IDF</h2><ul>
+<li>TF: term frequency —— (# occurrences of term t in document) / (# of words in documents)</li>
+<li>IDF: inverse document frequency —— log(# of documents / # documents with term t in it)</li>
+<li><p>TF * IDF</p>
+</li>
+<li><p>一字词对于一个文件集或一个语料库中的其中一份文件的重要程度。一个词term的重要性与其在整个文件中出现的频率成正比；与它在语料库中的频率成反比。</p>
+</li>
+<li>可以用来提取关键词</li>
+<li>有不足：比如某次在每个文件中都出现，这个词可能是is are之类的无用词，也可能是可以代表该文件库的关键词—-&gt;结合停用词处理？；没有考虑语义关联</li>
+</ul>
+<h2 id="LSA-LSI-Latent-Semantic-Analysis-Indexing"><a href="#LSA-LSI-Latent-Semantic-Analysis-Indexing" class="headerlink" title="LSA/LSI(Latent Semantic Analysis/Indexing)"></a>LSA/LSI(Latent Semantic Analysis/Indexing)</h2><p>潜在语义分析/检索</p>
+<ul>
+<li>假设有m个输入文档，每个文档有n个词项，则可以组成一个term-document的稀疏矩阵A∈Rm*n，它的行对应词项、列对应文档；Aij对应第i个文档的第j个词项，可以通过TF-IDF、词项在文档中出现的次数等方式确定矩阵每个元素的权重作为计算输入。经过SVD分解后将奇异值从大到小排列，取前k个最大的奇异值作为对原矩阵A的近似表示，Σ中的每个奇异值代表了潜在语义的重要度。</li>
+<li>通过一次SVD分解就可以得到主题模型，同时解决语义的问题，但是计算得到的矩阵U、V中经常存在负数；可以通过计算词项（U的行）、文档（V的行or VT的列）之间的余弦相似度得到词项与词项、文档与文档之间的相似度；还可以对U、V中的词项和文档直接进行聚类，提取语义级别的近义词集合，便于搜索且减少数据存储量。</li>
+<li>LSA适用于较小规模数据，可用于文档分类/聚类、同义词/多义词检索、跨语言搜索；SVD的计算很耗时，且潜在语义的数量k的选择对结果的影响非常大；LSA的原理简单但得到的不是概率模型，缺乏统计基础，矩阵中的负值难以解释，无法对应成现实中的概念。</li>
+</ul>
+<h2 id="pLSA-Potential-Latent-Semantic-Analysis-Indexing"><a href="#pLSA-Potential-Latent-Semantic-Analysis-Indexing" class="headerlink" title="pLSA(Potential Latent Semantic Analysis/Indexing)"></a>pLSA(Potential Latent Semantic Analysis/Indexing)</h2><p>引入了隐含变量，并使用了EM算法求解</p>
+<h2 id="NMF-Non-negative-Matrix-Factorization"><a href="#NMF-Non-negative-Matrix-Factorization" class="headerlink" title="NMF(Non-negative Matrix Factorization)"></a>NMF(Non-negative Matrix Factorization)</h2><ul>
+<li>V ≈ WH，其中V∈Rn<em>m为文档-单词矩阵，W∈Rn</em>r体现文档和主题的概率相关度，H∈Rr*m体现单词和主题的概率相关度。<br><img src="https://img-blog.csdn.net/20180713123152376?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2xpdXk5ODAz/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="V=WH"></li>
+<li>目的：V与WH的误差最小化，度量方式可选择欧几里得距离、KL散度…</li>
+<li>NMF的目标函数中共包含了n<em>r+r</em>m个参数，可以使用梯度下降法、拟牛顿法、坐标轴下降法等进行求解。</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/04/04/LSTM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hero">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hero's notebooks">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/04/LSTM/" itemprop="url">RNN & LSTM & GRU</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-04T08:05:19+08:00">
+                2019-04-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ol>
+<li>RNN</li>
+</ol>
+<p><img src="https://pic1.zhimg.com/v2-206db7ba9d32a80ff56b6cc988a62440_r.jpg" alt="示意图"></p>
+<ul>
+<li>动机：RNN之前，语言模型主要是N-gram，N可以变动，其作用是某位置的词取决于前N个词，所以该方法对任意序列的文本处理存在问题。</li>
+<li>RNN：<em>理论上</em>可以看到往前看/往后看任意的长度。</li>
+<li>最简单的RNN，即t时刻隐藏层的值既取决于t时刻的输入，也取决于t-1时刻的隐藏层的值。</li>
+<li>双向循环网络，应用了下文的信息；深度循环网络，使用了多层隐藏层，更复杂了。</li>
+</ul>
+<p>一个教程：<a href="https://zybuluo.com/hanbingtao/note/541458" target="_blank" rel="noopener">RNN</a></p>
+<ol start="2">
+<li>LSTM(Long Short Term)</li>
+</ol>
+<ul>
+<li>动机：由RNN的机理可知，如果每层向下一个时刻传输的权重w大于1，则容易产生梯度爆炸问题，小于1，则会产生梯度消失<br>一个对比图<br><img src="https://pic4.zhimg.com/v2-e4f9851cad426dfe4ab1c76209546827_r.jpg" alt="RNN&amp;LSTM"><br>RNN只有一个传递状态ht，而LSTM有两个传递状态：cell state, hidden state。<br>其中cell state是上一序列的隐藏层输出加上一些东西（有点类似于RNN中的ht）；而ht变化会比较大。</li>
+<li>过程：<ul>
+<li>计算四个状态：<br><img src="https://pic4.zhimg.com/80/v2-15c5eb554f843ec492579c6d87e1497b_hd.jpg" alt="z&amp;zi"><br><img src="https://pic1.zhimg.com/80/v2-d044fd0087e1df5d2a1089b441db9970_hd.jpg" alt="zo&amp;zf"><br>z是输入，用了tanh，取值范围为-1，相当于归一化；zi&amp;zo&amp;zf为门控，用了sigmoid，输出为0~1，与某值相乘后是对该值的选择，其中i是information，f是forget，o是output；</li>
+<li>四个状态在LSTM中的应用：<br><img src="https://pic2.zhimg.com/80/v2-556c74f0e025a47fea05dc0f76ea775d_hd.jpg" alt="LSTM结构"><ul>
+<li>忘记：zf点乘ct，即通过zf忘记不重要的</li>
+<li>选择记忆：对于输入信息z，点乘zi，进行有选择的记忆</li>
+<li>输出：对上一阶段的c通过tanh进行放缩，再通过zo控制输出</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ol start="3">
+<li>GRU(Gate Recurrent Unit)</li>
+</ol>
+<ul>
+<li>同样为了解决梯度问题</li>
+<li>比LSTM：运算量小</li>
+<li>使用了同一个门控状态控制记忆和忘记</li>
+</ul>
+<p>具体：<br><a href="https://zhuanlan.zhihu.com/p/32481747" target="_blank" rel="noopener">原文</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/19/FP Tree/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1028,6 +1371,166 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/14/python面向对象/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hero">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hero's notebooks">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/14/python面向对象/" itemprop="url">python面向对象</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-14T09:54:35+08:00">
+                2019-03-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="属性命名"><a href="#属性命名" class="headerlink" title="属性命名"></a>属性命名</h3><ul>
+<li>属性以双下划线开头，类内变量，实例无法访问。但可以通过某些方式访问，例如Student例中定义了__name变量，可以用_Student_name来实现访问，但不建议，因为不同的解释器的转化方式不一样。</li>
+<li>单下划线可以打开，但需要注意不能随意更改。</li>
+<li>双下划线结尾与开头，特殊变量，类内可以访问，实例不知。</li>
+<li><h3 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h3>开闭原则：定义一个类Animal及其多个之类Dog/Cat/…，当定义一个函数或操作时：</li>
+</ul>
+<ul>
+<li>对扩展开放：允许新增Animal的子类；</li>
+<li>对修改封闭：不需要修改依赖Animal类型的run_twice()等函数，仍然可以传入Dog/Cat等类。<br>事实上，不需要继承也可以实现多态————鸭子类型。</li>
+</ul>
+<h3 id="若干方法"><a href="#若干方法" class="headerlink" title="若干方法"></a>若干方法</h3><ul>
+<li>isinstance(object,class) 判断是否属于某个类</li>
+<li>dir() 列举出一个对象的属性和方法</li>
+<li>getattr()、setattr()、hasattr()可以获得、添加、查询是否需要某个属性<ul>
+<li>__slots__ 限制可以添加的属性，__slots__ = (‘name’, ‘age’) # 用tuple定义允许绑定的属性名称</li>
+</ul>
+</li>
+<li>装饰器</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/14/Presentation of WNSP and IS/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1218,166 +1721,6 @@
 <p>本文中用到的样本量更大，选择train sample和test sample的protocol也不一样，但是EER与原文差不多。如图5所示。</p>
 <p>As can be seen by Table V, and Figure 4, the results on this dataset show the same trends as seen in the keystroke dynamics datasets before. The first try which hits the mean of the impostor samples is not very successful here. This is particularly bad for an adversary like MasterKey which stays around the mean of the distribution, and is reflected in the results in Table V. But the K-means++ adversary is quickly able to explore the sample space to find more challenging queries and in 10 tries itself, breaks into a sizeable proportion of the  classifiers as in the keystrokes dataset. And in the limit, essentially all the user’s classifiers are compromised.由表V和图4可以看出，该数据集上的结果显示了与之前击键动力学数据集相同的趋势。第一次尝试就击中了冒名顶替样本的均值，但并不是很成功。这是特别糟糕的敌人像万能钥匙保持周围分布的均值,并反映在结果表诉。但k - means + +对手很快就能够探索样本空间中找到更有挑战性的查询和10次尝试本身,闯进了一相当大的比例的数据集分类器的按键。在极限情况下，基本上所有用户的分类器都被破坏了。</p>
 <h1 id="Conclusion-and-future-work"><a href="#Conclusion-and-future-work" class="headerlink" title="Conclusion and future work"></a>Conclusion and future work</h1><p>Behavioral biometrics is a promising field of research, but it is not a reliable solution for authentication in its current state. <strong>行为生物识别技术是一个很有前途的研究领域，但在目前的状态下，它并不是一个可靠的认证解决方案。</strong>We proposed two adversarial agents that require a different amount of effort from the adversary. <strong>Both attack methods performed clearly better than the previously studied attack methods</strong> in the literature and show that current state of the art classifiers add little protection against such adversaries. In the case of Indiscriminate K-means++, more than its success rate, it is worrying for the keystroke dynamics systems that such an adversary could conduct its attack without any additional cost incurred to collect samples. Past research has focused much more on improving the classifiers against naive adversaries, but this work shows that a lot more research from the adversarialperspective is required before such authentication systems can be adopted in sensitive contexts.<br>The design of our K-means++ adversaries utilizes a <strong>common intuition about human behavior, which is that a person’s behavioral data belongs to a “cluster”, rather than being absolutely unique</strong>. Thus it is natural to expect such techniques to generalize to other types of behavioral data. The results on the touchscreen touchscreen swipes dataset also supports this claim.<br>我们提出了两种敌对代理人，它们需要不同于对手的努力。这两种攻击方法的性能明显优于文献中先前研究的攻击方法，表明当前的艺术分类器对这类敌人的保护很少。在不加区别的K-means++的情况下，对于击键动力学系统来说，这样的对手可以进行攻击而不需要额外的成本来收集样本，这比其成功率更令人担忧。过去的研究更多地关注于改进针对天真的对手的分类器，但这项工作表明，在这种身份验证系统可以在敏感的上下文中采用之前，需要从adversarialperspective的角度进行更多的研究。我们的k -means++敌人的设计利用了一种关于人类行为的共同直觉，即一个人的行为数据属于一个“集群”，而不是绝对独一无二的。因此，很自然地期望这些技术可以推广到其他类型的行为数据。触屏触摸屏上的结果也支持这一说法。<br>Of course, from a practical perspective, it is much harder to simulate an attack on a touchscreen based system, as opposed to a keystroke dynamics system, because of the diversity of the touchscreen features like pressure, finger size and so on. Unlike keystrokes - we can’t just write an easily automated script to carry out such an attack. This implies that a swipes based classifier is more secure for now. But given enough motivation, it is possible that methods could be devised to bypass such limitations. For instance, such attacks could be carried out by feeding false information to the android sensors, or in an extreme example, by building a robotic arm.<br>当然，从实际角度来看，由于触摸屏的压力、手指大小等特性的多样性，模拟攻击基于触摸屏的系统要比模拟击键动力学系统困难得多。与击键不同的是，我们不能仅仅编写一个易于自动化的脚本来执行这样的攻击。这意味着基于滑动的分类器现在更安全。但只要有足够的动力，就有可能设计出绕过这些限制的方法。例如，这种攻击可以通过向android传感器提供虚假信息来实施，或者在一个极端的例子中，通过制造机械手臂来实施。<br>Previous research has relied exclusively on the average Equal Error Rate scores across all subjects to measure the robustness of classifiers. To develop more robust behavioral biometric classifiers, it would be useful to <strong>benchmark against the adversarial agents proposed in this paper instead.</strong> For instance, one class classifiers have been the dominant method researched in the keystroke dynamics literature as they perform as well as the two class classifiers in terms of EER, while the two class classifiers are not practical because one can not expect impostor samples for arbitrary passwords. Yet, against both the adversarial algorithms, the two class classifiers performed clearly better than the one class classifiers. This suggests that a future direction of research would be to bridge the gap between the idealized and practical versions of such two class classifiers as explained in section IV A.<br>以往的研究完全依赖于所有科目的平均等错误率分数来衡量分类器的鲁棒性。为了开发出更健壮的行为生物特征分类器，我们将对本文提出的抗辩剂进行基准测试。例如，在击键力学文献中，一类分类器是主要的研究方法，因为它们的性能和EER的两个类分类器一样好，而这两个类分类器是不实用的，因为人们不能指望冒名顶替者样本来处理任意的密码。然而，与两种对抗性算法相比，这两个类分类器的性能明显优于一个类分类器。这表明，今后的研究方向将是弥补第四节a所解释的这两类分类器的理想化版本和实际版本之间的差距。<br>From the adversarial perspective, one possibility for future work would be to extend these methods to free text based classifiers. Free text classifiers utilize a continuous stream of input text, as opposed to fixed text passwords, in order to classify keystroke patterns. This leads to differences in the features and algorithms that are utilized for these classifiers. But conceptually, the Indiscriminate K-means++ adversary should be well suited to generate adversarial samples against free text classifiers as well.从敌对的角度来看，未来工作的一种可能是将这些方法扩展到基于自由文本的分类器。自由文本分类器使用连续的输入文本流(与固定文本密码相反)来分类击键模式。这导致了这些分类器所使用的特性和算法的差异。但从概念上讲，不加区分的K-means++对手也应该非常适合针对自由文本分类器生成对抗性样本。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/14/python面向对象/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Hero">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hero's notebooks">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/14/python面向对象/" itemprop="url">python面向对象</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-14T09:54:35+08:00">
-                2019-03-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Learning</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="属性命名"><a href="#属性命名" class="headerlink" title="属性命名"></a>属性命名</h3><ul>
-<li>属性以双下划线开头，类内变量，实例无法访问。但可以通过某些方式访问，例如Student例中定义了__name变量，可以用_Student_name来实现访问，但不建议，因为不同的解释器的转化方式不一样。</li>
-<li>单下划线可以打开，但需要注意不能随意更改。</li>
-<li>双下划线结尾与开头，特殊变量，类内可以访问，实例不知。</li>
-<li><h3 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h3>开闭原则：定义一个类Animal及其多个之类Dog/Cat/…，当定义一个函数或操作时：</li>
-</ul>
-<ul>
-<li>对扩展开放：允许新增Animal的子类；</li>
-<li>对修改封闭：不需要修改依赖Animal类型的run_twice()等函数，仍然可以传入Dog/Cat等类。<br>事实上，不需要继承也可以实现多态————鸭子类型。</li>
-</ul>
-<h3 id="若干方法"><a href="#若干方法" class="headerlink" title="若干方法"></a>若干方法</h3><ul>
-<li>isinstance(object,class) 判断是否属于某个类</li>
-<li>dir() 列举出一个对象的属性和方法</li>
-<li>getattr()、setattr()、hasattr()可以获得、添加、查询是否需要某个属性<ul>
-<li>__slots__ 限制可以添加的属性，__slots__ = (‘name’, ‘age’) # 用tuple定义允许绑定的属性名称</li>
-</ul>
-</li>
-<li>装饰器</li>
-</ul>
 
           
         
@@ -1650,174 +1993,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/14/LightGBM/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Hero">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hero's notebooks">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/14/LightGBM/" itemprop="url">LightGBM</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-14T09:54:35+08:00">
-                2019-03-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Learning</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h1><ul>
-<li>可以接受categorical features：LightGBM 可以直接使用 categorical features（分类特征）作为 input（输入）. 它不需要被转换成 one-hot coding（独热编码）, 并且它比 one-hot coding（独热编码）更快（约快上 8 倍）。注意: 在你构造 Dataset 之前, 你应该将分类特征转换为 int 类型的值.</li>
-</ul>
-<h1 id="xgboost的优点"><a href="#xgboost的优点" class="headerlink" title="xgboost的优点"></a>xgboost的优点</h1><ul>
-<li>XGB利用了二阶梯度来对节点进行划分，相对其他GBM来说，精度更加高。</li>
-<li>利用局部近似算法对分裂节点的贪心算法优化，取适当的eps时，可以保持算法的性能且提高算法的运算速度。</li>
-<li>在损失函数中加入了L1/L2项，控制模型的复杂度，提高模型的鲁棒性。</li>
-<li>提供并行计算能力，主要是在树节点求不同的候选的分裂点的Gain Infomation（分裂后，损失函数的差值）</li>
-<li>Tree Shrinkage，column subsampling等不同的处理细节。</li>
-</ul>
-<h1 id="xgboost的缺点"><a href="#xgboost的缺点" class="headerlink" title="xgboost的缺点"></a>xgboost的缺点</h1><ul>
-<li>每次迭代需要多次遍历整个训练数据。若读入内存，则对训练数据的大小有限制；不读入内存的话，非常慢。</li>
-<li>预排序方法：预排序需要大量的空间站占用和时间占用：需要保存数据的特征值，也要保存特征排序的结果，即需要两倍数据的内存占用；遍历每个分割点需要计算每个分割点的增益。此外，对cache优化不友好。在预排序后，特征对梯度的访问是一种随机访问，并且不同的特征访问的顺序不一样，无法对cache进行优化。同时，在每一层长树的时候，需要随机访问一个行索引到叶子索引的数组，并且不同特征访问的顺序也不一样，也会造成较大的cache miss。</li>
-</ul>
-<h1 id="lightgbm的优化"><a href="#lightgbm的优化" class="headerlink" title="lightgbm的优化"></a>lightgbm的优化</h1><ul>
-<li>基于histogram的决策树算法</li>
-<li>带深度限制的leaf-wise的叶子生长策略</li>
-<li>直方图做差加速</li>
-<li>支持类别特征</li>
-<li>cache命中率优化</li>
-<li>基于直方图的稀疏特征优化</li>
-<li>多线程优化</li>
-</ul>
-<h2 id="Histogram算法"><a href="#Histogram算法" class="headerlink" title="Histogram算法"></a>Histogram算法</h2><p>先把连续的浮点特征值离散化成k个整数，同时构造一个宽度为k的直方图。在遍历数据的时候，根据离散化后的值作为索引在直方图中累积统计量，当遍历一次数据后，直方图累积了需要的统计量，然后根据直方图的离散值，遍历寻找最优的分割点。</p>
-<h2 id="带深度限制的leaf-wise的叶子生长策略"><a href="#带深度限制的leaf-wise的叶子生长策略" class="headerlink" title="带深度限制的leaf-wise的叶子生长策略"></a>带深度限制的leaf-wise的叶子生长策略</h2><p>Level-wise过一次数据可以同时分裂同一层的叶子，容易进行多线程优化，也好控制模型复杂度，不容易过拟合。但实际上Level-wise是一种低效的算法，因为它不加区分的对待同一层的叶子，带来了很多没必要的开销，因为实际上很多叶子的分裂增益较低，没必要进行搜索和分裂。</p>
-<p>Leaf-wise则是一种更为高效的策略，每次从当前所有叶子中，找到分裂增益最大的一个叶子，然后分裂，如此循环。因此同Level-wise相比，在分裂次数相同的情况下，Leaf-wise可以降低更多的误差，得到更好的精度。Leaf-wise的缺点是可能会长出比较深的决策树，产生过拟合。因此LightGBM在Leaf-wise之上增加了一个最大深度的限制，在保证高效率的同时防止过拟合。</p>
-<h2 id="多线程优化"><a href="#多线程优化" class="headerlink" title="多线程优化"></a>多线程优化</h2><h3 id="特征并行"><a href="#特征并行" class="headerlink" title="特征并行"></a>特征并行</h3><h3 id="数据并行"><a href="#数据并行" class="headerlink" title="数据并行"></a>数据并行</h3><p>减少了数据通信的成本</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/14/Naive Bayes/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1967,209 +2142,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/14/GBDT & XGBoost/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Hero">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hero's notebooks">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/14/GBDT & XGBoost/" itemprop="url">GBDT & XGBoost</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-14T09:54:35+08:00">
-                2019-03-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Learning</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="https://xgboost.readthedocs.io/en/latest/tutorials/model.html" target="_blank" rel="noopener">Doc</a><br><a href="https://homes.cs.washington.edu/~tqchen/pdf/BoostedTree.pdf" target="_blank" rel="noopener">Slides</a></p>
-<h1 id="为何要推导出目标函数而不是直接增加树"><a href="#为何要推导出目标函数而不是直接增加树" class="headerlink" title="为何要推导出目标函数而不是直接增加树"></a>为何要推导出目标函数而不是直接增加树</h1><p><img src="http://i.imgur.com/quPhp1K.png" alt="Objective function"></p>
-<ul>
-<li>理论上：搞清楚learning的目的，以及其收敛性。</li>
-<li>工程上：<ul>
-<li>gi和hi是对loss function的一次、二次导</li>
-<li>目标函数以及整个学习过程只依赖于gi和hi</li>
-<li>可以根据实际问题，自定义loss function</li>
-</ul>
-</li>
-</ul>
-<h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><p><img src="http://i.imgur.com/L7PhJwO.png" alt="Summary"></p>
-<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><h2 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h2><p>$$ \text{obj} = \sum_{i=1}^n l(y_i, \hat{y}<em>i^{(t)}) + \sum</em>{i=1}^t\Omega(f_i)$$<br>l为loss，\ \Omega \ 为正则项</p>
-<ul>
-<li>loss：采用加法策略，第t颗树时：<br>$$ \hat{y}_i^{(0)} = 0 $$<br>$$ \hat{y}_i^{(1)} = f_1(x_i) = \hat{y}_i^{(0)} + f_1(x_i) $$<br>$$ \hat{y}_i^{(2)} = f_1(x_i) + f_2(x_i)= \hat{y}_i^{(1)} + f_2(x_i) $$<br>$$ \dots $$<br>$$ \hat{y}<em>i^{(t)} = \sum</em>{k=1}^t f_k(x_i)= \hat{y}_i^{(t-1)} + f_t(x_i) $$<br>在添加第t颗树时，需要优化的目标函数为：<br>$$ \sum_{i=1}^n [g_i f_t(x_i) + \frac{1}{2} h_i f_t^2(x_i)] + \Omega(f_t) $$<br>其中h和f：<br>$$ g_i = \partial_{\hat{y}_i^{(t-1)}} l(y_i, \hat{y}_i^{(t-1)}) $$<br>$$ h_i = \partial_{\hat{y}_i^{(t-1)}}^2 l(y_i, \hat{y}_i^{(t-1)}) $$<br>note: 是对谁的导</li>
-<li>正则项：复杂度：<br>$$ \Omega(f) = \gamma T + \frac{1}{2}\lambda \sum_{j=1}^T w_j^2 $$<br>其中w是叶子上的score vector，T是叶子数量</li>
-</ul>
-<h2 id="DART-Booster"><a href="#DART-Booster" class="headerlink" title="DART Booster"></a>DART Booster</h2><p>为了解决过拟合，会随机drop trees:</p>
-<ul>
-<li>训练速度可能慢于gbtree</li>
-<li>由于随机性，早停可能不稳定</li>
-</ul>
-<h1 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h1><h2 id="Monotonic-Constraints单调性限制"><a href="#Monotonic-Constraints单调性限制" class="headerlink" title="Monotonic Constraints单调性限制"></a>Monotonic Constraints单调性限制</h2><ul>
-<li><p>一个可选特性:<br>会限制模型的结果按照某个特征 单调的进行增减</p>
-<p>也就是说可以降低模型对数据的敏感度，如果明确已知某个特征与预测结果呈单调关系时，那在生成模型的时候就会跟特征数据的单调性有关。</p>
-</li>
-</ul>
-<h2 id="Feature-Interaction-Constraints单调性限制"><a href="#Feature-Interaction-Constraints单调性限制" class="headerlink" title="Feature Interaction Constraints单调性限制"></a>Feature Interaction Constraints单调性限制</h2><ul>
-<li><p>一个可选特性：<br>不用时，在tree生成的时候，一棵树上的节点会无限制地选用多个特征</p>
-<p>设置此特性时，可以规定，哪些特征可以有interaction（一般独立变量之间可以interaction，非独立变量的话可能会引入噪声）</p>
-</li>
-<li>好处：<ul>
-<li>预测时更小的噪声</li>
-<li>对模型更好地控制</li>
-</ul>
-</li>
-</ul>
-<h2 id="Instance-Weight-File"><a href="#Instance-Weight-File" class="headerlink" title="Instance Weight File"></a>Instance Weight File</h2><ul>
-<li>规定了模型训练时data中每一条instance的权重</li>
-<li>有些instance质量较差，或与前一示例相比变化不大，所以可以调节其所占权重</li>
-</ul>
-<h1 id="调参"><a href="#调参" class="headerlink" title="调参"></a>调参</h1><h2 id="Overfitting"><a href="#Overfitting" class="headerlink" title="Overfitting"></a>Overfitting</h2><p>与overfitting有关的参数：</p>
-<ul>
-<li>直接控制模型复杂度：max_depth, min_child_weight and gamma.</li>
-<li>增加模型随机性以使得模型对噪声有更强的鲁棒性：<ul>
-<li>subsample and colsample_bytree. </li>
-<li>Reduce stepsize eta. Remember to increase num_round when you do so.</li>
-</ul>
-</li>
-</ul>
-<h2 id="Imbalanced-Dataset"><a href="#Imbalanced-Dataset" class="headerlink" title="Imbalanced Dataset"></a>Imbalanced Dataset</h2><ul>
-<li>只关注测量指标的大小<ul>
-<li>平衡数据集 via scale_pos_weight</li>
-<li>使用AUC作为metric</li>
-</ul>
-</li>
-<li>关注预测正确的概率<ul>
-<li>此时不能re-balance数据集</li>
-<li>Set parameter max_delta_step to a finite number (say 1) to help convergence</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2218,7 +2190,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">45</span>
+                <span class="site-state-item-count">47</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>

@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css">
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="面试,">
 
 
 
@@ -96,20 +96,18 @@
 
 
 
-<meta name="description" content="与滴滴金融的会议乘客行为分在分析身份特征／平台贡献度／行为健康度／平台忠诚度这几个维度时，有没有涉及到POI特征数据？讨论POI数据缺失的可能替换方案。当前有几类方案。 金融视角，产品形态是车辆抵押贷款，需要聚焦在平台内有车乘客和橘子司机，我们需要重点围绕稳定性、收入、反欺诈、行为类四大类进行分析，具体情况开会介绍。 通过出行平台数据判断乘客稳定性时，乘客行为分需要加入哪些特征。 稳定性：">
+<meta name="description" content="ML/DL过拟合、欠拟合 理解 过拟合 增加样本（增加的样本分布要与原始样本的分布尽可能不同） 减少特征数量 正则化，例如l2正则化后，虽然参数数量没有变化，但是参数趋近于0，则特征的重要性减小了 样本采样 特征采样    分类问题中正负例 过采样 降采样 AUC ROC 调整阈值  激活函数作用：本来是wx+b是线性的，加入非线性函数，使得理论上可以逼近所有函数。  sigmoid f(x) =">
+<meta name="keywords" content="面试">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hero&#39;s notebooks">
-<meta property="og:url" content="https://chenzk1.github.io/2019/11/19/7月24日/index.html">
+<meta property="og:title" content="实习面试真题整理及解答">
+<meta property="og:url" content="https://chenzk1.github.io/2019/07/02/实习面试真题整理及解答/index.html">
 <meta property="og:site_name" content="Hero&#39;s notebooks">
-<meta property="og:description" content="与滴滴金融的会议乘客行为分在分析身份特征／平台贡献度／行为健康度／平台忠诚度这几个维度时，有没有涉及到POI特征数据？讨论POI数据缺失的可能替换方案。当前有几类方案。 金融视角，产品形态是车辆抵押贷款，需要聚焦在平台内有车乘客和橘子司机，我们需要重点围绕稳定性、收入、反欺诈、行为类四大类进行分析，具体情况开会介绍。 通过出行平台数据判断乘客稳定性时，乘客行为分需要加入哪些特征。 稳定性：">
+<meta property="og:description" content="ML/DL过拟合、欠拟合 理解 过拟合 增加样本（增加的样本分布要与原始样本的分布尽可能不同） 减少特征数量 正则化，例如l2正则化后，虽然参数数量没有变化，但是参数趋近于0，则特征的重要性减小了 样本采样 特征采样    分类问题中正负例 过采样 降采样 AUC ROC 调整阈值  激活函数作用：本来是wx+b是线性的，加入非线性函数，使得理论上可以逼近所有函数。  sigmoid f(x) =">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="https://pic1.zhimg.com/80/v2-fea6a1111cb1274ca3368fad8d2e7a88_hd.jpg">
-<meta property="og:image" content="https://pic4.zhimg.com/80/v2-88541a4212c7678e589df5badace3a07_hd.jpg">
-<meta property="og:updated_time" content="2019-07-25T06:39:34.000Z">
+<meta property="og:updated_time" content="2019-11-30T02:26:12.476Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hero&#39;s notebooks">
-<meta name="twitter:description" content="与滴滴金融的会议乘客行为分在分析身份特征／平台贡献度／行为健康度／平台忠诚度这几个维度时，有没有涉及到POI特征数据？讨论POI数据缺失的可能替换方案。当前有几类方案。 金融视角，产品形态是车辆抵押贷款，需要聚焦在平台内有车乘客和橘子司机，我们需要重点围绕稳定性、收入、反欺诈、行为类四大类进行分析，具体情况开会介绍。 通过出行平台数据判断乘客稳定性时，乘客行为分需要加入哪些特征。 稳定性：">
-<meta name="twitter:image" content="https://pic1.zhimg.com/80/v2-fea6a1111cb1274ca3368fad8d2e7a88_hd.jpg">
+<meta name="twitter:title" content="实习面试真题整理及解答">
+<meta name="twitter:description" content="ML/DL过拟合、欠拟合 理解 过拟合 增加样本（增加的样本分布要与原始样本的分布尽可能不同） 减少特征数量 正则化，例如l2正则化后，虽然参数数量没有变化，但是参数趋近于0，则特征的重要性减小了 样本采样 特征采样    分类问题中正负例 过采样 降采样 AUC ROC 调整阈值  激活函数作用：本来是wx+b是线性的，加入非线性函数，使得理论上可以逼近所有函数。  sigmoid f(x) =">
 
 
 
@@ -138,13 +136,13 @@
 
 
 
-  <link rel="canonical" href="https://chenzk1.github.io/2019/11/19/7月24日/">
+  <link rel="canonical" href="https://chenzk1.github.io/2019/07/02/实习面试真题整理及解答/">
 
 
 
 
 
-  <title> | Hero's notebooks</title>
+  <title>实习面试真题整理及解答 | Hero's notebooks</title>
   
 
 
@@ -309,7 +307,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/11/19/7月24日/">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/07/02/实习面试真题整理及解答/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Hero">
@@ -326,7 +324,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"></h1>
+          <h1 class="post-title" itemprop="name headline">实习面试真题整理及解答</h1>
         
 
         <div class="post-meta">
@@ -338,8 +336,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-19T10:23:10+08:00">
-                2019-11-19
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-02T20:52:25+08:00">
+                2019-07-02
               </time>
             
 
@@ -348,6 +346,28 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -376,54 +396,114 @@
       
 
       
-        <h2 id="与滴滴金融的会议"><a href="#与滴滴金融的会议" class="headerlink" title="与滴滴金融的会议"></a>与滴滴金融的会议</h2><h3 id="乘客行为分在分析身份特征／平台贡献度／行为健康度／平台忠诚度这几个维度时，有没有涉及到POI特征数据？讨论POI数据缺失的可能替换方案。"><a href="#乘客行为分在分析身份特征／平台贡献度／行为健康度／平台忠诚度这几个维度时，有没有涉及到POI特征数据？讨论POI数据缺失的可能替换方案。" class="headerlink" title="乘客行为分在分析身份特征／平台贡献度／行为健康度／平台忠诚度这几个维度时，有没有涉及到POI特征数据？讨论POI数据缺失的可能替换方案。"></a>乘客行为分在分析身份特征／平台贡献度／行为健康度／平台忠诚度这几个维度时，有没有涉及到POI特征数据？讨论POI数据缺失的可能替换方案。</h3><p>当前有几类方案。</p>
-<h3 id="金融视角，产品形态是车辆抵押贷款，需要聚焦在平台内有车乘客和橘子司机，我们需要重点围绕稳定性、收入、反欺诈、行为类四大类进行分析，具体情况开会介绍。"><a href="#金融视角，产品形态是车辆抵押贷款，需要聚焦在平台内有车乘客和橘子司机，我们需要重点围绕稳定性、收入、反欺诈、行为类四大类进行分析，具体情况开会介绍。" class="headerlink" title="金融视角，产品形态是车辆抵押贷款，需要聚焦在平台内有车乘客和橘子司机，我们需要重点围绕稳定性、收入、反欺诈、行为类四大类进行分析，具体情况开会介绍。"></a>金融视角，产品形态是车辆抵押贷款，需要聚焦在平台内有车乘客和橘子司机，我们需要重点围绕稳定性、收入、反欺诈、行为类四大类进行分析，具体情况开会介绍。</h3><ul>
-<li><p>通过出行平台数据判断乘客稳定性时，乘客行为分需要加入哪些特征。</p>
-<p>稳定性：</p>
+        <h1 id="ML-DL"><a href="#ML-DL" class="headerlink" title="ML/DL"></a>ML/DL</h1><h2 id="过拟合、欠拟合"><a href="#过拟合、欠拟合" class="headerlink" title="过拟合、欠拟合"></a>过拟合、欠拟合</h2><ul>
+<li>理解</li>
+<li>过拟合<ul>
+<li>增加样本（增加的样本分布要与原始样本的分布尽可能不同）</li>
+<li>减少特征数量</li>
+<li>正则化，例如l2正则化后，虽然参数数量没有变化，但是参数趋近于0，则特征的重要性减小了</li>
+<li>样本采样</li>
+<li>特征采样</li>
+</ul>
 </li>
 </ul>
-<p><img src="https://pic1.zhimg.com/80/v2-fea6a1111cb1274ca3368fad8d2e7a88_hd.jpg" alt="img"></p>
+<h2 id="分类问题中正负例"><a href="#分类问题中正负例" class="headerlink" title="分类问题中正负例"></a>分类问题中正负例</h2><ul>
+<li>过采样</li>
+<li>降采样</li>
+<li>AUC ROC</li>
+<li>调整阈值</li>
+</ul>
+<h2 id="激活函数"><a href="#激活函数" class="headerlink" title="激活函数"></a>激活函数</h2><p>作用：本来是wx+b是线性的，加入非线性函数，使得理论上可以逼近所有函数。</p>
 <ul>
-<li>收入（消费水平）：平台价值维度。</li>
+<li>sigmoid f(x) = 1/(1+exp(-x))<ul>
+<li>幂运算，计算量大</li>
+<li>梯度消失与梯度爆炸：BP时每层都要求激活函数的导，这个导数如果小于1经过多次之后就会趋近于0，梯度消失；如果大于1，多次之后会非常大，梯度爆炸</li>
+<li>其输出是非零均值的，例如某个神经元经过sigmoid之后的输出都大于0，此时输入到下一层后，因为wx+b，所以对w的导数为x，即导数大于0，导致的结果就是BP时w都正方向更新</li>
 </ul>
-<p><img src="https://pic4.zhimg.com/80/v2-88541a4212c7678e589df5badace3a07_hd.jpg" alt="img"></p>
-<ul>
-<li><p>反欺诈&amp;行为：</p>
-<p>| 维度     | 子维度             | 因子                                         | 行为好坏                            | 备注 |<br>| ——– | —————— | ——————————————– | ———————————– | —- |<br>| 履约能力 | 历史借贷及履约表现 | 1.最近7天逾期支付率                          | 好：连续n单按时支付（3，5，10，20） |      |<br>|          |                    | 2.最近30天逾期支付率                         | 坏：7天内支付率                     |      |<br>|          |                    | 3.30天以上逾期支付率                         |                                     |      |<br>|          | 行为规范           | 1.平台作弊行为及表现（刷单，历史封禁）；     |                                     |      |<br>|          | 身份属性           | 1.实名认证？2.是否有司机账号                 |                                     |      |<br>|          | 发单习惯           | 平台发单行为（活跃度，发单习惯，收入稳定性） |                                     |      |<br>|          |                    |                                              |                                     |      |<br>|          |                    |                                              |                                     |      |<br>|          |                    |                                              |                                     |      |</p>
+</li>
+<li>tanh f(x) = (1-exp(-2x)) / (1+exp(-2x))<ul>
+<li>幂运算，计算量大</li>
+<li>解决了非零均值的问题</li>
+<li>梯度消失与梯度爆炸仍然存在</li>
+</ul>
+</li>
+<li>ReLU f(x) = max(0,x)<ul>
+<li>速度快（输出速度，收敛速度）</li>
+<li>正区间解决了梯度消失问题</li>
+<li>非零均值</li>
+<li>Dead ReLU：某些神经元永远都不会被激活</li>
+</ul>
+</li>
+<li>Leaky ReLU<ul>
+<li>解决了Dead ReLU问题 </li>
+</ul>
 </li>
 </ul>
-<h3 id="乘客行为分在滴滴金融车抵贷产品形态下，数据风控层面的应用，从特征提取，数据建模，到输出决策。"><a href="#乘客行为分在滴滴金融车抵贷产品形态下，数据风控层面的应用，从特征提取，数据建模，到输出决策。" class="headerlink" title="乘客行为分在滴滴金融车抵贷产品形态下，数据风控层面的应用，从特征提取，数据建模，到输出决策。"></a>乘客行为分在滴滴金融车抵贷产品形态下，数据风控层面的应用，从特征提取，数据建模，到输出决策。</h3><h3 id="会议记录"><a href="#会议记录" class="headerlink" title="会议记录"></a>会议记录</h3><h4 id="进度"><a href="#进度" class="headerlink" title="进度"></a>进度</h4><h5 id="金融"><a href="#金融" class="headerlink" title="金融"></a>金融</h5><pre><code>- 以大数据风控作为下半年发展方向。
-- 识别乘客的信用风险、需求，数据不是金融的，判断一个人是否有还贷意向。一部分是乘客，一部分是司机，并不是活跃用户，那如何判断他们还贷的概率需要数据。
-</code></pre><ul>
-<li>信用分的场景与典押有点类似，探讨可以协同的地方。</li>
+<h2 id="Logistic-Regression"><a href="#Logistic-Regression" class="headerlink" title="Logistic Regression"></a>Logistic Regression</h2><ul>
+<li>如何优化的？loss f 策略</li>
+<li>如何避免过拟合<ul>
+<li>增加样本（增加的样本分布要与原始样本的分布尽可能不同）</li>
+<li>减少特征数量</li>
+<li>正则化，例如l2正则化后，虽然参数数量没有变化，但是参数趋近于0，则特征的重要性减小了</li>
+<li>每次迭代，调整学习速率</li>
 </ul>
-<h4 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h4><ul>
-<li><p>不活跃的用户如何区分：80-20定律，大部分用户数据量很少；解决方法：提高数据丰度</p>
-</li>
-<li><p>如何区分是否虚假/恶意投诉：投诉率、进线率太高，人工进行审核</p>
 </li>
 </ul>
-<h4 id="交叉验证"><a href="#交叉验证" class="headerlink" title="交叉验证"></a>交叉验证</h4><ul>
-<li>平台有车乘客规模，乘客是否有房、是否有车的标签</li>
+<h2 id="线性模型解决非线性问题"><a href="#线性模型解决非线性问题" class="headerlink" title="线性模型解决非线性问题"></a>线性模型解决非线性问题</h2><ul>
+<li>例如LR，SVM都是线性模型，但是使用非线性的核函数可以实现对非线性问题的解决</li>
 </ul>
-<h4 id="介绍四方面的特征"><a href="#介绍四方面的特征" class="headerlink" title="介绍四方面的特征"></a>介绍四方面的特征</h4><ol>
-<li><p>稳定性</p>
-<p>异地高频生活、POI特征、统计类数据</p>
+<h1 id="语言"><a href="#语言" class="headerlink" title="语言"></a>语言</h1><h2 id="python"><a href="#python" class="headerlink" title="python"></a>python</h2><ul>
+<li>python数据类型：Numbers（数字）、String（字符串）、List（列表）、Tuple（元组）、Dictionary（字典）</li>
+<li>元组和数组的差别：<ul>
+<li>元组()不能修改，数组[]可以修改</li>
+<li>字典{}，集合set()是无序的</li>
+</ul>
 </li>
-<li><p>反欺诈</p>
-<p>是否高危职业客户</p>
+</ul>
+<h1 id="DS"><a href="#DS" class="headerlink" title="DS"></a>DS</h1><ul>
+<li>二叉树的遍历</li>
+<li><p>很大的一个文件寻找频率TOP-k的词</p>
 </li>
-<li><p>收入</p>
-<p>车辆持有满3个月，固定收入预估区间，名下车产信息是否一致…</p>
+<li><p>一个非递减序列，寻找某个数最后出现的位置</p>
 </li>
-<li><p>行为</p>
-<p>近期生活轨迹重大变故、喜好预测…</p>
+<li><p>归并排序</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">merge_sort</span><span class="params">(num)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> len(num) &lt;= <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> num</span><br><span class="line">    mid = num // <span class="number">2</span></span><br><span class="line">    left = merge_sort(num[:mid]) <span class="comment"># 从下往上的递归中，每次递归得到的left和right是排好序的，需要对两者合并后做排序</span></span><br><span class="line">    right = merge_sort(num[mid:])</span><br><span class="line">    <span class="keyword">return</span> merge_result(left, right)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">merge_result</span><span class="params">(left, right)</span>:</span></span><br><span class="line">    i,j = <span class="number">0</span>,<span class="number">0</span></span><br><span class="line">    result = []</span><br><span class="line">    <span class="keyword">while</span> i &lt; len(left) <span class="keyword">and</span> j &lt; len(right):</span><br><span class="line">        <span class="keyword">if</span> left[i] &lt;= right[j]:</span><br><span class="line">            result.append(left[i])</span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            result.append(right[j])</span><br><span class="line">            j += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> result+left[i:]+right[j:]</span><br></pre></td></tr></table></figure>
 </li>
-</ol>
-<h4 id="介绍行为分"><a href="#介绍行为分" class="headerlink" title="介绍行为分"></a>介绍行为分</h4><p>初始化、权重计算、影响因子、增量更新</p>
-<p>行为健康度介绍</p>
-<p>用于免押的应用场景</p>
-<h4 id="芝麻分"><a href="#芝麻分" class="headerlink" title="芝麻分"></a>芝麻分</h4><h2 id="待办"><a href="#待办" class="headerlink" title="待办"></a>待办</h2><p>排序之前的问题</p>
+<li><p>快排</p>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quick_sort1</span><span class="params">(num,left,right)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> left &gt;= right:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    low = left</span><br><span class="line">    high = right</span><br><span class="line">    pivot = num[left]</span><br><span class="line">    <span class="keyword">while</span> left &lt; right:</span><br><span class="line">        <span class="keyword">while</span> left &lt; right <span class="keyword">and</span> num[right] &gt; pivot:</span><br><span class="line">            right -= <span class="number">1</span></span><br><span class="line">        num[left] = num[right]</span><br><span class="line">        <span class="keyword">while</span> left &lt; right <span class="keyword">and</span> num[left] &lt;= pivot:</span><br><span class="line">            left += <span class="number">1</span></span><br><span class="line">        num[right] = num[left]</span><br><span class="line">    num[right] = pivot</span><br><span class="line">    quick_sort1(num, low, left<span class="number">-1</span>)</span><br><span class="line">    quick_sort1(num, right+<span class="number">1</span>, high)</span><br></pre></td></tr></table></figure>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quick_sort2</span><span class="params">(num,left,right)</span>:</span></span><br><span class="line">    <span class="keyword">while</span> left &lt; right:</span><br><span class="line">        p = partition(num, left, right)</span><br><span class="line">        quick_sort2(num, left, p<span class="number">-1</span>)</span><br><span class="line">        quick_sort2(num, p+<span class="number">1</span>, right)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">partition</span><span class="params">(num, left, right)</span>:</span></span><br><span class="line">    pivot = num[right] <span class="comment"># 先挪左指针，用右边界作为pivot</span></span><br><span class="line">    i = left</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(left,right):</span><br><span class="line">        <span class="keyword">if</span> num[j] &lt;= pivot:</span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">            num[i], num[j] = num[j], num[i]</span><br><span class="line">    num[i+<span class="number">1</span>], num[right] = num[right], num[i+<span class="number">1</span>] <span class="comment"># 把基准数移过来</span></span><br><span class="line">    <span class="keyword">return</span> i+<span class="number">1</span></span><br></pre></td></tr></table></figure>
+  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">quick_sort3</span><span class="params">(num)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> len(num) &lt;= <span class="number">1</span>:</span><br><span class="line">    <span class="keyword">return</span> num</span><br><span class="line">    pivot = num[<span class="number">0</span>]</span><br><span class="line">    left = [num[i] <span class="keyword">for</span> i <span class="keyword">in</span> range(len(num)) <span class="keyword">if</span> num[i] &lt; pivot]</span><br><span class="line">    right = [num[i] <span class="keyword">for</span> i <span class="keyword">in</span> range(len(num)) <span class="keyword">if</span> num[i] &gt; pivot]</span><br><span class="line">    <span class="keyword">return</span> quick_sort3(left) + pivot + quick_sort3(right)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>O(N)复杂度在一个数组中寻找两数和为指定数的下标</p>
+</li>
+</ul>
+<h1 id="逻辑"><a href="#逻辑" class="headerlink" title="逻辑"></a>逻辑</h1><ul>
+<li>一个筛子产生0~9的随机数，要求概率相等</li>
+<li>理发师数量估计</li>
+</ul>
+<h1 id="操作系统-计网"><a href="#操作系统-计网" class="headerlink" title="操作系统 + 计网"></a>操作系统 + 计网</h1><ul>
+<li><p>进程和线程</p>
+<p>进程和线程的主要差别在于它们是不同的操作系统资源管理方式。进程有独立的地址空间，一个进程崩溃后，在保护模式下不会对其它进程产生影响，而线程只是一个进程中的不同执行路径。线程有自己的堆栈和局部变量，但线程之间没有单独的地址空间，一个线程死掉就等于整个进程死掉，所以多进程的程序要比多线程的程序健壮，但在进程切换时，耗费资源较大，效率要差一些。但对于一些要求同时进行并且又要共享某些变量的并发操作，只能用线程，不能用进程。<br>1) 简而言之,一个程序至少有一个进程,一个进程至少有一个线程。<br>2) 线程的划分尺度小于进程，使得多线程程序的并发性高。<br>3) 进程在执行过程中拥有独立的内存单元，而多个线程共享内存，从而极大地提高了程序的运行效率。<br>4) 线程在执行过程中与进程还是有区别的。每个独立的线程有一个程序运行的入口、顺序执行序列和程序的出口。但是线程不能够独立执行，必须依存在应用程序中，由应用程序提供多个线程执行控制。<br>5) 从逻辑角度来看，多线程的意义在于一个应用程序中，有多个执行部分可以同时执行。但操作系统并没有将多个线程看做多个独立的应用，来实现进程的调度和管理以及资源分配。这就是进程和线程的重要区别。</p>
+</li>
+<li>同步和异步<ul>
+<li>消息的通知机制</li>
+<li>涉及到IO通知机制；所谓同步，就是发起调用后，被调用者处理消息，必须等处理完才直接返回结果，没处理完之前是不返回的，调用者主动等待结果；所谓异步，就是发起调用后，被调用者直接返回，但是并没有返回结果，等处理完消息后，通过状态、通知或者回调函数来通知调用者，调用者被动接收结果。</li>
+</ul>
+</li>
+<li>阻塞和非阻塞<ul>
+<li>程序等待调用结果时的状态</li>
+<li>涉及到CPU线程调度；所谓阻塞，就是调用结果返回之前，该执行线程会被挂起，不释放CPU执行权，线程不能做其它事情，只能等待，只有等到调用结果返回了，才能接着往下执行；所谓非阻塞，就是在没有获取调用结果时，不是一直等待，线程可以往下执行，如果是同步的，通过轮询的方式检查有没有调用结果返回，如果是异步的，会通知回调。</li>
+</ul>
+</li>
+<li>TCP和UDP<ul>
+<li>基于连接（TCP）与无连接（UDP）； </li>
+<li>对系统资源的要求（TCP较多，UDP少）； </li>
+<li>UDP程序结构较简单； </li>
+<li>流模式与数据报模式 ；</li>
+<li>TCP保证数据正确性，UDP可能丢包，TCP保证数据顺序，UDP不保证。</li>
+</ul>
+</li>
+</ul>
 
       
     </div>
@@ -439,6 +519,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/面试/" rel="tag"># 面试</a>
+          
+        </div>
+      
 
       
       
@@ -448,8 +534,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/11/19/7月23日/" rel="next" title>
-                <i class="fa fa-chevron-left"></i> 
+              <a href="/2019/07/02/线性模型和非线性模型/" rel="next" title="线性模型和非线性模型">
+                <i class="fa fa-chevron-left"></i> 线性模型和非线性模型
               </a>
             
           </div>
@@ -458,8 +544,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/11/19/DS-绪论/" rel="prev" title="DS绪论">
-                DS绪论 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/07/02/树的遍历/" rel="prev" title="树的遍历">
+                树的遍历 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -599,7 +685,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#与滴滴金融的会议"><span class="nav-number">1.</span> <span class="nav-text">与滴滴金融的会议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#乘客行为分在分析身份特征／平台贡献度／行为健康度／平台忠诚度这几个维度时，有没有涉及到POI特征数据？讨论POI数据缺失的可能替换方案。"><span class="nav-number">1.1.</span> <span class="nav-text">乘客行为分在分析身份特征／平台贡献度／行为健康度／平台忠诚度这几个维度时，有没有涉及到POI特征数据？讨论POI数据缺失的可能替换方案。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#金融视角，产品形态是车辆抵押贷款，需要聚焦在平台内有车乘客和橘子司机，我们需要重点围绕稳定性、收入、反欺诈、行为类四大类进行分析，具体情况开会介绍。"><span class="nav-number">1.2.</span> <span class="nav-text">金融视角，产品形态是车辆抵押贷款，需要聚焦在平台内有车乘客和橘子司机，我们需要重点围绕稳定性、收入、反欺诈、行为类四大类进行分析，具体情况开会介绍。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#乘客行为分在滴滴金融车抵贷产品形态下，数据风控层面的应用，从特征提取，数据建模，到输出决策。"><span class="nav-number">1.3.</span> <span class="nav-text">乘客行为分在滴滴金融车抵贷产品形态下，数据风控层面的应用，从特征提取，数据建模，到输出决策。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#会议记录"><span class="nav-number">1.4.</span> <span class="nav-text">会议记录</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#进度"><span class="nav-number">1.4.1.</span> <span class="nav-text">进度</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#金融"><span class="nav-number">1.4.1.1.</span> <span class="nav-text">金融</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FAQ"><span class="nav-number">1.4.2.</span> <span class="nav-text">FAQ</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#交叉验证"><span class="nav-number">1.4.3.</span> <span class="nav-text">交叉验证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#介绍四方面的特征"><span class="nav-number">1.4.4.</span> <span class="nav-text">介绍四方面的特征</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#介绍行为分"><span class="nav-number">1.4.5.</span> <span class="nav-text">介绍行为分</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#芝麻分"><span class="nav-number">1.4.6.</span> <span class="nav-text">芝麻分</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#待办"><span class="nav-number">2.</span> <span class="nav-text">待办</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ML-DL"><span class="nav-number">1.</span> <span class="nav-text">ML/DL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#过拟合、欠拟合"><span class="nav-number">1.1.</span> <span class="nav-text">过拟合、欠拟合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分类问题中正负例"><span class="nav-number">1.2.</span> <span class="nav-text">分类问题中正负例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#激活函数"><span class="nav-number">1.3.</span> <span class="nav-text">激活函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Logistic-Regression"><span class="nav-number">1.4.</span> <span class="nav-text">Logistic Regression</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线性模型解决非线性问题"><span class="nav-number">1.5.</span> <span class="nav-text">线性模型解决非线性问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#语言"><span class="nav-number">2.</span> <span class="nav-text">语言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#python"><span class="nav-number">2.1.</span> <span class="nav-text">python</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DS"><span class="nav-number">3.</span> <span class="nav-text">DS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#逻辑"><span class="nav-number">4.</span> <span class="nav-text">逻辑</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#操作系统-计网"><span class="nav-number">5.</span> <span class="nav-text">操作系统 + 计网</span></a></li></ol></div>
             
 
           </div>

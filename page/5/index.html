@@ -307,6 +307,174 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/14/LightGBM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hero">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hero's notebooks">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/14/LightGBM/" itemprop="url">LightGBM</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-14T09:54:35+08:00">
+                2019-03-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h1><ul>
+<li>可以接受categorical features：LightGBM 可以直接使用 categorical features（分类特征）作为 input（输入）. 它不需要被转换成 one-hot coding（独热编码）, 并且它比 one-hot coding（独热编码）更快（约快上 8 倍）。注意: 在你构造 Dataset 之前, 你应该将分类特征转换为 int 类型的值.</li>
+</ul>
+<h1 id="xgboost的优点"><a href="#xgboost的优点" class="headerlink" title="xgboost的优点"></a>xgboost的优点</h1><ul>
+<li>XGB利用了二阶梯度来对节点进行划分，相对其他GBM来说，精度更加高。</li>
+<li>利用局部近似算法对分裂节点的贪心算法优化，取适当的eps时，可以保持算法的性能且提高算法的运算速度。</li>
+<li>在损失函数中加入了L1/L2项，控制模型的复杂度，提高模型的鲁棒性。</li>
+<li>提供并行计算能力，主要是在树节点求不同的候选的分裂点的Gain Infomation（分裂后，损失函数的差值）</li>
+<li>Tree Shrinkage，column subsampling等不同的处理细节。</li>
+</ul>
+<h1 id="xgboost的缺点"><a href="#xgboost的缺点" class="headerlink" title="xgboost的缺点"></a>xgboost的缺点</h1><ul>
+<li>每次迭代需要多次遍历整个训练数据。若读入内存，则对训练数据的大小有限制；不读入内存的话，非常慢。</li>
+<li>预排序方法：预排序需要大量的空间站占用和时间占用：需要保存数据的特征值，也要保存特征排序的结果，即需要两倍数据的内存占用；遍历每个分割点需要计算每个分割点的增益。此外，对cache优化不友好。在预排序后，特征对梯度的访问是一种随机访问，并且不同的特征访问的顺序不一样，无法对cache进行优化。同时，在每一层长树的时候，需要随机访问一个行索引到叶子索引的数组，并且不同特征访问的顺序也不一样，也会造成较大的cache miss。</li>
+</ul>
+<h1 id="lightgbm的优化"><a href="#lightgbm的优化" class="headerlink" title="lightgbm的优化"></a>lightgbm的优化</h1><ul>
+<li>基于histogram的决策树算法</li>
+<li>带深度限制的leaf-wise的叶子生长策略</li>
+<li>直方图做差加速</li>
+<li>支持类别特征</li>
+<li>cache命中率优化</li>
+<li>基于直方图的稀疏特征优化</li>
+<li>多线程优化</li>
+</ul>
+<h2 id="Histogram算法"><a href="#Histogram算法" class="headerlink" title="Histogram算法"></a>Histogram算法</h2><p>先把连续的浮点特征值离散化成k个整数，同时构造一个宽度为k的直方图。在遍历数据的时候，根据离散化后的值作为索引在直方图中累积统计量，当遍历一次数据后，直方图累积了需要的统计量，然后根据直方图的离散值，遍历寻找最优的分割点。</p>
+<h2 id="带深度限制的leaf-wise的叶子生长策略"><a href="#带深度限制的leaf-wise的叶子生长策略" class="headerlink" title="带深度限制的leaf-wise的叶子生长策略"></a>带深度限制的leaf-wise的叶子生长策略</h2><p>Level-wise过一次数据可以同时分裂同一层的叶子，容易进行多线程优化，也好控制模型复杂度，不容易过拟合。但实际上Level-wise是一种低效的算法，因为它不加区分的对待同一层的叶子，带来了很多没必要的开销，因为实际上很多叶子的分裂增益较低，没必要进行搜索和分裂。</p>
+<p>Leaf-wise则是一种更为高效的策略，每次从当前所有叶子中，找到分裂增益最大的一个叶子，然后分裂，如此循环。因此同Level-wise相比，在分裂次数相同的情况下，Leaf-wise可以降低更多的误差，得到更好的精度。Leaf-wise的缺点是可能会长出比较深的决策树，产生过拟合。因此LightGBM在Leaf-wise之上增加了一个最大深度的限制，在保证高效率的同时防止过拟合。</p>
+<h2 id="多线程优化"><a href="#多线程优化" class="headerlink" title="多线程优化"></a>多线程优化</h2><h3 id="特征并行"><a href="#特征并行" class="headerlink" title="特征并行"></a>特征并行</h3><h3 id="数据并行"><a href="#数据并行" class="headerlink" title="数据并行"></a>数据并行</h3><p>减少了数据通信的成本</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/14/Decision Tree/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -505,6 +673,209 @@
 <li><p>CCP-代价复杂度剪枝</p>
 </li>
 <li><p>MEP-最小错误剪枝</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/03/14/GBDT & XGBoost/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hero">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hero's notebooks">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/14/GBDT & XGBoost/" itemprop="url">GBDT & XGBoost</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-14T09:54:35+08:00">
+                2019-03-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://xgboost.readthedocs.io/en/latest/tutorials/model.html" target="_blank" rel="noopener">Doc</a><br><a href="https://homes.cs.washington.edu/~tqchen/pdf/BoostedTree.pdf" target="_blank" rel="noopener">Slides</a></p>
+<h1 id="为何要推导出目标函数而不是直接增加树"><a href="#为何要推导出目标函数而不是直接增加树" class="headerlink" title="为何要推导出目标函数而不是直接增加树"></a>为何要推导出目标函数而不是直接增加树</h1><p><img src="http://i.imgur.com/quPhp1K.png" alt="Objective function"></p>
+<ul>
+<li>理论上：搞清楚learning的目的，以及其收敛性。</li>
+<li>工程上：<ul>
+<li>gi和hi是对loss function的一次、二次导</li>
+<li>目标函数以及整个学习过程只依赖于gi和hi</li>
+<li>可以根据实际问题，自定义loss function</li>
+</ul>
+</li>
+</ul>
+<h1 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h1><p><img src="http://i.imgur.com/L7PhJwO.png" alt="Summary"></p>
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><h2 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h2><p>$$ \text{obj} = \sum_{i=1}^n l(y_i, \hat{y}<em>i^{(t)}) + \sum</em>{i=1}^t\Omega(f_i)$$<br>l为loss，\ \Omega \ 为正则项</p>
+<ul>
+<li>loss：采用加法策略，第t颗树时：<br>$$ \hat{y}_i^{(0)} = 0 $$<br>$$ \hat{y}_i^{(1)} = f_1(x_i) = \hat{y}_i^{(0)} + f_1(x_i) $$<br>$$ \hat{y}_i^{(2)} = f_1(x_i) + f_2(x_i)= \hat{y}_i^{(1)} + f_2(x_i) $$<br>$$ \dots $$<br>$$ \hat{y}<em>i^{(t)} = \sum</em>{k=1}^t f_k(x_i)= \hat{y}_i^{(t-1)} + f_t(x_i) $$<br>在添加第t颗树时，需要优化的目标函数为：<br>$$ \sum_{i=1}^n [g_i f_t(x_i) + \frac{1}{2} h_i f_t^2(x_i)] + \Omega(f_t) $$<br>其中h和f：<br>$$ g_i = \partial_{\hat{y}_i^{(t-1)}} l(y_i, \hat{y}_i^{(t-1)}) $$<br>$$ h_i = \partial_{\hat{y}_i^{(t-1)}}^2 l(y_i, \hat{y}_i^{(t-1)}) $$<br>note: 是对谁的导</li>
+<li>正则项：复杂度：<br>$$ \Omega(f) = \gamma T + \frac{1}{2}\lambda \sum_{j=1}^T w_j^2 $$<br>其中w是叶子上的score vector，T是叶子数量</li>
+</ul>
+<h2 id="DART-Booster"><a href="#DART-Booster" class="headerlink" title="DART Booster"></a>DART Booster</h2><p>为了解决过拟合，会随机drop trees:</p>
+<ul>
+<li>训练速度可能慢于gbtree</li>
+<li>由于随机性，早停可能不稳定</li>
+</ul>
+<h1 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h1><h2 id="Monotonic-Constraints单调性限制"><a href="#Monotonic-Constraints单调性限制" class="headerlink" title="Monotonic Constraints单调性限制"></a>Monotonic Constraints单调性限制</h2><ul>
+<li><p>一个可选特性:<br>会限制模型的结果按照某个特征 单调的进行增减</p>
+<p>也就是说可以降低模型对数据的敏感度，如果明确已知某个特征与预测结果呈单调关系时，那在生成模型的时候就会跟特征数据的单调性有关。</p>
+</li>
+</ul>
+<h2 id="Feature-Interaction-Constraints单调性限制"><a href="#Feature-Interaction-Constraints单调性限制" class="headerlink" title="Feature Interaction Constraints单调性限制"></a>Feature Interaction Constraints单调性限制</h2><ul>
+<li><p>一个可选特性：<br>不用时，在tree生成的时候，一棵树上的节点会无限制地选用多个特征</p>
+<p>设置此特性时，可以规定，哪些特征可以有interaction（一般独立变量之间可以interaction，非独立变量的话可能会引入噪声）</p>
+</li>
+<li>好处：<ul>
+<li>预测时更小的噪声</li>
+<li>对模型更好地控制</li>
+</ul>
+</li>
+</ul>
+<h2 id="Instance-Weight-File"><a href="#Instance-Weight-File" class="headerlink" title="Instance Weight File"></a>Instance Weight File</h2><ul>
+<li>规定了模型训练时data中每一条instance的权重</li>
+<li>有些instance质量较差，或与前一示例相比变化不大，所以可以调节其所占权重</li>
+</ul>
+<h1 id="调参"><a href="#调参" class="headerlink" title="调参"></a>调参</h1><h2 id="Overfitting"><a href="#Overfitting" class="headerlink" title="Overfitting"></a>Overfitting</h2><p>与overfitting有关的参数：</p>
+<ul>
+<li>直接控制模型复杂度：max_depth, min_child_weight and gamma.</li>
+<li>增加模型随机性以使得模型对噪声有更强的鲁棒性：<ul>
+<li>subsample and colsample_bytree. </li>
+<li>Reduce stepsize eta. Remember to increase num_round when you do so.</li>
+</ul>
+</li>
+</ul>
+<h2 id="Imbalanced-Dataset"><a href="#Imbalanced-Dataset" class="headerlink" title="Imbalanced Dataset"></a>Imbalanced Dataset</h2><ul>
+<li>只关注测量指标的大小<ul>
+<li>平衡数据集 via scale_pos_weight</li>
+<li>使用AUC作为metric</li>
+</ul>
+</li>
+<li>关注预测正确的概率<ul>
+<li>此时不能re-balance数据集</li>
+<li>Set parameter max_delta_step to a finite number (say 1) to help convergence</li>
+</ul>
 </li>
 </ul>
 
@@ -1299,7 +1670,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">45</span>
+                <span class="site-state-item-count">47</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>

@@ -457,6 +457,357 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/11/19/卡方分布及卡方检验/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hero">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hero's notebooks">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/19/卡方分布及卡方检验/" itemprop="url">卡方分布及卡方检验</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-19T10:23:10+08:00">
+                2019-11-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://blog.csdn.net/cuitzjd/article/details/80755310" target="_blank" rel="noopener">Doc1</a><br><a href="https://cosx.org/2010/11/hypotheses-testing/" target="_blank" rel="noopener">Doc2</a></p>
+<h3 id="统计检验"><a href="#统计检验" class="headerlink" title="统计检验"></a>统计检验</h3><ul>
+<li>出发点：小概率事件发生则假设不成立。可以检验一个样本与总体的差异，也可以检验一个样本集与另一个样本集的差异。</li>
+<li>e.g. 观察到某个班级男女生身高的均值有差距，要证明这一点，先假设其”没有差距“，然后做相关的检验，如果检验出来有差距这个事件的概率小于某个值，则说明假设不成立。即一个具有足够小概率的事件发生了，这不是偶然。</li>
+<li>第一类错误：原假设为真，检验的结果劝你放弃原假设。其概率为α。显著性水平。</li>
+<li>第二类错误：原假设为假，检验的结果劝你接受原假设。概率为1-α。</li>
+<li>显著性检验，即只限定第一类错误。当经过检验发现p&gt;α，则说明检验、总体这两样本之间不存在显著性差异，因此接受原假设；否则，说明一个很小概率的事件发生了，不接受原假设。</li>
+<li>不同的检验方式有不同的前提。</li>
+</ul>
+<h3 id="T"><a href="#T" class="headerlink" title="T"></a>T</h3><ul>
+<li><p><strong>用于样本量较小，总体标准差σ未知的正态分布。</strong></p>
+</li>
+<li><p>单总体检验：一个样本的平均数与已知的总体平均数的差异是否显著。</p>
+</li>
+<li><p>双总体样本检验：一个样本与另一个样本的差异。</p>
+</li>
+</ul>
+<h3 id="F"><a href="#F" class="headerlink" title="F"></a>F</h3><ul>
+<li>两个样本的总体方差是否相等。</li>
+</ul>
+<h3 id="卡方"><a href="#卡方" class="headerlink" title="卡方"></a>卡方</h3><h4 id="卡方检验"><a href="#卡方检验" class="headerlink" title="卡方检验"></a>卡方检验</h4><p><img src="https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&amp;quality=100&amp;size=b4000_4000&amp;sec=1512961717&amp;di=6133a04e10dc72b22bfb76fca025156d&amp;src=http://pic.baike.soso.com/p/20130619/20130619123748-1653885327.jpg" alt></p>
+<ul>
+<li><p>原假设为两者分布无差异、不相关等。</p>
+</li>
+<li><p>卡方值越大，实际（假设）与理论（根据原假设求得的概率值/统计量）差异越大，即假设的错误程度越大，超过阈值，则推翻假设。</p>
+<p>若求得的卡方值落在阈值之上，说明小概率事件(e.g. 5%)发生了，则推翻原假设，说明两者差异的程度确实够大，即两者有差异；否则有95%的置信程度说明两者无差异。</p>
+</li>
+<li><p>参数有：自由度、置信水平。</p>
+<p>例如，看喝牛奶与感冒有没有关系。给定置信度β，确定卡方值阈值x。</p>
+<p>原假设：无关。</p>
+<p>卡方值：先在原假设的基础上求出理论分布，然后看理论分布与实际分布的差异性（卡方值）。</p>
+<p>查表，看有没有超过阈值，若超过，说明小概率（显著性水平：1-β）事件发生，推翻原假设，两者有关。</p>
+</li>
+</ul>
+<h4 id="卡方分布"><a href="#卡方分布" class="headerlink" title="卡方分布"></a>卡方分布</h4><p>n个相互独立且均服从标准正态分布的随机变量，其平方和服从卡方分布。</p>
+<p><img src="https://img-blog.csdn.net/20180109180130184?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc25vd2Ryb3B0dWxpcA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt></p>
+<h4 id="卡方分箱"><a href="#卡方分箱" class="headerlink" title="卡方分箱"></a>卡方分箱</h4><ul>
+<li><p>算法步骤：</p>
+<ul>
+<li><p>初始化：排序，每个实例属于一个一个区间</p>
+</li>
+<li><p>合并区间：</p>
+<ul>
+<li><p>计算每一对相邻区间的卡方值</p>
+</li>
+<li><p>将卡方值最小的一对区间合并</p>
+<p>$$  \mathrm{X}^{2}=\sum_{i=1}^{2} \sum_{j=1}^{2} \frac{\left(A_{i j}-E_{i j}\right)^{2}}{E_{i j}}  $$</p>
+<p>其中，Ai,j为第i区间第j类的实例的数量，Ei,j为期望频率（整体分布，整体分布计算的时候还是用的这俩区间的数值）=Ni*(Cj/N)，Cj为j类在整体分布中的比例，Ni为i区间样本数</p>
+<p>例如label有0和1，有两个区间，即[[3,4], [5,7]]</p>
+<p>A11=3,A12=4… E11=7*8/19</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>原理：假设这俩区间没差异，其卡方值代表了该假设（由实际分布得出的统计量）与理论（整体样本[特征]分布）的差异程度，越小则说明俩越接近，假设越成立。</p>
+<p>评分卡模型中，第i区间第j类的实例：类是指区间中有多少类特征，实例指其对应的label</p>
+</li>
+<li><p>阈值：显著性水平+自由度（比类别数量少1）确定。</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/11/19/两种logloss/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Hero">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hero's notebooks">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/19/两种logloss/" itemprop="url">LR-logloss</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-19T10:23:10+08:00">
+                2019-11-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ol>
+<li>LR中，若0，1分类：<br>$$<br>\begin{array}{l}{\mathbb{P}(y=1 | z)=\sigma(z)=\frac{1}{1+e^{-z}}} \ {\mathbb{P}(y=0 | z)=1-\sigma(z)=\frac{1}{1+e^{z}}}\end{array}<br>$$<br>即：<br>$$<br>\mathbb{P}(y | z)=\sigma(z)^{y}(1-\sigma(z))^{1-y}<br>$$<br>极大似然：<br>$$<br>L(z)=\log \left(\prod_{i}^{m} \mathbb{P}\left(y_{i} | z_{i}\right)\right)=-\sum_{i}^{m} \log \left(\mathbb{P}\left(y_{i} | z_{i}\right)\right)=\sum_{i}^{m}-y_{i} z_{i}+\log \left(1+e^{z_{i}}\right)<br>$$<br>损失函数：<br>$$<br>l(z)=-\log \left(\prod_{i}^{m} \mathbb{P}\left(y_{i} | z_{i}\right)\right)=-\sum_{i}^{m} \log \left(\mathbb{P}\left(y_{i} | z_{i}\right)\right)=\sum_{i}^{m}-y_{i} z_{i}+\log \left(1+e^{z_{i}}\right)<br>$$</li>
+</ol>
+<ol start="2">
+<li><p>1，-1分类：<br>$$<br>\begin{aligned} \mathbb{P}(y | z) &amp;=\sigma(y z) \ &amp;=\frac{1}{1+e^{-y z}} \end{aligned}<br>$$<br>分开表示跟0，1分类是一样的</p>
+<p>损失函数：<br>$$<br>L(z)=-\log \left(\prod_{j}^{m} \mathbb{P}\left(y_{j} | z_{j}\right)\right)=-\sum_{j}^{m} \log \left(\mathbb{P}\left(y_{j} | z_{j}\right)\right)=\sum_{j}^{m} \log \left(1+e^{-y_{j} z_{j}}\right)<br>$$</p>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/11/19/卷积神经网络(手写字的识别)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1770,437 +2121,6 @@ Epoch 1/100
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/07/03/RF、GBDT、XGBoost/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Hero">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hero's notebooks">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/03/RF、GBDT、XGBoost/" itemprop="url">RF & GBDT & XGBoost面试题目</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-03T08:52:13+08:00">
-                2019-07-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Learning</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="RF与GBDT之间的区别"><a href="#RF与GBDT之间的区别" class="headerlink" title="RF与GBDT之间的区别"></a>RF与GBDT之间的区别</h1><h2 id="相同点"><a href="#相同点" class="headerlink" title="相同点"></a>相同点</h2><ul>
-<li>都是由多棵树组成</li>
-<li>最终的结果都是由多棵树一起决定</li>
-</ul>
-<h2 id="不同点"><a href="#不同点" class="headerlink" title="不同点"></a>不同点</h2><ul>
-<li>组成随机森林的树可以分类树也可以是回归树，而GBDT只由回归树组成</li>
-<li>组成随机森林的树可以并行生成，而GBDT是串行生成</li>
-<li>随机森林的结果是多数表决表决的，而GBDT则是多棵树累加之和</li>
-<li>随机森林对异常值不敏感，而GBDT对异常值比较敏感</li>
-<li>随机森林是通过减少模型的方差来提高性能，而GBDT是减少模型的偏差来提高性能的</li>
-<li>随机森林不需要进行数据预处理，即特征归一化。而GBDT则需要进行特征归一化</li>
-</ul>
-<h3 id="分类树和回归树的区别"><a href="#分类树和回归树的区别" class="headerlink" title="分类树和回归树的区别"></a>分类树和回归树的区别</h3><ul>
-<li>回归树和分类树的区别在于样本输出，如果样本输出是离散值，那么这是一颗分类树。如果果样本输出是连续值，那么那么这是一颗回归树。</li>
-<li>分类树使用信息增益或增益比率来划分节点；每个节点样本的类别情况投票决定测试样本的类别。</li>
-<li>回归树使用最小化均方差划分节点；每个节点样本的均值作为测试样本的回归预测值</li>
-</ul>
-<h1 id="Xgboost和GBDT的区别"><a href="#Xgboost和GBDT的区别" class="headerlink" title="Xgboost和GBDT的区别"></a>Xgboost和GBDT的区别</h1><ul>
-<li>传统GBDT以CART作为基分类器，xgboost还支持线性分类器，这个时候xgboost相当于带L1和L2正则化项的逻辑斯蒂回归（分类问题）或者线性回归（回归问题）。</li>
-<li>节点分裂的方式不同，gbdt是用的gini系数，xgboost是经过优化推导后的。</li>
-<li>Xgboost在代价函数里加入了正则项，用于控制模型的复杂度，降低了过拟合的可能性。正则项里包含了树的叶子节点个数、每个叶子节点上输出的score的L2模的平方和。</li>
-<li>shrinkage（缩减），相当于学习速率（XGBoost中的eta）。XGBoost在进行完一次迭代时，会将叶子节点的权值乘上该系数，主要是为了削弱每棵树的影响，让后面有更大的学习空间。（GBDT也有学习速率）</li>
-<li>列采样</li>
-<li><p>传统GBDT在优化时只用到一阶导数信息，xgboost则对代价函数进行了二阶泰勒展开，同时用到了一阶和二阶导数。</p>
-<ul>
-<li>为什么xgboost要用泰勒展开，优势在哪里？xgboost使用了一阶和二阶偏导, 二阶导数有利于梯度下降的更快更准. 使用泰勒展开取得函数做自变量的二阶导数形式, 可以在不选定损失函数具体形式的情况下, 仅仅依靠输入数据的值就可以进行叶子分裂优化计算, 本质上也就把损失函数的选取和模型算法优化/参数选择分开了. 这种去耦合增加了xgboost的适用性, 使得它按需选取损失函数, 可以用于分类, 也可以用于回归。</li>
-</ul>
-</li>
-<li><p>Xgboost工具支持并行。boosting不是一种串行的结构吗?怎么并行的？注意xgboost的并行<strong>不是tree粒度的并行</strong>，xgboost也是一次迭代完才能进行下一次迭代的（第t次迭代的代价函数里包含了前面t-1次迭代的预测值）。<strong>xgboost的并行是在特征粒度上的</strong>。我们知道，决策树的学习最耗时的一个步骤就是对特征的值进行排序（因为要确定最佳分割点），xgboost在训练之前，<strong>预先对数据进行了排序</strong>，然后保存为block结构，后面的迭代中重复地使用这个结构，大大减小计算量。这个block结构也使得并行成为了可能，在进行节点的分裂时，需要计算每个特征的增益，最终选增益最大的那个特征去做分裂，那么各个特征的增益计算就可以开多线程进行</p>
-</li>
-</ul>
-<h2 id="N问GBDT"><a href="#N问GBDT" class="headerlink" title="N问GBDT"></a>N问GBDT</h2><ul>
-<li>GBDT的核心就在于，每一棵树学的是之前所有树结论和的残差，这个残差就是一个加预测值后能得真实值的累加量</li>
-<li>怎样设置单棵树的停止生长条件？<ul>
-<li>A. 节点分裂时的最小样本数</li>
-<li>B. 最大深度</li>
-<li>C. 最多叶子节点数</li>
-<li>D. loss满足约束条件</li>
-</ul>
-</li>
-<li>如何评估特征的权重大小？<ul>
-<li>A. 通过计算每个特征在训练集下的信息增益，最后计算每个特征信息增益与所有特征信息增益之和的比例为权重值。</li>
-<li>B. 借鉴投票机制。用相同的gbdt参数对w每个特征训练出一个模型，然后在该模型下计算每个特征正确分类的个数，最后计算每个特征正确分类的个数与所有正确分类个数之和的比例为权重值。</li>
-</ul>
-</li>
-<li>当增加样本数量时，训练时长是线性增加吗？<ul>
-<li>不是。因为生成单棵决策树时，损失函数极小值与样本数量N不是线性相关</li>
-</ul>
-</li>
-<li>当增加树的棵数时，训练时长是线性增加吗？<ul>
-<li>不是。因为每棵树的生成的时间复杂度不一样。</li>
-</ul>
-</li>
-<li>当增加一个棵树叶子节点数目时，训练时长是线性增加吗？<ul>
-<li>不是。叶子节点数和每棵树的生成的时间复杂度不成正比。</li>
-</ul>
-</li>
-<li>每个节点上都保存什么信息？<ul>
-<li>中间节点保存某个特征的分割值，叶结点保存预测是某个类别的概率。</li>
-</ul>
-</li>
-<li>如何防止过拟合？<ul>
-<li>a. 增加样本（data bias or small data的缘故），移除噪声。</li>
-<li>b. 减少特征，保留重要的特征（可以用PCA等对特征进行降维）。</li>
-<li>c. 对样本进行采样（类似bagging）。就是建树的时候，不是把所有的样本都作为输入，而是选择一个子集。</li>
-<li>d. 对特征进行采样。类似样本采样一样, 每次建树的时候，只对部分的特征进行切分。</li>
-</ul>
-</li>
-<li>gbdt在训练和预测的时候都用到了步长，这两个步长一样么？都有什么用，如果不一样，为什么？怎么设步长的大小？（太小？太大？）在预测时，设太大对排序结果有什么影响？跟shrinking里面的步长一样么这两个步长一样么？<ul>
-<li>训练跟预测时，两个步长是一样的，也就是预测时的步长为训练时的步长，从训练的过程可以得知（更新当前迭代模型的时候）。</li>
-<li>都有什么用，如果不一样，为什么？答：它的作用就是使得每次更新模型的时候，使得loss能够平稳地沿着负梯度的方向下降，不至于发生震荡。</li>
-<li>那么怎么设步长的大小?<ul>
-<li>有两种方法，一种就是按策略来决定步长，另一种就是在训练模型的同时，学习步长。</li>
-<li>策略：a.每个树步长恒定且相等，一般设较小的值；b.开始的时候给步长设一个较小值，随着迭代次数动态改变，或者说衰减。</li>
-<li>学习：因为在训练第k棵树的时候，前k-1棵树时已知的，而且求梯度的时候是利用前k-1棵树来获得。所以这个时候，就可以把步长当作一个变量来学习。</li>
-</ul>
-</li>
-<li>（太小？太大？）在预测时，对排序结果有什么影响？<ul>
-<li>如果步长过大，在训练的时候容易发生震荡，使得模型学不好，或者完全没有学好，从而导致模型精度不好。</li>
-<li>而步长过小，导致训练时间过长，即迭代次数较大，从而生成较多的树，使得模型变得复杂，容易造成过拟合以及增加计算量。</li>
-</ul>
-</li>
-<li>跟shrinking里面的步长一样么？<ul>
-<li>这里的步长跟shrinking里面的步长是一致的。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>boosting的本意是是什么？跟bagging，random forest，adaboost，gradient boosting有什么区别？<ul>
-<li>Bagging<ul>
-<li>放回抽样，多数表决（分类）或简单平均（回归）</li>
-<li>可以看成是一种圆桌会议，或是投票选举的形式。通过训练多个模型，将这些训练好的模型进行加权组合来获得最终的输出结果(分类/回归)，一般这类方法的效果，都会好于单个模型的效果。在实践中，在特征一定的情况下，大家总是使用Bagging的思想去提升效果。例如kaggle上的问题解决，因为大家获得的数据都是一样的，特别是有些数据已经过预处理。</li>
-<li>基本的思路：训练时，使用replacement的sampling方法，sampling一部分训练数据k次并训练k个模型；预测时，使用k个模型，如果为分类，则让k个模型均进行分类并选择出现次数最多的类（每个类出现的次数占比可以视为置信度）；如为回归，则为各分类器返回的结果的平均值。在该处，Bagging算法可以认为每个分类器的权重都一样由于每次迭代的采样是独立的，所以bagging可以并行。</li>
-</ul>
-</li>
-<li>Random forest<ul>
-<li>随机森林在bagging的基础上做了修改。<ul>
-<li>A. 从样本集散用Boostrap采样选出n个样本，预建立CART</li>
-<li>B. 在树的每个节点上，从所有属性中随机选择k个属性/特征，选择出一个最佳属性/特征作为节点</li>
-<li>C. 重复上述两步m次，i.e.build m棵cart</li>
-<li>D. 这m棵cart形成random forest。</li>
-</ul>
-</li>
-<li>随机森林可以既处理属性是离散的量，比如ID3算法，也可以处理属性为连续值得量，比如C4.5算法。这里的random就是指：<ul>
-<li>A. boostrap中的随机选择样本</li>
-<li>B. random subspace的算法中从属性/特征即中随机选择k个属性/特征，每棵树节点分裂时，从这随机的k个属性/特征，选择最优的。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Boosting:<ul>
-<li>一般Boosting算法都是一个迭代的过程，每一次新的训练都是为了改进上一次的结果。</li>
-<li>boosting的采样或者更改样本的权重依赖于上一次迭代的结果，在迭代层面上是不能并行的。</li>
-<li>boosting在选择hyperspace的时候给样本加了一个权值，使得loss function尽量考虑那些分错类的样本（如分错类的样本weight大）。怎么做的呢？<ul>
-<li>boosting重采样的不是样本，而是样本的分布，对于分类正确的样本权值低，分类错误的样本权值高(通常是边界附近的样本)，最后的分类器是很多弱分类器的线性叠加(加权组合)。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Adaboosting<ul>
-<li>对一份数据，建立M个模型(比如分类)，而一般这种模型比较简单，称为弱分类器(weak learner)。每次分类都将上一次分错的数据权重提高一点，对分对的数据权重降低一点，再进行分类。这样最终得到的分类器在测试数据与训练数据上都可以得到比较好的效果。</li>
-<li>每次迭代的样本是一样的，即没有采样过程，不同的是不同的样本权重不一样。(当然也可以对样本/特征进行采样，这个不是adaboosting的原意)。</li>
-<li>另外，每个分类器的步长由在训练该分类器时的误差来生成。</li>
-</ul>
-</li>
-<li>Gradient boosting<ul>
-<li>每一次的计算是为了减少上一次的残差(residual)，而为了消除残差，我们可以在残差减少的梯度 (Gradient)方向上建立一个新的模型。所以说在Gradient Boost中，每个新模型是为了使之前模型的残差往梯度方向减少，与传统Boost对正确，错误的样本进行加权有着很大的区别。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>gbdt中哪些部分可以并行？<ul>
-<li>A. 计算每个样本的负梯度</li>
-<li>B. 分裂挑选最佳特征及其分割点时，对特征计算相应的误差及均值时</li>
-<li>C. 更新每个样本的负梯度时</li>
-<li>D. 最后预测过程中，每个样本将之前的所有树的结果累加的时候</li>
-</ul>
-</li>
-<li>树生长成畸形树，会带来哪些危害，如何预防？<ul>
-<li>在生成树的过程中，加入树不平衡的约束条件。这种约束条件可以是用户自定义的。例如对样本集中分到某个节点，而另一个节点的样本很少的情况进行惩罚。</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chenzk1.github.io/2019/07/02/树的遍历/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Hero">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hero's notebooks">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/02/树的遍历/" itemprop="url">ROC AUC, Accuracy, Recall, F1</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-02T22:03:38+08:00">
-                2019-07-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Learning</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li>树的遍历，分深度优先：前序，中序，后序；广度优先：层次遍历。</li>
-<li>前序：根、左、右</li>
-<li>中序：左、根、右</li>
-<li>后序：左、右、根</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="string">"""节点类"""</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, elem=<span class="number">-1</span>, lchild=None, rchild=None)</span>:</span></span><br><span class="line">        self.elem = elem</span><br><span class="line">        self.lchild = lchild</span><br><span class="line">        self.rchild = rchild</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Tree</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="string">"""树类"""</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.root = Node()</span><br><span class="line">        self.myQueue = []</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(self, elem)</span>:</span></span><br><span class="line">        <span class="string">"""为树添加节点"""</span></span><br><span class="line">        node = Node(elem)</span><br><span class="line">        <span class="keyword">if</span> self.root.elem == <span class="number">-1</span>:  <span class="comment"># 如果树是空的，则对根节点赋值</span></span><br><span class="line">            self.root = node</span><br><span class="line">            self.myQueue.append(self.root)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            treeNode = self.myQueue[<span class="number">0</span>]  <span class="comment"># 此结点的子树还没有齐。</span></span><br><span class="line">            <span class="keyword">if</span> treeNode.lchild == <span class="literal">None</span>:</span><br><span class="line">                treeNode.lchild = node</span><br><span class="line">                self.myQueue.append(treeNode.lchild)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                treeNode.rchild = node</span><br><span class="line">                self.myQueue.append(treeNode.rchild)</span><br><span class="line">                self.myQueue.pop(<span class="number">0</span>)  <span class="comment"># 如果该结点已经有了右子树，将此结点丢弃，从下一个节点插入。</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">front_digui</span><span class="params">(self, root)</span>:</span></span><br><span class="line">        <span class="string">"""利用递归实现树的先序遍历"""</span></span><br><span class="line">        <span class="keyword">if</span> root == <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">print</span> root.elem,</span><br><span class="line">        self.front_digui(root.lchild)</span><br><span class="line">        self.front_digui(root.rchild)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">middle_digui</span><span class="params">(self, root)</span>:</span></span><br><span class="line">        <span class="string">"""利用递归实现树的中序遍历"""</span></span><br><span class="line">        <span class="keyword">if</span> root == <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        self.middle_digui(root.lchild)</span><br><span class="line">        <span class="keyword">print</span> root.elem,</span><br><span class="line">        self.middle_digui(root.rchild)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">later_digui</span><span class="params">(self, root)</span>:</span></span><br><span class="line">        <span class="string">"""利用递归实现树的后序遍历"""</span></span><br><span class="line">        <span class="keyword">if</span> root == <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        self.later_digui(root.lchild)</span><br><span class="line">        self.later_digui(root.rchild)</span><br><span class="line">        <span class="keyword">print</span> root.elem,</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">front_stack</span><span class="params">(self, root)</span>:</span></span><br><span class="line">        <span class="string">"""利用堆栈实现树的先序遍历"""</span></span><br><span class="line">        <span class="keyword">if</span> root == <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        myStack = []</span><br><span class="line">        node = root</span><br><span class="line">        <span class="keyword">while</span> node <span class="keyword">or</span> myStack:</span><br><span class="line">            <span class="keyword">while</span> node:                     <span class="comment">#从根节点开始，一直找它的左子树</span></span><br><span class="line">                <span class="keyword">print</span> node.elem,</span><br><span class="line">                myStack.append(node)</span><br><span class="line">                node = node.lchild</span><br><span class="line">            node = myStack.pop()            <span class="comment">#while结束表示当前节点node为空，即前一个节点没有左子树了</span></span><br><span class="line">            node = node.rchild                  <span class="comment">#开始查看它的右子树</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">middle_stack</span><span class="params">(self, root)</span>:</span></span><br><span class="line">        <span class="string">"""利用堆栈实现树的中序遍历"""</span></span><br><span class="line">        <span class="keyword">if</span> root == <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        myStack = []</span><br><span class="line">        node = root</span><br><span class="line">        <span class="keyword">while</span> node <span class="keyword">or</span> myStack:</span><br><span class="line">            <span class="keyword">while</span> node:                     <span class="comment">#从根节点开始，一直找它的左子树</span></span><br><span class="line">                myStack.append(node)</span><br><span class="line">                node = node.lchild</span><br><span class="line">            node = myStack.pop()            <span class="comment">#while结束表示当前节点node为空，即前一个节点没有左子树了</span></span><br><span class="line">            <span class="keyword">print</span> node.elem,</span><br><span class="line">            node = node.rchild                  <span class="comment">#开始查看它的右子树</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">later_stack</span><span class="params">(self, root)</span>:</span></span><br><span class="line">        <span class="string">"""利用堆栈实现树的后序遍历"""</span></span><br><span class="line">        <span class="keyword">if</span> root == <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        myStack1 = []</span><br><span class="line">        myStack2 = []</span><br><span class="line">        node = root</span><br><span class="line">        myStack1.append(node)</span><br><span class="line">        <span class="keyword">while</span> myStack1:                   <span class="comment">#这个while循环的功能是找出后序遍历的逆序，存在myStack2里面</span></span><br><span class="line">            node = myStack1.pop()</span><br><span class="line">            <span class="keyword">if</span> node.lchild:</span><br><span class="line">                myStack1.append(node.lchild)</span><br><span class="line">            <span class="keyword">if</span> node.rchild:</span><br><span class="line">                myStack1.append(node.rchild)</span><br><span class="line">            myStack2.append(node)</span><br><span class="line">        <span class="keyword">while</span> myStack2:                         <span class="comment">#将myStack2中的元素出栈，即为后序遍历次序</span></span><br><span class="line">            <span class="keyword">print</span> myStack2.pop().elem,</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">level_queue</span><span class="params">(self, root)</span>:</span></span><br><span class="line">        <span class="string">"""利用队列实现树的层次遍历"""</span></span><br><span class="line">        <span class="keyword">if</span> root == <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        myQueue = []</span><br><span class="line">        node = root</span><br><span class="line">        myQueue.append(node)</span><br><span class="line">        <span class="keyword">while</span> myQueue:</span><br><span class="line">            node = myQueue.pop(<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">print</span> node.elem,</span><br><span class="line">            <span class="keyword">if</span> node.lchild != <span class="literal">None</span>:</span><br><span class="line">                myQueue.append(node.lchild)</span><br><span class="line">            <span class="keyword">if</span> node.rchild != <span class="literal">None</span>:</span><br><span class="line">                myQueue.append(node.rchild)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="string">"""主函数"""</span></span><br><span class="line">    elems = range(<span class="number">10</span>)           <span class="comment">#生成十个数据作为树节点</span></span><br><span class="line">    tree = Tree()          <span class="comment">#新建一个树对象</span></span><br><span class="line">    <span class="keyword">for</span> elem <span class="keyword">in</span> elems:                  </span><br><span class="line">        tree.add(elem)           <span class="comment">#逐个添加树的节点</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'队列实现层次遍历:'</span></span><br><span class="line">    tree.level_queue(tree.root)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'\n\n递归实现先序遍历:'</span></span><br><span class="line">    tree.front_digui(tree.root)</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'\n递归实现中序遍历:'</span> </span><br><span class="line">    tree.middle_digui(tree.root)</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'\n递归实现后序遍历:'</span></span><br><span class="line">    tree.later_digui(tree.root)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'\n\n堆栈实现先序遍历:'</span></span><br><span class="line">    tree.front_stack(tree.root)</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'\n堆栈实现中序遍历:'</span></span><br><span class="line">    tree.middle_stack(tree.root)</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'\n堆栈实现后序遍历:'</span></span><br><span class="line">    tree.later_stack(tree.root)</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2249,7 +2169,7 @@ Epoch 1/100
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">45</span>
+                <span class="site-state-item-count">47</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
